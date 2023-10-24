@@ -93,7 +93,7 @@ nav>ul{
   font-size: 5rem;
 }
 .search{
-  background: url(../image/pexels-ella-olsson-1640774.jpg) no-repeat center;
+  background: url(/image/pexels-ella-olsson-1640774.jpg) no-repeat center;
   height: 60rem;
   display: flex;
   justify-content: center;
