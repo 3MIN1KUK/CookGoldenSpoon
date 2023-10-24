@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>쿠킹 클래스 게시판</title>
+  <link rel="stylesheet" href="/css/cooking_class/board/cookingClassBoard.css">
+</head>
+<body>
+  <th:block th:replace="~{common/header}"></th:block>
+  <main>
+    <div class="main-container">
+      <div class="search">
+         <div>게시판</div>
+         <div>
+            검색 : <input type="text" class="searchber">
+         </div>
+      </div>
+      <div class="main-menu">
+         <div class="menu-box">
+            <div class="box-1-1">사 진</div>
+            <div class="box-1-2">
+               <div class="box-title">토마호크 클래스 모집합니다.</div>
+               <div class="box-name">강사 : 김민규</div>
+               <div class="box-rec">모집 날짜 : 2023-10-19</div>
+               <div class="box-intr">한줄 소개 : 완벽한 굽기를 원하시는 분! 맛을 보장 드립니다</div>
+               <div class="box-reco">추천 맛 : ★★★★★</div>
+            </div>
+         </div>
+         <div class="menu-box">
+            <div class="box-1-1">사 진</div>
+            <div class="box-1-2"></div>
+         </div>
+         <div class="menu-box">
+            <div class="box-1-1">사 진</div>
+            <div class="box-1-2"></div>
+         </div>
+         <div class="menu-box">
+            <div class="box-1-1">사 진</div>
+            <div class="box-1-2"></div>
+         </div>
+         <div class="menu-box">
+            <div class="box-1-1">사 진</div>
+            <div class="box-1-2"></div>
+         </div>
+         <div class="menu-box">
+            <div class="box-1-1">사 진</div>
+            <div class="box-1-2"></div>
+         </div>
+         <button class="box-btn">등록하기</button> 
+      </div>
+
+
+   </main>
+  <script src="/js/cooking_class/board/cookingClassBoard.js"></script>
+</body>
+</html>
