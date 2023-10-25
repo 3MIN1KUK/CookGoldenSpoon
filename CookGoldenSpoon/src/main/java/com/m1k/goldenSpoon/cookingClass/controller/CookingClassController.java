@@ -19,4 +19,20 @@ public class CookingClassController {
 		return "/cooking_class/board/cookingClassBoard";
 	}
 	
+	@GetMapping("cookingClassMain")
+	public String cookingClassMain() {
+		return "/cooking_class/board/cookingClassMain";
+	}
+	
+	@GetMapping("cookingClassRegistration")
+	public String cookingClassRegistration() {
+		return "/cooking_class/board/cookingClassRegistration";
+	}
+	
+	@GetMapping("cookingClassCommuntry")
+	public String cookingClassCommuntry() {
+		return "/cooking_class/community/cookingClassCommuntry";
+	}
+	
+	
 }
