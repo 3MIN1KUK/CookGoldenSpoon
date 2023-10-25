@@ -1,0 +1,57 @@
+:root{
+  font-size: 62.5%;
+}
+
+.result-area{
+  width: 1100px;
+  height: 700px;
+  display: grid;
+  grid-template-columns: 50% 50%;
+  grid-template-rows: 33% 33% 33%;
+}
+
+.recipe-search-out-box{
+  width: 500px;
+  height: 190px;
+  background-color: #D9D9D9;
+  display: flex;
+  align-items: center;
+}
+
+
+.recipe-search-picture{
+  font-size: 2.5rem;
+  text-align: center;
+  width: 160px;
+  height: 160px;
+  background-color: white;
+  margin: 15px;
+}
+
+.recipe-search-text{
+  font-size: 1.2rem;
+}
+
+.recipe-btn-box{
+  
+  align-self: flex-end;
+  margin-left: auto;
+  display: block;
+}
+
+.admin-recipe-btn{
+  font-size: 1.8rem;
+  margin: 5px;
+  border: none;
+  border-radius: 15px;
+  width: 80px;
+  cursor: pointer;
+}
+
+.admin-reciepe-delete{
+  background-color: #FF4026;
+}
+
+.admin-reciepe-change{
+  background-color: #4CB4FF;
+}
