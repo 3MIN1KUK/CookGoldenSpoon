@@ -1,0 +1,84 @@
+:root{
+  font-size: 62.5%;
+}
+
+.out-box{
+  margin: 200px auto;
+  width: 800px;
+}
+
+*{
+  font-family: "고딕";
+}
+
+.member-search-result {
+  border: 1px #a39485 solid;
+  font-size: .9em;
+  box-shadow: 0 2px 5px rgba(0,0,0,.25);
+  width: 100%;
+  border-collapse: collapse;
+  border-radius: 5px;
+  font-size: 1.5rem;
+  overflow: hidden;
+}
+
+.member-search-th {
+  text-align: left;
+}
+  
+thead {
+  font-weight: bold;
+  color: #fff;
+  background: #73685d;
+}
+  
+.member-search-td, .member-search-th {
+  padding: 1em .5em;
+  vertical-align: middle;
+}
+  
+.member-search-td {
+  border: 1px solid rgba(0,0,0,.1);
+  background: #fff;
+}
+
+a {
+  color: #73685d;
+}
+  
+h1{
+  font-size: 3rem;
+}
+
+.member-search-box{
+  background-color: #ADADAD;
+  font-size: 2rem;
+  border-radius: 20px;
+  padding: 3px 5px;
+  width: 500px;
+  margin: 20px 0;
+}
+
+.search-box-table{
+  width: 100%;
+  height: 100%;
+  border-collapse: separate;
+  border-spacing: 0 9px;
+}
+
+.search-box-td{
+  text-align: center;
+}
+
+.search-box-td-input{
+  width: 70%;
+  padding: 0 10px;
+}
+
+.member-search-input{
+  border-radius: 5px;
+  background-color: #D9D9D9;
+  border: none;
+  width: 100%;
+  height: 100%;
+}

@@ -1,0 +1,32 @@
+:root{
+  font-size: 62.5%;
+
+}
+
+.detailed-inquiry-h1{
+  font-size: 3rem;
+}
+
+
+.detailed-inquiry-out-box{
+  padding: 10px;
+  border-radius: 15px;
+  background-color: #ADADAD;
+  width: 700px;
+  margin: auto;
+  
+}
+
+.detailed-inquiry-in-box{
+  margin: 10px 10px;
+  font-size: 2rem;
+  height: 30px;
+}
+
+.detailed-inquiry-input{
+  height: 100%;
+  width: 500px;
+  margin-left: 20px;
+  border-radius: 10px;
+  border: none;
+}

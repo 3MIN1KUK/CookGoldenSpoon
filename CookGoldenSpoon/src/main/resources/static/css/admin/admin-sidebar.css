@@ -1,0 +1,36 @@
+:root{
+  font-size: 62.5%;
+}
+
+.under-menubar{
+  margin-top: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#admin-sidebar{
+  background-color: rgb(153, 253, 253);
+  width: 220px;
+  height: 700px;
+  font-size: 2rem;
+  left: 0px;
+  top: 400px;
+  padding: 10px;
+}
+
+.admin-sidebar-in{
+  margin-bottom: 30px;
+}
+
+h3{
+  margin: 0;
+}
+
+.sidebar-ul{
+  margin-top: 10px;
+}
+
+.sidebar-ul > li{
+  margin: 4px;
+}
