@@ -5,8 +5,15 @@
 	
 	<!-- 공지사항 검색 -->
 	<select id="noticeSelect" resultType="Notice">
-		SELECT * FROM NOTICE WHERE NOTICE_TITLE LIKE '%${searchNotice}%'
+		SELECT NOTICE_NO, NOTICE_TITLE, NOTICE_WRITER,
+			TO_CHAR(ENROLL_DATE, 'YYYY"년" MM"월" DD"일"') AS ENROLL_DATE, HITS
+		FROM NOTICE WHERE NOTICE_TITLE LIKE '%${searchNotice}%'
 		OR NOTICE_CONTENT LIKE '%${searchNotice}%'
 	</select>
 
+	<select id="selectAllNotice" resultType="Notice">
+		SELECT NOTICE_NO, NOTICE_TITLE, NOTICE_WRITER,
+			TO_CHAR(ENROLL_DATE, 'YYYY"년" MM"월" DD"일"'), HITS
+		FROM NOTICE ORDER BY NOTICE_NO DESC
+	</select>
 </mapper>

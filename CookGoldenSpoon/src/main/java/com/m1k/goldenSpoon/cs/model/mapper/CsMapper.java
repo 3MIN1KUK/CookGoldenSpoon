@@ -15,4 +15,9 @@ public interface CsMapper {
 	 */
 	List<Notice> noticeSelect(String searchNotice);
 
+	/** 모든 공지사항 검색
+	 * @return
+	 */
+	List<Notice> selectAllNotice();
+
 }
