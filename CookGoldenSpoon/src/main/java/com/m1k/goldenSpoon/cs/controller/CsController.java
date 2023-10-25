@@ -1,18 +1,23 @@
 package com.m1k.goldenSpoon.cs.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import java.util.List;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.m1k.goldenSpoon.cs.model.dto.Notice;
 import com.m1k.goldenSpoon.cs.model.service.CsService;
+
+import lombok.RequiredArgsConstructor;
 
 @Controller
 @RequestMapping("cs")
+@RequiredArgsConstructor
 public class CsController {
 	
-	@Autowired
-	private CsService service;
+	private final CsService service;
 	
 	@GetMapping("notice")
 	public String notice() {
@@ -31,4 +36,10 @@ public class CsController {
 		return "cs/report/report";
 	}
 
+	@GetMapping(value = "notice/select", produces = "application/json; charset=UTF-8")
+	@ResponseBody
+	public List<Notice> noticeSelect(String searchNotice) {
+		return service.noticeSelect(searchNotice);
+	}
+	
 }

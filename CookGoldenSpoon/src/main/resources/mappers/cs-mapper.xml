@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <!-- 연결할 인터페이스의 패키지명.인터페이스명을 작성 -->
-<mapper namespace="com.m1k.goldenSpoon.cs.model.CsMapper">
+<mapper namespace="com.m1k.goldenSpoon.cs.model.mapper.CsMapper">
 	
+	<!-- 공지사항 검색 -->
+	<select id="noticeSelect" resultType="Notice">
+		SELECT * FROM NOTICE WHERE NOTICE_TITLE LIKE '%${searchNotice}%'
+		OR NOTICE_CONTENT LIKE '%${searchNotice}%'
+	</select>
 
 </mapper>
