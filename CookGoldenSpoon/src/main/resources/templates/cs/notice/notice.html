@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>공지사항</title>
   <link rel="stylesheet" href="/css/common/project.css">
+  <link rel="stylesheet" href="/css/cs/cs.css">
 </head>
 <body>
   <th:block th:replace="~{common/header}"></th:block>
@@ -12,10 +13,10 @@
     <div class="main-container">
       <div class="cs-title">
         <p>공지사항</p>
-        <form action="" class="searchForm">
+        <div class="searchForm">
           <input id="searchNotice" name="searchNotice" type="text" placeholder="검색어를 입력해주세요">
-          <button>검색</button>
-        </form>
+          <button id="searchNoticeBtn" >검색</button>
+        </div>
       </div>
       <div class="content-container">
         <div class="notice">
@@ -25,7 +26,7 @@
           <span>날짜</span>
           <span>조회수</span>
         </div>
-        <div class="notice">
+        <!-- <div class="notice">
           <span>No.2</span>
           <span>두 번째 공지사항 입니다</span>
           <span>작성자</span>
@@ -115,7 +116,7 @@
           <span>작성자</span>
           <span>날짜</span>
           <span>조회수</span>
-        </div>
+        </div> -->
       </div>
       <div class="page-number">1 2 3 4 5 ···</div>
     </div>
@@ -138,5 +139,6 @@
 
 
   <script src="/js/common/project.js"></script>
+  <script src="/js/cs/cs.js"></script>
 </body>
 </html>

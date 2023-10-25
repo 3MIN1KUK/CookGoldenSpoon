@@ -2,7 +2,6 @@ const menu = document.querySelectorAll('.menu');
 const liContainer = document.querySelectorAll('.li-container');
 const header = document.querySelector('.header');
 
-
 /* 네비게이션 */
 for(let i = 0 ; i < menu.length ; i++){
      menu[i].addEventListener('mouseenter', ()=>{
