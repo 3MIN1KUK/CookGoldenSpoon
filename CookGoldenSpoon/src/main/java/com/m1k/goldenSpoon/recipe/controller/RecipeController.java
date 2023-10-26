@@ -21,11 +21,6 @@ public class RecipeController {
 		model.addAttribute("inputSearch", inputSearch);
 		return "recipe/select/";
 	}
-	
-	@GetMapping("enroll")
-	public String enroll() {
-		return "recipe/enroll/enroll_recipe";
-	}
-	
+
 
 }
