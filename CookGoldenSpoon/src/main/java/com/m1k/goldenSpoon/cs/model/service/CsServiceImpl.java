@@ -19,4 +19,10 @@ public class CsServiceImpl implements CsService{
 	public List<Notice> noticeSelect(String searchNotice) {
 		return mapper.noticeSelect(searchNotice);
 	}
+	
+	@Override
+	public List<Notice> selectAllNotice() {
+		return mapper.selectAllNotice();
+	}
+	
 }

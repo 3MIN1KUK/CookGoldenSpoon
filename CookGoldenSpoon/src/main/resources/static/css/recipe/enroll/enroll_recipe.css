@@ -2,7 +2,7 @@
 div, main, header, footer, section, article, nav, aside, form
 {border: 1px solid black;} */
 
-*{
+/* *{
   box-sizing: border-box;
   padding: 0;
   margin: 0;
@@ -13,17 +13,27 @@ body {
   flex-direction: column;
   align-items: center;
   height: 100vh;
+} */
+
+form{
+  background-color: var(--color-bg);
+  padding: 1rem;
+  padding-top: 3rem;
+  width: 120rem;
+  border-radius: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
-
-
+/* 
 .sAll{
   width: 1150px;
-}
+} */
 
 .topName{
   text-align: center;
-  margin: 40px;
-  font-size: 35px;
+  margin: 4rem;
+  font-size: 3.5rem;
 }
 
 
@@ -32,25 +42,29 @@ body {
 /* 대표사진 */
 #firstLine{
   display: flex;
-  width: 1150px;
-  height: 450px;
+  width: 115rem;
+  height: 45rem;
   margin: auto;
 }
 
 
 .name{
   border: 7px solid rgb(165, 78, 78);
-  width: 470px;
-  height: 82px;
-  border-radius: 20px 20px 0px 0px;
+  width: 47rem;
+  height: 8.2rem;
+  border-radius: 2rem 2rem 0px 0px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 3rem;
 }
 .firstPicture{
   border: 7px solid rgb(165, 78, 78);
   border-top: 0px solid rgb(165, 78, 78);
   border-top: 0px;
-  border-radius: 0px 0px 20px 0px;
-  width: 470px;
-  height: 316px;
+  border-radius: 0px 0px 2rem 0px;
+  width: 47rem;
+  height: 31.6rem;
 }
 
 .main-Picture{
@@ -62,35 +76,38 @@ body {
 
 /* 요리영상 */
 .video{
-  width: 650px;
+  width: 65rem;
 
 }
 
 #video1{
   border: 7px solid rgb(165, 78, 78);
-  border-radius: 20px 20px 0px 0px;
-  width: 470px;
+  border-radius: 2rem 2rem 0px 0px;
+  width: 47rem;
+  width: 61rem;
+  height: 10rem;
   display: flex;
-  width: 610px;
-  height: 100px;
+  justify-content: center;
+  align-items: center;
+  font-size: 3rem;
 }
 #video2{
   border: 7px solid rgb(165, 78, 78);
   border-top: 0px solid rgb(165, 78, 78);
   border-top: 0px;
-  border-radius: 0px 0px 20px 20px;
+  border-radius: 0px 0px 2rem 2rem;
   display: flex;
-  width: 610px;
+  width: 61rem;
 }
 
 .thumbnail{
-  width: 330px;
-  height: 290px;
+  width: 33rem;
+  height: 29rem;
 }
 .link{
   border-left: 7px solid rgb(165, 78, 78);
-  width: 280px;
-  height: 290px;
+  width: 28rem;
+  height: 29rem;
 }
 
 
@@ -102,19 +119,24 @@ body {
 
 .cookName{
   display: flex;
-  width: 1150px;
+  width: 115rem;
+  height: 10rem;
 }
 
 .cName{
   border: 1px solid black;
+  width: 21rem;
   height: 10rem;
-  width: 210px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 3rem;
 }
 
 .cNameBox{
   border: 1px solid black;
+  width: 94.5rem;
   height: 10rem;
-  width: 945px;
 }
 
 
@@ -124,60 +146,90 @@ body {
 /* 3번째 줄 */
 .material{
   display: flex;
-  width: 1150px;
+  width: 115rem;
+  height: 10rem;
 }
 
 .mName{
   border: 1px solid black;
+  width: 21rem;
   height: 10rem;
-  width: 210px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 3rem;
 }
 
 .mnameBox{
   border: 1px solid black;
+  width: 94.5rem;
   height: 10rem;
-  width: 945px;
 }
 
 
 /* ----------------------------------- */
 
 /* 4번째 줄 */
+.btnControl{
+  width: 115rem;
+  height: 5rem;
+  display: flex;
+  justify-content: flex-end;
+  padding-top: 1.5rem;
+}
+
+.processBtn4{
+  /* display: flex;
+  justify-content: flex-end; */
+  border: none;
+  font-size: 2rem;
+}
+
 .cookProcess{
   display: flex;
-  width: 1150px;
+  width: 115rem;
+  height: 10rem;
 }
 
 .cpName{
   border: 1px solid black;
+  width: 21rem;
   height: 10rem;
-  width: 210px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 3rem;
 }
 
 .cpnameBox{
   border: 1px solid black;
+  width: 94.5rem;
   height: 10rem;
-  width: 945px;
 }
 
 /* ----------------------------------- */
 
-/* 5섯번째 줄 */
+/* 5번째 줄 */
 .tip{
   display: flex;
-  width: 1150px;
+  width: 115rem;
+  height: 10rem;
 }
 
 .tName{
   border: 1px solid black;
+  width: 21rem;
   height: 10rem;
-  width: 210px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 3rem;
 }
 
 .tnBox{
   border: 1px solid black;
+  width: 94.5rem;
   height: 10rem;
-  width: 945px;
 }
 
 /* ----------------------------------- */
@@ -185,20 +237,37 @@ body {
 /* 6번째 줄 */
 .cookInformation{
   display: flex;
-  width: 1150px;
+  width: 115rem;
+  height: 10rem;
 }
 
 .ciName{
   border: 1px solid black;
+  width: 21rem;
   height: 10rem;
-  width: 210px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 3rem;
 }
 
 .cinBox{
   border: 1px solid black;
+  width: 94.5rem;
   height: 10rem;
-  width: 945px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 0rem 10rem 0rem 10rem;
+  font-size: 2rem;
 }
+
+#selectBox{
+  font-size: 1.5rem;
+  padding: 0.2rem ;
+}
+
+
 
 
 /* ----------------------------------- */
@@ -206,19 +275,24 @@ body {
 /* 7번째 줄 */
 .tag{
   display: flex;
-  width: 1150px;
+  width: 115rem;
+  height: 10rem;
 }
 
 .tagName{
   border: 1px solid black;
+  width: 21rem;
   height: 10rem;
-  width: 210px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 3rem;
 }
 
 .tagnBox{
   border: 1px solid black;
+  width: 94.5rem;
   height: 10rem;
-  width: 945px;
 }
 
 /* ----------------------------------- */
@@ -226,25 +300,45 @@ body {
 /* 8번째 줄 */
 .endPicture{
   display: flex;
-  width: 1150px;
+  width: 115rem;
+  height: 10rem;
 }
 
 .epName{
   border: 1px solid black;
+  width: 21rem;
   height: 10rem;
-  width: 210px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 3rem;
 }
 
 .epnBox{
   border: 1px solid black;
+  width: 94.5rem;
   height: 10rem;
-  width: 945px;
 }
 
 /* ----------------------------------- */
 
 /* 9번째 줄 */
+.pBtn9{
+  padding: 2rem 0rem 1rem 0rem;
+  
+}
 
+
+.btn9{
+  display: inline-block;
+  justify-content: space-around;
+  align-items: center;
+  margin: 1rem;
+  font-size: 2rem;
+  border: none;
+}
+
+.btn9-1
 
 
 

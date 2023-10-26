@@ -21,7 +21,6 @@ public class RecipeController {
 		model.addAttribute("inputSearch", inputSearch);
 		return "recipe/select/";
 	}
-	
-	
+
 
 }

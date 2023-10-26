@@ -19,12 +19,12 @@
         </div>
       </div>
       <div class="content-container">
-        <div class="notice">
-          <span>No.1</span>
-          <span>첫 번째 공지사항 입니다</span>
-          <span>작성자</span>
-          <span>날짜</span>
-          <span>조회수</span>
+        <div class="notice" th:each="notice : ${noticeList}" th:object="${notice}">
+          <span th:text="*{noticeNo}">No.1</span>
+          <span th:text="*{noticeTitle}">첫 번째 공지사항 입니다</span>
+          <span th:text="*{noticeWriter}">작성자</span>
+          <span th:text="*{enrollDate}">날짜</span>
+          <span th:text="*{hits}">조회수</span>
         </div>
         <!-- <div class="notice">
           <span>No.2</span>

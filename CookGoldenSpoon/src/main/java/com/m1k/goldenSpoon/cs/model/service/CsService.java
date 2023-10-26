@@ -12,4 +12,9 @@ public interface CsService {
 	 */
 	List<Notice> noticeSelect(String searchNotice);
 
+	/** 모든 공지사항 조회
+	 * @return
+	 */
+	List<Notice> selectAllNotice();
+
 }
