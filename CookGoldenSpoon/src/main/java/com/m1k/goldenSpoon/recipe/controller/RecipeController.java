@@ -22,5 +22,10 @@ public class RecipeController {
 		return "recipe/select/";
 	}
 
+    
+    @GetMapping("enroll")
+    public String enroll() {
+        return "recipe/enroll/enroll_recipe";
+    }
 
 }
