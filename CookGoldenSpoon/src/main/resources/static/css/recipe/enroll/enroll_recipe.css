@@ -69,7 +69,7 @@ form{
   border: 0.35rem solid rgb(165, 78, 78);
   border-top: 0px solid rgb(165, 78, 78);
   border-top: 0px;
-  border-radius: 0px 0px 0rem 0rem;
+  border-radius: 0px 0px 2rem 2rem;
   width: 47rem;
   height: 29.5rem;
 }
@@ -89,7 +89,7 @@ form{
 
 #video1{
   border: 0.35rem solid rgb(165, 78, 78);
-  border-radius: 2rem 2rem 0px 0px;
+  border-radius: 2rem 2rem 0rem 0rem;
   width: 47rem;
   width: 61rem;
   height: 10rem;
@@ -102,7 +102,7 @@ form{
   border: 0.35rem solid rgb(165, 78, 78);
   border-top: 0px solid rgb(165, 78, 78);
   border-top: 0px;
-  border-radius: 0px 0px 2rem 2rem;
+  border-radius: 0rem 0rem 2rem 2rem;
   display: flex;
   width: 61rem;
 }
@@ -141,12 +141,14 @@ form{
   align-items: center;
   font-size: 3rem;
   border-right: none;
+  border-radius: 1.6rem 0rem 0rem 1.6rem;
 }
 
 .cNameBox{
   border: 0.35rem solid rgb(165, 78, 78);
   width: 94.5rem;
   height: 7rem;
+  border-radius: 0rem 1.6rem 1.6rem 0rem;
 }
 
 
@@ -171,12 +173,15 @@ form{
   align-items: center;
   font-size: 3rem;
   border-right: none;
+  border-radius: 1.8rem 0rem 0rem 1.8rem;
 }
+
 
 .mnameBox{
   border: 0.35rem solid rgb(165, 78, 78);
   width: 94.5rem;
   height: 18rem;
+  border-radius: 0rem 1.8rem 1.8rem 0rem;
 }
 
 
@@ -199,6 +204,15 @@ form{
   font-size: 2rem;
 }
 
+.processBtn4_1{
+ /* border: none; */
+ width: 5rem;
+ height: 5rem;
+ margin-right: 5rem;
+
+
+}
+
 .cookProcess{
   display: flex;
   width: 115rem;
@@ -215,12 +229,18 @@ form{
   align-items: center;
   font-size: 3rem;
   border-right: none;
+  border-radius: 2rem 0rem 0rem 2rem;
 }
 
 .cpnameBox{
   border: 0.35rem solid rgb(165, 78, 78);
   width: 94.5rem;
   height: 18rem;
+  border-radius: 0rem 2rem 2rem 0rem;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  
 }
 
 /* ----------------------------------- */
@@ -242,12 +262,14 @@ form{
   align-items: center;
   font-size: 3rem;
   border-right: none;
+  border-radius: 1.6rem 0rem 0rem 1.6rem;
 }
 
 .tnBox{
   border: 0.35rem solid rgb(165, 78, 78);
   width: 94.5rem;
   height: 10rem;
+  border-radius: 0rem 1.6rem 1.6rem 0rem;
 }
 
 /* ----------------------------------- */
@@ -269,6 +291,7 @@ form{
   align-items: center;
   font-size: 3rem;
   border-right: none;
+  border-radius: 1.5rem 0rem 0rem 1.5rem;
 }
 
 .cinBox{
@@ -280,6 +303,7 @@ form{
   align-items: center;
   padding: 0rem 10rem 0rem 10rem;
   font-size: 2rem;
+  border-radius: 0rem 1.5rem 1.5rem 0rem;
 }
 
 #selectBox{
@@ -309,12 +333,14 @@ form{
   align-items: center;
   font-size: 3rem;
   border-right: none;
+  border-radius: 1.5rem 0rem 0rem 1.5rem;
 }
 
 .tagnBox{
   border: 0.35rem solid rgb(165, 78, 78);
   width: 94.5rem;
   height: 7rem;
+  border-radius: 0rem 1.5rem 1.5rem 0rem;
 }
 
 /* ----------------------------------- */
@@ -326,6 +352,15 @@ form{
   height: 18rem;
 }
 
+.processBtn4_1{
+  /* border: none; */
+  width: 5rem;
+  height: 5rem;
+  margin-right: 5rem;
+ 
+ 
+ }
+
 .epName{
   border: 0.35rem solid rgb(165, 78, 78);
   width: 21rem;
@@ -335,14 +370,17 @@ form{
   align-items: center;
   font-size: 3rem;
   border-right: none;
-  border-radius: 0rem 0rem 0rem 2rem;
+  border-radius: 2rem 0rem 0rem 2rem;
 }
 
 .epnBox{
   border: 0.35rem solid rgb(165, 78, 78);
   width: 94.5rem;
   height: 18rem;
-  border-radius: 0rem 0rem 2rem 0rem;
+  border-radius: 0rem 2rem 2rem 0rem;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
 }
 
 /* ----------------------------------- */
