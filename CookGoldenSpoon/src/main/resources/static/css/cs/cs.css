@@ -1,3 +1,6 @@
+.text{
+  padding: var(--padding-font);
+}
 /* 공지사항 */
 .cs-title{
   width: 90%;
@@ -26,7 +29,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 90%;
+  height: 60rem;
 }
 .notice{
   cursor: pointer;
@@ -40,9 +43,6 @@
   display: flex;
   justify-content: space-between;
 }
-.notice *{
-  color: black;
-}
 .notice>span:first-of-type{
   width: 7%;
 }
@@ -54,6 +54,8 @@
 }
 .notice>span:nth-of-type(4){
   width: 10%;
+  font-size: 1.3rem;
+  padding-top: 0.3rem;
 }
 .notice>span:nth-of-type(5){
   width: 8%;
@@ -94,6 +96,8 @@
   padding: 1rem 2rem;
 }
 
+
+
 /* 공지사항 notice */
 
 .notice-content{
@@ -115,6 +119,13 @@
   width: 5rem;
   cursor: pointer;
   border: none;
+}
+
+.page-number *{
+  font-size: 2rem;
+  display: flex;
+  align-items: center;
+  margin: 0 0.3rem;
 }
 
 
