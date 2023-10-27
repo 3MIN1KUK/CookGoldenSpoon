@@ -20,4 +20,10 @@ public interface CsMapper {
 	 */
 	List<Notice> selectAllNotice();
 
+	/** 공지 상세조회
+	 * @param noticeNo
+	 * @return notice
+	 */
+	Notice noticeDetail(int noticeNo);
+
 }

@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -45,4 +46,9 @@ public class CsController {
 		return service.noticeSelect(searchNotice);
 	}
 	
+	@GetMapping("notice/{noticeNo:[0-9]+}")
+	public String noticeDetail(@PathVariable("noticeNo") int noticeNo, Model model) {
+		Notice notice = service.noticeDetail(noticeNo);
+		return "cs/notice/noticeDetail";
+	}
 }

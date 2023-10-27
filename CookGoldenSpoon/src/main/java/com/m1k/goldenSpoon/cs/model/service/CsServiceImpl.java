@@ -25,4 +25,8 @@ public class CsServiceImpl implements CsService{
 		return mapper.selectAllNotice();
 	}
 	
+	@Override
+	public Notice noticeDetail(int noticeNo) {
+		return mapper.noticeDetail(noticeNo);
+	}
 }

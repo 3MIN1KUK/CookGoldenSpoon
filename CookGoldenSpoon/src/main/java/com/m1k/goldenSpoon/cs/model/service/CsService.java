@@ -17,4 +17,10 @@ public interface CsService {
 	 */
 	List<Notice> selectAllNotice();
 
+	/** 공지 상세조회
+	 * @param noticeNo
+	 * @return notice
+	 */
+	Notice noticeDetail(int noticeNo);
+
 }
