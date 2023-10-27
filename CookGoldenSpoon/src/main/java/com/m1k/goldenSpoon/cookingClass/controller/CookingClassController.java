@@ -3,6 +3,7 @@ package com.m1k.goldenSpoon.cookingClass.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.m1k.goldenSpoon.cookingClass.model.service.CookingClassService;
@@ -34,5 +35,12 @@ public class CookingClassController {
 		return "/cooking_class/community/cookingClassCommuntry";
 	}
 	
+	
+	// 마이페이지 없어서 임시로 만들어둠 
+	// 마이페이지 만들어지면 삭제 예정!
+	@GetMapping("teacher")
+	public String teacher() {
+		return "/cooking_class/teacher/cookingclass_teacher";
+	}
 	
 }
