@@ -1,12 +1,14 @@
 package com.m1k.goldenSpoon.cs.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.m1k.goldenSpoon.cs.model.dto.Notice;
@@ -22,9 +24,10 @@ public class CsController {
 	private final CsService service;
 	
 	@GetMapping("notice")
-	public String notice(Model model) {
-		List<Notice> noticeList = service.selectAllNotice();
-		model.addAttribute("noticeList", noticeList);
+	public String notice(Model model, @RequestParam(value = "cp", required = false, defaultValue = "1") int cp,
+			@RequestParam(value = "order", required = false, defaultValue = "1") int order) {
+		Map<String, Object> map = service.selectAllNotice(cp, order);
+		model.addAttribute("map", map);
 		return "cs/notice/notice";
 	}
 	@GetMapping("qna")
@@ -49,6 +52,7 @@ public class CsController {
 	@GetMapping("notice/{noticeNo:[0-9]+}")
 	public String noticeDetail(@PathVariable("noticeNo") int noticeNo, Model model) {
 		Notice notice = service.noticeDetail(noticeNo);
+		model.addAttribute("notice", notice);
 		return "cs/notice/noticeDetail";
 	}
 }
