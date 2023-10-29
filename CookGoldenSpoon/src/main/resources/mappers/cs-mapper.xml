@@ -6,7 +6,7 @@
 	<!-- 공지사항 검색 -->
 	<select id="noticeSelect" resultType="Notice">
 		SELECT NOTICE_NO, NOTICE_TITLE, NOTICE_WRITER,
-			TO_CHAR(ENROLL_DATE, 'YYYY"년" MM"월" DD"일"') AS ENROLL_DATE, HITS
+			TO_CHAR(ENROLL_DATE, 'YYYY"-"MM"-"DD') ENROLL_DATE, HITS
 		FROM NOTICE WHERE NOTICE_TITLE LIKE '%${searchNotice}%'
 		OR NOTICE_CONTENT LIKE '%${searchNotice}%'
 	</select>
@@ -14,7 +14,7 @@
 	<select id="selectAllNotice" resultType="Notice">
 		SELECT NOTICE_NO, NOTICE_TITLE, NOTICE_WRITER,
 			TO_CHAR(ENROLL_DATE, 'YYYY"-"MM"-"DD') ENROLL_DATE, HITS
-		FROM NOTICE ORDER BY NOTICE_NO DESC
+		FROM "NOTICE" ORDER BY NOTICE_NO DESC
 	</select>
 	
 	<select id="noticeDetail" resultType="Notice">
@@ -22,5 +22,9 @@
 			TO_CHAR(ENROLL_DATE, 'YYYY"-"MM"-"DD') ENROLL_DATE, HITS
 		FROM "NOTICE"
 		WHERE NOTICE_NO = #{noticeNo}
+	</select>
+	
+	<select id="getNoticeListCount" resultType="_int">
+		SELECT COUNT(*) FROM "NOTICE"
 	</select>
 </mapper>
