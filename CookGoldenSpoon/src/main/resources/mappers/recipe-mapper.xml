@@ -11,6 +11,15 @@
 		SELECT * FROM RECIPE
 	</select>
 	
+<!--	<insert id="enroll">
+		INSERT INTO "RECIPE" 
+		VALUES(#{mainPhotos}, #{thumbnail}, #{recipeName},
+		#{ingredient}, #{howToCook}, #{tips}, null,null)
+		
+		
+	</insert>
+	-->
+	
 	<select id="recipeDetail" resultType="Recipe">
 		SELECT * FROM "RECIPE"
 		WHERE RECIPE_NO = #{recipeNo}

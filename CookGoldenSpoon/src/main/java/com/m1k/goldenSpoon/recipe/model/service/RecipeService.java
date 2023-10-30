@@ -6,6 +6,9 @@ import com.m1k.goldenSpoon.recipe.model.dto.Recipe;
 
 public interface RecipeService {
 
+	Recipe enroll(Recipe recipe);
+
+	
 	/** 레시피 상세조회
 	 * @param recipeNo
 	 * @return recipe
@@ -16,5 +19,4 @@ public interface RecipeService {
 	 * @return
 	 */
 	Map<String, Object> selectRecipe(int cp);
-
 }
