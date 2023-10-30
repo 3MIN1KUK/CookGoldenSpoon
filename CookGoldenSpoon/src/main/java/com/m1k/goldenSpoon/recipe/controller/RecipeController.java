@@ -1,5 +1,7 @@
 package com.m1k.goldenSpoon.recipe.controller;
 
+import java.util.Map;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,6 +22,13 @@ public class RecipeController {
 	private final RecipeService service;
 	
 	@GetMapping("select")
+	public String select(Model model, @RequestParam(value = "cp", required = false, defaultValue = "1") int cp) {
+		Map<String, Object> map = service.selectRecipe(cp);
+		model.addAttribute("map", map);
+		return "recipe/select/recipe";
+	}
+	
+	@GetMapping("select/search")
 	public String search(String inputSearch, Model model) {
 		model.addAttribute("inputSearch", inputSearch);
 		return "recipe/select/";
@@ -27,8 +36,8 @@ public class RecipeController {
 	
 	@GetMapping("select/{recipeNo:[0-9]+}")
 	public String recipeDetail(@PathVariable("recipeNo") int recipeNo, Model model) {
-//		Recipe recipe = service.recipeDetail(recipeNo);
-//		model.addAttribute(recipe);
+		Recipe recipe = service.recipeDetail(recipeNo);
+		model.addAttribute("recipe", recipe);
 		return "recipe/select/recipeDetail";
 	}
 

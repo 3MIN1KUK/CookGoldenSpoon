@@ -1,5 +1,7 @@
 package com.m1k.goldenSpoon.recipe.model.service;
 
+import java.util.Map;
+
 import com.m1k.goldenSpoon.recipe.model.dto.Recipe;
 
 public interface RecipeService {
@@ -9,5 +11,10 @@ public interface RecipeService {
 	 * @return recipe
 	 */
 	Recipe recipeDetail(int recipeNo);
+
+	/** 레시피 조회
+	 * @return
+	 */
+	Map<String, Object> selectRecipe(int cp);
 
 }

@@ -1,42 +1,4 @@
-/* 레시피 */
-.recipe-row{
-  display: flex;
-  justify-content: space-between;
-  width: 144rem;
-}
-.recipe-col{
-  width: 30rem;
-  height: 40rem;
-  border-radius: 2rem;
-}
-.small-title{
-  font-size: 4rem;
-}
-#inputSearch{
-  width: 55rem;
-  height: 6rem;
-  font-size: 3rem;
-  border-radius: 1rem;
-  border: none;
-  padding: 0.5rem;
-}
-.recipe-image{
-  background-color: black;
-  height: 82%;
-  border-top-left-radius: 2rem;
-  border-top-right-radius: 2rem;
-}
-.recipe-name, .recipe-hashtag{
-  height: 9%;
-  font-size: 3rem;
-  text-align: center;
-  border: 0.5rem solid black;
-}
-.recipe-hashtag{
-  border-top: none;
-  border-bottom-left-radius: 2rem;
-  border-bottom-right-radius: 2rem;
-}
+
 
 /* 레시피 화면 */
 .media-container{

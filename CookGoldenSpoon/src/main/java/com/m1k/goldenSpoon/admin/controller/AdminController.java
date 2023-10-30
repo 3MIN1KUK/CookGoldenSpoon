@@ -38,4 +38,9 @@ public class AdminController {
 		return "admin/recipe_result";
 	}
 	
+	@GetMapping("basic")
+	public String basic() {
+		return "basicForm";
+	}
+	
 }

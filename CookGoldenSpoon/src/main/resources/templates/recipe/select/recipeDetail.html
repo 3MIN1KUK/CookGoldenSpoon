@@ -9,23 +9,23 @@
 </head>
 <body>
   <th:block th:replace="~{common/header}"></th:block>
-  <main>
+  <main th:object="${recipe}">
     <div class="main-container">
       <div class="media-container">
         <div class="main-media">
   
         </div>
         <div class="recipe-summary">
-          <div class="recipe-title">
+          <div class="recipe-title" th:text="*{recipeTitle}">
             맛있는 요리 레시피
           </div>
-          <div class="star-point">
+          <div class="star-point" th:text="*{stars}">
             별점
           </div>
-          <div>
+          <div th:text="*{recipeBrief}">
             간략한 소개<br><br><br>입니다
           </div>
-          <div>
+          <div th:text="*{hashtags}">
             해시태그
           </div>
         </div>
@@ -34,7 +34,7 @@
         <div class="recipe-writer-image">
           
         </div>
-        <div class="recipe-writer-nickname">
+        <div class="recipe-writer-nickname" th:text="*{writer}">
           레시피 작성자 아이디
         </div>
         <div class="recipe-writer-info">
@@ -45,7 +45,7 @@
         <div class="recipe-subtitle">
           재료
         </div>
-        <div class="content">
+        <div class="content" th:text="*{ingredient}">
           재료가 들어가는 칸
         </div>
       </div>
@@ -53,7 +53,7 @@
         <div class="recipe-subtitle">
           나만의 팁
         </div>
-        <div class="content">
+        <div class="content" th:text="*{tips}">
           팁이 들어가는 칸
         </div>
       </div>
