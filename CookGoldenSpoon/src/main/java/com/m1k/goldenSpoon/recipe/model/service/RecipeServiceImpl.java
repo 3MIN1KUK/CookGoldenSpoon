@@ -20,6 +20,12 @@ public class RecipeServiceImpl implements RecipeService{
 	private final RecipeMapper mapper;
 	
 	@Override
+	public Recipe enroll(Recipe recipe) {
+		
+		
+		return mapper.enroll(recipe);
+	}
+	
 	public Recipe recipeDetail(int recipeNo) {
 		return mapper.recipeDetail(recipeNo);
 	}

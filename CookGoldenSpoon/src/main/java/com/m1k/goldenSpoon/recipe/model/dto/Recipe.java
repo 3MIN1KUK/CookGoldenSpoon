@@ -18,6 +18,10 @@ public class Recipe {
 	private String tips;
 	private double stars;
 	private String thumbnail;
+	private String hashTags;
+	private String stepPhotos;
+	private String endPhotos;
+	private String mainPhotos;
 	private String hashtags;
 	private String photos;
 }

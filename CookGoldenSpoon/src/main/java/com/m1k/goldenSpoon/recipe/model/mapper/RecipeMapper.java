@@ -7,9 +7,12 @@ import org.apache.ibatis.session.RowBounds;
 
 import com.m1k.goldenSpoon.recipe.model.dto.Recipe;
 
+import com.m1k.goldenSpoon.recipe.model.dto.Recipe;
+
 @Mapper
 public interface RecipeMapper {
 
+	Recipe enroll(Recipe recipe);
 	/** 레시피 상세 조회
 	 * @param recipeNo
 	 * @return recipe

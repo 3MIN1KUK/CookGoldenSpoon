@@ -45,7 +45,12 @@ public class RecipeController {
 
     
     @GetMapping("enroll")
-    public String enroll() {
+    public String enroll(Recipe recipe, Model model) {
+    	
+//    	Recipe inputRecipe = service.enroll(recipe);
+    	
+    	
+    	
         return "recipe/enroll/enroll_recipe";
     }
 

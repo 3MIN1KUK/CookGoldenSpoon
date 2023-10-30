@@ -8,16 +8,17 @@
   <link href="/boot_strap_assets/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="/css/admin/admin-comment-search.css">
   <link href="/css/admin/admin-sidebar.css" rel="stylesheet">
+
+
 </head>
 <body>
 
-  <th:block th:replace="~{admin/admin_sidebar}"></th:block>
-
+  
   <main class="d-flex flex-nowrap">
+    <th:block th:replace="~{admin/admin_sidebar}"></th:block>
     
-      <th:block th:replace="~{admin/admin_sidebar}"></th:block>
     
-      <section >
+      <section > 
         <div class="comment-out-box">
           <span class="comment-in-text">작성자</span>
           <span class="comment-in-text">게시글 제목</span>
@@ -53,7 +54,9 @@
           <div class="comment-in-box">
             댓 글 내 용
           </div>
+
         </div>
+
       </section>
 
   </main>
