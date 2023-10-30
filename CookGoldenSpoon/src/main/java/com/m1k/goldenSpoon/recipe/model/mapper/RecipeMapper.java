@@ -27,4 +27,17 @@ public interface RecipeMapper {
 	 */
 	List<Recipe> selectRecipe(RowBounds rowBounds);
 
+	/** 레시피 검색 글 수 전체 조회
+	 * @param inputSearch
+	 * @return
+	 */
+	int listSearchCount(String inputSearch);
+
+	/** 레시피 검색
+	 * @param inputSearch
+	 * @param rowBounds
+	 * @return
+	 */
+	List<Recipe> selectSearchRecipe(String inputSearch, RowBounds rowBounds);
+
 }

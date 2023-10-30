@@ -37,4 +37,18 @@ public class RecipeServiceImpl implements RecipeService{
 		map.put("pagination", pagination);
 		return map;
 	}
+	
+	@Override
+	public Map<String, Object> search(int cp, String inputSearch) {
+		int listCount = mapper.listSearchCount(inputSearch);
+		Pagination pagination = new Pagination(cp, listCount, 8, 7);
+		int offset = (pagination.getCurrentPage() -1) * pagination.getLimit();
+		int limit = pagination.getLimit();
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		List<Recipe> recipeList = mapper.selectSearchRecipe(inputSearch, rowBounds);
+		Map<String,	Object> map = new HashMap<>();
+		map.put("recipeList", recipeList);
+		map.put("pagination", pagination);
+		return map;
+	}
 }
