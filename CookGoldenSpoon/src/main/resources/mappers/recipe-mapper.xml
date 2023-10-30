@@ -1,7 +1,47 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <!-- 연결할 인터페이스의 패키지명.인터페이스명을 작성 -->
-<mapper namespace="com.m1k.goldenSpoon.recipe.model.RecipeMapper">
-	
+<mapper namespace="com.m1k.goldenSpoon.recipe.model.mapper.RecipeMapper">
 
+	<select id="listCount" resultType="_int">
+		SELECT COUNT(*) FROM RECIPE
+	</select>
+	
+	<select id="selectRecipe" resultType="Recipe">
+		SELECT * FROM RECIPE
+	</select>
+	
+<!--	<insert id="enroll">
+		INSERT INTO "RECIPE" 
+		VALUES(#{mainPhotos}, #{thumbnail}, #{recipeName},
+		#{ingredient}, #{howToCook}, #{tips}, null,null)
+		
+		
+	</insert>
+	-->
+	
+	<select id="recipeDetail" resultType="Recipe">
+		SELECT * FROM "RECIPE"
+		WHERE RECIPE_NO = #{recipeNo}
+	</select>	
+
+	<select id="listSearchCount" resultType="_int">
+		SELECT COUNT(*) FROM "RECIPE"
+		WHERE RECIPE_TITLE LIKE '%${inputSearch}%'
+		OR RECIPE_BRIEF LIKE '%${inputSearch}%'
+		OR INGREDIENT LIKE '%${inputSearch}%'
+		OR HOW_TO_COOK LIKE '%${inputSearch}%'
+		OR TIPS LIKE '%${inputSearch}%'
+		OR HASHTAGS LIKE '%${inputSearch}%'
+	</select>
+	
+	<select id="selectSearchRecipe" resultType="Recipe">
+		SELECT * FROM "RECIPE"
+		WHERE RECIPE_TITLE LIKE '%${inputSearch}%'
+		OR RECIPE_BRIEF LIKE '%${inputSearch}%'
+		OR INGREDIENT LIKE '%${inputSearch}%'
+		OR HOW_TO_COOK LIKE '%${inputSearch}%'
+		OR TIPS LIKE '%${inputSearch}%'
+		OR HASHTAGS LIKE '%${inputSearch}%'
+	</select>
 </mapper>

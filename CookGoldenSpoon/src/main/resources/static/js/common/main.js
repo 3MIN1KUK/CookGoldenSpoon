@@ -5,6 +5,6 @@ inputSearch.addEventListener('keyup', e=>{
 
   if(e.key == "Enter"){
     console.log(e.target.value);
-    location.href = "/recipe/search?inputSearch=" + e.target.value;
+    location.href = "/recipe/select/search?inputSearch=" + e.target.value;
   }
 });

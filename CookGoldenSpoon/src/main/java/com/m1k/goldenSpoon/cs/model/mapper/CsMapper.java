@@ -12,9 +12,10 @@ public interface CsMapper {
 
 	/** 공지사항 검색
 	 * @param searchNotice
+	 * @param rowBounds 
 	 * @return noticeList
 	 */
-	List<Notice> noticeSelect(String searchNotice);
+	List<Notice> noticeSelect(String searchNotice, RowBounds rowBounds);
 
 	/** 모든 공지사항 검색
 	 * @param order 

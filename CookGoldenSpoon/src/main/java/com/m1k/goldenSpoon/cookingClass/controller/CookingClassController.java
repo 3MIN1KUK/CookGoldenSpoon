@@ -1,12 +1,19 @@
 package com.m1k.goldenSpoon.cookingClass.controller;
 
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.m1k.goldenSpoon.cookingClass.model.service.CookingClassService;
+import com.m1k.goldenSpoon.cs.model.dto.Notice;
 
 @Controller
 @RequestMapping("cookingClass")
@@ -14,26 +21,36 @@ public class CookingClassController {
 	
 	@Autowired
 	private CookingClassService service;
-
+	
+	// -------------------- 쿠킹클래스 메인 게시판 ---------------------
 	@GetMapping("cookingClassBoard")
 	public String cookingClassBoard () {
 		return "/cooking_class/board/cookingClassBoard";
 	}
 	
+	// -------------------- 쿠킹클래스 게시판 상세 조회 ---------------------
 	@GetMapping("cookingClassMain")
 	public String cookingClassMain() {
 		return "/cooking_class/board/cookingClassMain";
 	}
 	
+	// -------------------- 쿠킹클래스 게시판 조회 ---------------------
 	@GetMapping("cookingClassRegistration")
 	public String cookingClassRegistration() {
 		return "/cooking_class/board/cookingClassRegistration";
 	}
 	
+	// -------------------- 쿠킹클래스 커뮤니티 ---------------------
 	@GetMapping("cookingClassCommuntry")
 	public String cookingClassCommuntry() {
 		return "/cooking_class/community/cookingClassCommuntry";
 	}
+	
+	
+	// -------------------- 쿠킹클래스 커뮤니티 ---------------------
+	
+	
+	
 	
 	
 	// 마이페이지 없어서 임시로 만들어둠 

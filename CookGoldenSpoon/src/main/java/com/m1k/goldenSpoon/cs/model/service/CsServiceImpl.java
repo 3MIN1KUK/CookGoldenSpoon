@@ -22,8 +22,17 @@ public class CsServiceImpl implements CsService{
 	private final CsMapper mapper;
 	
 	@Override
-	public List<Notice> noticeSelect(String searchNotice) {
-		return mapper.noticeSelect(searchNotice);
+	public Map<String, Object> noticeSelect(int cp, String searchNotice) {
+		int listCount = mapper.getNoticeListCount();
+		Pagination pagination = new Pagination(cp, listCount, 14, 7);
+		int offset = (pagination.getCurrentPage() -1) * pagination.getLimit();
+		int limit = pagination.getLimit();
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		List<Notice> noticeList = mapper.noticeSelect(searchNotice, rowBounds);
+		Map<String, Object> map = new HashMap<>();
+		map.put("noticeList", noticeList);
+		map.put("pagination", pagination);
+		return map;
 	}
 	@Override
 	public Map<String, Object> selectAllNotice(int cp, int order) {

@@ -23,6 +23,7 @@ public class CsController {
 	
 	private final CsService service;
 	
+	// 공지사항 ------------------------------------------------------------------------------------
 	@GetMapping("notice")
 	public String notice(Model model, @RequestParam(value = "cp", required = false, defaultValue = "1") int cp,
 			@RequestParam(value = "order", required = false, defaultValue = "1") int order) {
@@ -30,23 +31,11 @@ public class CsController {
 		model.addAttribute("map", map);
 		return "cs/notice/notice";
 	}
-	@GetMapping("qna")
-	public String qna() {
-		return "cs/qna/qna";
-	}
-	@GetMapping("inquiry")
-	public String inquiry() {
-		return "cs/inquiry/inquiry";
-	}
-	@GetMapping("report")
-	public String report() {
-		return "cs/report/report";
-	}
-
+	
 	@GetMapping(value = "notice/select", produces = "application/json; charset=UTF-8")
 	@ResponseBody
-	public List<Notice> noticeSelect(String searchNotice) {
-		return service.noticeSelect(searchNotice);
+	public Map<String, Object> noticeSelect(String searchNotice, @RequestParam(value = "cp", required = false, defaultValue = "1") int cp) {
+		return service.noticeSelect(cp, searchNotice);
 	}
 	
 	@GetMapping("notice/{noticeNo:[0-9]+}")
@@ -55,4 +44,32 @@ public class CsController {
 		model.addAttribute("notice", notice);
 		return "cs/notice/noticeDetail";
 	}
+	
+	
+	// QnA ---------------------------------------------------------------------------------------
+	@GetMapping("qna")
+	public String qna() {
+		return "cs/qna/qna";
+	}
+	
+	
+	// 문의사항 ------------------------------------------------------------------------------------
+	@GetMapping("inquiry")
+	public String inquiry() {
+		return "cs/inquiry/inquiry";
+	}
+	
+	@GetMapping("inquiry/fillOut")
+	public String inquiryFillOut() {
+		return "cs/inquiry/inquiryForm";
+	}
+	
+	
+	// 신고 ------------------------------------------------------------------------------------
+	@GetMapping("report")
+	public String report() {
+		return "cs/report/report";
+	}
+
+	
 }

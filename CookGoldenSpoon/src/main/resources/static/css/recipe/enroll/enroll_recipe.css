@@ -72,12 +72,22 @@ form{
   border-radius: 0px 0px 2rem 2rem;
   width: 47rem;
   height: 29.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .main-Picture{
   width: 50%;
   text-align: center;
   
+}
+
+
+/* 추가 버튼 */
+.processBtn1{
+  width: 18rem;
+  height: 16rem;
 }
 
 
@@ -115,6 +125,9 @@ form{
   border-left: 0.35rem solid rgb(165, 78, 78);
   width: 28rem;
   height: 29rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 
@@ -197,14 +210,14 @@ form{
   padding-bottom: 0.5rem;
 }
 
-.processBtn4{
+.processAddBtn4{
   /* display: flex;
   justify-content: flex-end; */
   border: none;
   font-size: 2rem;
 }
 
-.processBtn4_1{
+.processPhotoBtn4{
  /* border: none; */
  width: 5rem;
  height: 5rem;
@@ -352,7 +365,7 @@ form{
   height: 18rem;
 }
 
-.processBtn4_1{
+.endProcessBtn8{
   /* border: none; */
   width: 5rem;
   height: 5rem;

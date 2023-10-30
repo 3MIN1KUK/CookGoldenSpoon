@@ -1,10 +1,15 @@
 package com.m1k.goldenSpoon.recipe.controller;
 
+import java.util.Map;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import com.m1k.goldenSpoon.recipe.model.dto.Recipe;
 import com.m1k.goldenSpoon.recipe.model.service.RecipeService;
 
 import lombok.RequiredArgsConstructor;
@@ -16,15 +21,36 @@ public class RecipeController {
 	
 	private final RecipeService service;
 	
-	@GetMapping("search")
-	public String search(String inputSearch, Model model) {
+	@GetMapping("select")
+	public String select(Model model, @RequestParam(value = "cp", required = false, defaultValue = "1") int cp) {
+		Map<String, Object> map = service.selectRecipe(cp);
+		model.addAttribute("map", map);
+		return "recipe/select/recipe";
+	}
+	
+	@GetMapping("select/search")
+	public String search(String inputSearch, Model model, @RequestParam(value = "cp", required = false, defaultValue = "1") int cp) {
+		Map<String, Object> map = service.search(cp, inputSearch);
+		model.addAttribute("map", map);
 		model.addAttribute("inputSearch", inputSearch);
-		return "recipe/select/";
+		return "recipe/select/recipe";
+	}
+	
+	@GetMapping("select/{recipeNo:[0-9]+}")
+	public String recipeDetail(@PathVariable("recipeNo") int recipeNo, Model model) {
+		Recipe recipe = service.recipeDetail(recipeNo);
+		model.addAttribute("recipe", recipe);
+		return "recipe/select/recipeDetail";
 	}
 
     
     @GetMapping("enroll")
-    public String enroll() {
+    public String enroll(Recipe recipe, Model model) {
+    	
+//    	Recipe inputRecipe = service.enroll(recipe);
+    	
+    	
+    	
         return "recipe/enroll/enroll_recipe";
     }
 
