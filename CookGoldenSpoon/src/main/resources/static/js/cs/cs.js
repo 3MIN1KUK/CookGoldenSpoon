@@ -22,12 +22,12 @@ searchNoticeBtn.addEventListener("click", ()=>{
      noticeContainer.innerHTML = "";
      fetch("/cs/notice/select?searchNotice=" + searchNotice.value)
      .then(resp => resp.json())
-     .then(noticeList => {
-          if(noticeList.length == 0){
+     .then(map => {
+          if(map.noticeList.length == 0){
                alert("검색 결과가 없습니다.");
                return;
           }
-          for(let notice of noticeList){
+          for(let notice of map.noticeList){
                const div = document.createElement("div");
                div.classList.add("notice");
                const span1 = document.createElement("span");
