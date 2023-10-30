@@ -9,7 +9,7 @@ public interface MemberService {
 	 * @param memberPw
 	 * @return
 	 */
-	String login(String memberId, String memberPw);
+	Member login(String memberEmail, String memberPw);
 
 	/** 회원가입
 	 * @param signupMember
