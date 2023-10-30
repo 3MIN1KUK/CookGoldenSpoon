@@ -19,5 +19,8 @@ public class Recipe {
 	private double stars;
 	private String thumbnail;
 	private String hashTags;
+	private String stepPhotos;
+	private String endPhotos;
+	private String mainPhotos;
 	private String photos;
 }

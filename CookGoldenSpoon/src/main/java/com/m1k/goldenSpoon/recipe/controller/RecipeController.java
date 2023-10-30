@@ -5,6 +5,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.m1k.goldenSpoon.recipe.model.dto.Recipe;
 import com.m1k.goldenSpoon.recipe.model.service.RecipeService;
 
 import lombok.RequiredArgsConstructor;
@@ -24,7 +25,12 @@ public class RecipeController {
 
     
     @GetMapping("enroll")
-    public String enroll() {
+    public String enroll(Recipe recipe, Model model) {
+    	
+//    	Recipe inputRecipe = service.enroll(recipe);
+    	
+    	
+    	
         return "recipe/enroll/enroll_recipe";
     }
 
