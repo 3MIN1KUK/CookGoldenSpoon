@@ -11,7 +11,7 @@ public class AdminController {
 	@GetMapping("memberSearch")
 	public String memberSearch() {
 		return "admin/member_search";
-	}
+	}  
 	
 	@GetMapping("detailInquiry")
 	public String detailInquiry() {
@@ -22,7 +22,7 @@ public class AdminController {
 	public String memberDetail() {
 		return "admin/member_detail";
 	}
-	
+	 
 	@GetMapping("commentResult")
 	public String commentResult() {
 		return "admin/comment_result";
@@ -36,6 +36,11 @@ public class AdminController {
 	@GetMapping("recipeResult")
 	public String recipeResult() {
 		return "admin/recipe_result";
+	}
+	
+	@GetMapping("basic")
+	public String basic() {
+		return "basicForm";
 	}
 	
 }

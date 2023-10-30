@@ -10,7 +10,7 @@ import lombok.ToString;
 public class Recipe {
 
 	private int recipeNo;
-	private String recipeName;
+	private String recipeTitle;
 	private String recipeBrief;
 	private String writer;
 	private String ingredient;
@@ -22,5 +22,6 @@ public class Recipe {
 	private String stepPhotos;
 	private String endPhotos;
 	private String mainPhotos;
+	private String hashtags;
 	private String photos;
 }

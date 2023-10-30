@@ -1,0 +1,24 @@
+.content-container{
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  min-height: 88rem;
+}
+.recipe-col{
+  margin: 2rem 2.9rem;
+}
+.recipe-title{
+  width: 90%;
+  margin: 3rem 0 2rem 0;
+  display: flex;
+  justify-content: space-between;
+}
+.recipe-title>a{
+  margin: 0.5rem;
+  font-size: 3rem;
+  color: var(--color-bg);
+}
+
+.search-area *{
+  height: 5rem;
+}

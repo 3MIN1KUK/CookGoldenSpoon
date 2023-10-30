@@ -1,7 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <!-- 연결할 인터페이스의 패키지명.인터페이스명을 작성 -->
-<mapper namespace="com.m1k.goldenSpoon.recipe.model.RecipeMapper">
+<mapper namespace="com.m1k.goldenSpoon.recipe.model.mapper.RecipeMapper">
+
+	<select id="listCount" resultType="_int">
+		SELECT COUNT(*) FROM RECIPE
+	</select>
+	
+	<select id="selectRecipe" resultType="Recipe">
+		SELECT * FROM RECIPE
+	</select>
 	
 <!--	<insert id="enroll">
 		INSERT INTO "RECIPE" 
@@ -12,5 +20,9 @@
 	</insert>
 	-->
 	
+	<select id="recipeDetail" resultType="Recipe">
+		SELECT * FROM "RECIPE"
+		WHERE RECIPE_NO = #{recipeNo}
+	</select>	
 
 </mapper>

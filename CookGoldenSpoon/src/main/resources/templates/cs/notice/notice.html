@@ -6,119 +6,42 @@
   <title>공지사항</title>
   <link rel="stylesheet" href="/css/common/project.css">
   <link rel="stylesheet" href="/css/cs/cs.css">
+  <script src="https://kit.fontawesome.com/921e1d60a7.js" crossorigin="anonymous"></script>
 </head>
 <body>
   <th:block th:replace="~{common/header}"></th:block>
-  <main>
+  <main th:with="noticeList=${map.noticeList}, pagination=${map.pagination}">
     <div class="main-container">
       <div class="cs-title">
-        <p>공지사항</p>
+        <a href="/cs/notice">공지사항</a>
         <div class="searchForm">
           <input id="searchNotice" name="searchNotice" type="text" placeholder="검색어를 입력해주세요">
           <button id="searchNoticeBtn" >검색</button>
         </div>
       </div>
       <div class="content-container">
-        <div class="notice" th:each="notice : ${noticeList}" th:object="${notice}">
-          <span th:text="*{noticeNo}">No.1</span>
-          <span th:text="*{noticeTitle}">첫 번째 공지사항 입니다</span>
-          <span th:text="*{noticeWriter}">작성자</span>
-          <span th:text="*{enrollDate}">날짜</span>
-          <span th:text="*{hits}">조회수</span>
-        </div>
-        <!-- <div class="notice">
-          <span>No.2</span>
-          <span>두 번째 공지사항 입니다</span>
-          <span>작성자</span>
-          <span>날짜</span>
-          <span>조회수</span>
-        </div>
-        <div class="notice">
-          <span>No.3</span>
-          <span>세 번째 공지사항 입니다</span>
-          <span>작성자</span>
-          <span>날짜</span>
-          <span>조회수</span>
-        </div>
-        <div class="notice">
-          <span>No.4</span>
-          <span>네 번째 공지사항 입니다</span>
-          <span>작성자</span>
-          <span>날짜</span>
-          <span>조회수</span>
-        </div>
-        <div class="notice">
-          <span>No.5</span>
-          <span>다섯 번째 공지사항 입니다</span>
-          <span>작성자</span>
-          <span>날짜</span>
-          <span>조회수</span>
-        </div>
-        <div class="notice">
-          <span>No.6</span>
-          <span>여섯 번째 공지사항 입니다</span>
-          <span>작성자</span>
-          <span>날짜</span>
-          <span>조회수</span>
-        </div>
-        <div class="notice">
-          <span>No.7</span>
-          <span>일곱 번째 공지사항 입니다</span>
-          <span>작성자</span>
-          <span>날짜</span>
-          <span>조회수</span>
-        </div>
-        <div class="notice">
-          <span>No.8</span>
-          <span>여덟 번째 공지사항 입니다</span>
-          <span>작성자</span>
-          <span>날짜</span>
-          <span>조회수</span>
-        </div>
-        <div class="notice">
-          <span>No.9</span>
-          <span>아홉 번째 공지사항 입니다</span>
-          <span>작성자</span>
-          <span>날짜</span>
-          <span>조회수</span>
-        </div>
-        <div class="notice">
-          <span>No.10</span>
-          <span>열 번째 공지사항 입니다</span>
-          <span>작성자</span>
-          <span>날짜</span>
-          <span>조회수</span>
-        </div>
-        <div class="notice">
-          <span>No.11</span>
-          <span>열 한 번째 공지사항 입니다</span>
-          <span>작성자</span>
-          <span>날짜</span>
-          <span>조회수</span>
-        </div>
-        <div class="notice">
-          <span>No.12</span>
-          <span>열 두 번째 공지사항 입니다</span>
-          <span>작성자</span>
-          <span>날짜</span>
-          <span>조회수</span>
-        </div>
-        <div class="notice">
-          <span>No.13</span>
-          <span>열 세 번째 공지사항 입니다</span>
-          <span>작성자</span>
-          <span>날짜</span>
-          <span>조회수</span>
-        </div>
-        <div class="notice">
-          <span>No.14</span>
-          <span>열 네 번째 공지사항 입니다</span>
-          <span>작성자</span>
-          <span>날짜</span>
-          <span>조회수</span>
-        </div> -->
+        <th:block th:each="notice : ${noticeList}" th:object="${notice}">
+          <a th:href="@{/cs/notice/{noticeNo}(noticeNo=*{noticeNo})}" class="notice">
+            <span th:text="*{noticeNo}">No.1</span>
+            <span th:text="*{noticeTitle}">첫 번째 공지사항 입니다</span>
+            <span th:text="*{noticeWriter}">작성자</span>
+            <span th:text="*{enrollDate}" >날짜</span>
+            <span th:text="*{hits}">조회수</span>
+          </a>
+        </th:block>
       </div>
-      <div class="page-number">1 2 3 4 5 ···</div>
+      <div class="page-number">
+        <ul>
+          <li><a href="/cs/notice"><i class="fa-solid fa-backward-step"></i></a></li>
+          <li><a th:href="@{/cs/notice(cp=${pagination.prevPage})}"><i class="fa-solid fa-caret-left fa-lg"></i></a></li>
+          <th:block th:each="i : ${#numbers.sequence(pagination.startPage, pagination.endPage, 1)}">
+            <li th:if="${i == pagination.currentPage}"><a style="color: black;" class="text" th:text="${i}">1</a></li>
+            <li th:unless="${i == pagination.currentPage}"><a th:href="@{/cs/notice(cp=${i})}" class="text" th:text="${i}">1</a></li>
+          </th:block>
+          <li><a th:href="@{/cs/notice(cp=${pagination.nextPage})}"><i class="fa-solid fa-caret-right fa-lg"></i></a></li>
+          <li><a th:href="@{/cs/notice(cp=${pagination.maxPage})}"><i class="fa-solid fa-forward-step"></i></a></li>
+        </ul>
+      </div>
     </div>
   </main>
   
