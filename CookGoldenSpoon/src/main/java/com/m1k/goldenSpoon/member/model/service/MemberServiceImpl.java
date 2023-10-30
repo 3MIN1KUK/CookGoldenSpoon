@@ -21,23 +21,28 @@ public class MemberServiceImpl implements MemberService{
 	private final BCryptPasswordEncoder bcrypt;
 	
 	@Override
-	public String login(String memberId, String memberPw) {
+	public Member login(String memberEmail, String memberPw) {
 		
-//		Member loginMember = mapper.login(memberId);
-//		
-//		if (bcrypt.matches(memberPw, loginMember.getMemberPw() ) ) {
-//			return null;
-//		}
+		Member loginMember = mapper.login(memberEmail);
 		
-		return null;
+		if (loginMember == null) {
+			return null;
+		}
+		
+		if (!bcrypt.matches(memberPw, loginMember.getMemberPw() ) ) {
+			return null;
+		}
+		
+		return loginMember;
 	}
 	
 	@Override
 	public int signup(Member signupMember) {
 		
-//		int result = mapper.signup(signupMember);
+		signupMember.setMemberPw(bcrypt.encode(signupMember.getMemberPw() ) );
+		int result = mapper.signup(signupMember);
 		
-		return 0;
+		return result;
 	}
 
 }

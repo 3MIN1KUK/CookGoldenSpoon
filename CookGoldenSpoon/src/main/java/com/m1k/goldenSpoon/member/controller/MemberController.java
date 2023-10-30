@@ -28,9 +28,9 @@ public class MemberController {
 	}
 	
 	@PostMapping("login")
-	public String login(String memberId, String memberPw) {
+	public String login(String memberEmail, String memberPw) {
 		
-//		Member loginMember = service.login(memberId, memberPw);
+		Member loginMember = service.login(memberEmail, memberPw);
 		
 		return "redirect:/";
 	} 
