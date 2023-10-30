@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>레시피</title>
+  <link rel="stylesheet" href="/css/common/project.css">
+  <link rel="stylesheet" href="/css/recipe/select/recipeDetail.css">
+</head>
+<body>
+  <th:block th:replace="~{common/header}"></th:block>
+  <main th:object="${recipe}">
+    <div class="main-container">
+      <div class="media-container">
+        <div class="main-media">
+  
+        </div>
+        <div class="recipe-summary">
+          <div class="recipe-title" th:text="*{recipeTitle}">
+            맛있는 요리 레시피
+          </div>
+          <div class="star-point" th:text="*{stars}">
+            별점
+          </div>
+          <div th:text="*{recipeBrief}">
+            간략한 소개<br><br><br>입니다
+          </div>
+          <div th:text="*{hashtags}">
+            해시태그
+          </div>
+        </div>
+      </div>
+      <div class="recipe-writer">
+        <div class="recipe-writer-image">
+          
+        </div>
+        <div class="recipe-writer-nickname" th:text="*{writer}">
+          레시피 작성자 아이디
+        </div>
+        <div class="recipe-writer-info">
+          레시피 작성자의 한 줄 소개가 들어갈 자리입니다
+        </div>
+      </div>
+      <div class="recipe-content">
+        <div class="recipe-subtitle">
+          재료
+        </div>
+        <div class="content" th:text="*{ingredient}">
+          재료가 들어가는 칸
+        </div>
+      </div>
+      <div class="recipe-content">
+        <div class="recipe-subtitle">
+          나만의 팁
+        </div>
+        <div class="content" th:text="*{tips}">
+          팁이 들어가는 칸
+        </div>
+      </div>
+      <div class="recipe-content">
+        <div class="recipe-subtitle">
+          요리순서
+        </div>
+        <div class="recipe-step">
+          STEP 1
+        </div>
+        <div class="content">
+          순서가 들어가는 칸
+        </div>
+        <div class="recipe-step">
+          STEP 2
+        </div>
+        <div class="content">
+          순서가 들어가는 칸
+        </div>
+        <div class="recipe-step">
+          STEP 3
+        </div>
+        <div class="content">
+          순서가 들어가는 칸
+        </div>
+      </div>
+      <div class="recipe-content  recipe-photos">
+        <div class="recipe-subtitle">
+          완성 사진
+        </div>
+        <div class="recipe-photo">
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
+      </div>
+      <div class="recipe-content">
+        <div class="recipe-subtitle">
+          요리 후기
+        </div>
+        <div class="recipe-review-container">
+          <div class="recipe-review">
+            <div>프로필사진</div>
+            <div>아이디</div>
+            <div class="recipe-review-content">내용</div>
+            <div>사진</div>
+          </div>
+          <div class="recipe-review">
+            <div>프로필사진</div>
+            <div>아이디</div>
+            <div class="recipe-review-content">내용</div>
+            <div>사진</div>
+          </div>
+          <div class="recipe-review">
+            <div>프로필 사진</div>
+            <div>아이디</div>
+            <div class="recipe-review-content">내용</div>
+            <div>사진</div>
+          </div>
+        </div>
+        <form action="" method="post" class="recipe-review-form">
+          <div class="recipe-review">
+            <div>프로필 사진</div>
+            <div>아이디</div>
+            <textarea name="" id="" cols="30" rows="10" style="resize: none;"  class="recipe-review-content"></textarea>
+            <div>사진</div>
+          </div>
+          <button>제출</button>
+        </form>
+      </div>
+      <div class="recipe-content recipe-photos">
+        <div class="recipe-subtitle">
+          또 다른 추천 음식
+        </div>
+        <div class="recipe-photo">
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
+      </div>
+      <div class="recipe-content  recipe-photos">
+        <div class="recipe-subtitle">
+          최근 본 레시피
+        </div>
+        <div class="recipe-photo">
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
+      </div>
+    </div>
+  </main>
+  <script src="/js/common/project.js"></script>
+</body>
+</html>

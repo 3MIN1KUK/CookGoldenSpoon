@@ -1,6 +1,5 @@
 package com.m1k.goldenSpoon.cs.model.service;
 
-import java.util.List;
 import java.util.Map;
 
 import com.m1k.goldenSpoon.cs.model.dto.Notice;
@@ -8,10 +7,11 @@ import com.m1k.goldenSpoon.cs.model.dto.Notice;
 public interface CsService {
 
 	/** 공지사항 검색
+	 * @param cp 
 	 * @param searchNotice
 	 * @return noticeList
 	 */
-	List<Notice> noticeSelect(String searchNotice);
+	Map<String, Object> noticeSelect(int cp, String searchNotice);
 
 	/** 모든 공지사항 조회
 	 * @param cp 

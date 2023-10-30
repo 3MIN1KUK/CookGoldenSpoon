@@ -9,20 +9,20 @@
 </head>
 <body>
   <th:block th:replace="~{common/header}"></th:block>
-  <main>
+  <main th:object="${notice}">
     <div class="main-container">
       <div class="cs-title">
-        <p>공지사항</p>
+        <a href="/cs/notice">공지사항</a>
       </div>
       <div class="content-container">
         <div class="notice">
-          <span>No.1</span>
-          <span>첫 번째 공지사항 입니다</span>
-          <span>작성자</span>
-          <span>날짜</span>
-          <span>조회수</span>
+          <span th:text="*{noticeNo}">No.1</span>
+          <span th:text="*{noticeTitle}">첫 번째 공지사항 입니다</span>
+          <span th:text="*{noticeWriter}">작성자</span>
+          <span th:text="*{enrollDate}">날짜</span>
+          <span th:text="*{hits}">조회수</span>
         </div>
-        <div class="notice notice-content">
+        <div class="notice notice-content" th:text="*{noticeContent}">
             <p>
                 이곳은 내용을 적는 곳입니다<br>
                 만나서 반갑습니다
