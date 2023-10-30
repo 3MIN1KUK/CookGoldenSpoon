@@ -86,3 +86,8 @@ main {
   vertical-align: -.125em;
   fill: currentColor;
 }
+
+.right-a{
+  margin-left: auto !important;
+  float: right !important;
+}
