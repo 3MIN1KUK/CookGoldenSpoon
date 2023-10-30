@@ -30,13 +30,13 @@ public class MemberController {
 	@PostMapping("login")
 	public String login(String memberId, String memberPw) {
 		
-		Member loginMember = service.login(memberId, memberPw);
+//		Member loginMember = service.login(memberId, memberPw);
 		
 		return "redirect:/";
 	} 
 	
 	@PostMapping("signup")
-	public int signup(Member signupMember) {
+	public String signup(Member signupMember) {
 		
 		int resutl = service.signup(signupMember);
 		
