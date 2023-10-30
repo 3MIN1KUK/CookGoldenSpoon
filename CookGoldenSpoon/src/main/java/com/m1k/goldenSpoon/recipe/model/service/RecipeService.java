@@ -19,4 +19,13 @@ public interface RecipeService {
 	 * @return
 	 */
 	Map<String, Object> selectRecipe(int cp);
+
+
+	/** 레시피 검색
+	 * @param cp 
+	 * @param inputSearch
+	 * @return
+	 */
+	Map<String, Object> search(int cp, String inputSearch);
+
 }

@@ -29,9 +29,11 @@ public class RecipeController {
 	}
 	
 	@GetMapping("select/search")
-	public String search(String inputSearch, Model model) {
+	public String search(String inputSearch, Model model, @RequestParam(value = "cp", required = false, defaultValue = "1") int cp) {
+		Map<String, Object> map = service.search(cp, inputSearch);
+		model.addAttribute("map", map);
 		model.addAttribute("inputSearch", inputSearch);
-		return "recipe/select/";
+		return "recipe/select/recipe";
 	}
 	
 	@GetMapping("select/{recipeNo:[0-9]+}")
