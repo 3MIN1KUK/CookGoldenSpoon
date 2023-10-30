@@ -24,7 +24,7 @@ button{
   margin: 0;
   padding: 0;
   list-style: none;
-  border: 1px solid black;
+  /* border: 1px solid black; */
 }
 a{
   text-decoration: none;
@@ -170,7 +170,7 @@ nav>ul{
   height: 9%;
   font-size: 3rem;
   text-align: center;
-  /* border: 0.5rem solid black; */
+  border: 0.1rem solid black;
 }
 .recipe-hashtag{
   border-top: none;
