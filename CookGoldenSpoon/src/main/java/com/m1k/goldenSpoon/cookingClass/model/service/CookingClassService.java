@@ -12,4 +12,5 @@ public interface CookingClassService {
 	Map<String, Object> selectAllCommuntry(int com, int order);
 
 
+
 }

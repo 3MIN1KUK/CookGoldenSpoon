@@ -47,8 +47,7 @@ public class CookingClassController {
 	}
 	
 	
-	// -------------------- 쿠킹클래스 커뮤니티 ---------------------
-	
+
 	
 	
 	
