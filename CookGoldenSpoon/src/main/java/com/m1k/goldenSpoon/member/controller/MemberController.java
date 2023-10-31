@@ -30,10 +30,11 @@ public class MemberController {
 		return "member/signup";
 	}
 	
+	
 	@PostMapping("login")
-	public String login(String memberEmail, String memberPw, Model model) {
+	public String login(String memberId, String memberPw, Model model) {
 		
-		Member loginMember = service.login(memberEmail, memberPw);
+		Member loginMember = service.login(memberId, memberPw);
 		
 		if (loginMember == null) {
 			return "redirect:/member/login";
@@ -43,6 +44,7 @@ public class MemberController {
 		
 		return "redirect:/";
 	} 
+	
 	
 	@PostMapping("signup")
 	public String signup(Member signupMember) {

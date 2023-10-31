@@ -23,9 +23,9 @@ public class MemberServiceImpl implements MemberService{
 	private final BCryptPasswordEncoder bcrypt;
 	
 	@Override
-	public Member login(String memberEmail, String memberPw) {
+	public Member login(String memberId, String memberPw) {
 		
-		Member loginMember = mapper.login(memberEmail);
+		Member loginMember = mapper.login(memberId);
 		
 		if (loginMember == null) {
 			return null;
