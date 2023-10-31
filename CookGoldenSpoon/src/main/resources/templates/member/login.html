@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -11,7 +11,7 @@
     <h1 class="login-title">로그인</h1>
     <div class="box">
 
-      <form action="member/login" method="post">
+      <form action="/member/login" method="post">
         <div class="input-group">
           <input type="text" id="memberId" name="memberId" placeholder="아이디를 입력해주세요">
         </div>
@@ -30,5 +30,52 @@
     </div>
   </div>
 </body>
+</body>
+</html> -->
+
+
+
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>기본 양식</title>
+  <link rel="stylesheet" href="/css/common/basicForm.css">
+  <link rel="stylesheet" href="/css/member/login.css">
+</head>
+<body>
+  <th:block th:replace="~{common/header}"></th:block>
+  <main>
+    <div class="main-container">
+
+      <div class="container">
+        <div class="box">
+          <h1 class="login-title">로그인</h1>
+          
+    
+          <form action="/member/login" method="post">
+            <div class="input-group">
+              <input type="text" id="memberId" name="memberId" placeholder="아이디를 입력해주세요">
+            </div>
+            
+            <div class="input-group">
+              <input type="password" id="memberPw" name="memberPw" placeholder="비밀번호를 입력해주세요">
+            </div>
+            <input type="submit" value="로그인" class="btn">
+          </form>
+    
+          <div class="btn-group">
+            <a href="/member/findId" id="find-id" class="login-a">아이디 찾기</a> <span class="spaceb">|</span>
+            <a href="/member/findPw" id="find-password" class="login-a">비밀번호 찾기</a>
+            <a href="/member/signup" id="signup" class="login-a">회원가입</a>
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+  <script src="/js/common/project.js"></script>
 </body>
 </html>

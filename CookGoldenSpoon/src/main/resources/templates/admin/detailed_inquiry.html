@@ -5,9 +5,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>admin-detailed-inquiry</title>
   <link rel="stylesheet" href="/css/admin/admin-detailed-inquiry.css">
+  <link rel="canonical" href="https://getbootstrap.com/docs/5.2/examples/sidebars/">
+  <link href="/boot_strap_assets/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/css/admin/admin-sidebar.css" rel="stylesheet">
 </head>
 <body>
+
   
+  <main class="d-flex flex-nowrap">
+    
+    <th:block th:replace="~{admin/admin_sidebar}"></th:block>
   <section>
     <h1 class="detailed-inquiry-h1">상세 검색</h1>
     <div class="detailed-inquiry-out-box">
@@ -29,5 +36,6 @@
 
     </div>
   </section>
+  </main>
 </body>
 </html>

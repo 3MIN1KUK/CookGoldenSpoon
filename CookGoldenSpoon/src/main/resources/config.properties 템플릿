@@ -1,6 +1,6 @@
 #오라클 DB 연결 정보
 spring.datasource.hikari.driver-class-name=oracle.jdbc.driver.OracleDriver
-spring.datasource.hikari.jdbc-url=jdbc:oracle:thin:@IP주소:포트번호:DB이름
+spring.datasource.hikari.jdbc-url=jdbc:oracle:thin:@class-a.xyz:10000/orcl
 spring.datasource.hikari.username=계정명
 spring.datasource.hikari.password=비밀번호
 
