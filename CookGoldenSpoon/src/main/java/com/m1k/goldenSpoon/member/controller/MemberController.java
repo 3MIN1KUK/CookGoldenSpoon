@@ -30,6 +30,16 @@ public class MemberController {
 		return "member/signup";
 	}
 	
+	@GetMapping("findId")
+	public String findId() {
+		return "member/find_id";
+	}
+	
+	@GetMapping("findPw")
+	public String findPw() {
+		return "member/find_pw";
+	}
+	
 	
 	@PostMapping("login")
 	public String login(String memberId, String memberPw, Model model) {
@@ -45,7 +55,7 @@ public class MemberController {
 		return "redirect:/";
 	} 
 	
-	
+	 
 	@PostMapping("signup")
 	public String signup(Member signupMember) {
 		
