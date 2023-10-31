@@ -28,4 +28,7 @@ public interface RecipeService {
 	 */
 	Map<String, Object> search(int cp, String inputSearch);
 
+
+	int like(Map<String, Object> paramMap);
+
 }

@@ -6,6 +6,7 @@
   <title>레시피</title>
   <link rel="stylesheet" href="/css/common/project.css">
   <link rel="stylesheet" href="/css/recipe/select/recipeDetail.css">
+  <script src="https://kit.fontawesome.com/921e1d60a7.js" crossorigin="anonymous"></script>
 </head>
 <body>
   <th:block th:replace="~{common/header}"></th:block>
@@ -29,6 +30,10 @@
             해시태그
           </div>
         </div>
+      </div>
+      <div class="bookmark">
+        <span id="like"><i class="fa-regular fa-heart" style="color: red;"></i> 좋아요</span>
+        <span id="bookmark"><i class="fa-regular fa-star" style="color: gold;"></i> 즐겨찾기</span>
       </div>
       <div class="recipe-writer">
         <div class="recipe-writer-image">
@@ -149,6 +154,12 @@
       </div>
     </div>
   </main>
+
+  <script th:inline="javascript">
+    const boardNo = /* [[${recipeNo}]] */ "레시피 번호";
+    const loginCheck = /* [[${session.loginMember != null ? true : false}]] */ "로그인 여부";
+  </script>
+  <script src="/js/recipe/select/recipeDetail.js"></script>
   <script src="/js/common/project.js"></script>
 </body>
 </html>
