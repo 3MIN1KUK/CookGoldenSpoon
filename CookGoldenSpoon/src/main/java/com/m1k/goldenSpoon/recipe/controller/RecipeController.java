@@ -6,9 +6,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttribute;
 
+import com.m1k.goldenSpoon.member.model.dto.Member;
 import com.m1k.goldenSpoon.recipe.model.dto.Recipe;
 import com.m1k.goldenSpoon.recipe.model.service.RecipeService;
 
@@ -54,4 +59,17 @@ public class RecipeController {
         return "recipe/enroll/enroll_recipe";
     }
 
+    @PostMapping("like")
+    @ResponseBody
+    public int like(@RequestBody Map<String, Object> paramMap, @SessionAttribute("loginMember") Member loginMember) {
+    	
+    	paramMap.put("memberNo", loginMember.getMemberNo());
+    	return service.like(paramMap);
+    }
+    
+    @PostMapping("bookmark")
+    @ResponseBody
+    public int bookmark() {
+    	return 0;
+    }
 }
