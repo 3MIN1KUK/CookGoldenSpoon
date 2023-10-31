@@ -11,7 +11,7 @@ public interface MemberMapper {
 	 * @param memberId
 	 * @return
 	 */
-	Member login(String memberEmail);
+	Member login(String memberId);
 
 	/** 회원가입
 	 * @param signupMember
