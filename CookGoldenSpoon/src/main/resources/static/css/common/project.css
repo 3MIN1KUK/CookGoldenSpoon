@@ -273,3 +273,87 @@ footer{
   width: 100vw;
   margin-top: 3rem;
 }
+
+footer *{
+  color: #F1EFEF;
+}
+
+
+.allFirstBox{
+  display: flex;
+  justify-content: space-around;
+  text-align: center;
+  padding:1rem 0rem 1.5rem 0rem;
+  margin: 0rem 15rem 0rem 15rem;
+}
+
+
+
+
+/* 왼쪽 */
+
+.classBox1{
+  width: 25rem;
+  padding: 1rem 1.2rem 0rem 1.2rem;
+  margin-left: 20rem;
+}
+
+.leftTitle{
+  font-size: 1.5rem;
+  padding: 0.5rem 0rem 1.2rem 0rem;
+}
+
+.leftNumber{
+  font-size: 1.5rem;
+}
+
+.dateBox{
+  font-size: 1.2rem;
+  padding-top: 0.5rem;
+}
+
+
+
+
+/* 중앙 */
+
+
+.classBox2{
+  width: 40rem;
+  padding: 1rem 3.6rem 0rem 3.6rem;
+}
+
+.midTitle{
+  font-size: 1.5rem;
+  padding: 0.5rem 0rem 1.2rem 0rem;
+}
+
+.midLine{
+  font-size: 1.2rem;
+  padding-bottom: 0.3rem;
+}
+
+/* 오른쪽 */
+
+.classBox3{
+  width: 17rem;
+  padding: 1rem 1.2rem 0rem 1.2rem;
+  margin-right: 20rem;
+}
+
+.rightTitle{
+  font-size: 1.5rem;
+  padding: 0.5rem 0rem 1.2rem 0rem;
+}
+
+
+
+/* 맨 아래 */
+.classLastLine{
+  display: flex;
+  justify-content: center;
+  padding: 1.2rem 0rem 0rem 0rem;
+  font-weight: bold;
+  font-size: 1.5rem;
+  margin-left: 7rem;
+}
