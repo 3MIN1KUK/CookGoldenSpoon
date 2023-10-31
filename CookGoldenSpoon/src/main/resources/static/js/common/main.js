@@ -4,7 +4,6 @@ const inputSearch = document.getElementById("inputSearch");
 inputSearch.addEventListener('keyup', e=>{
 
   if(e.key == "Enter"){
-    console.log(e.target.value);
     location.href = "/recipe/select/search?inputSearch=" + e.target.value;
   }
 });
