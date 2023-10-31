@@ -4,13 +4,14 @@
 <mapper namespace="com.m1k.goldenSpoon.member.model.mapper.MemberMapper">
 	
 	<select id="login" resultType="Member" >
-		SELECT MEMBER_EMAIL , MEMBER_PW , MEMBER_NICKNAME 
+		SELECT MEMBER_ID, MEMBER_EMAIL , MEMBER_PW , MEMBER_NICKNAME 
 		FROM "MEMBER"
 		WHERE MEMBER_EMAIL = #{memberEmail}
 	</select>
 	
 	<insert id="signup">
-		INSERT INTO "MEMBER" VALUES (SEQ_MEMBER_NO.NEXTVAL, 
+		INSERT INTO "MEMBER" VALUES (SEQ_MEMBER_NO.NEXTVAL,
+		#{memberId}, 
 		#{memberEmail}, 
 		#{memberPw}, 
 		#{memberNickname},

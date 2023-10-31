@@ -36,7 +36,7 @@ public class MemberController {
 		Member loginMember = service.login(memberEmail, memberPw);
 		
 		if (loginMember == null) {
-			
+			return "redirect:/member/login";
 		}
 		
 		model.addAttribute("loginMember", loginMember);
