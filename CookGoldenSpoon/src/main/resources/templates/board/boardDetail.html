@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>공지사항</title>
+  <link rel="stylesheet" href="/css/common/project.css">
+  <link rel="stylesheet" href="/css/board/board.css">
+</head>
+<body>
+  <th:block th:replace="~{common/header}"></th:block>
+  <main th:object="${board}">
+    <div class="main-container">
+      <div class="cs-title">
+        <a href="/board/select">자유게시판</a>
+      </div>
+      <div class="content-container">
+        <div class="board">
+          <span th:text="*{boardNo}">No.1</span>
+          <span th:text="*{boardTitle}">첫 번째 공지사항 입니다</span>
+          <span th:text="*{boardCode}">게시판 종류</span>
+          <span th:text="*{boardEnrollDate}">날짜</span>
+          <span th:text="*{boardHits}">조회수</span>
+        </div>
+        <div class="board board-content" th:text="*{boardContent}">
+            <p>
+                이곳은 내용을 적는 곳입니다<br>
+                만나서 반갑습니다
+            </p>
+        </div>
+      </div>
+      <button class="selectBtn">작성 하기</button>
+    </div>
+  </main>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <script src="/js/common/project.js"></script>
+  <script src="/js/cs/cs.js"></script>
+</body>
+</html>

@@ -12,6 +12,6 @@ import com.m1k.goldenSpoon.cs.model.dto.Notice;
 
 @Mapper
 public interface CookingClassMapper {
-	
+
 
 }
