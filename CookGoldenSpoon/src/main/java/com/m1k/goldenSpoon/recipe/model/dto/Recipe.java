@@ -11,9 +11,8 @@ public class Recipe {
 
 	private int recipeNo;
 	private String recipeTitle;
-	private String recipeBrief;
-	private String writer;
-	private String ingredient;
+	private String recipeIntro;
+	private String memberNickname;
 	private String howToCook;
 	private String tips;
 	private double stars;
