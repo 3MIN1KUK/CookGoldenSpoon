@@ -27,9 +27,11 @@
       <div class="content-container">
         <a th:each="recipe : ${recipeList}" th:object="${recipe}" 
             th:href="@{/recipe/select/{recipeNo}(recipeNo=*{recipeNo})}" class="recipe-col">
-          <div class="recipe-image" th:text="*{thumbnail}"></div>
+          <div class="recipe-image" th:text="*{recipeThumbnail}"></div>
           <div class="recipe-name" th:text="*{recipeTitle}"></div>
-          <div class="recipe-hashtag" th:text="*{hashtags}"></div>
+          <div class="recipe-hashtag">
+            <span th:each="tag : *{recipeTag}" th:text="${tag}"></span>
+          </div>
         </a>
       </div>
       
