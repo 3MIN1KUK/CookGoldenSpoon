@@ -20,26 +20,27 @@
           <div class="recipe-title" th:text="*{recipeTitle}">
             맛있는 요리 레시피
           </div>
-          <div class="star-point" th:text="*{stars}">
+          <div class="star-point" th:text="*{recipeStar}">
             별점
           </div>
-          <div th:text="*{recipeBrief}">
+          <div th:text="*{recipeIntro}">
             간략한 소개<br><br><br>입니다
           </div>
-          <div th:text="*{hashtags}">
+          <div>
+            <span th:each="tag : *{recipeTag}" th:text="${tag}"></span>
             해시태그
           </div>
         </div>
       </div>
       <div class="bookmark">
-        <span id="like"><i class="fa-regular fa-heart" style="color: red;"></i> 좋아요</span>
-        <span id="bookmark"><i class="fa-regular fa-star" style="color: gold;"></i> 즐겨찾기</span>
+        <span id="like"><i class="fa-heart" style="color: red;" th:classappend="${likeCheck} ? fa-solid : fa-regular"></i> 좋아요</span>
+        <span id="bookmark"><i class="fa-star" style="color: gold;" th:classappend="${bookmarkCheck} ? fa-solid : fa-regular"></i> 즐겨찾기</span>
       </div>
       <div class="recipe-writer">
         <div class="recipe-writer-image">
           
         </div>
-        <div class="recipe-writer-nickname" th:text="*{writer}">
+        <div class="recipe-writer-nickname" th:text="*{memberNickname}">
           레시피 작성자 아이디
         </div>
         <div class="recipe-writer-info">
@@ -50,15 +51,19 @@
         <div class="recipe-subtitle">
           재료
         </div>
-        <div class="content" th:text="*{ingredient}">
-          재료가 들어가는 칸
+        <div class="content">
+          <div th:each="recipeMaterial : *{recipeMaterialList}" th:object="${recipeMaterial}">
+            <span th:text="*{materialName}"></span>
+            <span th:text="*{recipeMaterialQuantity}"></span>
+          </div>
+
         </div>
       </div>
       <div class="recipe-content">
         <div class="recipe-subtitle">
           나만의 팁
         </div>
-        <div class="content" th:text="*{tips}">
+        <div class="content" th:text="*{recipeTip}">
           팁이 들어가는 칸
         </div>
       </div>

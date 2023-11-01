@@ -3,6 +3,21 @@
 <!-- 연결할 인터페이스의 패키지명.인터페이스명을 작성 -->
 <mapper namespace="com.m1k.goldenSpoon.recipe.model.mapper.RecipeMapper">
 
+	<resultMap id="recipeDetail_rm" type="Recipe">
+		
+		<id property="recipeNo" column="RECIPE_NO" />
+		<collection property="recipeStepList" select="selectRecipeStep" column="RECIPE_NO" javaType="java.util.ArrayList" ofType="RecipeStep" />
+		<collection property="recipeMaterialList" select="selectRecipeMaterial" column="RECIPE_NO" javaType="java.util.ArrayList" ofType="RecipeMaterial" />
+		<collection property="recipeCommentList" select="selectRecipeComment" column="RECIPE_NO" javaType="java.util.ArrayList" ofType="RecipeComment" />
+		<collection property="recipeTag" select="selectRecipeTag" column="RECIPE_NO" javaType="java.util.ArrayList" ofType="String" />
+		
+	</resultMap>
+
+
+
+
+
+
 	<select id="listCount" resultType="_int">
 		SELECT COUNT(*) FROM RECIPE
 	</select>
@@ -20,10 +35,30 @@
 	</insert>
 	-->
 	
-	<select id="recipeDetail" resultType="Recipe">
+	<select id="recipeDetail" resultMap="recipeDetail_rm">
 		SELECT * FROM "RECIPE"
 		WHERE RECIPE_NO = #{recipeNo}
+		AND RECIPE_DEL_FL = 'N'
 	</select>	
+	<select id="selectRecipeStep" resultType="RecipeStep">
+		SELECT RECIPE_STEP_CONTENT, RECIPE_STEP_ORDER, RECIPE_STEP_IMAGE
+		FROM "RECIPE_STEP"
+		WHERE RECIPE_NO = #{recipeNo}
+	</select>
+	<select id="selectRecipeMaterial" resultType="RecipeMaterial">
+		SELECT MATERIAL_NAME, RECIPE_MATERIAL_QUANTITY, RECIPE_MATERIAL_ORDER
+		FROM RECIPE_MATERIAL LEFT JOIN MATERIAL USING(MATERIAL_NO)
+		WHERE RECIPE_NO = #{recipeNo}
+	</select>
+	<select id="selectRecipeComment" resultType="RecipeComment">
+		SELECT RECIPE_COMMENT_ENROLL_DATE, RECIPE_COMMENT_CONTENT, RECIPE_COMMENT_DEL_FL
+		FROM RECIPE_COMMENT
+		WHERE RECIPE_NO = #{recipeNo}
+	</select>
+	<select id="selectRecipeTag" resultType="string">
+		SELECT RECIPE_TAG_NAME FROM "RECIPE_TAG"
+		WHERE RECIPE_NO = #{recipeNo}
+	</select>
 
 	<select id="listSearchCount" resultType="_int">
 		SELECT COUNT(*) FROM "RECIPE"
@@ -52,9 +87,20 @@
 		AND MEMBER_NO = #{memberNo}
 	</delete>
 	
+	<select id="likeCheck" resultType="_int">
+		SELECT COUNT(*) FROM "RECIPE_LIKE"
+		WHERE RECIPE_NO = #{recipeNo}
+		AND MEMBER_NO = #{memberNo}
+	</select>
+	<select id="bookmarkCheck" resultType="_int">
+		SELECT COUNT(*) FROM "RECIPE_BOOKMARK"
+		WHERE RECIPE_NO = #{recipeNo}
+		AND MEMBER_NO = #{memberNo}
+	</select>
+	
 	<insert id="insertRecipeLike">
 		INSERT INTO "RECIPE_LIKE"
-		VALUES(${memberNo},${recipeNo})
+		VALUES(${memberNo}, ${recipeNo})
 	</insert>
 	
 	<select id="countRecipeLike" resultType="_int">

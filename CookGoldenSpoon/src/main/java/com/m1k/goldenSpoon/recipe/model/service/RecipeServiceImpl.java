@@ -21,11 +21,10 @@ public class RecipeServiceImpl implements RecipeService{
 	
 	@Override
 	public Recipe enroll(Recipe recipe) {
-		
-		
 		return mapper.enroll(recipe);
 	}
 	
+	@Override
 	public Recipe recipeDetail(int recipeNo) {
 		return mapper.recipeDetail(recipeNo);
 	}
@@ -58,6 +57,7 @@ public class RecipeServiceImpl implements RecipeService{
 		return map;
 	}
 	
+	// 좋아요 처리
 	@Override
 	public int like(Map<String, Object> paramMap) {
 		int result = 0;
@@ -70,7 +70,12 @@ public class RecipeServiceImpl implements RecipeService{
 		if(result == 0) return -1;
 		return mapper.countRecipeLike((Integer)(paramMap.get("boardNo")));
 	}
+	@Override
+	public int likeCheck(Map<String, Integer> map) {
+		return mapper.likeCheck(map);
+	}
 	
+	// 즐겨찾기 처리
 	@Override
 	public int bookmark(Map<String, Object> paramMap) {
 		int result = 0;
@@ -82,5 +87,9 @@ public class RecipeServiceImpl implements RecipeService{
 		}
 		if(result == 0) return -1;
 		return result;
+	}
+	@Override
+	public int bookmarkCheck(Map<String, Integer> map) {
+		return mapper.bookmarkCheck(map);
 	}
 }

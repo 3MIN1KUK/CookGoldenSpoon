@@ -41,4 +41,18 @@ public interface RecipeService {
 	 */
 	int bookmark(Map<String, Object> paramMap);
 
+
+	/** 좋아요 확인
+	 * @param map
+	 * @return
+	 */
+	int likeCheck(Map<String, Integer> map);
+
+
+	/** 즐겨찾기 확인
+	 * @param map
+	 * @return
+	 */
+	int bookmarkCheck(Map<String, Integer> map);
+
 }
