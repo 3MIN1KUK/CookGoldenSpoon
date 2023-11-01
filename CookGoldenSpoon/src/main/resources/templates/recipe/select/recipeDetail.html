@@ -156,8 +156,8 @@
   </main>
 
   <script th:inline="javascript">
-    const boardNo = /* [[${recipeNo}]] */ "레시피 번호";
-    const loginCheck = /* [[${session.loginMember != null ? true : false}]] */ "로그인 여부";
+    const recipeNo = /*[[${recipeNo}]]*/ "레시피 번호";
+    const loginCheck = /*[[${session.loginMember != null ? true : false}]]*/ "로그인 여부";
   </script>
   <script src="/js/recipe/select/recipeDetail.js"></script>
   <script src="/js/common/project.js"></script>

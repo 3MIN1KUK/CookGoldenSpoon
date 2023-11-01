@@ -44,4 +44,31 @@
 		OR TIPS LIKE '%${inputSearch}%'
 		OR HASHTAGS LIKE '%${inputSearch}%'
 	</select>
+	
+	<delete id="deleteRecipeLike">
+		DELETE FROM "RECIPE_LIKE"
+		WHERE RECIPE_NO = #{recipeNo}
+		AND MEMBER_NO = #{memberNo}
+	</delete>
+	
+	<insert id="insertRecipeLike">
+		INSERT INTO "RECIPE_LIKE"
+		VALUES(${memberNo},${recipeNo})
+	</insert>
+	
+	<select id="countRecipeLike" resultType="_int">
+		SELECT COUNT(*) FROM "RECIPE_LIKE"
+		WHERE RECIPE_NO = #{recipeNo}
+	</select>
+	
+	<delete id="deleteRecipeBookmark">
+		DELETE FROM "RECIPE_BOOKMARK"
+		WHERE RECIPE_NO = #{recipeNo}
+		AND MEMBER_NO = #{memberNo}
+	</delete>
+	
+	<insert id="insertRecipeBookmark">
+		INSERT INTO "RECIPE_BOOKMARK"
+		VALUES(${memberNo},${recipeNo})
+	</insert>
 </mapper>
