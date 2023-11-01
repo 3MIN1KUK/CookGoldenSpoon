@@ -35,15 +35,16 @@
 		OR HASHTAGS LIKE '%${inputSearch}%'
 	</select>
 	
-	<select id="selectSearchRecipe" resultType="Recipe">
+<!--	<select id="selectSearchRecipe" resultType="Recipe">
 		SELECT * FROM "RECIPE"
+		JOIN "RECIPE_TAG" USING(RECIPE_NO)
 		WHERE RECIPE_TITLE LIKE '%${inputSearch}%'
-		OR RECIPE_BRIEF LIKE '%${inputSearch}%'
-		OR INGREDIENT LIKE '%${inputSearch}%'
-		OR HOW_TO_COOK LIKE '%${inputSearch}%'
-		OR TIPS LIKE '%${inputSearch}%'
-		OR HASHTAGS LIKE '%${inputSearch}%'
-	</select>
+		OR RECIPE_INTRO LIKE '%${inputSearch}%'
+		OR RECIPE_TIP LIKE '%${inputSearch}%'
+		OR RECIPE_STEP_CONTENT LIKE '%${inputSearch}%'
+		OR RECIPE_TAG_NAME '%${inputSearch}%'
+		OR MATERIAL_NAME LIKE '%${inputSearch}%'
+	</select>-->
 	
 	<delete id="deleteRecipeLike">
 		DELETE FROM "RECIPE_LIKE"
