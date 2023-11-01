@@ -1,6 +1,7 @@
 package com.m1k.goldenSpoon.recipe.model.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.session.RowBounds;
@@ -42,5 +43,35 @@ public interface RecipeMapper {
 	 * @return
 	 */
 	List<Recipe> selectSearchRecipe(String inputSearch, RowBounds rowBounds);
+	
+	/** 좋아요 삭제
+	 * @param paramMap
+	 * @return
+	 */
+	int deleteRecipeLike(Map<String, Object> paramMap);
+	
+	/** 좋아요 삽입
+	 * @param paramMap
+	 * @return
+	 */
+	int insertRecipeLike(Map<String, Object> paramMap);
+	
+	/** 좋아요 수 조회
+	 * @param integer
+	 * @return
+	 */
+	int countRecipeLike(Integer integer);
+	
+	/** 북마크 삭제
+	 * @param paramMap
+	 * @return
+	 */
+	int deleteRecipeBookmark(Map<String, Object> paramMap);
+	
+	/** 북마크 삽입
+	 * @param paramMap
+	 * @return
+	 */
+	int insertRecipeBookmark(Map<String, Object> paramMap);
 
 }

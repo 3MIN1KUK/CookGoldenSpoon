@@ -29,6 +29,16 @@ public interface RecipeService {
 	Map<String, Object> search(int cp, String inputSearch);
 
 
+	/** 좋아요 처리
+	 * @param paramMap
+	 * @return
+	 */
 	int like(Map<String, Object> paramMap);
+
+	/** 북마크처리
+	 * @param paramMap
+	 * @return
+	 */
+	int bookmark(Map<String, Object> paramMap);
 
 }

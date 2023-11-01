@@ -69,7 +69,8 @@ public class RecipeController {
     
     @PostMapping("bookmark")
     @ResponseBody
-    public int bookmark() {
-    	return 0;
+    public int bookmark(@RequestBody Map<String, Object> paramMap, @SessionAttribute("loginMember") Member loginMember) {
+    	paramMap.put("memberNo", loginMember.getMemberNo());
+    	return service.bookmark(paramMap);
     }
 }

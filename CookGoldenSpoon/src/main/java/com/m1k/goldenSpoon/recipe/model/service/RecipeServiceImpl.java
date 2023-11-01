@@ -57,4 +57,30 @@ public class RecipeServiceImpl implements RecipeService{
 		map.put("pagination", pagination);
 		return map;
 	}
+	
+	@Override
+	public int like(Map<String, Object> paramMap) {
+		int result = 0;
+		if((Integer)(paramMap.get("check")) == 1) {
+			result = mapper.deleteRecipeLike(paramMap);
+		}
+		else {
+			result = mapper.insertRecipeLike(paramMap);
+		}
+		if(result == 0) return -1;
+		return mapper.countRecipeLike((Integer)(paramMap.get("boardNo")));
+	}
+	
+	@Override
+	public int bookmark(Map<String, Object> paramMap) {
+		int result = 0;
+		if((Integer)(paramMap.get("check")) == 1) {
+			result = mapper.deleteRecipeBookmark(paramMap);
+		}
+		else {
+			result = mapper.insertRecipeBookmark(paramMap);
+		}
+		if(result == 0) return -1;
+		return result;
+	}
 }
