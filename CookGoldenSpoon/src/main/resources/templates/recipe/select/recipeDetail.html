@@ -71,13 +71,18 @@
         <div class="recipe-subtitle">
           요리순서
         </div>
-        <div class="recipe-step">
-          STEP 1
-        </div>
-        <div class="content">
-          순서가 들어가는 칸
-        </div>
-        <div class="recipe-step">
+        <th:block th:each="recipeStep : ${recipeStepList}" th:object="${recipeStep}">
+          <div class="recipe-step">
+            STEP [[*{recipeStep}]]
+          </div>
+          <div class="content" th:text="|*{recipeStepContent}|">
+            순서가 들어가는 칸
+          </div>
+          <div>
+            <img th:src="*{recipeStepImage}">
+          </div>
+        </th:block>
+        <!-- <div class="recipe-step">
           STEP 2
         </div>
         <div class="content">
@@ -88,7 +93,7 @@
         </div>
         <div class="content">
           순서가 들어가는 칸
-        </div>
+        </div> -->
       </div>
       <div class="recipe-content  recipe-photos">
         <div class="recipe-subtitle">
