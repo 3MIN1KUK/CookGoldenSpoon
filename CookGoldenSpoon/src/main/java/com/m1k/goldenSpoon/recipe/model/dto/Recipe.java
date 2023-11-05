@@ -1,5 +1,7 @@
 package com.m1k.goldenSpoon.recipe.model.dto;
 
+import java.util.List;
+
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -11,16 +13,21 @@ public class Recipe {
 
 	private int recipeNo;
 	private String recipeTitle;
-	private String recipeBrief;
-	private String writer;
-	private String ingredient;
-	private String howToCook;
-	private String tips;
-	private double stars;
-	private String thumbnail;
-	private String stepPhotos;
-	private String endPhotos;
-	private String mainPhotos;
-	private String hashtags;
-	private String photos;
+	private String recipeThumbnail;
+	private String recipeIntro;
+	private String recipeTip;
+	private String recipeEnrollDate;
+	private String recipeDelFl;
+	private String recipeTime;
+	private String recipePeople;
+	private String recipeLevel;
+	private String memberNickname;
+	private double recipeStar;
+	private int recipeLike;
+	
+	private List<String> recipeTag;
+	private List<RecipeStep> recipeStepList;
+	private List<RecipeMaterial> recipeMaterialList;
+	private List<RecipeComment> recipeCommentList;
+	
 }

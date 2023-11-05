@@ -73,5 +73,25 @@ public interface RecipeMapper {
 	 * @return
 	 */
 	int insertRecipeBookmark(Map<String, Object> paramMap);
+	
+	/** 즐겨찾기 확인
+	 * @param map
+	 * @return
+	 */
+	int bookmarkCheck(Map<String, Integer> map);
+	
+	/** 좋아요 확인
+	 * @param map
+	 * @return
+	 */
+	int likeCheck(Map<String, Integer> map);
+	
+	/** 메인 페이지 인기 레시피
+	 * @param rowBounds
+	 * @return
+	 */
+	List<Recipe> selectPopularRecipe(RowBounds rowBounds);
 
+	
+	
 }

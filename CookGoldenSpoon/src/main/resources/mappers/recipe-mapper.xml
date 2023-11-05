@@ -3,6 +3,27 @@
 <!-- 연결할 인터페이스의 패키지명.인터페이스명을 작성 -->
 <mapper namespace="com.m1k.goldenSpoon.recipe.model.mapper.RecipeMapper">
 
+	<resultMap id="recipeDetail_rm" type="Recipe">
+		
+		<id property="recipeNo" column="RECIPE_NO" />
+		<collection property="recipeStepList" select="selectRecipeStep" column="RECIPE_NO" javaType="java.util.ArrayList" ofType="RecipeStep" />
+		<collection property="recipeMaterialList" select="selectRecipeMaterial" column="RECIPE_NO" javaType="java.util.ArrayList" ofType="RecipeMaterial" />
+		<collection property="recipeCommentList" select="selectRecipeComment" column="RECIPE_NO" javaType="java.util.ArrayList" ofType="RecipeComment" />
+		<collection property="recipeTag" select="selectRecipeTag" column="RECIPE_NO" javaType="java.util.ArrayList" ofType="String" />
+		
+	</resultMap>
+	<resultMap id="popularRecipe_rm" type="Recipe">
+		
+		<id property="recipeNo" column="RECIPE_NO" />
+		<collection property="recipeTag" select="selectRecipeTag" column="RECIPE_NO" javaType="java.util.ArrayList" ofType="String" />
+		
+	</resultMap>
+
+
+
+
+
+
 	<select id="listCount" resultType="_int">
 		SELECT COUNT(*) FROM RECIPE
 	</select>
@@ -20,10 +41,31 @@
 	</insert>
 	-->
 	
-	<select id="recipeDetail" resultType="Recipe">
+	<select id="recipeDetail" resultMap="recipeDetail_rm">
 		SELECT * FROM "RECIPE"
 		WHERE RECIPE_NO = #{recipeNo}
+		AND RECIPE_DEL_FL = 'N'
 	</select>	
+	<select id="selectRecipeStep" resultType="RecipeStep">
+		SELECT RECIPE_STEP_CONTENT, RECIPE_STEP_ORDER, RECIPE_STEP_IMAGE
+		FROM "RECIPE_STEP"
+		WHERE RECIPE_NO = #{recipeNo}
+		ORDER BY RECIPE_STEP_ORDER
+	</select>
+	<select id="selectRecipeMaterial" resultType="RecipeMaterial">
+		SELECT MATERIAL_NAME, RECIPE_MATERIAL_QUANTITY, RECIPE_MATERIAL_ORDER
+		FROM RECIPE_MATERIAL LEFT JOIN MATERIAL USING(MATERIAL_NO)
+		WHERE RECIPE_NO = #{recipeNo}
+	</select>
+	<select id="selectRecipeComment" resultType="RecipeComment">
+		SELECT RECIPE_COMMENT_ENROLL_DATE, RECIPE_COMMENT_CONTENT, RECIPE_COMMENT_DEL_FL
+		FROM RECIPE_COMMENT
+		WHERE RECIPE_NO = #{recipeNo}
+	</select>
+	<select id="selectRecipeTag" resultType="string">
+		SELECT RECIPE_TAG_NAME FROM "RECIPE_TAG"
+		WHERE RECIPE_NO = #{recipeNo}
+	</select>
 
 	<select id="listSearchCount" resultType="_int">
 		SELECT COUNT(*) FROM "RECIPE"
@@ -35,15 +77,16 @@
 		OR HASHTAGS LIKE '%${inputSearch}%'
 	</select>
 	
-	<select id="selectSearchRecipe" resultType="Recipe">
+<!--	<select id="selectSearchRecipe" resultType="Recipe">
 		SELECT * FROM "RECIPE"
+		JOIN "RECIPE_TAG" USING(RECIPE_NO)
 		WHERE RECIPE_TITLE LIKE '%${inputSearch}%'
-		OR RECIPE_BRIEF LIKE '%${inputSearch}%'
-		OR INGREDIENT LIKE '%${inputSearch}%'
-		OR HOW_TO_COOK LIKE '%${inputSearch}%'
-		OR TIPS LIKE '%${inputSearch}%'
-		OR HASHTAGS LIKE '%${inputSearch}%'
-	</select>
+		OR RECIPE_INTRO LIKE '%${inputSearch}%'
+		OR RECIPE_TIP LIKE '%${inputSearch}%'
+		OR RECIPE_STEP_CONTENT LIKE '%${inputSearch}%'
+		OR RECIPE_TAG_NAME '%${inputSearch}%'
+		OR MATERIAL_NAME LIKE '%${inputSearch}%'
+	</select>-->
 	
 	<delete id="deleteRecipeLike">
 		DELETE FROM "RECIPE_LIKE"
@@ -51,9 +94,20 @@
 		AND MEMBER_NO = #{memberNo}
 	</delete>
 	
+	<select id="likeCheck" resultType="_int">
+		SELECT COUNT(*) FROM "RECIPE_LIKE"
+		WHERE RECIPE_NO = #{recipeNo}
+		AND MEMBER_NO = #{memberNo}
+	</select>
+	<select id="bookmarkCheck" resultType="_int">
+		SELECT COUNT(*) FROM "RECIPE_BOOKMARK"
+		WHERE RECIPE_NO = #{recipeNo}
+		AND MEMBER_NO = #{memberNo}
+	</select>
+	
 	<insert id="insertRecipeLike">
 		INSERT INTO "RECIPE_LIKE"
-		VALUES(${memberNo},${recipeNo})
+		VALUES(${memberNo}, ${recipeNo})
 	</insert>
 	
 	<select id="countRecipeLike" resultType="_int">
@@ -71,4 +125,10 @@
 		INSERT INTO "RECIPE_BOOKMARK"
 		VALUES(${memberNo},${recipeNo})
 	</insert>
+	
+	<select id="selectPopularRecipe" resultMap="popularRecipe_rm">
+		SELECT RECIPE_NO, RECIPE_TITLE, RECIPE_THUMBNAIL, (SELECT COUNT(*) FROM RECIPE_LIKE RL WHERE RL.RECIPE_NO = R.RECIPE_NO) RECIPE_LIKE
+		FROM "RECIPE" R
+		ORDER BY RECIPE_LIKE DESC
+	</select>
 </mapper>
