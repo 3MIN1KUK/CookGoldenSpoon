@@ -15,20 +15,21 @@
 
       <div class="container">
         <div class="box">
-          <h1 class="login-title">비밀번호 변경 - 아이디 검색</h1>
+          <h1 class="login-title">비밀번호 변경 - 비밀번호 변경</h1>
           
     
-          <form action="/member/changePw" method="get">
+          <form action="/member/changePw" method="post">
             
             <div class="input-group">
-              <input type="text" id="memberid" name="memberId" placeholder="아이디을 입력해주세요">
+              <input type="text" id="memberPw" name="memberPw" placeholder="비밀번호를 입력해주세요">
             </div>
 
             <div class="input-group">
-              <input type="text" id="memberEmail" name="memberEmail" placeholder="이메일을 입력해주세요">
+              <input type="text" id="memberPwConfirm" name="memberPwConfirm" placeholder="비밀번호를 다시 입력해주세요">
             </div>
             
             <input type="submit" value="비밀번호 변경" class="btn" id="login-submit">
+            <input type="text" th:value="${memberNo}" name="memberNo">
           </form>
     
         </div>

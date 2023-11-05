@@ -17,5 +17,26 @@
 		#{memberNickname},
 		NULL, DEFAULT, DEFAULT, 1, null)
 	</insert>
+	
+	<select id="findId">
+		SELECT MEMBER_ID 
+		FROM "MEMBER"
+		WHERE MEMBER_EMAIL = #{memberEmail}
+	</select>
+	
+	
+	 <select id="findMember">
+		 SELECT MEMBER_NO
+		FROM "MEMBER"
+		WHERE MEMBER_ID = #{memberId}
+		AND MEMBER_EMAIL = #{memberEmail}
+	 </select>
+	
+	
+	 <update id="changePw">
+		UPDATE "MEMBER" SET 
+		MEMBER_PW = #{memberPw}
+		WHERE MEMBER_NO = #{memberNo}
+	 </update>
 
 </mapper>
