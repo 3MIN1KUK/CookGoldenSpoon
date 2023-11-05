@@ -21,49 +21,25 @@
     <!-- 레시피 -->
     <h3 class="small-title">인기 레시피</h3>
     <section class="recipe-row">
-      <div class="recipe-col">
+        <!-- <div class="recipe-col">
+          <div class="recipe-image"><img th:src="*{recipeThumbnail}" alt=""></div>
+          <div class="recipe-name" th:text="*{recipeTitle}">레시피 이름</div>
+          <div class="recipe-hashtag"><span th:each="tag : *{recipeTag}" th:text="${tag}"></span></div>
+        </div> -->
+        <a th:each="recipe : ${map.recipeList}" th:object="${recipe}" 
+            th:href="@{/recipe/select/{recipeNo}(recipeNo=*{recipeNo})}" class="recipe-col">
+          <div class="recipe-image" th:text="*{recipeThumbnail}"></div>
+          <div class="recipe-name" th:text="*{recipeTitle}"></div>
+          <div class="recipe-hashtag">
+            <span th:each="tag : *{recipeTag}" th:text="${tag}"></span>
+          </div>
+        </a>
+      <!-- <div class="recipe-col">
         <div class="recipe-image"></div>
         <div class="recipe-name">레시피 이름</div>
         <div class="recipe-hashtag">해시태그</div>
       </div>
-      <div class="recipe-col">
-        <div class="recipe-image"></div>
-        <div class="recipe-name">레시피 이름</div>
-        <div class="recipe-hashtag">해시태그</div>
-      </div>
-      <div class="recipe-col">
-        <div class="recipe-image"></div>
-        <div class="recipe-name">레시피 이름</div>
-        <div class="recipe-hashtag">해시태그</div>
-      </div>
-      <div class="recipe-col">
-        <div class="recipe-image"></div>
-        <div class="recipe-name">레시피 이름</div>
-        <div class="recipe-hashtag">해시태그</div>
-      </div>
-    </section>
-    <br><br>
-    <section class="recipe-row">
-      <div class="recipe-col">
-        <div class="recipe-image"></div>
-        <div class="recipe-name">레시피 이름</div>
-        <div class="recipe-hashtag">해시태그</div>
-      </div>
-      <div class="recipe-col">
-        <div class="recipe-image"></div>
-        <div class="recipe-name">레시피 이름</div>
-        <div class="recipe-hashtag">해시태그</div>
-      </div>
-      <div class="recipe-col">
-        <div class="recipe-image"></div>
-        <div class="recipe-name">레시피 이름</div>
-        <div class="recipe-hashtag">해시태그</div>
-      </div>
-      <div class="recipe-col">
-        <div class="recipe-image"></div>
-        <div class="recipe-name">레시피 이름</div>
-        <div class="recipe-hashtag">해시태그</div>
-      </div>
+      -->
     </section>
     <br><br><br>
     <!-- 쿠킹클래스 -->

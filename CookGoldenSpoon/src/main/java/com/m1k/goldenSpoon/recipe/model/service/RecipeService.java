@@ -55,4 +55,11 @@ public interface RecipeService {
 	 */
 	int bookmarkCheck(Map<String, Integer> map);
 
+
+	/** 메인 페이지 인기 레시피
+	 * @return
+	 */
+	Map<String, Object> popularRecipe(int cp);
+
+
 }

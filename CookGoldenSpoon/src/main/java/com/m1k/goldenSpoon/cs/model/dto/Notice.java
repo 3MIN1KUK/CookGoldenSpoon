@@ -11,11 +11,11 @@ import lombok.ToString;
 @NoArgsConstructor
 public class Notice {
 	
-	private int noticeNo;
-	private String noticeTitle;
-	private String noticeContent;
-	private String noticeWriter;
-	private String enrollDate;
-	private int hits;
+	private int boardNo;
+	private String boardTitle;
+	private String boardContent;
+	private String memberNickname;
+	private String boardEnrollDate;
+	private int boardHits;
 
 }

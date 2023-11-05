@@ -12,6 +12,12 @@
 		<collection property="recipeTag" select="selectRecipeTag" column="RECIPE_NO" javaType="java.util.ArrayList" ofType="String" />
 		
 	</resultMap>
+	<resultMap id="popularRecipe_rm" type="Recipe">
+		
+		<id property="recipeNo" column="RECIPE_NO" />
+		<collection property="recipeTag" select="selectRecipeTag" column="RECIPE_NO" javaType="java.util.ArrayList" ofType="String" />
+		
+	</resultMap>
 
 
 
@@ -119,4 +125,10 @@
 		INSERT INTO "RECIPE_BOOKMARK"
 		VALUES(${memberNo},${recipeNo})
 	</insert>
+	
+	<select id="selectPopularRecipe" resultMap="popularRecipe_rm">
+		SELECT RECIPE_NO, RECIPE_TITLE, RECIPE_THUMBNAIL, (SELECT COUNT(*) FROM RECIPE_LIKE RL WHERE RL.RECIPE_NO = R.RECIPE_NO) RECIPE_LIKE
+		FROM "RECIPE" R
+		ORDER BY RECIPE_LIKE DESC
+	</select>
 </mapper>

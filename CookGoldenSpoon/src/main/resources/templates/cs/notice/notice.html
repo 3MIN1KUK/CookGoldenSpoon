@@ -21,12 +21,12 @@
       </div>
       <div class="content-container">
         <th:block th:each="notice : ${noticeList}" th:object="${notice}">
-          <a th:href="@{/cs/notice/{noticeNo}(noticeNo=*{noticeNo})}" class="notice">
-            <span th:text="*{noticeNo}">No.1</span>
-            <span th:text="*{noticeTitle}">첫 번째 공지사항 입니다</span>
-            <span th:text="*{noticeWriter}">작성자</span>
-            <span th:text="*{enrollDate}" >날짜</span>
-            <span th:text="*{hits}">조회수</span>
+          <a th:href="@{/cs/notice/{noticeNo}(noticeNo=*{boardNo})}" class="notice">
+            <span th:text="*{boardNo}">No.1</span>
+            <span th:text="*{boardTitle}">첫 번째 공지사항 입니다</span>
+            <span th:text="*{memberNickname}">작성자</span>
+            <span th:text="*{boardEnrollDate}" >날짜</span>
+            <span th:text="*{boardHits}">조회수</span>
           </a>
         </th:block>
       </div>

@@ -85,5 +85,13 @@ public interface RecipeMapper {
 	 * @return
 	 */
 	int likeCheck(Map<String, Integer> map);
+	
+	/** 메인 페이지 인기 레시피
+	 * @param rowBounds
+	 * @return
+	 */
+	List<Recipe> selectPopularRecipe(RowBounds rowBounds);
 
+	
+	
 }
