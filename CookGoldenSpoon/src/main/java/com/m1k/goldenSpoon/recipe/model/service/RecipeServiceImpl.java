@@ -92,4 +92,18 @@ public class RecipeServiceImpl implements RecipeService{
 	public int bookmarkCheck(Map<String, Integer> map) {
 		return mapper.bookmarkCheck(map);
 	}
+	
+	@Override
+	public Map<String, Object> popularRecipe(int cp) {
+		Pagination pagination = new Pagination(cp, 40, 8, 1);
+		int offset = (pagination.getCurrentPage() -1) * pagination.getLimit();
+		int limit = pagination.getLimit();
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		List<Recipe> recipeList = mapper.selectPopularRecipe(rowBounds);
+		Map<String,	Object> map = new HashMap<>();
+		map.put("recipeList", recipeList);
+		map.put("pagination", pagination);
+		return map;
+	}
+	
 }

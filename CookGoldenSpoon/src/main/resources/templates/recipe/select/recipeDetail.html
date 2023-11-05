@@ -71,11 +71,11 @@
         <div class="recipe-subtitle">
           요리순서
         </div>
-        <th:block th:each="recipeStep : ${recipeStepList}" th:object="${recipeStep}">
+        <th:block th:each="recipeStep : *{recipeStepList}" th:object="${recipeStep}">
           <div class="recipe-step">
-            STEP [[*{recipeStep}]]
+            STEP [[*{recipeStepOrder}]]
           </div>
-          <div class="content" th:text="|*{recipeStepContent}|">
+          <div class="content" th:text="*{recipeStepContent}">
             순서가 들어가는 칸
           </div>
           <div>
