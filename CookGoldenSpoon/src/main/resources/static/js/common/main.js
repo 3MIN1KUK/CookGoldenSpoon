@@ -7,3 +7,11 @@ inputSearch.addEventListener('keyup', e=>{
     location.href = "/recipe/select/search?inputSearch=" + e.target.value;
   }
 });
+
+// const recipeLeftBtn = document.querySelector(".recipeLeftBtn");
+// const recipeRightBtn = document.querySelector(".recipeRightBtn");
+
+// recipeLeftBtn.addEventListener("click", e=>{
+//   fetch()
+//   .
+// });

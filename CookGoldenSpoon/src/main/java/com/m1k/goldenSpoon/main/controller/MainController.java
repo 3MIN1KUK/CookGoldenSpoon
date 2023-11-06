@@ -23,8 +23,6 @@ public class MainController {
 		Map<String, Object> map = service.popularRecipe(cp);
 		model.addAttribute("map", map);
 		
-		
-		
 		return "index";
 	}
 }
