@@ -73,14 +73,12 @@ const stars = document.getElementsByClassName("stars");
 
 for(let i = 0; i<stars.length ; i++){
     stars[i].addEventListener("click", e=>{
-        console.log(e.target.firstElementChild.value);
 
         if(!loginCheck){
             alert("로그인 후 이용해주세요");
             return;
         }
-        
-        const dataObj = {"recipeNo" : recipeNo, "starsCheck" : e.target.firstElementChild.value};
+        const dataObj = {"recipeNo" : recipeNo, "recipeStar" : i+1, "check" : recipeStarCheck};
 
         fetch("/recipe/stars",{
             method : "POST",
@@ -88,7 +86,21 @@ for(let i = 0; i<stars.length ; i++){
             body : JSON.stringify(dataObj)
         })
         .then(resp => resp.text())
-        .then()
+        .then(result =>{
+            if(result > 0){
+                for(let u = 0; u<5; u++){
+                    if(u <= i){
+                        stars[u].classList.remove("fa-regular");
+                        stars[u].classList.add("fa-solid");
+                    }else{
+                        stars[u].classList.remove("fa-solid");
+                        stars[u].classList.add("fa-regular");
+                    }
+                }
+            }
+
+
+        })
         .catch(e=>console.log(e));
 
 

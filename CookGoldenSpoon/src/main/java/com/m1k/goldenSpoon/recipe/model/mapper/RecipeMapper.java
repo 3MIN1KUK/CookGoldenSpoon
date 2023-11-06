@@ -108,12 +108,12 @@ public interface RecipeMapper {
 	 * @param map
 	 * @return
 	 */
-	int starsCheck(Map<String, Integer> map);
+	Object starsCheck(Map<String, Integer> map);
 	/** 별점 null 체크
 	 * @param map
 	 * @return
 	 */
-	int countStarsCheck(Map<String, Integer> map);
+//	int countStarsCheck(Map<String, Integer> map);
 
 	
 	

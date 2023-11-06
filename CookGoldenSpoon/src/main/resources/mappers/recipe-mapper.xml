@@ -6,6 +6,7 @@
 	<resultMap id="recipeDetail_rm" type="Recipe">
 		
 		<id property="recipeNo" column="RECIPE_NO" />
+		<association property="recipeStar" select="selectRecipeStar" column="RECIPE_NO" javaType="_double"/>
 		<collection property="recipeStepList" select="selectRecipeStep" column="RECIPE_NO" javaType="java.util.ArrayList" ofType="RecipeStep" />
 		<collection property="recipeMaterialList" select="selectRecipeMaterial" column="RECIPE_NO" javaType="java.util.ArrayList" ofType="RecipeMaterial" />
 		<collection property="recipeCommentList" select="selectRecipeComment" column="RECIPE_NO" javaType="java.util.ArrayList" ofType="RecipeComment" />
@@ -138,27 +139,32 @@
 	<!-- 별점 삽입 -->
 	<insert id="insertRecipeStar">
 		INSERT INTO "RECIPE_STAR"
-		VALUES(${memberNo},${recipeNo},${stars})
+		VALUES(${memberNo},${recipeNo},${recipeStar})
 	</insert>
 	
 	<!-- 별점 수정 -->
 	<update id="updateRecipeStar">
 		UPDATE "RECIPE_STAR" SET
-		RECIPE_STAR = #{stars}
+		RECIPE_STAR = #{recipeStar}
 		WHERE MEMBER_NO = #{memberNo}
 		AND RECIPE_NO = #{recipeNo}
 	</update>
 	
 	<!-- 별점 수 체크 -->
-	<select id="starsCheck" resultType="_int">
+	<select id="starsCheck" resultType="object">
 		SELECT RECIPE_STAR FROM RECIPE_STAR
 		WHERE MEMBER_NO = #{memberNo}
 		AND RECIPE_NO = #{recipeNo}
 	</select>
 	
-	<select id="countStarsCheck" resultType="_int">
+	<!--<select id="countStarsCheck" resultType="_int">
 		SELECT COUNT(*) FROM RECIPE_STAR
 		WHERE MEMBER_NO = #{memberNo}
 		AND RECIPE_NO = #{recipeNo}
+	</select>-->
+	
+	<!-- 별점 평균 -->
+	<select id="selectRecipeStar" resultType="_double">
+		SELECT ROUND(AVG(RECIPE_STAR), 1) RECIPE_STAR FROM RECIPE_STAR WHERE RECIPE_NO = #{recipeNo}
 	</select>
 </mapper>
