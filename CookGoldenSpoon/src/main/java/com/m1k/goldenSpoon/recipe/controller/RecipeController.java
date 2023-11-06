@@ -66,12 +66,12 @@ public class RecipeController {
 				map.put("memberNo", loginMember.getMemberNo());
 				int likeCheck = service.likeCheck(map);
 				int bookmarkCheck = service.bookmarkCheck(map);
-				int starsCheck = service.starsCheck(map);
+				int recipeStar = service.starsCheck(map);
 				
-				if(starsCheck > 0) {
-					model.addAttribute("starsCheck", starsCheck);
+				if(recipeStar > 0) {
+					model.addAttribute("recipeStar", recipeStar);
 				} else {
-					model.addAttribute("starsCheck", 0);
+					model.addAttribute("recipeStar", 0);
 				}
 				if(likeCheck == 1) model.addAttribute("likeCheck", "on");
 				if(bookmarkCheck == 1) model.addAttribute("bookmarkCheck", "on");

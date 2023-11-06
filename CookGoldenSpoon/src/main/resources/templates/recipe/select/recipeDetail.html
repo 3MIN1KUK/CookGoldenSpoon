@@ -20,27 +20,26 @@
           <div class="recipe-title" th:text="*{recipeTitle}">
             맛있는 요리 레시피
           </div>
-          <div class="star-point" th:text="*{recipeStar}">
-            별점
+          <div class="star-point">
+            <i class="fa-star fa-solid" style="color: gold;"></i> [[*{recipeStar}]]
           </div>
           <div th:text="*{recipeIntro}">
             간략한 소개<br><br><br>입니다
           </div>
-          <div>
-            <span th:each="tag : *{recipeTag}" th:text="${tag}"></span>
-            해시태그
+          <div class="recipeTag">
+            <span th:each="tag : *{recipeTag}" th:text="${tag}" class="tags">해시태그</span>
           </div>
         </div>
       </div>
-      <div class="bookmark">
+      <div class="bookmark" th:if="${loginMember != null}">
         <span id="like"><i class="fa-heart" style="color: red;" th:classappend="${likeCheck} ? fa-solid : fa-regular"></i> 좋아요</span>
         <span id="bookmark"><i class="fa-star" style="color: gold;" th:classappend="${bookmarkCheck} ? fa-solid : fa-regular"></i> 즐겨찾기</span>
         <span id="stars">
-          <label class="fa-star stars" style="color: gold;" th:classappend="${starsCheck >= 1} ? fa-solid : fa-regular"><input type="hidden" value="1"></label>
-          <label class="fa-star stars" style="color: gold;" th:classappend="${starsCheck >= 2} ? fa-solid : fa-regular"><input type="hidden" value="2"></label>
-          <label class="fa-star stars" style="color: gold;" th:classappend="${starsCheck >= 3} ? fa-solid : fa-regular"><input type="hidden" value="3"></label>
-          <label class="fa-star stars" style="color: gold;" th:classappend="${starsCheck >= 4} ? fa-solid : fa-regular"><input type="hidden" value="4"></label>
-          <label class="fa-star stars" style="color: gold;" th:classappend="${starsCheck >= 5} ? fa-solid : fa-regular"><input type="hidden" value="5"></label>
+          <i class="fa-star stars" style="color: gold;" th:classappend="${recipeStar >= 1} ? fa-solid : fa-regular"></i>
+          <i class="fa-star stars" style="color: gold;" th:classappend="${recipeStar >= 2} ? fa-solid : fa-regular"></i>
+          <i class="fa-star stars" style="color: gold;" th:classappend="${recipeStar >= 3} ? fa-solid : fa-regular"></i>
+          <i class="fa-star stars" style="color: gold;" th:classappend="${recipeStar >= 4} ? fa-solid : fa-regular"></i>
+          <i class="fa-star stars" style="color: gold;" th:classappend="${recipeStar >= 5} ? fa-solid : fa-regular"></i>
           별점
         </span>
       </div>
@@ -176,7 +175,7 @@
   <script th:inline="javascript">
     const recipeNo = /*[[${recipeNo}]]*/ "레시피 번호";
     const loginCheck = /*[[${session.loginMember != null ? true : false}]]*/ "로그인 여부";
-    const starsCheck = /*[[${starsCheck}]]*/ "별점 수";
+    const recipeStarCheck = /*[[${recipeStar}]]*/ "별점 수";
   </script>
   <script src="/js/recipe/select/recipeDetail.js"></script>
   <script src="/js/common/project.js"></script>

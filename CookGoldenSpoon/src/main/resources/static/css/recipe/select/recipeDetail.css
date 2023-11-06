@@ -152,8 +152,33 @@
   margin: 2rem;
 }
 
-.bookmark span{
+#like, #bookmark{
   margin: 1rem;
   cursor: pointer;
   padding: var(--padding-font);
+}
+#stars{
+  margin: 1rem;
+  padding: var(--padding-font);
+}
+#stars *{
+  cursor: pointer;
+}
+.tags{
+  font-size: 1.7rem;
+  background-color: var(--color-main);
+  color: white;
+  margin: 0.5rem;
+  padding: var(--padding-font);
+  border-radius: 1rem;
+}
+
+.recipeTag{
+  display: flex;
+  flex-wrap: wrap;
+  padding: 1.5rem;
+}
+
+.star-point{
+  padding: 0;
 }

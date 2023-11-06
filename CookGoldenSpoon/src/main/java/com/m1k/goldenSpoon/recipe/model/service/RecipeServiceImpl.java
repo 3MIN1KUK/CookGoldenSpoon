@@ -112,7 +112,7 @@ public class RecipeServiceImpl implements RecipeService{
 	@Override
 	public int stars(Map<String, Object> paramMap) {
 		int result = 0;
-		if((Integer)(paramMap.get("starsCheck")) == 0) {
+		if((Integer)(paramMap.get("check")) == 0) {
 			result = mapper.insertRecipeStar(paramMap);
 		} else {
 			result = mapper.updateRecipeStar(paramMap);
@@ -124,10 +124,13 @@ public class RecipeServiceImpl implements RecipeService{
 	// 별점 수 체크
 	@Override
 	public int starsCheck(Map<String, Integer> map) {
-		if(mapper.countStarsCheck(map) == 0) {
+//		if(mapper.countStarsCheck(map) == 0) {
+//			return 0;
+//		}
+		if(mapper.starsCheck(map) == null) {
 			return 0;
+		} else {
+			return Integer.parseInt(String.valueOf(mapper.starsCheck(map)));
 		}
-		
-		return mapper.starsCheck(map);
 	}
 }
