@@ -54,7 +54,30 @@ form{
   margin: auto;
 }
 
+/* 이미지 */
 
+.boardImg > img{
+  max-width: 99%;
+  max-height: 99%;
+}
+
+.boardImg{
+  position: relative;
+}
+
+.boardImg > label{
+  width: 98%;
+  height: 98%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #ccc;
+  cursor: pointer;
+}
+
+.inputImage{
+  display: none;
+}
 .name{
   border: 0.35rem solid rgb(165, 78, 78);
   width: 47rem;
@@ -77,6 +100,7 @@ form{
   align-items: center;
 }
 
+
 .main-Picture{
   width: 50%;
   text-align: center;
@@ -85,10 +109,10 @@ form{
 
 
 /* 추가 버튼 */
-.processBtn1{
+/* .processBtn1{
   width: 18rem;
   height: 16rem;
-}
+} */
 
 
 /* 요리영상 */
@@ -414,13 +438,20 @@ form{
   border: none;
 }
 
-.btn9-1
 
 
 
-
-
-
+/* ------------------------------------- */
+/* 이미지 삭제 버튼(공통) */
+/* 삭제 버튼 */
+.delete-image{
+  position: absolute;
+  top: 1rem;
+  right: 1.5rem;
+  font-size: 2rem;
+  cursor: pointer;
+  color: black;
+}
 
 
 
