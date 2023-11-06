@@ -30,7 +30,7 @@
           <div class="recipe-image" th:text="*{recipeThumbnail}"></div>
           <div class="recipe-name" th:text="*{recipeTitle}"></div>
           <div class="recipe-hashtag">
-            <span th:each="tag : *{recipeTag}" th:text="${tag}"></span>
+            <span th:each="tag : *{recipeTag}" th:text="${tag}" class="tags"></span>
           </div>
         </a>
       </div>

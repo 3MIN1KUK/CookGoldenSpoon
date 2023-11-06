@@ -91,6 +91,29 @@ public interface RecipeMapper {
 	 * @return
 	 */
 	List<Recipe> selectPopularRecipe(RowBounds rowBounds);
+	
+	
+	/** 별점 삽입
+	 * @param paramMap
+	 * @return
+	 */
+	int insertRecipeStar(Map<String, Object> paramMap);
+	
+	/** 별점 수정
+	 * @param paramMap
+	 * @return
+	 */
+	int updateRecipeStar(Map<String, Object> paramMap);
+	/** 별점 수 체크
+	 * @param map
+	 * @return
+	 */
+	int starsCheck(Map<String, Integer> map);
+	/** 별점 null 체크
+	 * @param map
+	 * @return
+	 */
+	int countStarsCheck(Map<String, Integer> map);
 
 	
 	
