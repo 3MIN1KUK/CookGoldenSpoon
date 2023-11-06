@@ -88,11 +88,13 @@ public class RecipeServiceImpl implements RecipeService{
 		if(result == 0) return -1;
 		return result;
 	}
+	
 	@Override
 	public int bookmarkCheck(Map<String, Integer> map) {
 		return mapper.bookmarkCheck(map);
 	}
 	
+	// 좋아요 순 레시피 조회
 	@Override
 	public Map<String, Object> popularRecipe(int cp) {
 		Pagination pagination = new Pagination(cp, 40, 8, 1);
@@ -106,4 +108,26 @@ public class RecipeServiceImpl implements RecipeService{
 		return map;
 	}
 	
+	// 별점 기능
+	@Override
+	public int stars(Map<String, Object> paramMap) {
+		int result = 0;
+		if((Integer)(paramMap.get("starsCheck")) == 0) {
+			result = mapper.insertRecipeStar(paramMap);
+		} else {
+			result = mapper.updateRecipeStar(paramMap);
+		}
+			
+		return result;
+	}
+	
+	// 별점 수 체크
+	@Override
+	public int starsCheck(Map<String, Integer> map) {
+		if(mapper.countStarsCheck(map) == 0) {
+			return 0;
+		}
+		
+		return mapper.starsCheck(map);
+	}
 }

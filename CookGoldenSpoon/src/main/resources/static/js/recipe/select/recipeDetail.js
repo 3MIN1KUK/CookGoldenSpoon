@@ -15,7 +15,7 @@ like.addEventListener("click", e=>{
         check = 1;
     }
 
-    const dataObj = {"recipeNo" : recipeNo, "check" : check};
+    const dataObj = {"recipeNo" : recipeNo, "check" : check, "starsCheck" : starsCheck};
 
     fetch("/recipe/like", {
         method : "POST",
@@ -68,3 +68,29 @@ bookmark.addEventListener("click", e=>{
     })
     .catch(e=>console.log(e));
 });
+
+const stars = document.getElementsByClassName("stars");
+
+for(let i = 0; i<stars.length ; i++){
+    stars[i].addEventListener("click", e=>{
+        console.log(e.target.firstElementChild.value);
+
+        if(!loginCheck){
+            alert("로그인 후 이용해주세요");
+            return;
+        }
+        
+        const dataObj = {"recipeNo" : recipeNo, "starsCheck" : e.target.firstElementChild.value};
+
+        fetch("/recipe/stars",{
+            method : "POST",
+            headers : {"Content-Type" : "application/json"},
+            body : JSON.stringify(dataObj)
+        })
+        .then(resp => resp.text())
+        .then()
+        .catch(e=>console.log(e));
+
+
+    });
+}

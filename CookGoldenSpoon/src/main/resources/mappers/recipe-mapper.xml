@@ -12,7 +12,7 @@
 		<collection property="recipeTag" select="selectRecipeTag" column="RECIPE_NO" javaType="java.util.ArrayList" ofType="String" />
 		
 	</resultMap>
-	<resultMap id="popularRecipe_rm" type="Recipe">
+	<resultMap id="selectRecipe_rm" type="Recipe">
 		
 		<id property="recipeNo" column="RECIPE_NO" />
 		<collection property="recipeTag" select="selectRecipeTag" column="RECIPE_NO" javaType="java.util.ArrayList" ofType="String" />
@@ -28,8 +28,10 @@
 		SELECT COUNT(*) FROM RECIPE
 	</select>
 	
-	<select id="selectRecipe" resultType="Recipe">
-		SELECT * FROM RECIPE
+	<select id="selectRecipe" resultMap="selectRecipe_rm">
+		SELECT RECIPE_NO, RECIPE_TITLE, RECIPE_THUMBNAIL FROM RECIPE
+		WHERE RECIPE_DEL_FL = 'N'
+		ORDER BY RECIPE_ENROLL_DATE DESC
 	</select>
 	
 <!--	<insert id="enroll">
@@ -126,9 +128,37 @@
 		VALUES(${memberNo},${recipeNo})
 	</insert>
 	
-	<select id="selectPopularRecipe" resultMap="popularRecipe_rm">
+	<select id="selectPopularRecipe" resultMap="selectRecipe_rm">
 		SELECT RECIPE_NO, RECIPE_TITLE, RECIPE_THUMBNAIL, (SELECT COUNT(*) FROM RECIPE_LIKE RL WHERE RL.RECIPE_NO = R.RECIPE_NO) RECIPE_LIKE
 		FROM "RECIPE" R
+		WHERE RECIPE_DEL_FL = 'N'
 		ORDER BY RECIPE_LIKE DESC
+	</select>
+	
+	<!-- 별점 삽입 -->
+	<insert id="insertRecipeStar">
+		INSERT INTO "RECIPE_STAR"
+		VALUES(${memberNo},${recipeNo},${stars})
+	</insert>
+	
+	<!-- 별점 수정 -->
+	<update id="updateRecipeStar">
+		UPDATE "RECIPE_STAR" SET
+		RECIPE_STAR = #{stars}
+		WHERE MEMBER_NO = #{memberNo}
+		AND RECIPE_NO = #{recipeNo}
+	</update>
+	
+	<!-- 별점 수 체크 -->
+	<select id="starsCheck" resultType="_int">
+		SELECT RECIPE_STAR FROM RECIPE_STAR
+		WHERE MEMBER_NO = #{memberNo}
+		AND RECIPE_NO = #{recipeNo}
+	</select>
+	
+	<select id="countStarsCheck" resultType="_int">
+		SELECT COUNT(*) FROM RECIPE_STAR
+		WHERE MEMBER_NO = #{memberNo}
+		AND RECIPE_NO = #{recipeNo}
 	</select>
 </mapper>

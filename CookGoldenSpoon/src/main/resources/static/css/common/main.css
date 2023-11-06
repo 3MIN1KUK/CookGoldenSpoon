@@ -12,3 +12,12 @@
   right: -4rem;
   top: 42rem;
 } */
+
+.tags{
+  font-size: 1.6rem;
+  background-color: var(--color-main);
+  color: white;
+  margin: 0.3rem;
+  padding: var(--padding-font);
+  border-radius: 1rem;
+}
