@@ -49,6 +49,7 @@ public class MemberServiceImpl implements MemberService{
 	
 	
 	@Override
+	// 아이디 찾기
 	public String findId(String memberEmail) {
 		
 		String memberId = mapper.findId(memberEmail);
@@ -58,9 +59,9 @@ public class MemberServiceImpl implements MemberService{
 	
 	
 	@Override
-	public int findMember(Member searchMember) {
+	public String findMember(Member searchMember) {
 		
-		int memberNo = mapper.findMember(searchMember);
+		String memberNo = mapper.findMember(searchMember);
 		
 		return memberNo;
 	}
