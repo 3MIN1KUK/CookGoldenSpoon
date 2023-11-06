@@ -1,5 +1,7 @@
 package com.m1k.goldenSpoon.member.model.mapper;
 
+import java.util.Map;
+
 import org.apache.ibatis.annotations.Mapper;
 
 import com.m1k.goldenSpoon.member.model.dto.Member;
@@ -18,5 +20,23 @@ public interface MemberMapper {
 	 * @return
 	 */
 	int signup(Member signupMember);
+
+	/** 아이디 찾기
+	 * @param memberEmail
+	 * @return
+	 */
+	String findId(String memberEmail);
+
+	/** 아이디 검색
+	 * @param searchMember
+	 * @return
+	 */
+	int findMember(Member searchMember);
+
+	/** 비밀번호 바꾸기
+	 * @param map
+	 * @return
+	 */
+	int changePw(Map<String, Object> map);
 
 }

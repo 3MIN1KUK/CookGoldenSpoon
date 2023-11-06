@@ -46,5 +46,39 @@ public class MemberServiceImpl implements MemberService{
 		
 		return result;
 	}
+	
+	
+	@Override
+	public String findId(String memberEmail) {
+		
+		String memberId = mapper.findId(memberEmail);
+		
+		return memberId;
+	}
+	
+	
+	@Override
+	public int findMember(Member searchMember) {
+		
+		int memberNo = mapper.findMember(searchMember);
+		
+		return memberNo;
+	}
+	
+	
+	@Override
+	public int changePw(int memberNo, String memberPw) {
+		
+		memberPw = bcrypt.encode(memberPw);
+		
+		Map<String, Object> map = new HashMap<>();
+		map.put("memberPw", memberPw);
+		map.put("memberNo", memberNo);
+		
+		int result = mapper.changePw(map);
+		
+		return result;
+	}
+	
 
 }
