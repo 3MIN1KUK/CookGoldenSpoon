@@ -197,6 +197,7 @@ nav>ul{
   border-radius: 2rem;
   padding: 6.7rem;
   padding-bottom: 3rem;
+  position: relative;
 }
 .content-container{
   width: 100%;
@@ -401,6 +402,7 @@ nav>ul{
 footer{
   height: 20rem;
 }
+
 
 
 

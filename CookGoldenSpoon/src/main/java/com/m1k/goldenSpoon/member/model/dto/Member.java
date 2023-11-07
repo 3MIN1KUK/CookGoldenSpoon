@@ -19,5 +19,11 @@ public class Member {
 	private String memberEnrollDate;
 	private String memberDelFl;
 	private int memberAuthority;
-	private String selfIntroduction;
+	private String memberIntro;
+	
+	private int likeCount;
+	private int bookmarkCount;
+	private int recipeCount;
+	private int boardCount;
+	private int commentCount;
 }
