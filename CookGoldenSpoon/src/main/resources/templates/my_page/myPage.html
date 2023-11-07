@@ -19,7 +19,8 @@
       <div class="userInfo" th:object="${myPageMember}">
         <div class="userInfo-row">
           <div class="userInfo-image">
-            <img src="https://placehold.co/600x400/png" alt="프로필 사진">
+            <img th:unless="*{memberProfile}" th:src="#{user.default.image}" class="memberProfile">
+            <img th:if="*{memberProfile}" th:src="*{memberProfile}" class="memberProfile">
           </div>
           <div class="userInfo-nickname" th:text="*{memberNickname}">
             김민석
@@ -35,58 +36,58 @@
             <th:block th:if="*{memberAuthority == 3}">관리자</th:block>
           </div>
         </div>
-        <div class="userInfo-row">
-          <div class="userInfo-intro" th:if="*{memberIntro == null}">
-            한 줄 소개가 없습니다
-          </div>
-          <div class="userInfo-intro" th:unless="*{memberIntro == null}" th:text="*{memberIntro}">
-            한 줄 소개
-          </div>
+        <div class="userInfo-row memberIntro">
+            <div class="userInfo-intro" th:unless="*{memberIntro}">
+              한 줄 소개가 없습니다
+            </div>
+            <div class="userInfo-intro" th:if="*{memberIntro}" th:text="*{memberIntro}">
+              한 줄 소개
+            </div>
         </div>
         <div class="userInfo-row counts">
           <div>
             <i class="fa-heart fa-solid fa-lg"></i>
             <div>
               <div>
-                받은 좋아요 수
+                받은 좋아요
               </div>
-              <div class="countsNumber">9</div>
+              <div class="countsNumber" th:text="*{likeCount}">9</div>
             </div>
           </div>
           <div>
             <i class="fa-star fa-solid fa-lg"></i>
             <div>
               <div>
-                받은 즐겨찾기 수
+                받은 즐겨찾기
               </div>
-              <div class="countsNumber">9</div>
+              <div class="countsNumber" th:text="*{bookmarkCount}">9</div>
             </div>
           </div>
           <div>
             <i class="fa-solid fa-utensils fa-lg"></i>
             <div>
               <div>
-                나의 레시피 수
+                레시피 수
               </div>
-              <div class="countsNumber">9</div>
+              <div class="countsNumber" th:text="*{recipeCount}">9</div>
             </div>
           </div>
           <div>
             <i class="fa-solid fa-pencil fa-lg"></i>
             <div>
               <div>
-                나의 게시글 수
+                게시글 수
               </div>
-              <div class="countsNumber">9</div>
+              <div class="countsNumber" th:text="*{boardCount}">9</div>
             </div>
           </div>
           <div>
             <i class="fa-regular fa-comment-dots fa-lg"></i>
             <div>
               <div>
-                나의 댓글 수
+                댓글 수
               </div>
-              <div class="countsNumber">9</div>
+              <div class="countsNumber" th:text="*{commentCount}">9</div>
             </div>
           </div>
         </div>

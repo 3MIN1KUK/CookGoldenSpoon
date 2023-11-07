@@ -150,12 +150,17 @@
   display: flex;
   align-items: center;
   margin: 2rem;
+  padding: 0 2rem 0 1rem;
 }
-
+.temp{
+  display: flex;
+  align-items: center;
+  margin: 0.5rem;
+}
 #like, #bookmark{
-  margin: 1rem;
   cursor: pointer;
-  padding: var(--padding-font);
+  margin: 0 0.3rem;
+  user-select: none;
 }
 #stars{
   margin: 1rem;
@@ -181,4 +186,9 @@
 
 .star-point{
   padding: 0;
+}
+
+.memberProfile{
+  max-width: 100%;
+  max-height: 100%;
 }

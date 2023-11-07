@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.m1k.goldenSpoon.board.model.dto.Board;
 import com.m1k.goldenSpoon.member.model.dto.Member;
 import com.m1k.goldenSpoon.myPage.model.service.MyPageService;
 
@@ -32,7 +31,7 @@ public class MyPageController {
 	 * "my_page/teacher/cookingclass_teacher"; }
 	 */
 	
-	@GetMapping("/main")
+	@GetMapping("main")
 	public String myPage(@SessionAttribute("loginMember") Member loginMember, Model model) {
 		int memberNo = loginMember.getMemberNo();
 		Member myPageMember = service.myPage(memberNo);
@@ -40,15 +39,15 @@ public class MyPageController {
 		return "my_page/myPage";
 	}
 	
-	@GetMapping("like")
-	public String myPageLike(@SessionAttribute("loginMember") Member loginMember, Model model,
-			@RequestParam(value = "cp", required = false, defaultValue = "1") int cp) {
-		int memberNo = loginMember.getMemberNo();
-		
-		Map<String, Object> map = service.myPageLike(memberNo, cp);
-		model.addAttribute("map", map);
-		return "my_page/like/myPageLike";
-	}
+//	@GetMapping("like")
+//	public String myPageLike(@SessionAttribute("loginMember") Member loginMember, Model model,
+//			@RequestParam(value = "cp", required = false, defaultValue = "1") int cp) {
+//		int memberNo = loginMember.getMemberNo();
+//		
+//		Map<String, Object> map = service.myPageLike(memberNo, cp);
+//		model.addAttribute("map", map);
+//		return "my_page/like/myPageLike";
+//	}
 	
 	@GetMapping("bookmark")
 	public String myPageBookmark(@SessionAttribute("loginMember") Member loginMember, Model model,
@@ -57,7 +56,7 @@ public class MyPageController {
 		
 		Map<String, Object> map = service.myPageBookmark(memberNo, cp);
 		model.addAttribute("map", map);
-		return "my_page/bookmark/mypageBookmark";
+		return "my_page/bookmark/myPageBookmark";
 	}
 	
 	@GetMapping("board")
@@ -80,8 +79,21 @@ public class MyPageController {
 		return "my_page/recipe/myPageRecipe";
 	}
 	
+	@GetMapping("edit")
+	public String myPageEdit(@SessionAttribute("loginMember") Member loginMember, Model model) {
+		int memberNo = loginMember.getMemberNo();
+		Member myPageMember = service.myPage(memberNo);
+		model.addAttribute("myPageMember", myPageMember);
+		return "my_page/edit/myPageEdit";
+	}
 	
 	
+	@PostMapping("edit")
+	public String myPageEdit(Model model) {
+		
+		String path = null;
+		return path;
+	}
 	
 	
 	
@@ -105,14 +117,6 @@ public class MyPageController {
 	public String profile(@RequestParam("profileImage") MultipartFile profileImg) {
 		return null;
 	}
-	
-	
-	@GetMapping("bookmark")
-	public String bookmark() {
-		
-		return "my_page/bookmark/bookmark";
-	}
-	
 	
 	@GetMapping("comments")
 	public String comments() {
