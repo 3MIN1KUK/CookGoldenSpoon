@@ -218,3 +218,14 @@
 .inquiry-content{
   min-height: 20rem;
 }
+
+.btn-area{
+  margin-left: 120rem;
+}
+
+.btn-area > button{
+  width: 8.5rem;
+  height: 2.5rem;
+  border-radius: 20px;
+  font-size: 16px;
+}
