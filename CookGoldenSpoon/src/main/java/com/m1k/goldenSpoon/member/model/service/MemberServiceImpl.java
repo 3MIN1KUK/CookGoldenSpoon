@@ -22,6 +22,7 @@ public class MemberServiceImpl implements MemberService{
 	private final MemberMapper mapper;
 	private final BCryptPasswordEncoder bcrypt;
 	
+	// 로그인
 	@Override
 	public Member login(String memberId, String memberPw) {
 		
@@ -38,6 +39,7 @@ public class MemberServiceImpl implements MemberService{
 		return loginMember;
 	}
 	
+	// 회원가입
 	@Override
 	public int signup(Member signupMember) {
 		
@@ -48,8 +50,8 @@ public class MemberServiceImpl implements MemberService{
 	}
 	
 	
-	@Override
 	// 아이디 찾기
+	@Override
 	public String findId(String memberEmail) {
 		
 		String memberId = mapper.findId(memberEmail);
@@ -57,7 +59,7 @@ public class MemberServiceImpl implements MemberService{
 		return memberId;
 	}
 	
-	
+	// 비밀번호 변경할 아이디 조회
 	@Override
 	public String findMember(Member searchMember) {
 		
@@ -66,7 +68,7 @@ public class MemberServiceImpl implements MemberService{
 		return memberNo;
 	}
 	
-	
+	// 비밀번호 변경
 	@Override
 	public int changePw(int memberNo, String memberPw) {
 		
@@ -81,5 +83,16 @@ public class MemberServiceImpl implements MemberService{
 		return result;
 	}
 	
+	// 이메일 중복 체크
+	@Override
+	public int checkEamil(String email) {
+		return mapper.checkEmail(email);
+	}
+	
+	// 닉네임 중복체크
+	@Override
+	public int checkNickname(String nickname) {
+		return mapper.checkNickname(nickname);
+	}
 
 }

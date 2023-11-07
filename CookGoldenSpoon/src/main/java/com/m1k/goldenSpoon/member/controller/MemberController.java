@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
@@ -75,6 +76,24 @@ public class MemberController {
 		return "redirect:/";
 	}
 	
+	// 이메일 중복 체크
+	@GetMapping("checkEmail")
+	@ResponseBody
+	public int checkEmail(String email) {
+		
+		return service.checkEamil(email);
+	}
+	
+	// 닉네임 중복 체크
+	@GetMapping("checkNickname")
+	@ResponseBody
+	public int checkNickname(String nickname) {
+		return service.checkNickname(nickname);
+	}
+	
+	
+	
+	
 	// 아이디 찾기
 	@PostMapping("findId")
 	public String findId(String memberEmail, Model model,
@@ -124,5 +143,6 @@ public class MemberController {
 		
 		return "redirect:/";
 	}
+	
 	
 }

@@ -38,5 +38,17 @@
 		MEMBER_PW = #{memberPw}
 		WHERE MEMBER_NO = #{memberNo}
 	 </update>
+	 
+ 	<select id="checkEmail" resultType="_int">
+		SELECT count(*) FROM "MEMBER" 
+		WHERE MEMBER_DEL_FL = 'N'
+		AND MEMBER_EMAIL = #{email}
+	</select>
+	 
+ 	<select id="checkNickname" resultType="_int">
+		SELECT count(*) FROM "MEMBER" 
+		WHERE MEMBER_DEL_FL = 'N'
+		AND MEMBER_NICKNAME = #{nickname}
+	</select>
 
 </mapper>
