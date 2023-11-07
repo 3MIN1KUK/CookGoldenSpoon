@@ -8,7 +8,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>기본 양식</title>
-    <link rel="stylesheet" href="/css/common/basicForm.css">
+    <link rel="stylesheet" href="/css/common/project.css">
     <link rel="stylesheet" href="/css/member/signup.css">
 </head>
 <body>
@@ -19,11 +19,11 @@
       <div class="container">
         <h1 style="text-align: center;">회원가입</h1>
         <table>
-          <form action="/member/signup" method="POST">
+          <form action="/member/signup" method="POST" id="signUpFrm">
             <tr>
               <td class="input-name">아이디</td>
               <td class="input-area"><input type="text" id="memberId" name="memberId">
-                <div class="signupTest" id="idMessage">4 ~ 12 자리의 영어 또는 숫자만 입력해주세요</div>
+                <div class="signupTest" id="idMessage">4 ~ 16 자리의 영어 또는 숫자만 입력해주세요</div>
               </td>
             </tr>
 
@@ -39,7 +39,7 @@
               <td class="input-name">이메일 확인</td>
               <td>
                 <input type="email" id="authKey" name="authKey">
-                <div class="signupTest" id="authMessage">4 ~ 12 자리의 영어 또는 숫자만 입력해주세요</div>
+                <div class="signupTest" id="authMessage">유효한 이메일을 입력해주세요</div>
               </td>
             </tr>
             
@@ -47,7 +47,7 @@
               <td class="input-name">비밀번호</td>
               <td colspan="2">
                 <input type="password" id="memberPw" name="memberPw">
-                <div class="signupTest" id="pwMessage">4 ~ 12 자리의 영어 또는 숫자만 입력해주세요</div>
+                <div class="signupTest" id="pwMessage">영어,숫자,특수문자(!,@,#,-,_) 6~20글자 사이로 입력해주세요</div>
               </td>
             </tr>
             
@@ -55,7 +55,7 @@
               <td class="input-name">비밀번호 확인</td>
               <td>
                 <input type="password" id="memberPwConfirm" name="memberPwConfirm">
-                <div class="signupTest" id="pwConfirmMessage">4 ~ 12 자리의 영어 또는 숫자만 입력해주세요</div>
+                <div class="signupTest" id="pwConfirmMessage">비밀번호 확인</div>
               </td>
             </tr>
             
@@ -63,13 +63,13 @@
               <td class="input-name">닉네임</td>
               <td>
                 <input type="text" id="memberNickname" name="memberNickname">
-                <div class="signupTest" id="nicknameMessage">4 ~ 12 자리의 영어 또는 숫자만 입력해주세요</div>
+                <div class="signupTest" id="nicknameMessage">2 ~ 10 자리의 영어 또는 한글만 입력해주세요</div>
               </td>
             </tr>
             
             <tr>
               <td class="input-name"></td>
-              <td colspan="3"><input type="submit" value="회원가입" id="signUpFrm"></td>
+              <td colspan="3"><input type="submit" value="회원가입"></td>
             </tr>
           </form>
         </table>
@@ -77,6 +77,8 @@
 
     </div>
   </main>
+  <th:block th:replace="~{common/footer}"></th:block>
   <script src="/js/common/project.js"></script>
+  <script src="/js/member/signup.js"></script>
 </body>
 </html>

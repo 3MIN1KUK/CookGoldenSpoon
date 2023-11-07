@@ -36,8 +36,16 @@
         <a href="/member/login">로그인</a> · <a href="/member/signup">회원가입</a>
       </th:block>
       <th:block th:unless="${session.loginMember == null}">
+
         <a href="/myPage/main">마이페이지</a> · <a href="/member/logout">로그아웃</a>
+        <th:block th:if="${session.loginMember.memberAuthority == 2}">
+          <div style="text-align: center;">
+            <a href="/admin/memberSearch">관리자 페이지</a>
+          </div>
+        </th:block>
+
       </th:block>
+      <br>
     </span>
   </div>
 </header>

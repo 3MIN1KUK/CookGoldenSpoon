@@ -4,7 +4,7 @@
 <mapper namespace="com.m1k.goldenSpoon.member.model.mapper.MemberMapper">
 	
 	<select id="login" resultType="Member" >
-		SELECT MEMBER_ID, MEMBER_EMAIL , MEMBER_PW , MEMBER_NICKNAME , MEMBER_NO
+		SELECT MEMBER_ID, MEMBER_EMAIL , MEMBER_PW , MEMBER_NICKNAME , MEMBER_NO, MEMBER_AUTHORITY
 		FROM "MEMBER"
 		WHERE MEMBER_ID = #{memberId}
 		AND MEMBER_DEL_FL = 'N'
@@ -39,5 +39,17 @@
 		MEMBER_PW = #{memberPw}
 		WHERE MEMBER_NO = #{memberNo}
 	 </update>
+	 
+ 	<select id="checkEmail" resultType="_int">
+		SELECT count(*) FROM "MEMBER" 
+		WHERE MEMBER_DEL_FL = 'N'
+		AND MEMBER_EMAIL = #{email}
+	</select>
+	 
+ 	<select id="checkNickname" resultType="_int">
+		SELECT count(*) FROM "MEMBER" 
+		WHERE MEMBER_DEL_FL = 'N'
+		AND MEMBER_NICKNAME = #{nickname}
+	</select>
 
 </mapper>
