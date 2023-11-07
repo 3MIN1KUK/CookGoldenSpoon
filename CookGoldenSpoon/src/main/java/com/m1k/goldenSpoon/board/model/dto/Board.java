@@ -18,7 +18,9 @@ public class Board {
 	private String boardDelFl;
 	private int boardHits;
 	private int boardCode;
-	
+	private int memberNo;
+	private String memberNickname;
+	private int boardLikeCount;
 	
 	
 }

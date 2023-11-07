@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>공지사항</title>
+  <link rel="stylesheet" href="/css/common/project.css">
+  <link rel="stylesheet" href="/css/cs/cs.css">
+  <script src="https://kit.fontawesome.com/921e1d60a7.js" crossorigin="anonymous"></script>
+</head>
+<body>
+  <th:block th:replace="~{common/header}"></th:block>
+  <main th:with="boardList=${map.boardList}, pagination=${map.pagination}">
+    <div class="main-container">
+      <div class="cs-title">
+        <a href="/myPage/board">내가 쓴 글</a>
+        <div class="searchForm">
+          <input id="searchNotice" name="searchNotice" type="text" placeholder="검색어를 입력해주세요">
+          <button id="searchNoticeBtn" >검색</button>
+        </div>
+      </div>
+      <th:block th:replace="~{my_page/myPageSideMenu}"></th:block>
+      <div class="content-container">
+        <th:block th:each="board : ${boardList}" th:object="${board}">
+          <a th:href="@{/cs/notice/{noticeNo}(noticeNo=*{boardNo})}" class="notice">
+            <span th:text="*{boardNo}">No.1</span>
+            <span th:text="*{boardTitle}">첫 번째 공지사항 입니다</span>
+            <span th:text="*{memberNickname}">작성자</span>
+            <span th:text="*{boardEnrollDate}" >날짜</span>
+            <span th:text="*{boardHits}">조회수</span>
+          </a>
+        </th:block>
+      </div>
+      <th:block th:if="${#lists.size(boardList) > 0}">
+        <div class="page-number">
+          <ul>
+            <li><a href="/myPage/board"><i class="fa-solid fa-backward-step"></i></a></li>
+            <li><a th:href="@{/myPage/board(cp=${pagination.prevPage})}"><i class="fa-solid fa-caret-left fa-lg"></i></a></li>
+            <th:block th:each="i : ${#numbers.sequence(pagination.startPage, pagination.endPage, 1)}">
+              <li th:if="${i == pagination.currentPage}"><a style="color: black;" class="text" th:text="${i}">1</a></li>
+              <li th:unless="${i == pagination.currentPage}"><a th:href="@{/myPage/board(cp=${i})}" class="text" th:text="${i}">1</a></li>
+            </th:block>
+            <li><a th:href="@{/myPage/board(cp=${pagination.nextPage})}"><i class="fa-solid fa-caret-right fa-lg"></i></a></li>
+            <li><a th:href="@{/myPage/board(cp=${pagination.maxPage})}"><i class="fa-solid fa-forward-step"></i></a></li>
+          </ul>
+        </div>
+      </th:block>
+    </div>
+  </main>
+  
+
+
+
+
+  <script src="/js/common/project.js"></script>
+  <script src="/js/cs/cs.js"></script>
+</body>
+</html>
