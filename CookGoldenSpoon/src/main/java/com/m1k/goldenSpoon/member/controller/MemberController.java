@@ -77,20 +77,23 @@ public class MemberController {
 	
 	// 아이디 찾기
 	@PostMapping("findId")
-	public String findId(String memberEmail, Model model) {
+	public String findId(String memberEmail, Model model,
+			RedirectAttributes ra) {
 		
 		String memberId = service.findId(memberEmail);
 		model.addAttribute("memberId",memberId);
 		
 		if (memberId == null) {
-			
+			ra.addFlashAttribute("message", "검색 결과가 없습니다");
+			return "redirect:findPw";
 		}
 		
 		return "member/find_id_result";
 	}
 	
 	@GetMapping("changePw")
-	public String changePw(Member searchMember, Model model, RedirectAttributes ra) {
+	public String changePw(Member searchMember, Model model,
+			RedirectAttributes ra) {
 		
 		String memberNo = service.findMember(searchMember);
 		model.addAttribute("memberNo", memberNo);
