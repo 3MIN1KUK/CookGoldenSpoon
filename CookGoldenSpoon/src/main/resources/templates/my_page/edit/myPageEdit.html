@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>내 정보 수정</title>
+  <link rel="stylesheet" href="/css/common/project.css">
+  <link rel="stylesheet" href="/css/my_page/my_pageTab/myPage.css">
+  <script src="https://kit.fontawesome.com/921e1d60a7.js" crossorigin="anonymous"></script>
+</head>
+<body>
+  <th:block th:replace="~{common/header}"></th:block>
+  <main>
+    <div class="main-container">
+      <div class="cs-title">
+        <a href="/myPage/edit">내 정보 수정</a>
+      </div>
+      <th:block th:replace="~{my_page/myPageSideMenu}"></th:block>
+      <form action="" class="userInfo" th:object="${myPageMember}" enctype="multipart/form-data">
+        <div class="userInfo-row">
+          <div class="userInfo-image">
+            <img th:unless="*{memberProfile}" th:src="#{user.default.image}" class="memberProfile">
+            <img th:if="*{memberProfile}" th:src="*{memberProfile}" class="memberProfile">
+          </div>
+          <input class="userInfo-nickname" th:value="*{memberNickname}" />
+          <div class="userInfo-id">
+            <div th:text="*{memberEmail}">member03</div>
+            <br>
+            <div th:text="*{memberEnrollDate}">2023/03/21</div>
+          </div>
+          <div class="userInfo-grade">
+            <th:block th:if="*{memberAuthority == 1}">일반</th:block>
+            <th:block th:if="*{memberAuthority == 2}">강사</th:block>
+            <th:block th:if="*{memberAuthority == 3}">관리자</th:block>
+          </div>
+        </div>
+        <div class="userInfo-row">
+          <input class="userInfo-intro" th:if="*{memberIntro}" th:value="*{memberIntro}"/>
+          <input class="userInfo-intro" th:unless="*{memberIntro}" placeholder="한 줄 소개를 작성해주세요"/>
+        </div>
+      </div>
+    </div>
+
+
+
+
+
+
+
+  </main>
+  <th:block th:replace="~{common/footer}"></th:block>
+  <script src="/js/common/project.js"></script>
+</body>
+</html>

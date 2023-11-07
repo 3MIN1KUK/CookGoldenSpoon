@@ -20,4 +20,10 @@ public class Member {
 	private String memberDelFl;
 	private int memberAuthority;
 	private String memberIntro;
+	
+	private int likeCount;
+	private int bookmarkCount;
+	private int recipeCount;
+	private int boardCount;
+	private int commentCount;
 }
