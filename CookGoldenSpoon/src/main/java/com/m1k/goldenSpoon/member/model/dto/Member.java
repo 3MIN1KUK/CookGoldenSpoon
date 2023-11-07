@@ -19,5 +19,5 @@ public class Member {
 	private String memberEnrollDate;
 	private String memberDelFl;
 	private int memberAuthority;
-	private String selfIntroduction;
+	private String memberIntro;
 }

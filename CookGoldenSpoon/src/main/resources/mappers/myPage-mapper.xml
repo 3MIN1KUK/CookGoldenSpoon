@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<!-- 연결할 인터페이스의 패키지명.인터페이스명을 작성 -->
+<mapper namespace="com.m1k.goldenSpoon.myPage.model.mapper.MyPageMapper">
+	
+	<resultMap id="recipeSelect_rm" type="Recipe">
+		<id property="recipeNo" column="RECIPE_NO" />
+		<collection property="recipeTag" select="selectRecipeTag" column="RECIPE_NO" javaType="java.util.ArrayList" ofType="String" />
+	</resultMap>
+	<resultMap id="myRecipeSelect_rm" type="Recipe">
+		<id property="recipeNo" column="RECIPE_NO" />
+		<collection property="recipeTag" select="selectRecipeTag" column="RECIPE_NO" javaType="java.util.ArrayList" ofType="String" />
+	</resultMap>
+	<select id="selectRecipeTag" resultType="string">
+		SELECT RECIPE_TAG_NAME FROM "RECIPE_TAG"
+		WHERE RECIPE_NO = #{recipeNo}
+	</select>
+	
+	<!--<resultMap id="boardSelect_rm" type="Board">
+		<id property="boardNo" column="BOARD_NO" />
+		<association property="boardLikeCount" select="selectBoardLikeCount" column="BOARD_NO" javaType="_int" />
+		<association property="recipeStar" select="selectRecipeStar" column="RECIPE_NO" javaType="_double"/>
+	</resultMap>
+	<select id="selectBoardLikeCount" resultType="_int">
+		SELECT COUNT(*) FROM BOARD_LIKE WHERE BOARD_NO = #{boardNo}
+	</select>	-->
+	
+	
+	
+	<select id="myPage" resultType="Member">
+		SELECT MEMBER_EMAIL, MEMBER_NICKNAME, MEMBER_PROFILE, TO_CHAR(MEMBER_ENROLL_DATE, 'YYYY"년" MM"월" DD"일"')
+			MEMBER_ENROLL_DATE, MEMBER_AUTHORITY, MEMBER_INTRO
+		FROM "MEMBER"			
+		WHERE MEMBER_NO = #{memberNo}
+	</select>
+	
+	<select id="getRecipeListCount" resultType="_int">
+		SELECT COUNT(*) FROM "RECIPE_LIKE"
+		WHERE MEMBER_NO = #{memberNo}
+	</select>
+	
+	<select id="recipeSelect" resultMap="recipeSelect_rm">
+		SELECT RECIPE_NO, RECIPE_TITLE, RECIPE_THUMBNAIL
+		FROM RECIPE R JOIN RECIPE_BOOKMARK RL USING(RECIPE_NO)
+		WHERE RL.MEMBER_NO = #{memberNo}
+		AND RECIPE_DEL_FL = 'N'
+	</select>
+	
+	<select id="getBoardListCount" resultType="_int">
+		SELECT COUNT(*) FROM "BOARD"
+		WHERE MEMBER_NO = #{memberNo}
+	</select>
+	
+	<select id="boardSelect" resultType="Board">
+		SELECT BOARD_NO, BOARD_TITLE, TO_CHAR(BOARD_ENROLL_DATE, 'YYYY-MM-DD') BOARD_ENROLL_DATE,
+			BOARD_CODE, BOARD_HITS, MEMBER_NICKNAME, (SELECT COUNT(*) FROM BOARD_LIKE BL WHERE BL.BOARD_NO = B.BOARD_NO) BOARD_LIKE_COUNT 
+		FROM BOARD B
+		JOIN "MEMBER" USING(MEMBER_NO)
+		WHERE MEMBER_NO = #{memberNo}
+		AND BOARD_DEL_FL = 'N'
+	</select>
+	<select id="getMyRecipeListCount" resultType="_int">
+		SELECT COUNT(*) FROM "RECIPE"
+		WHERE MEMBER_NO = #{memberNo}
+	</select>
+	<select id="myRecipeSelect" resultMap="myRecipeSelect_rm">
+		SELECT RECIPE_NO, RECIPE_TITLE, RECIPE_THUMBNAIL
+		FROM RECIPE
+		WHERE MEMBER_NO = #{memberNo}
+		AND RECIPE_DEL_FL = 'N'
+		ORDER BY RECIPE_NO DESC
+	</select>
+</mapper>

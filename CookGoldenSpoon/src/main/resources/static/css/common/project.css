@@ -143,13 +143,15 @@ nav>ul{
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
+  align-items: initial;
   width: 144rem;
 }
 .recipe-col{
   width: 30rem;
+  height: 46rem;
   border-radius: 2rem;
   margin: 1rem 0;
-  border: 0.1rem solid black;
+  border: 0.1rem solid var(--color-main);
 }
 .small-title{
   font-size: 4rem;
@@ -164,20 +166,20 @@ nav>ul{
 }
 .recipe-image{
   background-color: black;
-  height: 35rem;
+  height: 76%;
   border-top-left-radius: 2rem;
   border-top-right-radius: 2rem;
 }
 .recipe-name, .recipe-hashtag{
   background-color: var(--color-bg);
   padding-top: 0.5rem;
-  height: 4rem;
+  height: 8.7%;
   font-size: 3rem;
   text-align: center;
   /* border: 0.1rem solid black; */
 }
 .recipe-hashtag{
-  height: 7rem;
+  height: 15.3%;
   overflow: hidden;
   display: flex;
   flex-wrap: wrap;
@@ -212,27 +214,6 @@ nav>ul{
 
 
 
-
-
-
-/* 유저 정보 */
-.userInfo{
-  width: 70%;
-  margin: 3rem 0;
-  height: 60rem;
-  display: flex;
-  padding: 2rem;
-  flex-direction: column;
-}
-.userInfo-image{
-  height: 16rem;
-  width: 16rem;
-}
-.userInfo-row{
-  display: flex;
-
-}
-
 .page-number{
   color: var(--color-bg);
 }
@@ -242,7 +223,6 @@ nav>ul{
   align-items: center;
   margin: 0 0.3rem;
 }
-
 
 
 
@@ -366,4 +346,23 @@ footer *{
   font-weight: bold;
   font-size: 1.5rem;
   margin-left: 7rem;
+}
+
+/* 사이드 메뉴 */
+.sideMenu{
+  position: absolute;
+  background-color: var(--color-bg);
+  border-radius: 2rem;
+  width: 15rem;
+  height: 30rem;
+  top: 6rem;
+  left: -17rem;
+  font-size: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  
+}
+.sideMenu div{
+  margin: 0.5rem;
 }

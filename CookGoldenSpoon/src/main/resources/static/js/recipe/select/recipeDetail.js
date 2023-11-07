@@ -15,7 +15,7 @@ like.addEventListener("click", e=>{
         check = 1;
     }
 
-    const dataObj = {"recipeNo" : recipeNo, "check" : check, "starsCheck" : starsCheck};
+    const dataObj = {"recipeNo" : recipeNo, "check" : check};
 
     fetch("/recipe/like", {
         method : "POST",

@@ -1,0 +1,89 @@
+
+/* 유저 정보 */
+.userInfo{
+  width: 70%;
+  margin: 3rem 0;
+  height: 60rem;
+  display: flex;
+  padding: 2rem;
+  flex-direction: column;
+}
+.userInfo-image{
+  height: 16rem;
+  width: 16rem;
+}
+.userInfo-image img{
+  height: 16rem;
+  width: 16rem;
+  border-radius: 1rem;
+}
+.userInfo-row{
+  display: flex;
+  background-color: var(--color-bg);
+  border-radius: 2rem;
+  padding: 1rem;
+  align-items: center;
+  justify-content: space-between;
+  margin: 1rem 0;
+}
+.userInfo-id{
+  width: 30rem;
+  font-size: 1.5rem;
+  text-align: center;
+}
+.userInfo-nickname{
+  width: 30rem;
+  font-size: 4rem;
+  text-align: center;
+}
+.userInfo-grade{
+  width: 10rem;
+  font-size: 3rem;
+  text-align: center;
+}
+
+.userInfo-intro{
+  font-size: 3rem;
+}
+
+.cs-title{
+  width: 90%;
+  margin: 3rem 0 2rem 0;
+  display: flex;
+  justify-content: space-between;
+}
+.cs-title>a{
+  margin: 0.5rem;
+  font-size: 3rem;
+  color: var(--color-bg);
+}
+
+.counts{
+  font-size: 1.9rem;
+}
+.counts>div{
+  display: flex;
+  align-items: center;
+}
+.countsNumber{
+  text-align: center;
+  margin-top: 1rem;
+}
+.fa-lg{
+  margin-right: 1rem;
+}
+.fa-heart{
+  color: red;
+}
+.fa-star{
+  color: gold;
+}
+.fa-utensils{
+  color: silver;
+}
+.fa-pencil{
+  color: brown;
+}
+.fa-comment-dots{
+  color: black;
+}

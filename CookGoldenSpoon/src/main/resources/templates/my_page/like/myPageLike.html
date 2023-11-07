@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>기본 양식</title>
+  <link rel="stylesheet" href="/css/common/project.css">
+  <link rel="stylesheet" href="/css/recipe/select/recipe.css">
+  <script src="https://kit.fontawesome.com/921e1d60a7.js" crossorigin="anonymous"></script>
+</head>
+<body>
+  <th:block th:replace="~{common/header}"></th:block>
+  <main th:with="recipeList=${map.recipeList}, pagination=${map.pagination}">
+    <div class="main-container">
+        <div class="recipe-title">
+          <a href="/myPage/like">좋아요 누른 레시피</a>
+        </div>
+        
+      <div class="search-area">
+        <select name="" id="">
+          <option value="">인기순</option>
+          <option value="">최신순</option>
+          <option value="">조회순</option>
+        </select>
+        <input type="text" placeholder="검색어를 입력해주세요" name="recipeSearch" id="recipeSearch">
+        <button type="button" id="recipeSearchBtn">검색</button>
+      </div>
+      <th:block th:replace="~{my_page/myPageSideMenu}"></th:block>
+      <div class="content-container">
+        <a th:each="recipe : ${recipeList}" th:object="${recipe}" 
+            th:href="@{/recipe/select/{recipeNo}(recipeNo=*{recipeNo})}" class="recipe-col">
+          <div class="recipe-image" th:text="*{recipeThumbnail}"></div>
+          <div class="recipe-name" th:text="*{recipeTitle}"></div>
+          <div class="recipe-hashtag">
+            <span th:each="tag : *{recipeTag}" th:text="${tag}" class="tags"></span>
+          </div>
+        </a>
+      </div>
+
+
+      <div class="page-number">
+        <ul th:if="${inputSearch == null}">
+          <li><a href="/myPage/like"><i class="fa-solid fa-backward-step"></i></a></li>
+          <li><a th:href="@{/myPage/like(cp=${pagination.prevPage})}"><i class="fa-solid fa-caret-left fa-lg"></i></a></li>
+          <th:block th:each="i : ${#numbers.sequence(pagination.startPage, pagination.endPage, 1)}">
+            <li th:if="${i == pagination.currentPage}"><a style="color: black;" class="text" th:text="${i}">1</a></li>
+            <li th:unless="${i == pagination.currentPage}"><a th:href="@{/recipe/select(cp=${i})}" class="text" th:text="${i}">1</a></li>
+          </th:block>
+          <li><a th:href="@{/myPage/like(cp=${pagination.nextPage})}"><i class="fa-solid fa-caret-right fa-lg"></i></a></li>
+          <li><a th:href="@{/myPage/like(cp=${pagination.maxPage})}"><i class="fa-solid fa-forward-step"></i></a></li>
+        </ul>
+        <ul th:unless="${inputSearch == null}">
+          <li><a th:href="@{/recipe/select/search(inputSearch=${inputSearch})}"><i class="fa-solid fa-backward-step"></i></a></li>
+          <li><a th:href="@{/recipe/select/search(cp=${pagination.prevPage}, inputSearch=${inputSearch})}"><i class="fa-solid fa-caret-left fa-lg"></i></a></li>
+          <th:block th:each="i : ${#numbers.sequence(pagination.startPage, pagination.endPage, 1)}">
+            <li th:if="${i == pagination.currentPage}"><a style="color: black;" class="text" th:text="${i}">1</a></li>
+            <li th:unless="${i == pagination.currentPage}"><a th:href="@{/recipe/select/search(cp=${i}, inputSearch=${inputSearch})}" class="text" th:text="${i}">1</a></li>
+          </th:block>
+          <li><a th:href="@{/recipe/select/search(cp=${pagination.nextPage}, inputSearch=${inputSearch})}"><i class="fa-solid fa-caret-right fa-lg"></i></a></li>
+          <li><a th:href="@{/myPage/like(cp=${pagination.maxPage})}"><i class="fa-solid fa-forward-step"></i></a></li>
+        </ul>
+      </div>
+    </div>
+  </main>
+  <th:block th:replace="~{common/footer}"></th:block>
+  <script src="/js/common/project.js"></script>
+  <script src="/js/recipe/select/recipe.js"></script>
+</body>
+</html>
