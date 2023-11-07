@@ -48,15 +48,17 @@ public class MemberController {
 	
 	// 로그인
 	@PostMapping("login")
-	public String login(String memberId, String memberPw, Model model) {
-		
+	public String login(String memberId, String memberPw, Model model, RedirectAttributes ra) {
+		  
 		Member loginMember = service.login(memberId, memberPw);
 		
 		if (loginMember == null) {
+			ra.addFlashAttribute("message", "로그인 실패");
 			return "redirect:/member/login";
 		}
 		
 		model.addAttribute("loginMember", loginMember);
+		ra.addFlashAttribute("message", "로그인 성공");
 		
 		return "redirect:/";
 	} 
@@ -133,13 +135,14 @@ public class MemberController {
 		return "redirect:/";
 	}
 	
-	
+	// 로그아웃
 	@GetMapping("logout")
 	public String logout(
 			SessionStatus status, 
 			RedirectAttributes ra) {
 		
 		status.setComplete();
+		ra.addFlashAttribute("message", "로그아웃 하였습니다");
 		
 		return "redirect:/";
 	}

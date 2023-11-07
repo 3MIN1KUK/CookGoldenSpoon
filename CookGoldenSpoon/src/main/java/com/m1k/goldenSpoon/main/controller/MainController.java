@@ -4,8 +4,10 @@ import java.util.Map;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.m1k.goldenSpoon.recipe.model.service.RecipeService;
 
@@ -25,4 +27,31 @@ public class MainController {
 		
 		return "index";
 	}
+	
+	
+	/** 로그인 하지 않고 로그인 전용 페이지 접근 시
+	 * @param ra
+	 * @return
+	 */
+	@GetMapping("loginError")
+	public String loginError(RedirectAttributes ra) {
+		
+		ra.addFlashAttribute("message", " 로그인 후 이용 해주세요");
+		return "redirect:/";
+	}
+	
+	
+	/** 관리자 권한이 없는 상태에서 관리자 페이지 접근 시
+	 * @param ra
+	 * @return
+	 */
+	@GetMapping("adminError")
+	public String adminError(RedirectAttributes ra) {
+		
+		ra.addFlashAttribute("message", " 정상 접근이 아닙니다");
+		return "redirect:/";
+	}
+	
+	
+	
 }
