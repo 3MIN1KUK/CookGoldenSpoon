@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.m1k.goldenSpoon.member.model.dto.Member;
 import com.m1k.goldenSpoon.member.model.service.MemberService;
@@ -44,7 +45,7 @@ public class MemberController {
 		return "member/find_pw";
 	}
 	
-	
+	// 로그인
 	@PostMapping("login")
 	public String login(String memberId, String memberPw, Model model) {
 		
@@ -59,50 +60,65 @@ public class MemberController {
 		return "redirect:/";
 	} 
 	
-	 
+	// 회원가입
 	@PostMapping("signup")
-	public String signup(Member signupMember) {
+	public String signup(Member signupMember, RedirectAttributes ra) {
 		
-		int resutl = service.signup(signupMember);
+		int result = service.signup(signupMember);
 		
+		if (result == 0) {
+			ra.addFlashAttribute("message", "회원가입이 실패하였습니다");
+			return "redirect:signup";
+		}
+		
+		ra.addFlashAttribute("message", "회원가입이 성공하였습니다");
 		return "redirect:/";
 	}
 	
-	
+	// 아이디 찾기
 	@PostMapping("findId")
-	public String findId(String memberEmail, Model model) {
+	public String findId(String memberEmail, Model model,
+			RedirectAttributes ra) {
 		
 		String memberId = service.findId(memberEmail);
 		model.addAttribute("memberId",memberId);
+		
+		if (memberId == null) {
+			ra.addFlashAttribute("message", "검색 결과가 없습니다");
+			return "redirect:findPw";
+		}
 		
 		return "member/find_id_result";
 	}
 	
 	@GetMapping("changePw")
-	public String changePw(Member searchMember, Model model) {
+	public String changePw(Member searchMember, Model model,
+			RedirectAttributes ra) {
 		
-		int memberNo = service.findMember(searchMember);
+		String memberNo = service.findMember(searchMember);
 		model.addAttribute("memberNo", memberNo);
+		if (memberNo == null) {
+			ra.addFlashAttribute("message", "검색 결과가 없습니다");
+			return "redirect:findPw";
+		}
 		
 		return "member/change_pw";
 	}
 	
 	@PostMapping("changePw")
-	public String changePw(int memberNo, String memberPw) {
+	public String changePw(int memberNo, String memberPw, RedirectAttributes ra) {
 		
 		int result = service.changePw(memberNo,memberPw);
 		
-		if (result == 0) {
-			return null;
-		}
-		
+		ra.addFlashAttribute("message", "비밀번호 변경 성공");
 		return "redirect:/";
 	}
 	
 	
 	@GetMapping("logout")
 	public String logout(
-			SessionStatus status) {
+			SessionStatus status, 
+			RedirectAttributes ra) {
 		
 		status.setComplete();
 		
