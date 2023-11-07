@@ -66,12 +66,15 @@ public class RecipeController {
 				map.put("memberNo", loginMember.getMemberNo());
 				int likeCheck = service.likeCheck(map);
 				int bookmarkCheck = service.bookmarkCheck(map);
+				int recipeStar = service.starsCheck(map);
 				
+				if(recipeStar > 0) {
+					model.addAttribute("recipeStar", recipeStar);
+				} else {
+					model.addAttribute("recipeStar", 0);
+				}
 				if(likeCheck == 1) model.addAttribute("likeCheck", "on");
 				if(bookmarkCheck == 1) model.addAttribute("bookmarkCheck", "on");
-			}
-			else {
-				
 			}
 		} else {
 			path = "redirect:/recipe/select";
@@ -104,5 +107,12 @@ public class RecipeController {
     public int bookmark(@RequestBody Map<String, Object> paramMap, @SessionAttribute("loginMember") Member loginMember) {
     	paramMap.put("memberNo", loginMember.getMemberNo());
     	return service.bookmark(paramMap);
+    }
+    
+    @PostMapping("stars")
+    @ResponseBody
+    public int stars(@RequestBody Map<String, Object> paramMap, @SessionAttribute("loginMember") Member loginMember) {
+    	paramMap.put("memberNo", loginMember.getMemberNo());
+    	return service.stars(paramMap);
     }
 }

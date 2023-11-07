@@ -32,7 +32,7 @@
           <div class="recipe-image" th:text="*{recipeThumbnail}"></div>
           <div class="recipe-name" th:text="*{recipeTitle}"></div>
           <div class="recipe-hashtag">
-            <span th:each="tag : *{recipeTag}" th:text="${tag}"></span>
+            <span th:each="tag : *{recipeTag}" th:text="${tag}" class="tags"></span>
           </div>
         </a>
       <!-- <div class="recipe-col">
@@ -61,6 +61,13 @@
         </div>
       </div>
     </section>
+
+    <!-- <h3 class="small-title">공지사항</h3>
+    <section class="recipe-row">
+      <div class="main-notice">
+
+      </div>
+    </section> -->
   </main>
 
   <th:block th:replace="~{common/footer}"></th:block>

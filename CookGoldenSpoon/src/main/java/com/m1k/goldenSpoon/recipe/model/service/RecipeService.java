@@ -62,4 +62,18 @@ public interface RecipeService {
 	Map<String, Object> popularRecipe(int cp);
 
 
+	/** 별점 기능
+	 * @param paramMap
+	 * @return
+	 */
+	int stars(Map<String, Object> paramMap);
+
+
+	/** 별점 수 체크
+	 * @param map
+	 * @return
+	 */
+	int starsCheck(Map<String, Integer> map);
+
+
 }

@@ -15,7 +15,7 @@ like.addEventListener("click", e=>{
         check = 1;
     }
 
-    const dataObj = {"recipeNo" : recipeNo, "check" : check};
+    const dataObj = {"recipeNo" : recipeNo, "check" : check, "starsCheck" : starsCheck};
 
     fetch("/recipe/like", {
         method : "POST",
@@ -68,3 +68,41 @@ bookmark.addEventListener("click", e=>{
     })
     .catch(e=>console.log(e));
 });
+
+const stars = document.getElementsByClassName("stars");
+
+for(let i = 0; i<stars.length ; i++){
+    stars[i].addEventListener("click", e=>{
+
+        if(!loginCheck){
+            alert("로그인 후 이용해주세요");
+            return;
+        }
+        const dataObj = {"recipeNo" : recipeNo, "recipeStar" : i+1, "check" : recipeStarCheck};
+
+        fetch("/recipe/stars",{
+            method : "POST",
+            headers : {"Content-Type" : "application/json"},
+            body : JSON.stringify(dataObj)
+        })
+        .then(resp => resp.text())
+        .then(result =>{
+            if(result > 0){
+                for(let u = 0; u<5; u++){
+                    if(u <= i){
+                        stars[u].classList.remove("fa-regular");
+                        stars[u].classList.add("fa-solid");
+                    }else{
+                        stars[u].classList.remove("fa-solid");
+                        stars[u].classList.add("fa-regular");
+                    }
+                }
+            }
+
+
+        })
+        .catch(e=>console.log(e));
+
+
+    });
+}
