@@ -19,12 +19,19 @@
           <h1>나의 레시피</h1>
         </div>
         
-        <form action="">
+        <form action="enroll" method="post" enctype="multipart/form-data" >
           <!-- 1번째 줄 -->
           <div id="firstLine">
             <div class="main-Picture">
               <div class="name">대표사진</div>
-
+              <div class="boardImg firstPicture"> 
+                <label for="img0">
+                  <img class="preview" src="">
+                </label>
+                <!-- input type = file은 무조건 제출 -->
+                <input type="file" name="images" class="inputImage" id="img0" accept="image/*">
+                <span class="delete-image">&times;</span>
+              </div>
             </div> 
             
             <div class="video">
@@ -33,7 +40,6 @@
                 <div class="thumbnail"></div><div class="link"> <button class="processBtn1">➕</button></div>
               </div>
             </div>
-    
           </div>
     
     
@@ -132,18 +138,7 @@
   </main>
 
 
-  <!-- 이미지 미리보기 설정 -->
-  <script th:inline="javascript">
-    
-  const imageList = /*[[${recipe.recipeThumbnail}]]*/ [];
-  
-  const previewList = document.querySelectorAll('img.preview');
 
-  for(let img of imageList){
-      previewList[img.imgOrder].src = img.imgPath + img.imgRename;
-  }
-
-  </script>
 
   <script src="/js/board/boardUpdate.js"></script>
 

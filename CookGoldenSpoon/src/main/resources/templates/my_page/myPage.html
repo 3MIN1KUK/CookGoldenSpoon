@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>유저 정보</title>
+  <link rel="stylesheet" href="/css/common/project.css">
+  <link rel="stylesheet" href="/css/my_page/my_pageTab/myPage.css">
+  <script src="https://kit.fontawesome.com/921e1d60a7.js" crossorigin="anonymous"></script>
+</head>
+<body>
+  <th:block th:replace="~{common/header}"></th:block>
+  <main>
+    <div class="main-container">
+      <div class="cs-title">
+        <a href="/myPage/main">마이 페이지</a>
+      </div>
+      <th:block th:replace="~{my_page/myPageSideMenu}"></th:block>
+      <div class="userInfo" th:object="${myPageMember}">
+        <div class="userInfo-row">
+          <div class="userInfo-image">
+            <img th:unless="*{memberProfile}" th:src="#{user.default.image}" class="memberProfile">
+            <img th:if="*{memberProfile}" th:src="*{memberProfile}" class="memberProfile">
+          </div>
+          <div class="userInfo-nickname" th:text="*{memberNickname}">
+            김민석
+          </div>
+          <div class="userInfo-id">
+            <div th:text="*{memberEmail}">member03</div>
+            <br>
+            <div th:text="*{memberEnrollDate}">2023/03/21</div>
+          </div>
+          <div class="userInfo-grade">
+            <th:block th:if="*{memberAuthority == 1}">일반</th:block>
+            <th:block th:if="*{memberAuthority == 2}">강사</th:block>
+            <th:block th:if="*{memberAuthority == 3}">관리자</th:block>
+          </div>
+        </div>
+        <div class="userInfo-row memberIntro">
+            <div class="userInfo-intro" th:unless="*{memberIntro}">
+              한 줄 소개가 없습니다
+            </div>
+            <div class="userInfo-intro" th:if="*{memberIntro}" th:text="*{memberIntro}">
+              한 줄 소개
+            </div>
+        </div>
+        <div class="userInfo-row counts">
+          <div>
+            <i class="fa-heart fa-solid fa-lg"></i>
+            <div>
+              <div>
+                받은 좋아요
+              </div>
+              <div class="countsNumber" th:text="*{likeCount}">9</div>
+            </div>
+          </div>
+          <div>
+            <i class="fa-star fa-solid fa-lg"></i>
+            <div>
+              <div>
+                받은 즐겨찾기
+              </div>
+              <div class="countsNumber" th:text="*{bookmarkCount}">9</div>
+            </div>
+          </div>
+          <div>
+            <i class="fa-solid fa-utensils fa-lg"></i>
+            <div>
+              <div>
+                레시피 수
+              </div>
+              <div class="countsNumber" th:text="*{recipeCount}">9</div>
+            </div>
+          </div>
+          <div>
+            <i class="fa-solid fa-pencil fa-lg"></i>
+            <div>
+              <div>
+                게시글 수
+              </div>
+              <div class="countsNumber" th:text="*{boardCount}">9</div>
+            </div>
+          </div>
+          <div>
+            <i class="fa-regular fa-comment-dots fa-lg"></i>
+            <div>
+              <div>
+                댓글 수
+              </div>
+              <div class="countsNumber" th:text="*{commentCount}">9</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+
+
+
+
+  </main>
+  <th:block th:replace="~{common/footer}"></th:block>
+  <script src="/js/common/project.js"></script>
+</body>
+</html>

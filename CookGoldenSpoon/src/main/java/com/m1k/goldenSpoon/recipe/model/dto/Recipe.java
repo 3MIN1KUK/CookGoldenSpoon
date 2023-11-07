@@ -24,6 +24,8 @@ public class Recipe {
 	private String memberNickname;
 	private double recipeStar;
 	private int recipeLike;
+	private String memberProfile;
+	private String memberIntro;
 	
 	private List<String> recipeTag;
 	private List<RecipeStep> recipeStepList;

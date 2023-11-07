@@ -14,13 +14,10 @@
 		
 	</resultMap>
 	<resultMap id="selectRecipe_rm" type="Recipe">
-		
 		<id property="recipeNo" column="RECIPE_NO" />
+		<association property="recipeStar" select="selectRecipeStar" column="RECIPE_NO" javaType="_double"/>
 		<collection property="recipeTag" select="selectRecipeTag" column="RECIPE_NO" javaType="java.util.ArrayList" ofType="String" />
-		
 	</resultMap>
-
-
 
 
 
@@ -35,17 +32,12 @@
 		ORDER BY RECIPE_ENROLL_DATE DESC
 	</select>
 	
-<!--	<insert id="enroll">
-		INSERT INTO "RECIPE" 
-		VALUES(#{mainPhotos}, #{thumbnail}, #{recipeName},
-		#{ingredient}, #{howToCook}, #{tips}, null,null)
-		
-		
-	</insert>
-	-->
-	
 	<select id="recipeDetail" resultMap="recipeDetail_rm">
-		SELECT * FROM "RECIPE"
+		SELECT RECIPE_NO, RECIPE_TITLE, RECIPE_THUMBNAIL, RECIPE_INTRO, RECIPE_TIP,
+			TO_CHAR(RECIPE_ENROLL_DATE, 'YYYY-MM-DD') RECIPE_ENROLL_DATE,
+			RECIPE_TIME, RECIPE_PEOPLE, RECIPE_LEVEL, MEMBER_NO, MEMBER_NICKNAME,
+			MEMBER_PROFILE, MEMBER_INTRO
+		FROM "RECIPE" JOIN "MEMBER" USING(MEMBER_NO)
 		WHERE RECIPE_NO = #{recipeNo}
 		AND RECIPE_DEL_FL = 'N'
 	</select>	
@@ -130,8 +122,9 @@
 	</insert>
 	
 	<select id="selectPopularRecipe" resultMap="selectRecipe_rm">
-		SELECT RECIPE_NO, RECIPE_TITLE, RECIPE_THUMBNAIL, (SELECT COUNT(*) FROM RECIPE_LIKE RL WHERE RL.RECIPE_NO = R.RECIPE_NO) RECIPE_LIKE
-		FROM "RECIPE" R
+		SELECT RECIPE_NO, RECIPE_TITLE, RECIPE_THUMBNAIL, (SELECT COUNT(*) FROM RECIPE_LIKE RL WHERE RL.RECIPE_NO = R.RECIPE_NO) RECIPE_LIKE,
+		MEMBER_NICKNAME, MEMBER_NO
+		FROM "RECIPE" R JOIN "MEMBER" USING(MEMBER_NO)
 		WHERE RECIPE_DEL_FL = 'N'
 		ORDER BY RECIPE_LIKE DESC
 	</select>
@@ -167,4 +160,38 @@
 	<select id="selectRecipeStar" resultType="_double">
 		SELECT ROUND(AVG(RECIPE_STAR), 1) RECIPE_STAR FROM RECIPE_STAR WHERE RECIPE_NO = #{recipeNo}
 	</select>
+	
+	
+	
+	
+	<!-- 레시피 작성 -->
+	<insert id="insertBoard" parameterType="Board" useGeneratedKeys="true">
+	
+	<selectKey order="BEFORE" resultType="_int" keyProperty="boardNo">
+		SELECT SEQ_BOARD_NO.NEXTVAL FROM DUAL
+	</selectKey>
+	
+	
+	INSERT INTO "BOARD"
+	VALUES ( #{boardNo} , #{boardTitle}, #{boardContent}, default, default, default, default,
+		#{memberNo}, #{boardCode} )
+	</insert>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 </mapper>

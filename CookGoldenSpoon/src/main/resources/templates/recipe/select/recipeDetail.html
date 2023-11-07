@@ -32,8 +32,8 @@
         </div>
       </div>
       <div class="bookmark" th:if="${loginMember != null}">
-        <span id="like"><i class="fa-heart" style="color: red;" th:classappend="${likeCheck} ? fa-solid : fa-regular"></i> 좋아요</span>
-        <span id="bookmark"><i class="fa-star" style="color: gold;" th:classappend="${bookmarkCheck} ? fa-solid : fa-regular"></i> 즐겨찾기</span>
+        <span class="temp"><i class="fa-heart" style="color: red;" th:classappend="${likeCheck} ? fa-solid : fa-regular"></i><span id="like">좋아요</span></span>
+        <span class="temp"><i class="fa-star" style="color: gold;" th:classappend="${bookmarkCheck} ? fa-solid : fa-regular"></i><span id="bookmark">즐겨찾기</span></span>
         <span id="stars">
           <i class="fa-star stars" style="color: gold;" th:classappend="${recipeStar >= 1} ? fa-solid : fa-regular"></i>
           <i class="fa-star stars" style="color: gold;" th:classappend="${recipeStar >= 2} ? fa-solid : fa-regular"></i>
@@ -45,13 +45,17 @@
       </div>
       <div class="recipe-writer">
         <div class="recipe-writer-image">
-          
+          <img th:unless="*{memberProfile}" th:src="#{user.default.image}" class="memberProfile">
+          <img th:if="*{memberProfile}" th:src="*{memberProfile}" class="memberProfile">
         </div>
         <div class="recipe-writer-nickname" th:text="*{memberNickname}">
           레시피 작성자 아이디
         </div>
-        <div class="recipe-writer-info">
+        <div class="recipe-writer-info" th:if="*{memberIntro}" th:text="*{memberIntro}">
           레시피 작성자의 한 줄 소개가 들어갈 자리입니다
+        </div>
+        <div class="recipe-writer-info" th:unless="*{memberIntro}">
+          한 줄 소개가 없습니다
         </div>
       </div>
       <div class="recipe-content">
@@ -89,25 +93,15 @@
             <img th:src="*{recipeStepImage}">
           </div>
         </th:block>
-        <!-- <div class="recipe-step">
-          STEP 2
-        </div>
-        <div class="content">
-          순서가 들어가는 칸
-        </div>
-        <div class="recipe-step">
-          STEP 3
-        </div>
-        <div class="content">
-          순서가 들어가는 칸
-        </div> -->
       </div>
       <div class="recipe-content  recipe-photos">
         <div class="recipe-subtitle">
           완성 사진
         </div>
         <div class="recipe-photo">
-          <div></div>
+          <div>
+            <img src="">
+          </div>
           <div></div>
           <div></div>
           <div></div>

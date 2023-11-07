@@ -1,12 +1,16 @@
 package com.m1k.goldenSpoon.recipe.model.service;
 
+import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 
+import org.springframework.web.multipart.MultipartFile;
+
+import com.m1k.goldenSpoon.board.model.dto.Board;
 import com.m1k.goldenSpoon.recipe.model.dto.Recipe;
 
 public interface RecipeService {
 
-	Recipe enroll(Recipe recipe);
 
 	
 	/** 레시피 상세조회
@@ -74,6 +78,9 @@ public interface RecipeService {
 	 * @return
 	 */
 	int starsCheck(Map<String, Integer> map);
+
+
+	int enroll(Board board, List<MultipartFile> images) throws IllegalStateException, IOException;
 
 
 }
