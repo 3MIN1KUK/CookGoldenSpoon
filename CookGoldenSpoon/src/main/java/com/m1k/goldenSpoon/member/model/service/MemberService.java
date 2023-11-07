@@ -27,7 +27,7 @@ public interface MemberService {
 	 * @param searchMember
 	 * @return
 	 */
-	int findMember(Member searchMember);
+	String findMember(Member searchMember);
 
 	/** 비밀번호 바꾸기
 	 * @param memberNo

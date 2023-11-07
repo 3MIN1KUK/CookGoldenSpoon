@@ -71,3 +71,6 @@ input[type="submit"] {
 input{
   border-radius: 10px;
 }
+
+.confirm{ color : green; }
+.error{ color : red; }

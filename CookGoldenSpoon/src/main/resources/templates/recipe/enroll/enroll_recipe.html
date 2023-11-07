@@ -24,7 +24,7 @@
           <div id="firstLine">
             <div class="main-Picture">
               <div class="name">대표사진</div>
-              <div class="firstPicture"> <label class="processBtn1" for="recipeThumbnail">➕</label><input type="file" id="recipeThumbnail" style="display: none;"></div>
+
             </div> 
             
             <div class="video">
@@ -130,6 +130,23 @@
 
     </div>
   </main>
+
+
+  <!-- 이미지 미리보기 설정 -->
+  <script th:inline="javascript">
+    
+  const imageList = /*[[${recipe.recipeThumbnail}]]*/ [];
+  
+  const previewList = document.querySelectorAll('img.preview');
+
+  for(let img of imageList){
+      previewList[img.imgOrder].src = img.imgPath + img.imgRename;
+  }
+
+  </script>
+
+  <script src="/js/board/boardUpdate.js"></script>
+
   <script src="/js/common/project.js"></script>
 </body>
 </html>

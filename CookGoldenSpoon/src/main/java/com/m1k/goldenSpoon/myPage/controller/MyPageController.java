@@ -106,4 +106,35 @@ public class MyPageController {
 		return null;
 	}
 	
+	
+	@GetMapping("bookmark")
+	public String bookmark() {
+		
+		return "my_page/bookmark/bookmark";
+	}
+	
+	
+	@GetMapping("comments")
+	public String comments() {
+		
+		return "my_page/comments/comments";
+	}
+	
+	
+	@GetMapping("manage")
+	public String manage() {
+		
+		return "my_page/manage/manage";
+	}
+	
+	
+	@GetMapping("star")
+	public String star() {
+		
+		return "my_page/star/star";
+	}
+	
+	
+	
+	
 }
