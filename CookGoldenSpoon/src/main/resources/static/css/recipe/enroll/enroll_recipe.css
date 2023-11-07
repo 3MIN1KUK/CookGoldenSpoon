@@ -59,6 +59,7 @@ form{
 .boardImg > img{
   max-width: 99%;
   max-height: 99%;
+  margin-bottom: 0.5rem;
 }
 
 .boardImg{

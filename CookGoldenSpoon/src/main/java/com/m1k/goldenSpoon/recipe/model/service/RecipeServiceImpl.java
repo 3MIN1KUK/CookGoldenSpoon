@@ -1,28 +1,42 @@
 package com.m1k.goldenSpoon.recipe.model.service;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.session.RowBounds;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.m1k.goldenSpoon.board.model.dto.Board;
+import com.m1k.goldenSpoon.board.model.dto.BoardImg;
+import com.m1k.goldenSpoon.board.model.exception.BoardWriteException;
 import com.m1k.goldenSpoon.common.model.dto.Pagination;
+import com.m1k.goldenSpoon.common.utility.Util;
 import com.m1k.goldenSpoon.recipe.model.dto.Recipe;
 import com.m1k.goldenSpoon.recipe.model.mapper.RecipeMapper;
 
 import lombok.RequiredArgsConstructor;
 
 @Service
+@Transactional(rollbackFor = Exception.class)
+@PropertySource("classpath:/config.properties")
 @RequiredArgsConstructor
 public class RecipeServiceImpl implements RecipeService{
 
 	private final RecipeMapper mapper;
 	
-	@Override
-	public Recipe enroll(Recipe recipe) {
-		return mapper.enroll(recipe);
-	}
+	@Value("${my.board.location}")
+	private String folderPath;
+	
+	@Value("${my.board.webpath}")
+	private String webPath;
 	
 	@Override
 	public Recipe recipeDetail(int recipeNo) {
@@ -132,5 +146,39 @@ public class RecipeServiceImpl implements RecipeService{
 		} else {
 			return Integer.parseInt(String.valueOf(mapper.starsCheck(map)));
 		}
+	}
+	
+	
+	// 레시피 등록
+	@Override
+	public int enroll(Board board, List<MultipartFile> images) throws IllegalStateException, IOException {
+		int result = mapper.insertBoard(board);
+		if(result == 0) return 0; 
+		int boardNo = board.getBoardNo();
+		List<BoardImg> uploadList = new ArrayList<>();
+		for(int i = 0 ; i<images.size(); i++) {
+			if(images.get(i).getSize() > 0) {
+				BoardImg img = new BoardImg();
+				img.setBoardNo(boardNo); 
+				img.setBoardImageOrder(i);
+				img.setBoardImageName( images.get(i).getOriginalFilename() ); 
+				img.setBoardImage(webPath);
+				img.setBoardImageRename(Util.fileRename( images.get(i).getOriginalFilename() ));
+				img.setUploadFile(images.get(i));
+				uploadList.add(img);
+			} // if문 끝
+		}// for문 끝
+		if(uploadList.isEmpty()) {
+			return boardNo;
+		}
+		result = mapper.insertUploadList(uploadList);
+		if(result == uploadList.size()) {
+			for(BoardImg img : uploadList) {
+				img.getUploadFile().transferTo(new File(folderPath + img.getBoardImageRename()));
+			}
+		} else {
+			throw new BoardWriteException("파일 정보 DB 삽입 실패");
+		}
+		return boardNo;
 	}
 }

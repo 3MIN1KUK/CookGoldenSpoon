@@ -167,4 +167,38 @@
 	<select id="selectRecipeStar" resultType="_double">
 		SELECT ROUND(AVG(RECIPE_STAR), 1) RECIPE_STAR FROM RECIPE_STAR WHERE RECIPE_NO = #{recipeNo}
 	</select>
+	
+	
+	
+	
+	<!-- 레시피 작성 -->
+	<insert id="insertBoard" parameterType="Board" useGeneratedKeys="true">
+	
+	<selectKey order="BEFORE" resultType="_int" keyProperty="boardNo">
+		SELECT SEQ_BOARD_NO.NEXTVAL FROM DUAL
+	</selectKey>
+	
+	
+	INSERT INTO "BOARD"
+	VALUES ( #{boardNo} , #{boardTitle}, #{boardContent}, default, default, default, default,
+		#{memberNo}, #{boardCode} )
+	</insert>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 </mapper>
