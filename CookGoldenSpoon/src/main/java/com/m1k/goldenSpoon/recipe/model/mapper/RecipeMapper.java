@@ -6,6 +6,8 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.session.RowBounds;
 
+import com.m1k.goldenSpoon.board.model.dto.Board;
+import com.m1k.goldenSpoon.board.model.dto.BoardImg;
 import com.m1k.goldenSpoon.recipe.model.dto.Recipe;
 
 import com.m1k.goldenSpoon.recipe.model.dto.Recipe;
@@ -13,7 +15,8 @@ import com.m1k.goldenSpoon.recipe.model.dto.Recipe;
 @Mapper
 public interface RecipeMapper {
 
-	Recipe enroll(Recipe recipe);
+
+	
 	/** 레시피 상세 조회
 	 * @param recipeNo
 	 * @return recipe
@@ -114,6 +117,20 @@ public interface RecipeMapper {
 	 * @return
 	 */
 //	int countStarsCheck(Map<String, Integer> map);
+
+
+	/** 업로드된 이미지 정보 일괄 삽입
+	 * @param uploadList
+	 * @return
+	 */
+	int insertUploadList(List<BoardImg> uploadList);
+
+
+	/** 레시피 작성
+	 * @param board
+	 * @return
+	 */
+	int insertBoard(Board board);
 
 	
 	

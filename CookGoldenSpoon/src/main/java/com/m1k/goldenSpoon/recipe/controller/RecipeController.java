@@ -1,6 +1,8 @@
 package com.m1k.goldenSpoon.recipe.controller;
 
+import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Controller;
@@ -14,8 +16,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.m1k.goldenSpoon.board.model.dto.Board;
 import com.m1k.goldenSpoon.member.model.dto.Member;
 import com.m1k.goldenSpoon.recipe.model.dto.Recipe;
 import com.m1k.goldenSpoon.recipe.model.service.RecipeService;
@@ -83,16 +87,49 @@ public class RecipeController {
 		return path;
 	}
 
-    
-    @GetMapping("enroll")
-    public String enroll(Recipe recipe, Model model) {
+	
+	// 레시피 작성 화면 전환
+	@GetMapping("enroll/enroll_recipe")
+	public String enroll(
+//		@PathVariable("boardCode") int boardCode,
+		RedirectAttributes ra,
+		@SessionAttribute(value="loginMember", required = false)Member loginMember ) {
+		
+		if(loginMember == null) {
+			ra.addFlashAttribute("message", "로그인 후 이용해주세요");
+			return "redirect:/";
+		}
+		
+		return "recipe/enroll/enroll_recipe";
+		
+	}
+	
+	
+	
+    // 레시피 등록
+    @PostMapping("enroll")
+    public String enroll(@PathVariable("boardCode") int boardCode, Recipe recipe, @SessionAttribute("loginMember") Member loginMember, 
+		Board board, @RequestParam("images") List<MultipartFile> images, RedirectAttributes ra) throws IllegalStateException, IOException {
     	
-//    	Recipe inputRecipe = service.enroll(recipe);
+    	board.setMemberNo(loginMember.getMemberNo());
+    	board.setBoardCode(boardCode);
     	
+    	int boardNo = service.enroll(board, images);
+    	
+    	if( boardNo > 0 ) {
+			ra.addFlashAttribute("message", "게시글 작성 성공");
+			return String.format("redirect:/board/%d/%d", boardCode, boardNo);
+		}
+		
+		// 실패 시 
+		ra.addFlashAttribute("message", "게시글 작성 실패...");
     	
     	
         return "recipe/enroll/enroll_recipe";
     }
+    
+    
+    
 
     @PostMapping("like")
     @ResponseBody
