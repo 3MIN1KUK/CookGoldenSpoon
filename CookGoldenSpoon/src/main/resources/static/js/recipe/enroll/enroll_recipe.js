@@ -176,10 +176,71 @@ boardUpdateFrm.addEventListener("submit", e => {
   // 쿼리스트링만 별도 input에 저장
   document.querySelector("[name='querystring']").value = location.search;
                                                       // ?cp=1
+
+});
+
+
+
+
+//-------------------------------------------------------------------------
+/* 요리 과정 추가 버튼 */
+const addBtn = document.getElementById("add");
+
+// querySelector() -> 여러 요소가 선택되도 첫번째 요소 하나만 얻어옴
+const container = document.querySelector(".container");
+
+/* 추가 버튼 클릭 시 */
+addBtn.addEventListener("click", () => {
+  
+  // 1) div.row
+  const row = document.createElement("container");
+
+  // 요소에 class 추가하기 
+  row.classList.add("row");
+
+  // 2) input 만들기
+  const input = document.createElement("input");
+
+  input.setAttribute("type", "text");
+
+  input.classList.add("input-text");
+
+
+  // 3) span 만들기(X버튼)
+  const span = document.createElement("span");
+  
+  // 클래스 "remove-row"  추가
+  span.classList.add("remove-row");
+
+
+
+  /* ************************************************* */
+  // 클릭된 x버튼의 부모 요소를 제거
+
+  // [1] 만들어지는 X버튼(span)에 이벤트리스너(클릭행동 감지) 추가
+  span.addEventListener("click", e => {
+
+    // [2] 현재 이벤트가 발생한 요소(클릭된 X버튼)의 
+    //      부모 요소를 선택(탐색)         
+    // e.target = > 현재 이벤트가 발생한 요소
+    const parent = e.target.parentElement;  // == div.row
+
+    // [3] 부모 요소를 제거
+    parent.remove();
+  });
+
   
   
-
-
-
-
+  
+  
+  /* ************************************************* */
+  
+  // --- 조립 시작 ..... ---
+  
+  // 4) div.row의 자식으로 input, span 추가
+  row.append(input, span);
+  
+  // 5) div.row를 .container의 마지막 자식으로 추가
+  container.append(row);
+  
 });

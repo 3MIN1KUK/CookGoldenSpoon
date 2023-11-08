@@ -80,7 +80,16 @@ public interface RecipeService {
 	int starsCheck(Map<String, Integer> map);
 
 
-	int enroll(Board board, List<MultipartFile> images) throws IllegalStateException, IOException;
+	/** 레시피 등록
+	 * @param recipe 
+	 * @param thumbnail 
+	 * @param images
+	 * @param completeImages 
+	 * @return
+	 * @throws IllegalStateException
+	 * @throws IOException
+	 */
+	int enroll(Recipe recipe, MultipartFile thumbnail, List<MultipartFile> processImages, List<MultipartFile> completeImages) throws IllegalStateException, IOException;
 
 	/** 레시피 조회 수 증가
 	 * @param recipeNo

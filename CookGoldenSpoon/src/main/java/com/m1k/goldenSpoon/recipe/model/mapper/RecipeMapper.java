@@ -126,11 +126,11 @@ public interface RecipeMapper {
 	int insertUploadList(List<BoardImg> uploadList);
 
 
-	/** 레시피 작성
-	 * @param board
+	/** 레시피 등록
+	 * @param recipe
 	 * @return
 	 */
-	int insertBoard(Board board);
+	int insertRecipe(Recipe recipe);
 
 	/** 레시피 조회 수 증가
 	 * @param recipeNo

@@ -19,7 +19,7 @@
           <h1>나의 레시피</h1>
         </div>
         
-        <form action="enroll" method="post" enctype="multipart/form-data" >
+        <form action="/recipe/enroll" method="post" enctype="multipart/form-data" >
           <!-- 1번째 줄 -->
           <div id="firstLine">
             <div class="main-Picture">
@@ -29,7 +29,7 @@
                   <img class="preview" src="">
                 </label>
                 <!-- input type = file은 무조건 제출 -->
-                <input type="file" name="images" class="inputImage" id="img0" accept="image/*">
+                <input type="file" name="thumbnail" class="inputImage" id="img0" accept="image/*">
                 <span class="delete-image">&times;</span>
               </div>
             </div> 
@@ -45,30 +45,59 @@
     
           <!-- 2번째 줄 -->
           <div class="cookName">
-            <div class="cName">요리 이름</div><div class="cNameBox"></div>
+            <div class="cName">요리 이름</div><div class="cNameBox"><input type="text" name="recipeTitle" class="recipe2line" size="30"></div>
+          </div>
+          <div class="cookName">
+            <div class="cName">한줄 소개</div><div class="cNameBox"><input type="text" name="recipeIntro" class="recipe2line" size="30"></div>
           </div>
     
           <!-- 3번째 줄 -->
           <div class="material">
             <div class="mName">재료</div>
-            <div class="mnameBox"></div>
+            <div class="mnameBox"><input type="text" name="" class="recipe3line"></div>
           </div>
+
+
+
     
           <!-- 4번쨰 줄 -->
           <div class="btnControl">
-            <button class="processAddBtn4">➕</button>
+            <button class="processAddBtn4" id="add">➕</button>
           </div>
-          <div class="cookProcess">
-            <div class="cpName">요리 과정</div>
-            <div class="cpnameBox">
-              <button class="processPhotoBtn4">📷</button>
+
+          <div class="cookProcess container">
+            <div class="cpName row">요리 과정</div>
+            <div class="cpnameBox row">
+
+              <div><input type="text" name="processCook" class="recipe4line" ></div>
+              
+                <button type="button"  class="processPhotoBtn4">
+                  <label>
+                    📷
+                    <input type="file" name="processImages" style="display: none;">
+                  </label>
+                </button>
+              </label>
             </div>
           </div>
+
+          
+
+
+
+
+
+
+
+
+
+
+
     
           <!-- 5번째 줄 -->
           <div class="tip">
               <div class="tName">나만의 팁</div>
-              <div class="tnBox"></div>
+              <div class="tnBox"><input type="text" name="recipeTip" class="recipe5line"></div>
           </div>
     
           <!-- 6번째 줄 -->
@@ -77,31 +106,31 @@
             <div class="cinBox">
               
               <div>
-                인원 &nbsp;<select name="" id="selectBox">
-                  <option value="">1명</option>
-                  <option value="">2명</option>
-                  <option value="">3명</option>
-                  <option value="">4명 이상</option>
+                인원 &nbsp;<select name="recipePeople" id="selectBox">
+                  <option value="1">1명</option>
+                  <option value="2">2명</option>
+                  <option value="3">3명</option>
+                  <option value="4">4명 이상</option>
                 </select>
               </div>
 
               <div>
-                시간 &nbsp;<select name="" id="selectBox">
-                    <option value="">30분</option>
-                    <option value="">1시간</option>
-                    <option value="">1시간반</option>
-                    <option value="">2시간</option>
-                    <option value="">2시간 이상</option>
+                시간 &nbsp;<select name="recipeTime" id="selectBox">
+                    <option>30분</option>
+                    <option>1시간</option>
+                    <option>1시간반</option>
+                    <option>2시간</option>
+                    <option>2시간 이상</option>
                   </select>
               </div>
   
             <div>
-              난이도 &nbsp;<select name="" id="selectBox">
-                <option value="">하</option>
-                <option value="">중하</option>
-                <option value="">중</option>
-                <option value="">중상</option>
-                <option value="">상</option>
+              난이도 &nbsp;<select name="recipeLevel" id="selectBox">
+                <option value="1">하</option>
+                <option value="2">중하</option>
+                <option value="3">중</option>
+                <option value="4">중상</option>
+                <option value="5">상</option>
               </select>
             </div>
             </div>
@@ -110,7 +139,7 @@
           <!-- 7번째 줄 -->
           <div class="tag">
               <div class="tagName">태그</div>
-              <div class="tagnBox"></div>
+              <div class="tagnBox"><input type="text" name="" class="recipe2line" size="30"></div>
           </div>
     
           <!-- 8번째 줄 -->
@@ -118,7 +147,36 @@
               <div class="epName">완성사진</div>
               <div class="epnBox">
 
-                <button class="endProcessBtn8">📷</button>
+                <button type="button"  class="endProcessBtn8">
+                  <label>
+                    📷
+                    <input type="file" name="completeImages" style="display: none;">
+                  </label>
+                </button>
+                <button type="button"  class="endProcessBtn8">
+                  <label>
+                    📷
+                    <input type="file" name="completeImages" style="display: none;">
+                  </label>
+                </button>
+                <button type="button"  class="endProcessBtn8">
+                  <label>
+                    📷
+                    <input type="file" name="completeImages" style="display: none;">
+                  </label>
+                </button>
+                <button type="button"  class="endProcessBtn8">
+                  <label>
+                    📷
+                    <input type="file" name="completeImages" style="display: none;">
+                  </label>
+                </button>
+                <button type="button"  class="endProcessBtn8">
+                  <label>
+                    📷
+                    <input type="file" name="completeImages" style="display: none;">
+                  </label>
+                </button>
               </div>
         
           </div>

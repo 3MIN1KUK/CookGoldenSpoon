@@ -207,24 +207,26 @@ public class RecipeController {
 	
     // 레시피 등록
     @PostMapping("enroll")
-    public String enroll(@PathVariable("boardCode") int boardCode, Recipe recipe, @SessionAttribute("loginMember") Member loginMember, 
-		Board board, @RequestParam("images") List<MultipartFile> images, RedirectAttributes ra) throws IllegalStateException, IOException {
+    public String enroll (Recipe recipe, @SessionAttribute("loginMember") Member loginMember, 
+    	@RequestParam("thumbnail") MultipartFile thumbnail,
+		@RequestParam("processImages") List<MultipartFile> processImages,
+		@RequestParam("completeImages") List<MultipartFile> completeImages, 
+		RedirectAttributes ra) throws IllegalStateException, IOException {
     	
-    	board.setMemberNo(loginMember.getMemberNo());
-    	board.setBoardCode(boardCode);
+    	recipe.setMemberNo(loginMember.getMemberNo());
     	
-    	int boardNo = service.enroll(board, images);
+    	int recipeNo = service.enroll(recipe, thumbnail, processImages, completeImages);
     	
-    	if( boardNo > 0 ) {
-			ra.addFlashAttribute("message", "게시글 작성 성공");
-			return String.format("redirect:/board/%d/%d", boardCode, boardNo);
+    	if( recipeNo > 0 ) {
+			ra.addFlashAttribute("message", "레시피 등록 성공");
+			return String.format("redirect:/recipe/select/%d", recipeNo);
 		}
 		
 		// 실패 시 
-		ra.addFlashAttribute("message", "게시글 작성 실패...");
+		ra.addFlashAttribute("message", "레시피 등록 실패...");
     	
     	
-        return "recipe/enroll/enroll_recipe";
+        return "redirect:enroll_recipe";
     }
     
     
