@@ -15,4 +15,10 @@ public class RecipePicture {
 	private int recipeNo;
 	private String recipeImage;
 	private int recipeImageOrder;
+	private String recipeImageRename;
+	private String recipeImageName;
+	private String recipeProcessImages;
+	private String recipeCompleteImages;
+	
+	
 }
