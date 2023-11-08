@@ -68,7 +68,7 @@ form{
 
 .boardImg > label{
   width: 98%;
-  height: 98%;
+  height: 96%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -192,9 +192,8 @@ form{
 .recipe2line{
   border: none;
   width : 99%;
-  height: 95%;
+  height: 94.5%;
   margin: 0.2rem;
-  margin-left: 0.2rem;
   font-size: 2.2rem;
 }
 
@@ -237,6 +236,7 @@ form{
   margin: 0.2rem;
   margin-left: 0.2rem;
   font-size: 2.2rem;
+  resize: none;
 }
 
 
@@ -301,14 +301,12 @@ form{
 .recipe4line{
   border: none;
   width : 78rem;
-  height: 16.9rem;
-  margin-right: 5.4rem;
+  height: 17.0rem;
   font-size: 2.2rem;
   display: flex;
   justify-content: flex-start;
-  margin-top: 0.2rem;
-  margin-left: 0.3rem;
-  
+  margin: 0.2rem 5.4rem 0.2rem 0.2rem;
+  resize: none;
 }
 
 
@@ -344,9 +342,9 @@ form{
 .recipe5line{
   border: none;
   width : 99%;
-  height: 95%;
-  margin: 0.2rem;
+  height: 95.5%;
   margin-left: 0.2rem;
+  margin-top: 0.2rem;
   font-size: 2.2rem;
 }
 
@@ -419,6 +417,15 @@ form{
   width: 94.5rem;
   height: 7rem;
   border-radius: 0rem 1.5rem 1.5rem 0rem;
+}
+
+.recipe7line{
+  border: none;
+  width : 99%;
+  height: 94.5%;
+  margin: 0.2rem;
+  margin-left: 0.2rem;
+  font-size: 2.2rem;
 }
 
 /* ----------------------------------- */
