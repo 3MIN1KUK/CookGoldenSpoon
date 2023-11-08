@@ -1,13 +1,16 @@
 package com.m1k.goldenSpoon.myPage.controller;
 
+import java.io.IOException;
 import java.util.Map;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
@@ -25,6 +28,7 @@ public class MyPageController {
 
 	
 	private final MyPageService service;
+	
 	
 	/*
 	 * @PostMapping("teacher") public String teacher() { return
@@ -95,49 +99,15 @@ public class MyPageController {
 		return path;
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	/** 프로필 이미지 수정
-	 * @param profileImg
-	 * @return
-	 */
-	@PostMapping("profile")
-	public String profile(@RequestParam("profileImage") MultipartFile profileImg) {
-		return null;
-	}
-	
-	@GetMapping("comments")
-	public String comments() {
+	@PostMapping("edit/profile")
+	@ResponseBody
+	public int myPageEditProfile(@RequestBody MultipartFile memberProfile,
+			@SessionAttribute("loginMember") Member loginMember) throws IllegalStateException, IOException {
 		
-		return "my_page/comments/comments";
-	}
-	
-	
-	@GetMapping("manage")
-	public String manage() {
+		int result = service.myPageEditProfile(memberProfile, loginMember);
 		
-		return "my_page/manage/manage";
+		return result;
 	}
-	
-	
-	@GetMapping("star")
-	public String star() {
-		
-		return "my_page/star/star";
-	}
-	
 	
 	
 	

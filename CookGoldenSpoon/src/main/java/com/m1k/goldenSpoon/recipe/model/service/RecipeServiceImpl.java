@@ -181,4 +181,10 @@ public class RecipeServiceImpl implements RecipeService{
 		}
 		return boardNo;
 	}
+	
+	// 레시피 조회 수 증가
+	@Override
+	public int updateRecipeHits(int recipeNo) {
+		return mapper.updateRecipeHits(recipeNo);
+	}
 }

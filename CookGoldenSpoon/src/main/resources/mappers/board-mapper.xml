@@ -23,4 +23,9 @@
 		WHERE BOARD_NO = #{boardNo}
 	</select>
 	
+	<!-- 게시글 조회 수 증가-->
+	<update id="updateBoardHits">
+		UPDATE "BOARD" SET BOARD_HITS = BOARD_HIT + 1
+		WHERE BOARD_NO = #{boardNo}
+	</update>
 </mapper>

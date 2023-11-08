@@ -27,4 +27,10 @@ public interface BoardMapper {
 	 */
 	Board boardDetail(int boardNo);
 
+	/** 게시글 조회 수 증가
+	 * @param boardNo
+	 * @return
+	 */
+	int updateBoardHits(int boardNo);
+
 }

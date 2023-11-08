@@ -82,5 +82,11 @@ public interface RecipeService {
 
 	int enroll(Board board, List<MultipartFile> images) throws IllegalStateException, IOException;
 
+	/** 레시피 조회 수 증가
+	 * @param recipeNo
+	 * @return
+	 */
+	int updateRecipeHits(int recipeNo);
+
 
 }

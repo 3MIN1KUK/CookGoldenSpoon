@@ -1,15 +1,20 @@
 package com.m1k.goldenSpoon.myPage.model.service;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.m1k.goldenSpoon.board.model.dto.Board;
 import com.m1k.goldenSpoon.common.model.dto.Pagination;
+import com.m1k.goldenSpoon.common.utility.Util;
 import com.m1k.goldenSpoon.member.model.dto.Member;
 import com.m1k.goldenSpoon.myPage.model.mapper.MyPageMapper;
 import com.m1k.goldenSpoon.recipe.model.dto.Recipe;
@@ -19,6 +24,12 @@ public class MyPageServiceImpl implements MyPageService{
 
 	@Autowired
 	private MyPageMapper mapper;
+	
+	@Value("${my.member.webpath}")
+	private String webpath;
+	
+	@Value("${my.member.location}")
+	private String folderPath;
 	
 	@Override
 	public Member myPage(int memberNo) {
@@ -88,5 +99,33 @@ public class MyPageServiceImpl implements MyPageService{
 		map.put("pagination", pagination);
 
 		return map;
+	}
+
+	// 비동기 프로필 이미지 변경
+	@Override
+	public int myPageEditProfile(MultipartFile memberProfile, Member loginMember) throws IllegalStateException, IOException {
+		
+		String backup = loginMember.getMemberProfile();
+		
+		String rename = null;
+		
+		if(memberProfile != null) {
+			rename = Util.fileRename(memberProfile.getOriginalFilename());
+			
+			loginMember.setMemberProfile(webpath + rename);
+		} else {
+			loginMember.setMemberProfile(null);
+		}
+		
+		int result = mapper.myPageEditProfile(loginMember);
+		
+		if(result > 0) {
+			if(memberProfile != null) {
+				memberProfile.transferTo(new File(folderPath + rename));
+			}
+		} else {
+			loginMember.setMemberProfile(backup);
+		}
+		return result;
 	}
 }

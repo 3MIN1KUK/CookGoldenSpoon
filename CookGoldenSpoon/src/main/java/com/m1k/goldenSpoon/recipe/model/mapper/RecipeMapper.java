@@ -132,6 +132,12 @@ public interface RecipeMapper {
 	 */
 	int insertBoard(Board board);
 
+	/** 레시피 조회 수 증가
+	 * @param recipeNo
+	 * @return
+	 */
+	int updateRecipeHits(int recipeNo);
+
 	
 	
 }
