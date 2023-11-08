@@ -23,34 +23,37 @@
     <section class="out-box">
   
       <h1>회원 조회</h1>
-      <div>
-        <div class="member-search-box">
-          <table class="search-box-table" >
-            <tr class="search-box-tr">
-              <td class="search-box-td">회원 이름</td>
-              <td class="search-box-td search-box-td-input"><input type="text" class="member-search-input form-control" id="memberNick" name="memberNickname"></td>
-            </tr>
-            <tr class="table-hr"></tr>
-            <tr class="search-box-tr">
-              <td class="search-box-td">회원 번호</td>
-              <td class="search-box-td search-box-td-input"><input type="text" class="member-search-input form-control" id="memberNo" name="memberNo"></td>
-            </tr>
-            <tr class="table-hr"></tr>
-            <tr class="search-box-tr">
-              <td class="search-box-td">회원 아이디</td>
-              <td class="search-box-td search-box-td-input"><input type="text" class="member-search-input form-control" id="memberId" name="memberId">
-              </td>
-            </tr>
-          </table>
-        </div>
-      </div>
+        <form accept="/admin/memberSearch" method="POST">
+          <div class="d-flex">
+            <div class="member-search-box">
+              <table class="search-box-table" >
+                <tr class="search-box-tr">
+                  <td class="search-box-td">회원 이름</td>
+                  <td class="search-box-td search-box-td-input"><input type="text" class="member-search-input form-control" id="memberNick" name="memberNickname"></td>
+                </tr>
+                <tr class="table-hr"></tr>
+                <tr class="search-box-tr">
+                  <td class="search-box-td">회원 번호</td>
+                  <td class="search-box-td search-box-td-input"><input type="text" class="member-search-input form-control" id="memberNo" name="memberNo"></td>
+                </tr>
+                <tr class="table-hr"></tr>
+                <tr class="search-box-tr">
+                  <td class="search-box-td">회원 아이디</td>
+                  <td class="search-box-td search-box-td-input"><input type="text" class="member-search-input form-control" id="memberId" name="memberId">
+                  </td>
+                </tr>
+              </table>
+            </div>
+            <button class="btn btn-primary">제출</button>
+          </div>
+        </form>
   
         <table class="member-search-result">
           <thead>
           <tr class="member-search-tr">
               <th class="member-search-th">회원 번호</th>
               <th class="member-search-th">회원 아이디</th>
-              <th class="member-search-th">회원 이름</th>
+              <th class="member-search-th">닉네임</th>
               <th class="member-search-th">이메일</th>
               <th class="member-search-th">상태</th>
               <th class="member-search-th">상세 조회</th>
@@ -58,13 +61,13 @@
           </tr>
           </thead>
           <tbody>
-          <tr class="member-search-tr">
+          <tr class="member-search-tr" th:each=" : ${}">
               <td class="member-search-td">James</td>
               <td class="member-search-td">Matman</td>
               <td class="member-search-td">(713) 123-8965</td>
               <td class="member-search-td"><a href="mailto:jmatman@stewart.com">jmatman@stewart.com</a></td>
               <td class="member-search-td">01/13/1979</td>
-              <td class="member-search-td">01/13/1979</td>
+              <td class="member-search-td"><button type="button" class="btn btn-info " th:onclick="|selectMember(*{memberNo})|">상세 조회</button></td>
           </tr>
           <tr class="member-search-tr">
               <td class="member-search-td">Johnny</td>
@@ -92,8 +95,31 @@
           </tr>
           </tbody>
       </table>
+
+
+      <nav aria-label="Page navigation">
+        <ul class="pagination pagination-lg justify-content-center pagination-css">
+          <li class="page-item">
+            <a class="page-link" href="#" aria-label="Previous">
+              <span aria-hidden="true">&laquo;</span>
+            </a>
+          </li>
+          <li class="page-item active"><a class="page-link" href="#">1</a></li>
+          <li class="page-item"><a class="page-link" href="#">2</a></li>
+          <li class="page-item"><a class="page-link" href="#">3</a></li>
+          <li class="page-item">
+            <a class="page-link" href="#" aria-label="Next">
+              <span aria-hidden="true">&raquo;</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+
     </section>
+
+
 </section>
   </main>
+  <script src="/js/admin/member_search.js"></script>
 </body>
 </html>

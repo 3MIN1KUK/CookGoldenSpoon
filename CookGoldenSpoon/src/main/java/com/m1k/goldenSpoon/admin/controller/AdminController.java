@@ -2,7 +2,10 @@ package com.m1k.goldenSpoon.admin.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.m1k.goldenSpoon.member.model.dto.Member;
 
 @Controller
 @RequestMapping("admin")
@@ -42,5 +45,13 @@ public class AdminController {
 	public String basic() {
 		return "basicForm";
 	}
+	
+	
+	@PostMapping("memberSearch")
+	public String memberSearch(Member searchMember) {
+		
+		return "redirect:memberSearch";
+	}
+	
 	
 }
