@@ -38,7 +38,7 @@ public class AdminFilter implements Filter{
 			// 또는 로그인이 되어있는데 관리자 권한이 아닌경우
 			Member loginMember = (Member)(session.getAttribute("loginMember") );
 			
-			if (loginMember == null || loginMember.getMemberAuthority() != 2) {
+			if (loginMember == null || loginMember.getMemberAuthority() != 3) {
 				// /loginError 리다이렉트
 				resp.sendRedirect("/adminError");
 				

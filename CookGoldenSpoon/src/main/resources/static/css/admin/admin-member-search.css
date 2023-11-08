@@ -104,14 +104,19 @@ h1{
 
 .btn-primary{
   margin: 40px;
+  width: 200px;
   font-size: 2rem !important;
 }
 
 .pagination{
-  margin-top: 20px;
+  /* margin-top: 20px; */
 }
 
 .page-link{
   font-size: 1.5rem !important;
   font-weight: bold !important;
+}
+
+.form-select{
+  font-size: 1.5rem !important;
 }
