@@ -5,33 +5,95 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>공지사항</title>
   <link rel="stylesheet" href="/css/common/project.css">
-  <link rel="stylesheet" href="/css/board/board.css">
+  <link rel="stylesheet" href="/css/board/boardDetail.css">
 </head>
 <body>
   <th:block th:replace="~{common/header}"></th:block>
   <main th:object="${board}">
     <div class="main-container">
       <div class="cs-title">
-        <a href="/board/select">자유게시판</a>
+        <a href="/board/3">자유게시판</a>
       </div>
       <div class="content-container">
+        <div class="board-container">
+          <span>번호</span>
+          <span>제목</span>
+          <span>작성자</span>
+          <span>게시판 이름</span>
+          <span>작성 날짜</span>
+          <span>조회수</span>
+        </div>
         <div class="board">
-          <span th:text="*{boardNo}">No.1</span>
+          <span th:text="*{boardNo}">번호</span>
           <span th:text="*{boardTitle}">첫 번째 공지사항 입니다</span>
-          <span th:text="*{boardCode}">게시판 종류</span>
-          <span th:text="*{boardEnrollDate}">날짜</span>
+          <span th:text="*{memberNickname}">작성자 이름</span>
+          <span th:text="*{boardType}">카테고리</span>
+          <span th:text="*{boardEnrollDate}" >날짜</span>
           <span th:text="*{boardHits}">조회수</span>
         </div>
-        <div class="board board-content" th:text="*{boardContent}">
-            <p>
-                이곳은 내용을 적는 곳입니다<br>
-                만나서 반갑습니다
-            </p>
+        
+        <div class="img-box">
+          <div class="boardImg">
+            <label for="img0">
+              <img class="preview" src="">
+            </label>
+            <input type="file" name="images" class="inputImage" id="img0" accept="image/*">
+            <span class="delete-image">&times;</span>
+          </div>
+            
+          <div class="boardImg">
+            <label for="img1">
+              <img class="preview" src="">
+            </label>
+            <input type="file" name="images" class="inputImage" id="img1" accept="image/*">
+            <span class="delete-image">&times;</span>
+          </div>
+            
+          <div class="boardImg">
+            <label for="img2">
+              <img class="preview" src="">
+            </label>
+            <input type="file" name="images" class="inputImage" id="img2" accept="image/*">
+            <span class="delete-image">&times;</span>
+          </div>
+            
+          <div class="boardImg">
+            <label for="img3">
+              <img class="preview" src="">
+            </label>
+            <input type="file" name="images" class="inputImage" id="img3" accept="image/*">
+            <span class="delete-image">&times;</span>
+          </div>
+          
+          <div class="boardImg">
+            <label for="img4">
+              <img class="preview" src="">
+            </label>
+            <input type="file" name="images" class="inputImage" id="img3" accept="image/*">
+            <span class="delete-image">&times;</span>
+          </div>
         </div>
       </div>
-      <button class="selectBtn">작성 하기</button>
+          
+        <div class="board board-content" th:text="*{boardContent}">
+          <p>
+            이곳은 내용을 적는 곳입니다<br>
+            만나서 반갑습니다
+          </p>
+        </div>
+      <!-- 버튼 영역 -->
+      <div class="detail-btn-area">
+        <!-- 로그인한 회원과 게시글 작성자 번호가 같은 경우 -->
+        <th:block th:if="${session.loginMember != null and
+                          session.loginMember.memberNo == board.memberNo}">
+          <button id="updateBtn">수 정</button>
+          <button id="deleteBtn">삭 제</button>
+        </th:block>
+        <button id="goToBtn">목록으로</button>
+      </div>
     </div>
   </main>
+  
   
 
 
@@ -48,8 +110,7 @@
 
 
 
-
   <script src="/js/common/project.js"></script>
-  <script src="/js/cs/cs.js"></script>
+  <script src="/js/board/boardDetail.js"></script>
 </body>
 </html>

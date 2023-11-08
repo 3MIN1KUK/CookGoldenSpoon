@@ -13,47 +13,56 @@
   <main th:with="boardList=${map.boardList}, pagination=${map.pagination}">
     <div class="main-container">
       <div class="cs-title">
-        <a href="/board/select">자유게시판</a>
+        <a href="/board/3">자유게시판</a>
         <div class="searchForm">
           <input id="searchBoard" name="searchBoard" type="text" placeholder="검색어를 입력해주세요">
           <button id="searchBoardBtn" >검색</button>
         </div>
       </div>
       <div class="content-container">
+        <div class="board-container">
+          <span>번호</span>
+          <span>제목</span>
+          <span>작성자</span>
+          <span>게시판 이름</span>
+          <span>작성 날짜</span>
+          <span>조회수</span>
+        </div>
         <th:block th:each="board : ${boardList}" th:object="${board}">
-          <a th:href="@{/board/select/{boardNo}(boardNo=*{boardNo})}" class="board">
-            <span th:text="*{boardNo}">No.1</span>
+          <a th:href="@{/board/{boardCode}/{boardNo}(boardNo=*{boardNo}, boardCode=*{boardCode})}" class="board">
+            <span th:text="*{boardNo}">번호</span>
             <span th:text="*{boardTitle}">첫 번째 공지사항 입니다</span>
-            <span th:text="*{boardCode}">게시판 종류</span>
+            <span th:text="*{memberNickname}">작성자 이름</span>
+            <span th:text="*{boardType}">작성자 이름</span>
             <span th:text="*{boardEnrollDate}" >날짜</span>
             <span th:text="*{boardHits}">조회수</span>
           </a>
         </th:block>
         <div class="btn-area">
           <!-- 로그인 상태일 때만 글쓰기 버튼 노출 -->
-          <button id="insertBtn">작성하기</button>                     
+          <th:block th:if="${session.loginMember}"><button id="insertBtn">작성하기</button></th:block>                     
         </div>
       </div>
       <div class="page-number">
         <ul th:if="${inputSearch == null}">
-          <li><a href="/board/select"><i class="fa-solid fa-backward-step"></i></a></li>
-          <li><a th:href="@{/board/select(cp=${pagination.prevPage})}"><i class="fa-solid fa-caret-left fa-lg"></i></a></li>
+          <li><a th:href="@{/board/{boardCode}(boardCode=${boardCode})}"><i class="fa-solid fa-backward-step"></i></a></li>
+          <li><a th:href="@{/board/{boardCode}(cp=${pagination.prevPage}, boardCode=${boardCode})}"><i class="fa-solid fa-caret-left fa-lg"></i></a></li>
           <th:block th:each="i : ${#numbers.sequence(pagination.startPage, pagination.endPage, 1)}">
             <li th:if="${i == pagination.currentPage}"><a style="color: black;" class="text" th:text="${i}">1</a></li>
-            <li th:unless="${i == pagination.currentPage}"><a th:href="@{/board/select(cp=${i})}" class="text" th:text="${i}">1</a></li>
+            <li th:unless="${i == pagination.currentPage}"><a th:href="@{/board/{boardCode}(cp=${i}, boardCode=${boardCode})}" class="text" th:text="${i}">1</a></li>
           </th:block>
-          <li><a th:href="@{/board/select(cp=${pagination.nextPage})}"><i class="fa-solid fa-caret-right fa-lg"></i></a></li>
-          <li><a th:href="@{/board/select(cp=${pagination.maxPage})}"><i class="fa-solid fa-forward-step"></i></a></li>
+          <li><a th:href="@{/board/{boardCode}(cp=${pagination.nextPage}, boardCode=${boardCode})}"><i class="fa-solid fa-caret-right fa-lg"></i></a></li>
+          <li><a th:href="@{/board/{boardCode}(cp=${pagination.maxPage}, boardCode=${boardCode})}"><i class="fa-solid fa-forward-step"></i></a></li>
         </ul>
         <ul th:unless="${inputSearch == null}">
-          <li><a th:href="@{/board/select/search(inputSearch=${inputSearch})}"><i class="fa-solid fa-backward-step"></i></a></li>
-          <li><a th:href="@{/board/select/search(cp=${pagination.prevPage}, inputSearch=${inputSearch})}"><i class="fa-solid fa-caret-left fa-lg"></i></a></li>
+          <li><a th:href="@{/board/{boardCode}/search(inputSearch=${inputSearch}, boardCode=${boardCode})}"><i class="fa-solid fa-backward-step"></i></a></li>
+          <li><a th:href="@{/board/{boardCode}/search(cp=${pagination.prevPage}, inputSearch=${inputSearch}, boardCode=${boardCode})}"><i class="fa-solid fa-caret-left fa-lg"></i></a></li>
           <th:block th:each="i : ${#numbers.sequence(pagination.startPage, pagination.endPage, 1)}">
             <li th:if="${i == pagination.currentPage}"><a style="color: black;" class="text" th:text="${i}">1</a></li>
-            <li th:unless="${i == pagination.currentPage}"><a th:href="@{/board/select/search(cp=${i}, inputSearch=${inputSearch})}" class="text" th:text="${i}">1</a></li>
+            <li th:unless="${i == pagination.currentPage}"><a th:href="@{/board/{boardCode}/search(cp=${i}, inputSearch=${inputSearch}, boardCode=${boardCode})}" class="text" th:text="${i}">1</a></li>
           </th:block>
-          <li><a th:href="@{/board/select/search(cp=${pagination.nextPage}, inputSearch=${inputSearch})}"><i class="fa-solid fa-caret-right fa-lg"></i></a></li>
-          <li><a th:href="@{/board/select/search(cp=${pagination.maxPage}, inputSearch=${inputSearch})}"><i class="fa-solid fa-forward-step"></i></a></li>
+          <li><a th:href="@{/board/{boardCode}/search(cp=${pagination.nextPage}, inputSearch=${inputSearch}, boardCode=${boardCode})}"><i class="fa-solid fa-caret-right fa-lg"></i></a></li>
+          <li><a th:href="@{/board/{boardCode}/search(cp=${pagination.maxPage}, inputSearch=${inputSearch}, boardCode=${boardCode})}"><i class="fa-solid fa-forward-step"></i></a></li>
         </ul>
       </div>
     </div>
@@ -61,6 +70,10 @@
 
 
 
+
+  <script th:inline="javascript">
+    const boardCode = /*[[${boardCode}]]*/ "게시판 번호";
+  </script>
   <script src="/js/board/board.js"></script>
   <script src="/js/common/project.js"></script>
 </body>

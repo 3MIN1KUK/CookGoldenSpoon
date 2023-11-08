@@ -9,19 +9,19 @@
   <script src="https://kit.fontawesome.com/921e1d60a7.js" crossorigin="anonymous"></script>
 </head>
 <body>
-   <th:block th:replace="~{common/header}"></th:block>
-   <main>
-     <div class="main-container">
-      <h1 class="board-name">게시판 이름</h1>
+    <th:block th:replace="~{common/header}"></th:block>
+    <main>
+      <div class="main-container">
+        <h1 class="board-name">게시판 이름</h1>
 
-      <!-- 제목 -->
-      <h1 class="board-title">
-          <input type="text" name="boardTitle" placeholder="제목" value="">
-      </h1>
+        <!-- 제목 -->
+        <h1 class="board-title">
+          <input type="text" name="boardTitle" placeholder="제목을 입력해주세요" value="">
+        </h1>
 
-      <!-- 업로드 이미지 영역 -->
-      <h5 class="board-image">사진 첨부</h5>
-      <div class="img-box">
+        <!-- 업로드 이미지 영역 -->
+        <h5 class="board-image">사진 첨부</h5>
+        <div class="img-box">
           <div class="boardImg">
               <label for="img0">
                   <img class="preview" src="">
@@ -48,27 +48,27 @@
 
           <div class="boardImg">
               <label for="img3">
-                  <img class="preview" src="">
+                    <img class="preview" src="">
               </label>
               <input type="file" name="images" class="inputImage" id="img3" accept="image/*">
               <span class="delete-image">&times;</span>
           </div>
-      </div>
+        </div>
 
-      <!-- 내용 -->
-      <div class="board-content">
-          <textarea name="boardContent"></textarea>
-      </div>
+        <!-- 내용 -->
+        <div class="board-content">
+          <textarea name="boardContent" placeholder="내용을 입력해주세요"></textarea>
+        </div>
 
 
       <!-- 버튼 영역 -->
-      <div class="board-btn-area">
+        <div class="board-btn-area">
           <button type="submit" id="writebtn">등록</button>
-      </div>
+        </div>
        
  
-     </div>
-   </main>
+      </div>
+    </main>
 
 
   <script src="/js/board/boardWrite.js"></script>

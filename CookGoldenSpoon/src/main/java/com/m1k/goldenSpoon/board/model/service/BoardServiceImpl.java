@@ -21,10 +21,10 @@ public class BoardServiceImpl implements BoardService{
 	private final BoardMapper mapper;
 	
 	@Override
-	public Map<String, Object> selectAllBoard(int cp) {
+	public Map<String, Object> selectAllBoard(int boardCode, int cp) {
 		
 		// 전체 글 수 조회
-		int listCount = mapper.getBoardListCount();
+		int listCount = mapper.getBoardListCount(boardCode);
 
 		Pagination pagination = new Pagination(cp, listCount, 14, 10);
 
@@ -32,7 +32,7 @@ public class BoardServiceImpl implements BoardService{
 		int limit = pagination.getLimit();
 
 		RowBounds rowBounds = new RowBounds(offset, limit);
-		List<Board> boardList = mapper.selectAllBoard(rowBounds);
+		List<Board> boardList = mapper.selectAllBoard(boardCode, rowBounds);
 		Map<String, Object> map = new HashMap<>();
 		map.put("boardList", boardList);
 		map.put("pagination", pagination);
@@ -40,8 +40,8 @@ public class BoardServiceImpl implements BoardService{
 	} 
 	
 	@Override
-	public Board boardDetail(int boardNo) {
-		return mapper.boardDetail(boardNo);
+	public Board boardDetail(Map<String, Object> map) {
+		return mapper.boardDetail(map);
 	}
 	
 }
