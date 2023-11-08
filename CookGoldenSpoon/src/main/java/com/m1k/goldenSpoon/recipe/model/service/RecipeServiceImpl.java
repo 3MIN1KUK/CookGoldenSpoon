@@ -15,11 +15,11 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.m1k.goldenSpoon.board.model.dto.Board;
-import com.m1k.goldenSpoon.board.model.dto.BoardImg;
 import com.m1k.goldenSpoon.board.model.exception.BoardWriteException;
 import com.m1k.goldenSpoon.common.model.dto.Pagination;
 import com.m1k.goldenSpoon.common.utility.Util;
 import com.m1k.goldenSpoon.recipe.model.dto.Recipe;
+import com.m1k.goldenSpoon.recipe.model.dto.RecipePicture;
 import com.m1k.goldenSpoon.recipe.model.mapper.RecipeMapper;
 
 import lombok.RequiredArgsConstructor;
@@ -32,10 +32,10 @@ public class RecipeServiceImpl implements RecipeService{
 
 	private final RecipeMapper mapper;
 	
-	@Value("${my.board.location}")
+	@Value("${my.recipe.location}")
 	private String folderPath;
 	
-	@Value("${my.board.webpath}")
+	@Value("${my.recipe.webpath}")
 	private String webPath;
 	
 	@Override
@@ -151,34 +151,79 @@ public class RecipeServiceImpl implements RecipeService{
 	
 	// 레시피 등록
 	@Override
-	public int enroll(Board board, List<MultipartFile> images) throws IllegalStateException, IOException {
-		int result = mapper.insertBoard(board);
-		if(result == 0) return 0; 
-		int boardNo = board.getBoardNo();
-		List<BoardImg> uploadList = new ArrayList<>();
-		for(int i = 0 ; i<images.size(); i++) {
-			if(images.get(i).getSize() > 0) {
-				BoardImg img = new BoardImg();
-				img.setBoardNo(boardNo); 
-				img.setBoardImageOrder(i);
-				img.setBoardImageName( images.get(i).getOriginalFilename() ); 
-				img.setBoardImage(webPath);
-				img.setBoardImageRename(Util.fileRename( images.get(i).getOriginalFilename() ));
-				img.setUploadFile(images.get(i));
+	public int enroll(Recipe recipe, MultipartFile thumbnail, List<MultipartFile> processImages, List<MultipartFile> completeImages) throws IllegalStateException, IOException {
+		
+		
+		String thumbnailRename = Util.fileRename(thumbnail.getOriginalFilename());
+		
+		recipe.setRecipeThumbnail(webPath + thumbnailRename);
+		
+		int result1 = mapper.insertRecipe(recipe);
+		if(result1 == 0) return 0; 
+		int recipeNo = recipe.getRecipeNo();
+		
+	
+		
+		/*
+		List<RecipePicture> uploadList = new ArrayList<>();
+		for(int i = 0 ; i<processImages.size(); i++) {
+			if(processImages.get(i).getSize() > 0) {
+				RecipePicture img = new RecipePicture();
+				img.setRecipeNo(recipeNo); 
+				img.setRecipeImageOrder(i);
+				img.setRecipeImageName( processImages.get(i).getOriginalFilename() ); 
+				img.setRecipeImage(webPath);
+				img.setRecipeImageRename(Util.fileRename( processImages.get(i).getOriginalFilename() ));
+				img.setUploadFile(processImages.get(i));
 				uploadList.add(img);
 			} // if문 끝
 		}// for문 끝
-		if(uploadList.isEmpty()) {
-			return boardNo;
+		
+		int result2 = mapper.insertProcessList(uploadList);
+		
+		*/
+		
+		
+		/*
+		List<RecipePicture> uploadList2 = new ArrayList<>();
+		for(int i = 0 ; i<completeImages.size(); i++) {
+			if(completeImages.get(i).getSize() > 0) {
+				RecipePicture img = new RecipePicture();
+				img.setRecipeNo(recipeNo); 
+				img.setRecipeImageOrder(i);
+				img.setRecipeImageName( processImages.get(i).getOriginalFilename() ); 
+				img.setRecipeImage(webPath);
+				img.setRecipeImageRename(Util.fileRename( completeImages.get(i).getOriginalFilename() ));
+				img.setUploadFile(processImages.get(i));
+				uploadList2.add(img);
+			} // if문 끝
+		}// for문 끝
+		
+		int result3 = mapper.insertCompleteList(uploadList2);
+		
+		 */
+		
+		
+		
+		
+		
+		if(result1 > 0	/* && result2 == uploadList.size()*/ /* && result3 == uploadList2.size()*/) {
+			thumbnail.transferTo(new File(folderPath + thumbnailRename));
+			
+			// result2 == uploadList.size()
+//			for(RecipeImageName img : uploadList) {
+//				img.getUploadFile().transferTo(new File(folderPath + img.getRecipeImageRename()));
+//			}
+			
+			// result3 == uploadList.size()
+//			for(RecipeImageName img : uploadList2) {
+//				img.getUploadFile().transferTo(new File(folderPath + img.getRecipeImageRename()));
+//			}
 		}
-		result = mapper.insertUploadList(uploadList);
-		if(result == uploadList.size()) {
-			for(BoardImg img : uploadList) {
-				img.getUploadFile().transferTo(new File(folderPath + img.getBoardImageRename()));
-			}
-		} else {
-			throw new BoardWriteException("파일 정보 DB 삽입 실패");
-		}
-		return boardNo;
+		
+		
+		
+		
+		return recipeNo;
 	}
 }

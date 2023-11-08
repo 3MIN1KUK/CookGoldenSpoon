@@ -164,17 +164,17 @@
 	
 	
 	
-	<!-- 레시피 작성 -->
-	<insert id="insertBoard" parameterType="Board" useGeneratedKeys="true">
+	<!-- 레시피 등록 -->
+	<insert id="insertRecipe" parameterType="Recipe" useGeneratedKeys="true">
 	
-	<selectKey order="BEFORE" resultType="_int" keyProperty="boardNo">
-		SELECT SEQ_BOARD_NO.NEXTVAL FROM DUAL
-	</selectKey>
-	
-	
-	INSERT INTO "BOARD"
-	VALUES ( #{boardNo} , #{boardTitle}, #{boardContent}, default, default, default, default,
-		#{memberNo}, #{boardCode} )
+		<selectKey order="BEFORE" resultType="_int" keyProperty="recipeNo">
+			SELECT SEQ_RECIPE_NO.NEXTVAL FROM DUAL
+		</selectKey>
+		
+		
+		INSERT INTO "RECIPE"
+		VALUES ( #{recipeNo} , #{recipeTitle}, #{recipeThumbnail}, #{recipeIntro}, #{recipeTip}, default, default,
+		#{recipeTime}, #{recipePeople}, #{recipeLevel}, #{memberNo}, default)
 	</insert>
 	
 	
