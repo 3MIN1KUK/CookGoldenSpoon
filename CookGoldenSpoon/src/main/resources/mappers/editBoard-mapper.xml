@@ -4,7 +4,7 @@
 <mapper namespace="com.m1k.goldenSpoon.board.model.mapper.EditBoardMapper">
 	
 	<!-- 게시글 삭제 -->
-	<update id="updateBoard">
+	<update id="deleteBoard">
 		UPDATE "BOARD" SET
 		BOARD_DEL_FL = 'Y'
 		WHERE BOARD_CODE = #{boardCode}

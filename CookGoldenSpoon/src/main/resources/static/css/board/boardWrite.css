@@ -107,13 +107,14 @@ nav>ul{
 
 /* 게시글 제목 */
 .board-name{
-  margin-right: 76rem;
+  width: 90%;
+  padding-left: 1rem;
   margin-top: 1rem;
   font-size: 3rem;
 }
 
 .board-title{
-  width: 93rem;
+  width: 90%;
   margin-top: 1rem;
 }
 
@@ -121,12 +122,13 @@ nav>ul{
   width: 100%;
   padding: 1rem;
   font-size: 24px;
-  border-radius: 20px;
+  border-radius: 15px;
 }
 
 /* 이미지 제목 */
 .board-image{
-  margin-right: 79rem;
+  width: 90%;
+  padding-left: 1rem;
   margin-top: 1rem;
   font-size: 3rem;
 }
@@ -140,6 +142,12 @@ nav>ul{
   position: relative;
 }
 
+.img-box{
+  width: 90%;
+  display: flex;
+  justify-content: space-between;
+}
+
 .boardImg > label{
   width: 100%;
   height: 100%;
@@ -149,28 +157,34 @@ nav>ul{
   border: 1px solid #ccc;
   background-color: white;
   cursor: pointer;
+  border-radius: 15px;
 }
 
+/* 파일선택 창 지우기 */
 .inputImage{
   display: none;
 }
 
 /* 내용 */
 .board-content{
+  width: 90%;
   padding-top: 20px;
   font-size: 18px;
 }
 
 [name="boardContent"]{
-  width: 93rem;
+  width: 100%;
   height: 400px;
   resize: none;
   font-size: 1.1em;
+  padding: 10px;
+  border-radius: 15px;
 }
 
 .board-btn-area{
-  margin-left: 87rem;
+  margin-left: 123rem;
 }
+
 .board-btn-area > button{
   font-size: 15px;
   width: 60px;

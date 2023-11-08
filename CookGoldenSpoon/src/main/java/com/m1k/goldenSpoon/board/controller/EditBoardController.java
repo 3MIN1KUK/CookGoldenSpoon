@@ -45,11 +45,11 @@ public class EditBoardController {
 	 * @param ra
 	 * @return
 	 */
-	@GetMapping("{boardCode:[0-9]+}/{boardNo:[0-9]+/delete}")
+	@GetMapping("{boardCode:[0-9]+}/{boardNo:[0-9]+}/delete")
 	public String deleteBoard(
 			@PathVariable("boardCode") int boardCode,
 			@PathVariable("boardNo") int boardNo,
-			@SessionAttribute(value="loginMember", required=false) Member loginMember,
+			@SessionAttribute("loginMember") Member loginMember,
 			RedirectAttributes ra
 			) {
 		
@@ -63,7 +63,7 @@ public class EditBoardController {
 		Map<String, Integer> paramMap = new HashMap<>();
 		paramMap.put("boardCode", boardCode);
 		paramMap.put("boardNo", boardNo);
-		paramMap.put("memberNO", loginMember.getMemberNo());
+		paramMap.put("memberNo", loginMember.getMemberNo());
 		
 		// 서비스 호출 후 결과 반환
 		int result = service.deleteBoard(paramMap);

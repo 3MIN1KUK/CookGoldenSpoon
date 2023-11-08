@@ -32,55 +32,31 @@
           <span th:text="*{boardHits}">조회수</span>
         </div>
         
+      <!-- 일반 이미지가 있을 경우 -->
+      <!-- <th:block th:if="${#lists.size(board.imageList) > start}" >
+        <h5>업로드 이미지</h5>
         <div class="img-box">
-          <div class="boardImg">
-            <label for="img0">
-              <img class="preview" src="">
-            </label>
-            <input type="file" name="images" class="inputImage" id="img0" accept="image/*">
-            <span class="delete-image">&times;</span>
-          </div>
-            
-          <div class="boardImg">
-            <label for="img1">
-              <img class="preview" src="">
-            </label>
-            <input type="file" name="images" class="inputImage" id="img1" accept="image/*">
-            <span class="delete-image">&times;</span>
-          </div>
-            
-          <div class="boardImg">
-            <label for="img2">
-              <img class="preview" src="">
-            </label>
-            <input type="file" name="images" class="inputImage" id="img2" accept="image/*">
-            <span class="delete-image">&times;</span>
-          </div>
-            
-          <div class="boardImg">
-            <label for="img3">
-              <img class="preview" src="">
-            </label>
-            <input type="file" name="images" class="inputImage" id="img3" accept="image/*">
-            <span class="delete-image">&times;</span>
-          </div>
-          
-          <div class="boardImg">
-            <label for="img4">
-              <img class="preview" src="">
-            </label>
-            <input type="file" name="images" class="inputImage" id="img3" accept="image/*">
-            <span class="delete-image">&times;</span>
+        
+          <div th:each="i : ${#numbers.sequence(start, #lists.size(board.imageList)-1, 1)}" 
+            th:with="path=|${board.imageList[i].imgPath}${board.imageList[i].imgRename}|"
+            class="boardImg">
+    
+            <img th:src="${path}">   
+    
+            <a href="${path}" 
+              th:download="${board.imageList[i].imgOriginalName}">다운로드</a>                
           </div>
         </div>
+      </th:block> -->
+      
+      <div class="board board-content" th:text="*{boardContent}">
+        <p>
+          이곳은 내용을 적는 곳입니다<br>
+          만나서 반갑습니다
+        </p>
       </div>
-          
-        <div class="board board-content" th:text="*{boardContent}">
-          <p>
-            이곳은 내용을 적는 곳입니다<br>
-            만나서 반갑습니다
-          </p>
-        </div>
+
+
       <!-- 버튼 영역 -->
       <div class="detail-btn-area">
         <!-- 로그인한 회원과 게시글 작성자 번호가 같은 경우 -->
@@ -91,24 +67,30 @@
         </th:block>
         <button id="goToBtn">목록으로</button>
       </div>
+
+
     </div>
+
   </main>
-  
-  
 
 
+  <th:block th:replace="~{common/footer}"></th:block>
 
 
+  <script th:inline="javascript">
+    const boardCode = /*[[${boardCode}]]*/ "게시판 코드";
+    const boardNo = /*[[${boardNo}]]*/ "게시글 번호";
 
-
-
-
-
-
-
-
-
-
+    const loginCheck = /*[[${session.loginMember != null ? true : false}]]*/ "로그인 여부";
+    // -----------------------------------------------------------
+    // 게시글 수정 시 사용
+    const imageList = /*[[${board.imageList}]]*/ [];
+    const previewList = document.querySelectorAll('.boardImg > img');
+    previewList.forEach((preview, i)=>{
+        console.log(preview);
+        preview.src = imageList[i].imgPath + imageList[i].imgRename;
+    })
+  </script>
 
   <script src="/js/common/project.js"></script>
   <script src="/js/board/boardDetail.js"></script>
