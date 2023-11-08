@@ -94,4 +94,12 @@
 		AND RECIPE_DEL_FL = 'N'
 		ORDER BY RECIPE_NO DESC
 	</select>
+	
+	<!-- 프로필 사진 변경 -->
+	<update id="myPageEditProfile">
+		UPDATE "MEMBER" SET
+		MEMBER_PROFILE = #{memberProfile}
+		WHERE MEMBER_NO = #{memberNo}
+	</update>
+	
 </mapper>
