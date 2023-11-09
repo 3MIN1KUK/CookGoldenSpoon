@@ -4,7 +4,7 @@
 <mapper namespace="com.m1k.goldenSpoon.member.model.mapper.MemberMapper">
 	
 	<select id="login" resultType="Member" >
-		SELECT MEMBER_ID, MEMBER_EMAIL , MEMBER_PW , MEMBER_NICKNAME , MEMBER_NO, MEMBER_AUTHORITY
+		SELECT MEMBER_ID, MEMBER_EMAIL , MEMBER_PW , MEMBER_NICKNAME , MEMBER_NO, MEMBER_AUTHORITY, MEMBER_PROFILE
 		FROM "MEMBER"
 		WHERE MEMBER_ID = #{memberId}
 		AND MEMBER_DEL_FL = 'N'

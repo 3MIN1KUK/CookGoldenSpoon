@@ -185,7 +185,8 @@
 }
 
 .star-point{
-  padding: 0;
+  padding: 1rem;
+  font-size: 2rem;
 }
 
 .memberProfile{

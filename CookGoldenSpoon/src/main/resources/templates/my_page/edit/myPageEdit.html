@@ -11,34 +11,30 @@
 <body>
   <th:block th:replace="~{common/header}"></th:block>
   <main>
-    <div class="main-container">
+    <div class="main-container" th:object="${session.loginMember}">
       <div class="cs-title">
         <a href="/myPage/edit">내 정보 수정</a>
       </div>
       <th:block th:replace="~{my_page/myPageSideMenu}"></th:block>
-      <form action="" class="userInfo" th:object="${myPageMember}" enctype="multipart/form-data">
-        <div class="userInfo-row">
+        <div class="userInfo-row edit-userInfo-row">
+          <button type="button" id="xBtn"><i class="fa-solid fa-x"></i></button>
           <div class="userInfo-image">
-            <img th:unless="*{memberProfile}" th:src="#{user.default.image}" class="memberProfile">
             <img th:if="*{memberProfile}" th:src="*{memberProfile}" class="memberProfile">
+            <img th:unless="*{memberProfile}" th:src="#{user.default.image}" class="memberProfile">
           </div>
-          <input class="userInfo-nickname" th:value="*{memberNickname}" />
-          <div class="userInfo-id">
-            <div th:text="*{memberEmail}">member03</div>
-            <br>
-            <div th:text="*{memberEnrollDate}">2023/03/21</div>
-          </div>
-          <div class="userInfo-grade">
-            <th:block th:if="*{memberAuthority == 1}">일반</th:block>
-            <th:block th:if="*{memberAuthority == 2}">강사</th:block>
-            <th:block th:if="*{memberAuthority == 3}">관리자</th:block>
+          <div class="profile">
+            <label for="profileInput" class="profileInput">
+              이미지 선택
+              <input type="file" id="profileInput">
+            </label>
+            <button id="profileBtn" class="profileInput">프로필 변경</button>
           </div>
         </div>
-        <div class="userInfo-row">
-          <input class="userInfo-intro" th:if="*{memberIntro}" th:value="*{memberIntro}"/>
-          <input class="userInfo-intro" th:unless="*{memberIntro}" placeholder="한 줄 소개를 작성해주세요"/>
+        <div class="userInfo-row memberIntro">
+          <input type="text" class="userInfo-intro" th:if="*{memberIntro}" th:value="*{memberIntro}"/>
+          <input type="text" class="userInfo-intro" th:unless="*{memberIntro}" placeholder="한 줄 소개를 작성해주세요"/>
         </div>
-      </div>
+        <input type="text" class="userInfo-nickname" th:value="*{memberNickname}"/>
     </div>
 
 
@@ -49,6 +45,12 @@
 
   </main>
   <th:block th:replace="~{common/footer}"></th:block>
+
+  <script th:inline="javascript">
+    const defaultImg = /*[[#{user.default.image}]]*/ "기본 프로필 이미지";
+    const loginMemberProfile = /*[[${session.loginMember.memberProfile}]]*/ "로그인한 회원 프로필 이미지";
+  </script>
   <script src="/js/common/project.js"></script>
+  <script src="/js/my_page/edit/myPageEdit.js"></script>
 </body>
 </html>

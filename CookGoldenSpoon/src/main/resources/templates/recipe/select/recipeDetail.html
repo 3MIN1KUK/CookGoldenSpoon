@@ -22,6 +22,8 @@
           </div>
           <div class="star-point">
             <i class="fa-star fa-solid" style="color: gold;"></i> [[*{recipeStar}]]
+            <i class="fa-heart fa-solid" style="color: red;"></i> [[*{recipeLike}]]
+            <i class="fa-user fa-solid" style="color: black;"></i> [[*{recipeHits}]]
           </div>
           <div th:text="*{recipeIntro}">
             간략한 소개<br><br><br>입니다
@@ -107,6 +109,29 @@
           <div></div>
         </div>
       </div>
+      
+      <div class="recipe-content recipe-photos">
+        <div class="recipe-subtitle">
+          또 다른 추천 음식
+        </div>
+        <div class="recipe-photo">
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
+      </div>
+      <!-- <div class="recipe-content  recipe-photos">
+        <div class="recipe-subtitle">
+          최근 본 레시피
+        </div>
+        <div class="recipe-photo">
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
+      </div> -->
       <div class="recipe-content">
         <div class="recipe-subtitle">
           요리 후기
@@ -140,28 +165,6 @@
           </div>
           <button>제출</button>
         </form>
-      </div>
-      <div class="recipe-content recipe-photos">
-        <div class="recipe-subtitle">
-          또 다른 추천 음식
-        </div>
-        <div class="recipe-photo">
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-        </div>
-      </div>
-      <div class="recipe-content  recipe-photos">
-        <div class="recipe-subtitle">
-          최근 본 레시피
-        </div>
-        <div class="recipe-photo">
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-        </div>
       </div>
     </div>
   </main>

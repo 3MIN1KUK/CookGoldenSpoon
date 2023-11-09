@@ -78,6 +78,11 @@
     </div>
   </main>
   <th:block th:replace="~{common/footer}"></th:block>
+
+  <script th:inline="javascript">
+    const memberId = /*[[${map.listMember.memberId}]]*/ "회원 아이디";
+  </script>
+
   <script src="/js/common/project.js"></script>
   <script src="/js/member/signup.js"></script>
 </body>

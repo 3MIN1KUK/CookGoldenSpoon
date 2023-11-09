@@ -44,4 +44,10 @@ public class BoardServiceImpl implements BoardService{
 		return mapper.boardDetail(map);
 	}
 	
+	// 게시글 조회 수 증가
+	@Override
+	public int updateBoardHits(int boardNo) {
+		return mapper.updateBoardHits(boardNo);
+	}
+	
 }

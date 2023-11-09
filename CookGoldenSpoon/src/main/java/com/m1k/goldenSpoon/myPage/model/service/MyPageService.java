@@ -1,6 +1,9 @@
 package com.m1k.goldenSpoon.myPage.model.service;
 
+import java.io.IOException;
 import java.util.Map;
+
+import org.springframework.web.multipart.MultipartFile;
 
 import com.m1k.goldenSpoon.member.model.dto.Member;
 
@@ -39,6 +42,13 @@ public interface MyPageService {
 	 * @return
 	 */
 	Map<String, Object> myPageRecipe(int memberNo, int cp);
+
+	/** 비동기 프로필 사진 변경
+	 * @param memberProfile
+	 * @param loginMember
+	 * @return
+	 */
+	int myPageEditProfile(MultipartFile memberProfile, Member loginMember) throws IllegalStateException, IOException;
 	
 
 }
