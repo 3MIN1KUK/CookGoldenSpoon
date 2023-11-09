@@ -128,4 +128,11 @@ public class MyPageServiceImpl implements MyPageService{
 		}
 		return result;
 	}
+	
+
+	// 닉네임 유효성 검사
+	@Override
+	public int myPageValidation(String memberNickname) {
+		return mapper.myPageValidation(memberNickname);
+	}
 }

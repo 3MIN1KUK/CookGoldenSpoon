@@ -88,9 +88,19 @@
 .fa-comment-dots{
   color: black;
 }
-
+.validation{
+  font-size: 1.5rem;
+  height: 1.7rem;
+}
 .memberIntro{
   justify-content: center;
+  width: 100%;
+  position: relative;
+}
+.memberIntro>span{
+  font-size: 3rem;
+  position: absolute;
+  left: -15rem;
 }
 .edit-userInfo-row{
   flex-direction: column;
@@ -127,4 +137,18 @@
   font-size: 1rem;
   color: black;
   margin: auto;
+}
+.myPageSubtitle{
+  font-size: 3rem;
+}
+.editFrm{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+#changeBtn{
+  border-radius: 1rem;
+  font-size: 2rem;
+  padding: 0.5rem 0.5rem 0rem;
+  align-self: flex-end;
 }

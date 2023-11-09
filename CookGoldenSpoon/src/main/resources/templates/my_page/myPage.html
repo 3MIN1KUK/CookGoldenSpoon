@@ -17,14 +17,13 @@
       </div>
       <th:block th:replace="~{my_page/myPageSideMenu}"></th:block>
       <div class="userInfo" th:object="${myPageMember}">
+        <div class="myPageSubtitle">프로필</div>
         <div class="userInfo-row">
           <div class="userInfo-image">
             <img th:unless="*{memberProfile}" th:src="#{user.default.image}" class="memberProfile">
             <img th:if="*{memberProfile}" th:src="*{memberProfile}" class="memberProfile">
           </div>
-          <div class="userInfo-nickname" th:text="*{memberNickname}">
-            김민석
-          </div>
+          <div class="userInfo-nickname" th:text="*{memberNickname}"></div>
           <div class="userInfo-id">
             <div th:text="*{memberEmail}">member03</div>
             <br>
@@ -36,14 +35,14 @@
             <th:block th:if="*{memberAuthority == 3}">관리자</th:block>
           </div>
         </div>
+        <div class="myPageSubtitle">자기소개</div>
         <div class="userInfo-row memberIntro">
             <div class="userInfo-intro" th:unless="*{memberIntro}">
               한 줄 소개가 없습니다
             </div>
-            <div class="userInfo-intro" th:if="*{memberIntro}" th:text="*{memberIntro}">
-              한 줄 소개
-            </div>
+            <div class="userInfo-intro" th:if="*{memberIntro}" th:text="*{memberIntro}"></div>
         </div>
+        <div class="myPageSubtitle">기록들</div>
         <div class="userInfo-row counts">
           <div>
             <i class="fa-heart fa-solid fa-lg"></i>

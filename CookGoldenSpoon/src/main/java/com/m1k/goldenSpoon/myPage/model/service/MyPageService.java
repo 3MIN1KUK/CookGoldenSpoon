@@ -49,6 +49,12 @@ public interface MyPageService {
 	 * @return
 	 */
 	int myPageEditProfile(MultipartFile memberProfile, Member loginMember) throws IllegalStateException, IOException;
+
+	/** 닉네임 유효성 검사
+	 * @param memberNickname
+	 * @return
+	 */
+	int myPageValidation(String memberNickname);
 	
 
 }
