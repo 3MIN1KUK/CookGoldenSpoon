@@ -12,7 +12,7 @@
 <body>
 
   
-  <main class="d-flex flex-nowrap">
+<main class="d-flex flex-nowrap" th:with="listMember=${map.listMember}, pagination=${map.pagination}">
     
     <th:block th:replace="~{admin/admin_sidebar}"></th:block>
 
@@ -23,77 +23,124 @@
     <section class="out-box">
   
       <h1>회원 조회</h1>
-      <div>
-        <div class="member-search-box">
-          <table class="search-box-table" >
-            <tr class="search-box-tr">
-              <td class="search-box-td">회원 이름</td>
-              <td class="search-box-td search-box-td-input"><input type="text" class="member-search-input form-control" id="memberNick" name="memberNickname"></td>
-            </tr>
-            <tr class="table-hr"></tr>
-            <tr class="search-box-tr">
-              <td class="search-box-td">회원 번호</td>
-              <td class="search-box-td search-box-td-input"><input type="text" class="member-search-input form-control" id="memberNo" name="memberNo"></td>
-            </tr>
-            <tr class="table-hr"></tr>
-            <tr class="search-box-tr">
-              <td class="search-box-td">회원 아이디</td>
-              <td class="search-box-td search-box-td-input"><input type="text" class="member-search-input form-control" id="memberId" name="memberId">
-              </td>
-            </tr>
-          </table>
-        </div>
-      </div>
+        <form accept="/admin/memberSearch" method="get">
+          <div class="d-flex">
+            <div class="member-search-box">
+              <table class="search-box-table" >
+
+                <tr class="search-box-tr">
+                  <td class="search-box-td">회원 닉네임</td>
+                  <td class="search-box-td search-box-td-input"><input type="text" class="member-search-input form-control" id="memberNick" name="memberNickname"></td>
+                </tr>
+
+                <tr class="table-hr"></tr>
+
+                <tr class="search-box-tr">
+                  <td class="search-box-td">회원 이메일</td>
+                  <td class="search-box-td search-box-td-input"><input type="text" class="member-search-input form-control" id="memberEmail" name="memberEmail"></td>
+                </tr>
+
+                <tr class="table-hr"></tr>
+
+                <tr class="search-box-tr">
+                  <td class="search-box-td">회원 아이디</td>
+                  <td class="search-box-td search-box-td-input"><input type="text" class="member-search-input form-control" id="memberId" name="memberId">
+                  </td>
+                </tr>
+
+              </table>
+            </div>
+            <button class="btn btn-primary">제출</button>
+          </div>
+        </form>
   
         <table class="member-search-result">
           <thead>
           <tr class="member-search-tr">
               <th class="member-search-th">회원 번호</th>
               <th class="member-search-th">회원 아이디</th>
-              <th class="member-search-th">회원 이름</th>
+              <th class="member-search-th">닉네임</th>
               <th class="member-search-th">이메일</th>
               <th class="member-search-th">상태</th>
               <th class="member-search-th">상세 조회</th>
-      
           </tr>
           </thead>
+
           <tbody>
-          <tr class="member-search-tr">
-              <td class="member-search-td">James</td>
-              <td class="member-search-td">Matman</td>
-              <td class="member-search-td">(713) 123-8965</td>
-              <td class="member-search-td"><a href="mailto:jmatman@stewart.com">jmatman@stewart.com</a></td>
-              <td class="member-search-td">01/13/1979</td>
-              <td class="member-search-td">01/13/1979</td>
+
+          <tr th:if="${#lists.size(listMember) == 0}">
+              <th colspan="6">검색결과가 존재하지 않습니다.</th>
           </tr>
-          <tr class="member-search-tr">
-              <td class="member-search-td">Johnny</td>
-              <td class="member-search-td">Smith</td>
-              <td class="member-search-td">(713) 584-9614</td>
-              <td class="member-search-td"><a href="mailto:jsmith@stewart.com">jsmith@stewart.com</a></td>
-              <td class="member-search-td">06/09/1971</td>
-              <td class="member-search-td">06/09/1971</td>
-          </tr>
-          <tr class="member-search-tr">
-              <td class="member-search-td">Susan</td>
-              <td class="member-search-td">Johnson</td>
-              <td class="member-search-td">(713) 847-1124</td>
-              <td class="member-search-td"><a href="mailto:sjohnson@stewart.com">sjohnson@stewart.com</a></td>
-              <td class="member-search-td">08/25/1965</td>
-              <td class="member-search-td">08/25/1965</td>
-          </tr>
-          <tr class="member-search-tr">
-              <td class="member-search-td">Tracy</td>
-              <td class="member-search-td">Richardson</td>
-              <td class="member-search-td">(713) 245-4821</td>
-              <td class="member-search-td"><a href="mailto:trichard@stewart.com">trichard@stewart.com</a></td>
-              <td class="member-search-td">03/13/1980</td>
-              <td class="member-search-td">03/13/1980</td>
-          </tr>
+
+          <th:block th:unless="${#lists.size(listMember) == 0}">
+
+            <tr class="member-search-tr" th:each="member : ${listMember}" th:object="${member}">
+                <td class="member-search-td" th:text="*{memberNo}">James</td>
+                <td class="member-search-td" th:text="*{memberId}">Matman</td>
+                <td class="member-search-td" th:text="*{memberNickname}">(713) 123-8965</td>
+                <td class="member-search-td" th:text="*{memberEmail}"><a href="mailto:jmatman@stewart.com">jmatman@stewart.com</a></td>
+                <td class="member-search-td">
+                  <select class="form-select" name="memberAuthoritySelect" id="memberAuthoritySelect">
+                    <option value="1" th:selected="*{memberAuthority} == 1">일반회원</option>
+                    <option value="2" th:selected="*{memberAuthority} == 2">강사</option>
+                    <option value="3" th:selected="*{memberAuthority} == 3">관리자</option>
+                  </select>
+                </td>
+                <td class="member-search-td"><button type="button" class="btn btn-info " th:href="@{/admin/memberDetail}">상세 조회</button></td>
+            </tr>
+            
+          </th:block>
+          
           </tbody>
       </table>
+
+
+      <nav aria-label="Page navigation"  th:if="${#lists.size(listMember) > 0}">
+        <ul class="pagination pagination-lg justify-content-center pagination-css" > 
+            <!-- 첫 페이지로 이동 -->
+            <li class="page-item"><a class="page-link" th:href="@{/admin/memberSearch(memberId=${memberId}, memberEmail=${memberEmail},
+              memberNickname=${memberNickname}, cp=1 ) }">&lt;&lt;</a></li>
+  
+            <!-- 이전 목록 마지막 번호로 이동 -->
+            <li class="page-item"><a class="page-link" th:href="@{/admin/memberSearch(memberId=${memberId}, memberEmail=${memberEmail},
+              memberNickname=${memberNickname},  cp=${pagination.prevPage }  )}">&lt;</a></li>
+  
+            <!-- 특정 페이지로 이동 -->
+  
+  
+  
+            <!-- 현재 보고있는 페이지 -->
+            <!-- #numbers.sequence(1,10) 1~10증가하며 차례대로 추가한 리스트 -->
+            <th:block th:each ="i : ${#numbers.sequence(pagination.startPage, pagination.endPage, 1)}">
+                <li th:if="${i == pagination.currentPage}" class="page-item active" >
+                    <a class="page-link active" th:text="${i}">1</a>
+                </li>
+  
+                <!-- 보고있지 않은 페이지 -->                    
+                <li th:unless="${i == pagination.currentPage}" class="page-item"> 
+                    <a class="page-link" th:href="@{/admin/memberSearch(memberId=${memberId}, memberEmail=${memberEmail},
+                                   memberNickname=${memberNickname}, cp=${i}  )} " th:text="${i}">2</a> 
+                </li>
+            </th:block>
+  
+  
+  
+            <!-- 다음 목록 시작 번호로 이동 -->
+            <li class="page-item"><a class="page-link" th:href="@{/admin/memberSearch(memberId=${memberId}, memberEmail=${memberEmail},
+              memberNickname=${memberNickname}, cp=${pagination.nextPage }  )}">&gt;</a></li>
+  
+            <!-- 끝 페이지로 이동 -->
+            <li class="page-item"><a class="page-link" th:href="@{/admin/memberSearch(memberId=${memberId}, memberEmail=${memberEmail},
+              memberNickname=${memberNickname}, cp=${pagination.maxPage }  )}">&gt;&gt;</a></li>
+
+        </ul>
+      </nav>
+
     </section>
-</section>
+
+
+  </section>
   </main>
+  <script src="/js/admin/member_search.js"></script>
 </body>
 </html>

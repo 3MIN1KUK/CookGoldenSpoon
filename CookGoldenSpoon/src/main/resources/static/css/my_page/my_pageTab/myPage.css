@@ -11,6 +11,7 @@
 .userInfo-image{
   height: 16rem;
   width: 16rem;
+  
 }
 .userInfo-image img{
   height: 16rem;
@@ -90,4 +91,40 @@
 
 .memberIntro{
   justify-content: center;
+}
+.edit-userInfo-row{
+  flex-direction: column;
+  position: relative;
+}
+.memberProfile{
+
+}
+.profile{
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+#profileInput{ display: none;}
+.profileInput{ 
+  font-size: 1.3rem;
+  border-radius: 0.6rem;
+  background-color: var(--color-main);
+  color: white;
+  padding: 0.2rem;
+  cursor: pointer;
+}
+#xBtn{
+  display: flex;
+  position: absolute;
+  background-color: var(--color-main);
+  border-radius: 50%;
+  width: 2rem;
+  height: 2rem;
+  top: -0.5em;
+  right: -0.5rem;
+}
+#xBtn i{
+  font-size: 1rem;
+  color: black;
+  margin: auto;
 }

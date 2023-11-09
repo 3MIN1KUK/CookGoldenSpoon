@@ -176,10 +176,56 @@ boardUpdateFrm.addEventListener("submit", e => {
   // 쿼리스트링만 별도 input에 저장
   document.querySelector("[name='querystring']").value = location.search;
                                                       // ?cp=1
+
+});
+
+
+
+
+//-------------------------------------------------------------------------
+/* 요리 과정 추가 버튼 */
+const addBtn = document.getElementById("add");
+
+const container = document.querySelector(".container");
+
+/* 추가 버튼 클릭 시 */
+addBtn.addEventListener("click", () => {
+  
+  const row = document.createElement("container");
+
+  row.classList.add("row");
+
+  const input = document.createElement("input");
+
+
+  input.classList.add("input-text");
+
+
+  const span = document.createElement("span");
+  
+  span.classList.add("remove-row");
+
+  span.innerHTML = "&times;";
+
+
+  /* ************************************************* */
+  // 클릭된 x버튼의 부모 요소를 제거
+
+  span.addEventListener("click", e => {
+
+    const parent = e.target.parentElement;  // == div.row
+
+    parent.remove();
+  });
+
   
   
-
-
-
-
+  
+  
+  /* ************************************************* */
+  
+  row.append(input, span);
+  
+  container.append(row);
+  
 });

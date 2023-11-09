@@ -27,17 +27,19 @@
 	</select>
 	
 	<select id="selectRecipe" resultMap="selectRecipe_rm">
-		SELECT RECIPE_NO, RECIPE_TITLE, RECIPE_THUMBNAIL FROM RECIPE
+		SELECT RECIPE_NO, RECIPE_TITLE, RECIPE_THUMBNAIL, (SELECT COUNT(*) FROM RECIPE_LIKE RL WHERE RL.RECIPE_NO = R.RECIPE_NO) RECIPE_LIKE,
+		MEMBER_NICKNAME, MEMBER_NO, RECIPE_HITS
+		FROM "RECIPE" R JOIN "MEMBER" USING(MEMBER_NO)
 		WHERE RECIPE_DEL_FL = 'N'
-		ORDER BY RECIPE_ENROLL_DATE DESC
+		ORDER BY RECIPE_NO DESC
 	</select>
 	
 	<select id="recipeDetail" resultMap="recipeDetail_rm">
 		SELECT RECIPE_NO, RECIPE_TITLE, RECIPE_THUMBNAIL, RECIPE_INTRO, RECIPE_TIP,
 			TO_CHAR(RECIPE_ENROLL_DATE, 'YYYY-MM-DD') RECIPE_ENROLL_DATE,
 			RECIPE_TIME, RECIPE_PEOPLE, RECIPE_LEVEL, MEMBER_NO, MEMBER_NICKNAME,
-			MEMBER_PROFILE, MEMBER_INTRO
-		FROM "RECIPE" JOIN "MEMBER" USING(MEMBER_NO)
+			MEMBER_PROFILE, MEMBER_INTRO, RECIPE_HITS, (SELECT COUNT(*) FROM RECIPE_LIKE RL WHERE RL.RECIPE_NO = R.RECIPE_NO) RECIPE_LIKE
+		FROM "RECIPE" R JOIN "MEMBER" USING(MEMBER_NO)
 		WHERE RECIPE_NO = #{recipeNo}
 		AND RECIPE_DEL_FL = 'N'
 	</select>	
@@ -123,7 +125,7 @@
 	
 	<select id="selectPopularRecipe" resultMap="selectRecipe_rm">
 		SELECT RECIPE_NO, RECIPE_TITLE, RECIPE_THUMBNAIL, (SELECT COUNT(*) FROM RECIPE_LIKE RL WHERE RL.RECIPE_NO = R.RECIPE_NO) RECIPE_LIKE,
-		MEMBER_NICKNAME, MEMBER_NO
+		MEMBER_NICKNAME, MEMBER_NO, RECIPE_HITS
 		FROM "RECIPE" R JOIN "MEMBER" USING(MEMBER_NO)
 		WHERE RECIPE_DEL_FL = 'N'
 		ORDER BY RECIPE_LIKE DESC
@@ -164,20 +166,24 @@
 	
 	
 	
-	<!-- 레시피 작성 -->
-	<insert id="insertBoard" parameterType="Board" useGeneratedKeys="true">
+	<!-- 레시피 등록 -->
+	<insert id="insertRecipe" parameterType="Recipe" useGeneratedKeys="true">
 	
-	<selectKey order="BEFORE" resultType="_int" keyProperty="boardNo">
-		SELECT SEQ_BOARD_NO.NEXTVAL FROM DUAL
-	</selectKey>
-	
-	
-	INSERT INTO "BOARD"
-	VALUES ( #{boardNo} , #{boardTitle}, #{boardContent}, default, default, default, default,
-		#{memberNo}, #{boardCode} )
+		<selectKey order="BEFORE" resultType="_int" keyProperty="recipeNo">
+			SELECT SEQ_RECIPE_NO.NEXTVAL FROM DUAL
+		</selectKey>
+		
+		
+		INSERT INTO "RECIPE"
+		VALUES ( #{recipeNo} , #{recipeTitle}, #{recipeThumbnail}, #{recipeIntro}, #{recipeTip}, default, default,
+		#{recipeTime}, #{recipePeople}, #{recipeLevel}, #{memberNo}, default)
 	</insert>
 	
-	
+	<!-- 레시피 조회 수 증가-->
+	<update id="updateRecipeHits">
+		UPDATE "RECIPE" SET RECIPE_HITS = RECIPE_HITS + 1
+		WHERE RECIPE_NO = #{recipeNo}
+	</update>
 	
 	
 	

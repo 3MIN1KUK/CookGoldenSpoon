@@ -58,8 +58,6 @@ public class MemberController {
 		}
 		
 		model.addAttribute("loginMember", loginMember);
-		ra.addFlashAttribute("message", "로그인 성공");
-		
 		return "redirect:/";
 	} 
 	

@@ -19,4 +19,10 @@ public interface BoardService {
 	 */
 	Board boardDetail(Map<String, Object> map);
 
+	/** 게시글 조회 수 증가
+	 * @param boardNo
+	 * @return
+	 */
+	int updateBoardHits(int boardNo);
+
 }

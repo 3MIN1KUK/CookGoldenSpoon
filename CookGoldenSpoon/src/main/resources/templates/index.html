@@ -35,6 +35,7 @@
             <div th:text="*{memberNickname}"></div>
             <div><i class="fa-heart fa-solid" style="color: red;"></i><th:block th:text="*{recipeLike}"></th:block></div>
             <div><i class="fa-star fa-solid" style="color: gold;"></i><th:block th:text="*{recipeStar}"></th:block></div>
+            <div><i class="fa-user fa-solid" style="color: black;"></i><th:block th:text="*{recipeHits}"></th:block></div>
           </div>
           <div class="recipe-hashtag">
             <span th:each="tag : *{recipeTag}" th:text="${tag}" class="tags"></span>

@@ -57,4 +57,10 @@ public interface MyPageMapper {
 	 */
 	List<Recipe> myRecipeSelect(int memberNo, RowBounds rowBounds);
 
+	/** 비동기 프로필 사진 변경
+	 * @param loginMember
+	 * @return
+	 */
+	int myPageEditProfile(Member loginMember);
+
 }
