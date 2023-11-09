@@ -69,4 +69,10 @@ public interface MyPageMapper {
 	 */
 	int myPageValidation(String memberNickname);
 
+	/** 내 정보 수정
+	 * @param loginMember
+	 * @return
+	 */
+	int myPageEdit(Member loginMember);
+
 }

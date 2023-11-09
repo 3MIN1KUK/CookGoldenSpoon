@@ -33,8 +33,8 @@
   text-align: center;
 }
 .userInfo-nickname{
-  width: 30rem;
   font-size: 4rem;
+  width: 90%;
   text-align: center;
 }
 .userInfo-grade{
@@ -45,6 +45,8 @@
 
 .userInfo-intro{
   font-size: 3rem;
+  width: 90%;
+  resize: none;
 }
 
 .cs-title{
@@ -107,7 +109,8 @@
   position: relative;
 }
 .memberProfile{
-
+  max-height: 100%;
+  max-width: 100%;
 }
 .profile{
   width: 100%;

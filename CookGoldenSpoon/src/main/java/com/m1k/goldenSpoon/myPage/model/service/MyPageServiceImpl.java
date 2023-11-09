@@ -135,4 +135,10 @@ public class MyPageServiceImpl implements MyPageService{
 	public int myPageValidation(String memberNickname) {
 		return mapper.myPageValidation(memberNickname);
 	}
+	
+	// 내 정보 수정
+	@Override
+	public int myPageEdit(Member loginMember) {
+		return mapper.myPageEdit(loginMember);
+	}
 }

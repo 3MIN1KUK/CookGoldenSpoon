@@ -123,4 +123,11 @@
 		WHERE MEMBER_NICKNAME = #{memberNickname}
 	</select>
 	
+	<!--내 정보 수정-->
+	<update id="myPageEdit">
+		UPDATE "MEMBER" SET
+		MEMBER_NICKNAME = #{memberNickname},
+		MEMBER_INTRO = #{memberIntro}
+		WHERE MEMBER_NO = #{memberNo}
+	</update>
 </mapper>

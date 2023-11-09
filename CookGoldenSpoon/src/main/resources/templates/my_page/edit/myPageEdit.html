@@ -11,7 +11,7 @@
 <body>
   <th:block th:replace="~{common/header}"></th:block>
   <main>
-    <div class="main-container" th:object="${session.loginMember}">
+    <div class="main-container" th:object="${myPageMember}">
       <div class="cs-title">
         <a href="/myPage/edit">내 정보 수정</a>
       </div>
@@ -30,16 +30,16 @@
             <button id="profileBtn" class="profileInput">프로필 변경</button>
           </div>
         </div>
-        <form action="" method="POST" class="editFrm">
+        <form action="/myPage/edit" method="POST" class="editFrm" id="editFrm">
           <div class="userInfo-row memberIntro">
             <span>닉네임</span>
-            <input type="text" class="userInfo-nickname" th:value="*{memberNickname}" name="inputNickname" id="inputNickname"/>
+            <input type="text" class="userInfo-nickname" th:value="*{memberNickname}" name="memberNickname" id="inputNickname"/>
           </div>
-          <div class="validation">유효성 검사 중입니다</div>
+          <div class="validation"></div>
           <div class="userInfo-row memberIntro">
             <span>자기소개</span>
-            <textarea type="text" class="userInfo-intro" th:if="*{memberIntro}" th:text="*{memberIntro}"></textarea>
-            <textarea type="text" class="userInfo-intro" th:unless="*{memberIntro}" placeholder="자기소개를 작성해주세요"></textarea>
+            <textarea maxlength="64" type="text" class="userInfo-intro" th:if="*{memberIntro}" th:text="*{memberIntro}" name="memberIntro"></textarea>
+            <textarea maxlength="64" type="text" class="userInfo-intro" th:unless="*{memberIntro}" name="memberIntro" placeholder="자기소개를 작성해주세요"></textarea>
           </div>
           <button id="changeBtn">내 정보 변경</button>
         </form>
@@ -58,6 +58,7 @@
   <script th:inline="javascript">
     const defaultImg = /*[[#{user.default.image}]]*/ "기본 프로필 이미지";
     const loginMemberProfile = /*[[${session.loginMember.memberProfile}]]*/ "로그인한 회원 프로필 이미지";
+    const loginMemberNickname = /*[[${session.loginMember.memberNickname}]]*/ "로그인한 회원 닉네임";
   </script>
   <script src="/js/common/project.js"></script>
   <script src="/js/my_page/edit/myPageEdit.js"></script>
