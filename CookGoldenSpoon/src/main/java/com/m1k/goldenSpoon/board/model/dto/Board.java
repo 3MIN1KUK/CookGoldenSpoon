@@ -28,6 +28,8 @@ public class Board {
 
 	private String memberNickname;
 	private int boardLikeCount;
+	
+	private String boardType;
 
 	
 	
