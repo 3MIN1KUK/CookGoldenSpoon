@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.m1k.goldenSpoon.member.model.dto.Member;
 import com.m1k.goldenSpoon.myPage.model.service.MyPageService;
@@ -93,10 +94,19 @@ public class MyPageController {
 	
 	
 	@PostMapping("edit")
-	public String myPageEdit(Model model) {
+	public String myPageEdit(Model model, @SessionAttribute("loginMember") Member loginMember, String memberNickname,
+			String memberIntro, RedirectAttributes ra) {
+		loginMember.setMemberNickname(memberNickname);
+		loginMember.setMemberIntro(memberIntro);
 		
-		String path = null;
-		return path;
+		int result = service.myPageEdit(loginMember);
+		
+		if(result > 0) {
+			ra.addFlashAttribute("message", "수정 성공");
+		} else {
+			ra.addFlashAttribute("message", "수정 실패");
+		}
+		return "redirect:main";
 	}
 	
 	@PostMapping("edit/profile")

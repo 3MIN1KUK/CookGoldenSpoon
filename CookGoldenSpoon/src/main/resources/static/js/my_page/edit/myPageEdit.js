@@ -133,34 +133,62 @@ if(profileInput != null){
 
   
   
-  const inputNickname = document.getElementById("inputNickname");
-  
+const inputNickname = document.getElementById("inputNickname");
+let validationCheck = 0;
+
 inputNickname.addEventListener("input", e=>{
+  e.target.value = e.target.value.trim();
   const validation = document.querySelector(".validation");
   validation.innerText = "";
   const regEx = /^[가-힣\w\d]{2,10}$/;
 
   const memberNickname = e.target.value;
-
   if(regEx.test(memberNickname)){
     // 중복검사
+    if(e.target.value == loginMemberNickname){
+      validation.innerText = "";
+      validationCheck = 0;
+      return;
+    }
     fetch("/myPage/validation?memberNickname=" + memberNickname)
     .then(resp => resp.text())
     .then(result => {
       if(result > 0){
         validation.innerText = "중복된 닉네임입니다";
         validation.style.color = "red";
-        e.preventDefault();
+        validationCheck = 1;
       } else {
         validation.innerText = "사용가능한 닉네임입니다"
         validation.style.color = "green";
+        validationCheck = 0;
       }
     })
     .catch();
   } else {
     validation.innerText = "유효하지 않습니다";
     validation.style.color = "red";
-    e.preventDefault();
+    validationCheck = 1;
   }
 
 });
+
+const inputIntro = document.querySelector(".userInfo-intro");
+inputIntro.addEventListener("input", e=>{
+  console.log(e.target.value.length);
+  if(e.target.value.length > 64){
+    alert("글자 수를 초과했습니다");
+  }
+});
+
+
+const editFrm = document.getElementById("editFrm");
+
+
+editFrm.addEventListener("submit", e=>{
+  if(validationCheck != 0){
+    alert("닉네임이 유효하지 않습니다")
+    inputNickname.focus();
+    e.preventDefault();
+  }
+})
+
