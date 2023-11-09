@@ -23,7 +23,7 @@ public class FilterConfig {
 			= new FilterRegistrationBean<>();
 		filter.setFilter(new LoginFilter() ); // 사용할 필터 객체 추가
 		
-		String[] filteringUrl = {"/my_page/*"};
+		String[] filteringUrl = {"/my_page/*", "/editBoard/*"};
 		
 		// Arrays.asList(배열) : 배열 -> List로 변환
 		filter.setUrlPatterns(Arrays.asList(filteringUrl));

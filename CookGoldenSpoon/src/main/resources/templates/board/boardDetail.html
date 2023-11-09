@@ -11,7 +11,7 @@
   <th:block th:replace="~{common/header}"></th:block>
   <main th:object="${board}">
     <div class="main-container">
-      <div class="cs-title">
+      <div class="boardDetail-title">
         <a href="/board/3">자유게시판</a>
       </div>
       <div class="content-container">
@@ -33,21 +33,17 @@
         </div>
         
       <!-- 일반 이미지가 있을 경우 -->
-      <!-- <th:block th:if="${#lists.size(board.imageList) > start}" >
+      <th:block th:if="${#lists.size(board.imageList) > start}" >
+
         <h5>업로드 이미지</h5>
         <div class="img-box">
         
           <div th:each="i : ${#numbers.sequence(start, #lists.size(board.imageList)-1, 1)}" 
-            th:with="path=|${board.imageList[i].imgPath}${board.imageList[i].imgRename}|"
+            th:with="path=|${board.imageList[i].boardImage}${board.imageList[i].boardImageRename}|"
             class="boardImg">
-    
-            <img th:src="${path}">   
-    
-            <a href="${path}" 
-              th:download="${board.imageList[i].imgOriginalName}">다운로드</a>                
           </div>
         </div>
-      </th:block> -->
+      </th:block>
       
       <div class="board board-content" th:text="*{boardContent}">
         <p>

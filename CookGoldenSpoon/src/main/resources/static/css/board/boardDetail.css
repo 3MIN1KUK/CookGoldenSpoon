@@ -1,15 +1,11 @@
-.text{
-  padding: var(--padding-font);
-}
-
-/* 자유게시판 이름 */
-.cs-title{
+/* 자유게시판 상세조회 이름 */
+.boardDetail-title{
   width: 90%;
   margin-top: 1rem;
   display: flex;
   justify-content: space-between;
 }
-.cs-title>a{
+.boardDetail-title>a{
   margin: 0.5rem;
   font-size: 3rem;
   color: var(--color-bg);
