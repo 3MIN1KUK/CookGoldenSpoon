@@ -100,7 +100,7 @@ const changeImageFn = (imageInput, order) => {
 
     // 파일이 업로드된 input 태그를 복제해서 backupInputList에 추가
     backupInputList[order] = imageInput.cloneNode(true);
-
+m
     // 파일이 업로드 되면 deleteOrderSet에서 해당 순서 제거
     deleteOrderSet.delete(order);
 
@@ -142,42 +142,42 @@ for(let i=0 ; i<inputImageList.length ; i++) {
 
 // ---------------------------------------------------------------------------
 /* 제출 시 유효성 검사 */
-const boardUpdateFrm = document.getElementById("boardUpdateFrm");
-boardUpdateFrm.addEventListener("submit", e => {
+// const boardUpdateFrm = document.getElementById("boardUpdateFrm");
+// boardUpdateFrm.addEventListener("submit", e => {
 
-  const title = document.querySelector("[name='boardTitle']");
-  const content = document.querySelector("[name='boardContent']");
+//   const title = document.querySelector("[name='boardTitle']");
+//   const content = document.querySelector("[name='boardContent']");
   
-  // 제목 미입력 상태
-  if(title.value.trim().length == 0){ 
-    alert("제목을 입력해주세요");
+//   // 제목 미입력 상태
+//   if(title.value.trim().length == 0){ 
+//     alert("제목을 입력해주세요");
     
-    e.preventDefault(); // form 제출 못하게 막기
-    title.value="";  // 공백 제거
-    title.focus();   // 타이틀로 커서(포커스) 이동
+//     e.preventDefault(); // form 제출 못하게 막기
+//     title.value="";  // 공백 제거
+//     title.focus();   // 타이틀로 커서(포커스) 이동
 
-    return;
-  }
+//     return;
+//   }
 
-  // 내용 미입력 상태
-  if(content.value.trim().length == 0){ 
-    alert("내용을 입력해주세요");
+//   // 내용 미입력 상태
+//   if(content.value.trim().length == 0){ 
+//     alert("내용을 입력해주세요");
     
-    e.preventDefault(); // form 제출 못하게 막기
-    content.value="";  // 공백 제거
-    content.focus();   // 콘텐트로 커서(포커스) 이동
-    return;
-  }
+//     e.preventDefault(); // form 제출 못하게 막기
+//     content.value="";  // 공백 제거
+//     content.focus();   // 콘텐트로 커서(포커스) 이동
+//     return;
+//   }
 
-  // hidden 타입 태그에 삭제한 이미지 번호 목록 추가(1,2,3 모양을 띔)
-  document.querySelector("[name='deleteOrder']").value = Array.from(deleteOrderSet);
+//   // hidden 타입 태그에 삭제한 이미지 번호 목록 추가(1,2,3 모양을 띔)
+//   document.querySelector("[name='deleteOrder']").value = Array.from(deleteOrderSet);
 
-  // 수정 성공 시 기존 상세조회 주소가 동일하게 유지될 수 있도록
-  // 쿼리스트링만 별도 input에 저장
-  document.querySelector("[name='querystring']").value = location.search;
-                                                      // ?cp=1
+//   // 수정 성공 시 기존 상세조회 주소가 동일하게 유지될 수 있도록
+//   // 쿼리스트링만 별도 input에 저장
+//   document.querySelector("[name='querystring']").value = location.search;
+//                                                       // ?cp=1
 
-});
+// });
 
 
 
@@ -185,47 +185,44 @@ boardUpdateFrm.addEventListener("submit", e => {
 //-------------------------------------------------------------------------
 /* 요리 과정 추가 버튼 */
 const addBtn = document.getElementById("add");
-
+const parentElement = document.getElementById("parentElement");
 const container = document.querySelector(".container");
-
+const backDiv = document.getElementsByClassName("backup")[0];
+let backup;
 /* 추가 버튼 클릭 시 */
 addBtn.addEventListener("click", () => {
+  backup = backDiv.cloneNode(true);
+
+  console.log(backup);
   
-  const row = document.createElement("container");
+  const textarea = backup.children[1].children[0].children[0];
+  textarea.value = "";
 
-  row.classList.add("row");
+  const inputFile = backup.children[1].children[1].children[0];
+  inputFile.value = "";
 
-  const input = document.createElement("input");
+  const xBtn = document.createElement("button");
+  xBtn.type = "button";
+  xBtn.classList.add("x-btn");
+  xBtn.innerHTML = "&times;";
 
+  backup.append(xBtn);
 
-  input.classList.add("input-text");
+  parentElement.append(backup);
 
-
-  const span = document.createElement("span");
+  xBtn.addEventListener("click", e=>{
+    e.target.parentElement.remove();
+  })
   
-  span.classList.add("remove-row");
+});
 
-  span.innerHTML = "&times;";
-
-
-  /* ************************************************* */
-  // 클릭된 x버튼의 부모 요소를 제거
-
-  span.addEventListener("click", e => {
-
-    const parent = e.target.parentElement;  // == div.row
-
-    parent.remove();
-  });
-
-  
-  
-  
-  
-  /* ************************************************* */
-  
-  row.append(input, span);
-  
-  container.append(row);
-  
+const inputTag = document.getElementById("inputTag");
+inputTag.addEventListener("keyup", e=>{
+  if(e.key == "Enter"){
+    let tag = e.target.value;
+    const span = document.createElement("span");
+    span.innerText = tag;
+    span.classList.add("tags");
+    inputTag.append(span);
+  }
 });
