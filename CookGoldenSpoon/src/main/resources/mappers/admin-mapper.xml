@@ -54,5 +54,11 @@
 		ORDER BY MEMBER_NO
 		
 	</select>
+	
+	<update id="changeAuthority">
+		UPDATE "MEMBER" SET 
+		MEMBER_AUTHORITY = #{memberAuthority}
+		WHERE MEMBER_NO = #{memberNo}
+	</update>
 
 </mapper>

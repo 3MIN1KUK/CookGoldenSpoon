@@ -80,7 +80,7 @@
                 <td class="member-search-td" th:text="*{memberNickname}">(713) 123-8965</td>
                 <td class="member-search-td" th:text="*{memberEmail}"><a href="mailto:jmatman@stewart.com">jmatman@stewart.com</a></td>
                 <td class="member-search-td">
-                  <select class="form-select" name="memberAuthoritySelect" id="memberAuthoritySelect">
+                  <select class="form-select" name="memberAuthoritySelect" id="memberAuthoritySelect" th:onchange="|changeAuthority(this, *{memberNo})|">
                     <option value="1" th:selected="*{memberAuthority} == 1">일반회원</option>
                     <option value="2" th:selected="*{memberAuthority} == 2">강사</option>
                     <option value="3" th:selected="*{memberAuthority} == 3">관리자</option>
