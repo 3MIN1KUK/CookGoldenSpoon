@@ -30,11 +30,20 @@
             <button id="profileBtn" class="profileInput">프로필 변경</button>
           </div>
         </div>
-        <div class="userInfo-row memberIntro">
-          <input type="text" class="userInfo-intro" th:if="*{memberIntro}" th:value="*{memberIntro}"/>
-          <input type="text" class="userInfo-intro" th:unless="*{memberIntro}" placeholder="한 줄 소개를 작성해주세요"/>
-        </div>
-        <input type="text" class="userInfo-nickname" th:value="*{memberNickname}"/>
+        <form action="" method="POST" class="editFrm">
+          <div class="userInfo-row memberIntro">
+            <span>닉네임</span>
+            <input type="text" class="userInfo-nickname" th:value="*{memberNickname}" name="inputNickname" id="inputNickname"/>
+          </div>
+          <div class="validation">유효성 검사 중입니다</div>
+          <div class="userInfo-row memberIntro">
+            <span>자기소개</span>
+            <textarea type="text" class="userInfo-intro" th:if="*{memberIntro}" th:text="*{memberIntro}"></textarea>
+            <textarea type="text" class="userInfo-intro" th:unless="*{memberIntro}" placeholder="자기소개를 작성해주세요"></textarea>
+          </div>
+          <button id="changeBtn">내 정보 변경</button>
+        </form>
+        <button>비밀번호 변경</button>
     </div>
 
 

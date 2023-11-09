@@ -3,6 +3,7 @@
 <!-- 연결할 인터페이스의 패키지명.인터페이스명을 작성 -->
 <mapper namespace="com.m1k.goldenSpoon.myPage.model.mapper.MyPageMapper">
 	
+	<!-- 멤버의 기록들 -->
 	<resultMap id="myPage_rm" type="Member">
 		<id property="memberNo" column="MEMBER_NO"/>
 		<association property="likeCount" select="selectMyPageLikeCount" column="MEMBER_NO" javaType="_int"/>
@@ -11,35 +12,44 @@
 		<association property="boardCount" select="selectMyPageBoardCount" column="MEMBER_NO" javaType="_int"/>
 		<!--<association property="commentCount" select="selectMyPageCommentCount" column="MEMBER_NO" javaType="_int"/>-->
 	</resultMap>
+	<!--좋아요 받은 수-->
 	<select id="selectMyPageLikeCount" resultType="_int">
 		SELECT COUNT(*) FROM (SELECT RL.MEMBER_NO FROM RECIPE_LIKE RL JOIN RECIPE R USING(RECIPE_NO) WHERE R.MEMBER_NO = #{memberNo}
 			UNION SELECT BL.MEMBER_NO FROM BOARD_LIKE BL JOIN BOARD B USING(BOARD_NO) WHERE B.MEMBER_NO = #{memberNo})
 	</select>
+	<!--즐겨찾기 받은 수-->
 	<select id="selectMyPageBookmarkCount" resultType="_int">
 		SELECT COUNT(*) FROM RECIPE_BOOKMARK JOIN RECIPE R USING(RECIPE_NO) WHERE  R.MEMBER_NO = #{memberNo}
 	</select>
+	<!--레시피 등록 수-->
 	<select id="selectMyPageRecipeCount" resultType="_int">
 		SELECT COUNT(*) FROM "RECIPE" WHERE MEMBER_NO = #{memberNo}
 	</select>
+	<!--게시글 등록 수-->
 	<select id="selectMyPageBoardCount" resultType="_int">
 		SELECT COUNT(*) FROM "BOARD" WHERE MEMBER_NO = #{memberNo}
 	</select>
+	<!--댓글 등록 수-->
 	<select id="selectMyPageCommentCount" resultType="_int">
 		SELECT COUNT(*) FROM "COMMENT" WHERE MEMBER_NO = #{memberNo}
 	</select>
 	<resultMap id="recipeSelect_rm" type="Recipe">
 		<id property="recipeNo" column="RECIPE_NO" />
+		<association property="recipeStar" select="selectRecipeStar" column="RECIPE_NO" javaType="_double"/>
 		<collection property="recipeTag" select="selectRecipeTag" column="RECIPE_NO" javaType="java.util.ArrayList" ofType="String" />
 	</resultMap>
 	<resultMap id="myRecipeSelect_rm" type="Recipe">
 		<id property="recipeNo" column="RECIPE_NO" />
+		<association property="recipeStar" select="selectRecipeStar" column="RECIPE_NO" javaType="_double"/>
 		<collection property="recipeTag" select="selectRecipeTag" column="RECIPE_NO" javaType="java.util.ArrayList" ofType="String" />
 	</resultMap>
 	<select id="selectRecipeTag" resultType="string">
 		SELECT RECIPE_TAG_NAME FROM "RECIPE_TAG"
 		WHERE RECIPE_NO = #{recipeNo}
 	</select>
-	
+	<select id="selectRecipeStar" resultType="_double">
+		SELECT ROUND(AVG(RECIPE_STAR), 1) RECIPE_STAR FROM RECIPE_STAR WHERE RECIPE_NO = #{recipeNo}
+	</select>
 	<!--<resultMap id="boardSelect_rm" type="Board">
 		<id property="boardNo" column="BOARD_NO" />
 		<association property="boardLikeCount" select="selectBoardLikeCount" column="BOARD_NO" javaType="_int" />
@@ -64,9 +74,11 @@
 	</select>
 	
 	<select id="recipeSelect" resultMap="recipeSelect_rm">
-		SELECT RECIPE_NO, RECIPE_TITLE, RECIPE_THUMBNAIL
-		FROM RECIPE R JOIN RECIPE_BOOKMARK RL USING(RECIPE_NO)
-		WHERE RL.MEMBER_NO = #{memberNo}
+		SELECT R.RECIPE_NO, RECIPE_TITLE, RECIPE_THUMBNAIL, (SELECT COUNT(*) FROM RECIPE_LIKE RL WHERE RL.RECIPE_NO = R.RECIPE_NO) RECIPE_LIKE,
+		RECIPE_HITS, MEMBER_NICKNAME, R.MEMBER_NO
+		FROM RECIPE R JOIN RECIPE_BOOKMARK RB ON(R.RECIPE_NO = RB.RECIPE_NO)
+		JOIN "MEMBER" M ON(M.MEMBER_NO = R.MEMBER_NO)
+		WHERE RB.MEMBER_NO = #{memberNo}
 		AND RECIPE_DEL_FL = 'N'
 	</select>
 	
@@ -87,9 +99,12 @@
 		SELECT COUNT(*) FROM "RECIPE"
 		WHERE MEMBER_NO = #{memberNo}
 	</select>
+	
 	<select id="myRecipeSelect" resultMap="myRecipeSelect_rm">
-		SELECT RECIPE_NO, RECIPE_TITLE, RECIPE_THUMBNAIL
-		FROM RECIPE
+		SELECT RECIPE_NO, RECIPE_TITLE, RECIPE_THUMBNAIL, (SELECT COUNT(*) FROM RECIPE_LIKE RL WHERE RL.RECIPE_NO = R.RECIPE_NO) RECIPE_LIKE,
+		MEMBER_NICKNAME, MEMBER_NO, RECIPE_HITS
+		FROM RECIPE R
+		JOIN "MEMBER" USING(MEMBER_NO)
 		WHERE MEMBER_NO = #{memberNo}
 		AND RECIPE_DEL_FL = 'N'
 		ORDER BY RECIPE_NO DESC
@@ -101,5 +116,11 @@
 		MEMBER_PROFILE = #{memberProfile}
 		WHERE MEMBER_NO = #{memberNo}
 	</update>
+	
+	<!--닉네임 유효성 검사-->
+	<select id="myPageValidation" resultType="_int">
+		SELECT COUNT(*) FROM "MEMBER"
+		WHERE MEMBER_NICKNAME = #{memberNickname}
+	</select>
 	
 </mapper>

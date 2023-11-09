@@ -109,6 +109,12 @@ public class MyPageController {
 		return result;
 	}
 	
+	// 닉네임 유효성 검사 비동기
+	@ResponseBody
+	@GetMapping("validation")
+	public int myPageValidation(String memberNickname) {
+		return service.myPageValidation(memberNickname);
+	}
 	
 	
 }

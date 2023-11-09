@@ -130,3 +130,37 @@ if(profileInput != null){
     })
     .catch(e=>console.log(e));
   });
+
+  
+  
+  const inputNickname = document.getElementById("inputNickname");
+  
+inputNickname.addEventListener("input", e=>{
+  const validation = document.querySelector(".validation");
+  validation.innerText = "";
+  const regEx = /^[가-힣\w\d]{2,10}$/;
+
+  const memberNickname = e.target.value;
+
+  if(regEx.test(memberNickname)){
+    // 중복검사
+    fetch("/myPage/validation?memberNickname=" + memberNickname)
+    .then(resp => resp.text())
+    .then(result => {
+      if(result > 0){
+        validation.innerText = "중복된 닉네임입니다";
+        validation.style.color = "red";
+        e.preventDefault();
+      } else {
+        validation.innerText = "사용가능한 닉네임입니다"
+        validation.style.color = "green";
+      }
+    })
+    .catch();
+  } else {
+    validation.innerText = "유효하지 않습니다";
+    validation.style.color = "red";
+    e.preventDefault();
+  }
+
+});

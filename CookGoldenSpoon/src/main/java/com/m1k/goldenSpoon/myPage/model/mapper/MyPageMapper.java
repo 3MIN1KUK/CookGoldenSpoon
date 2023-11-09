@@ -63,4 +63,10 @@ public interface MyPageMapper {
 	 */
 	int myPageEditProfile(Member loginMember);
 
+	/** 닉네임 유효성 검사
+	 * @param memberNickname
+	 * @return
+	 */
+	int myPageValidation(String memberNickname);
+
 }
