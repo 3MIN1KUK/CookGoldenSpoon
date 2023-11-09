@@ -21,4 +21,10 @@ public interface AdminService {
 	 */
 	Map<String, Object> searchMember(Map<String, Object> paramMap, int cp);
 
+	/** 권한 변경
+	 * @param member
+	 * @return
+	 */
+	int changeAuthority(Member member);
+
 }

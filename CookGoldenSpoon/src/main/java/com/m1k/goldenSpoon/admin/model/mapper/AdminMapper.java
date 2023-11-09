@@ -36,4 +36,10 @@ public interface AdminMapper {
 	 */
 	List<Member> searchMember(Map<String, Object> paramMap, RowBounds rowBounds);
 
+	/** 회원 권한 변경
+	 * @param member
+	 * @return
+	 */
+	int changeAuthority(Member member);
+
 }

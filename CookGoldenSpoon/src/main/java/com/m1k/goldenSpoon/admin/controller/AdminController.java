@@ -9,8 +9,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.m1k.goldenSpoon.admin.model.service.AdminService;
 import com.m1k.goldenSpoon.member.model.dto.Member;
@@ -82,5 +85,11 @@ public class AdminController {
 		return "admin/member_search";
 	}
 	
+	@PutMapping("changeAuthority")
+	@ResponseBody
+	public int changeAuthority(@RequestBody Member member) {
+		
+		return service.changeAuthority(member);
+	}
 	
 }

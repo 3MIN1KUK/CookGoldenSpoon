@@ -69,4 +69,12 @@ public class AdminServiceImpl implements AdminService{
 	}
 	
 	
+	
+	
+	@Override
+	public int changeAuthority(Member member) {
+		return mapper.changeAuthority(member);
+	}
+	
+	
 }
