@@ -32,6 +32,7 @@
       </ul>
     </nav>
     <span class="header-login-signup" style="font-size: 2rem;">
+      <a href="/member/login/test01">빠른로그인</a><br>
       <th:block th:if="${session.loginMember == null}">
         <a href="/member/login">로그인</a> · <a href="/member/signup">회원가입</a>
       </th:block>
@@ -43,9 +44,7 @@
             <a href="/admin/memberSearch">관리자 페이지</a>
           </div>
         </th:block>
-
       </th:block>
-      <br>
     </span>
   </div>
 </header>

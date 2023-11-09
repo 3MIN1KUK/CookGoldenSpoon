@@ -95,4 +95,11 @@ public class MemberServiceImpl implements MemberService{
 		return mapper.checkNickname(nickname);
 	}
 
+	
+	// 빠른 로그인
+	@Override
+	public Member quickLogin(String memberId) {
+		return mapper.login(memberId);
+	}
+	
 }

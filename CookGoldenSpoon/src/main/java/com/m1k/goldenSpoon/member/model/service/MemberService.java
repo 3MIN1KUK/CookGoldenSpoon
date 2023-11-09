@@ -48,4 +48,10 @@ public interface MemberService {
 	 */
 	int checkNickname(String nickname);
 
+	/** 빠른 로그인
+	 * @param memberEmail
+	 * @return
+	 */
+	Member quickLogin(String memberId);
+
 }
