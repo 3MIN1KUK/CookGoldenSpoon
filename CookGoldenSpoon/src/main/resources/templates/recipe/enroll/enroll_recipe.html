@@ -20,7 +20,7 @@
         </div>
         
         <form action="/recipe/enroll" method="post" enctype="multipart/form-data" >
-          <!-- 1번째 줄 -->
+          <!-- 1번째 줄 대표사진 / 요리영상 -->
           <div id="firstLine">
             <div class="main-Picture">
               <div class="name">대표사진</div>
@@ -43,55 +43,54 @@
           </div>
     
     
-          <!-- 2번째 줄 -->
+          <!-- 2번째 줄 요리이름/한줄소개 -->
           <div class="cookName">
-            <div class="cName">요리 이름</div><div class="cNameBox"><input type="text" name="recipeTitle" class="recipe2line" size="30"></div>
+            <div class="cName">요리 이름</div><div class="cNameBox"><input type="text" name="recipeTitle" class="recipe2line a" size="30"></div>
           </div>
           <div class="cookName">
-            <div class="cName">한줄 소개</div><div class="cNameBox"><input type="text" name="recipeIntro" class="recipe2line" size="30"></div>
+            <div class="cName">한줄 소개</div><div class="cNameBox"><input type="text" name="recipeIntro" class="recipe2line a" size="30"></div>
           </div>
     
-          <!-- 3번째 줄 -->
+          <!-- 3번째 줄 재료 -->
           <div class="material">
             <div class="mName">재료</div>
-            <div class="mnameBox"><textarea name="materialName"  class="recipe3line"></textarea></div>
+            <div class="mnameBox"><textarea name="materialName"  class="recipe3line a"></textarea></div>
           </div>
 
 
 
     
-          <!-- 4번쨰 줄 -->
+          <!-- 4번째 줄 요리과정 -->
           <div class="btnControl">
-            <button class="processAddBtn4" id="add">➕</button>
+            <button class="processAddBtn4" id="add" type="button">➕</button>
           </div>
 
-          <div class="cookProcess container">
-            <div class="cpName">요리 과정</div>
-            <div class="cpnameBox row">
-
-              <div><textarea name="processCook"  class="recipe4line"></textarea></div>
-              
-                <button type="button"  class="processPhotoBtn4">
-                  <label>
-                    📷
-                    <input type="file" name="processImages" style="display: none;">
-                  </label>
-                </button>
-              </label>
+          <div id="parentElement">
+            <div class="cookProcess container backup">
+              <!-- <button type="button" class="x-btn">&times;</button> -->
+              <div class="cpName">요리 과정</div>
+              <div class="cpnameBox row">
+  
+                <div><textarea name="processCook" class="recipe4line a"></textarea></div>
+                
+                <label class="processPhotoBtn4">
+                  📷
+                  <input type="file" name="processImages" style="display: none;">
+                </label>
+              </div>
             </div>
           </div>
 
 
 
-
     
-          <!-- 5번째 줄 -->
+          <!-- 5번째 줄 나만의팁 -->
           <div class="tip">
               <div class="tName">나만의 팁</div>
-              <div class="tnBox"><input type="text" name="recipeTip" class="recipe5line"></div>
+              <div class="tnBox"><input type="text" name="recipeTip" class="recipe5line a"></div>
           </div>
     
-          <!-- 6번째 줄 -->
+          <!-- 6번째 줄 요리정보 -->
           <div class="cookInformation">
             <div class="ciName">요리 정보</div>
             <div class="cinBox">
@@ -127,61 +126,49 @@
             </div>
           </div>
     
-          <!-- 7번째 줄 -->
+          <!-- 7번째 줄 태그 -->
           <div class="tag">
               <div class="tagName">태그</div>
-              <div class="tagnBox"><input type="text" name="" class="recipe7line" size="30"></div>
+              <div class="tagnBox"><input type="text" name="tags" class="recipe7line a" size="30" id="inputTag"></div>
           </div>
     
-          <!-- 8번째 줄 -->
+          <!-- 8번째 줄 완성사진 -->
           <div class="endPicture">
               <div class="epName">완성사진</div>
               <div class="epnBox">
+                
+                <label class="endProcessBtn8">
+                  📷
+                  <input type="file" name="processImages" style="display: none;">
+                </label>
+                <label class="endProcessBtn8">
+                  📷
+                  <input type="file" name="processImages" style="display: none;">
+                </label>
+                <label class="endProcessBtn8">
+                  📷
+                  <input type="file" name="processImages" style="display: none;">
+                </label>
+                <label class="endProcessBtn8">
+                  📷
+                  <input type="file" name="processImages" style="display: none;">
+                </label>
 
-                <button type="button"  class="endProcessBtn8">
-                  <label>
-                    📷
-                    <input type="file" name="completeImages" style="display: none;">
-                  </label>
-                </button>
-                <button type="button"  class="endProcessBtn8">
-                  <label>
-                    📷
-                    <input type="file" name="completeImages" style="display: none;">
-                  </label>
-                </button>
-                <button type="button"  class="endProcessBtn8">
-                  <label>
-                    📷
-                    <input type="file" name="completeImages" style="display: none;">
-                  </label>
-                </button>
-                <button type="button"  class="endProcessBtn8">
-                  <label>
-                    📷
-                    <input type="file" name="completeImages" style="display: none;">
-                  </label>
-                </button>
-                <button type="button"  class="endProcessBtn8">
-                  <label>
-                    📷
-                    <input type="file" name="completeImages" style="display: none;">
-                  </label>
-                </button>
+
               </div>
         
           </div>
     
-          <!-- 9번째 줄 -->
+          <!-- 9번째 줄 제출버튼 -->
           <div class="pBtn9">
-            <button class="btn9 btn9-1">저장</button>
-            <button class="btn9">미리보기</button>
+            <button type="submit" class="btn9 btn9-1">저장</button>
+            <button type="" class="btn9">미리보기</button>
             <button class="btn9">취소</button>
           </div>
           
-        </section>
-      </form>
-      
+        </form>
+        
+      </section>
 
     </div>
   </main>
@@ -189,8 +176,7 @@
 
 
 
-  <script src="/js/board/boardUpdate.js"></script>
-
+  <script src="/js/recipe/enroll/enroll_recipe.js"></script>
   <script src="/js/common/project.js"></script>
 </body>
 </html>

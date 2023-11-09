@@ -44,7 +44,7 @@ form{
 }
 
 
-/* 1번째 줄 */
+/* 1번째 줄 대표사진 / 요리영상  */
 
 /* 대표사진 */
 #firstLine{
@@ -159,7 +159,7 @@ form{
 
 /* ----------------------------------- */
 
-/* 2번째 줄 */
+/* 2번째 줄 요리이름/한줄소개 */
 
 
 .cookName{
@@ -200,7 +200,7 @@ form{
 /* ----------------------------------- */
 
 
-/* 3번째 줄 */
+/* 3번째 줄 재료 */
 .material{
   display: flex;
   width: 115rem;
@@ -242,7 +242,7 @@ form{
 
 /* ----------------------------------- */
 
-/* 4번째 줄 */
+/* 4번째 줄 요리과정 */
 .btnControl{
   width: 115rem;
   height: 5rem;
@@ -257,6 +257,7 @@ form{
   justify-content: flex-end; */
   border: none;
   font-size: 2rem;
+  cursor: pointer;
 }
 
 .processPhotoBtn4{
@@ -312,7 +313,7 @@ form{
 
 /* ----------------------------------- */
 
-/* 5번째 줄 */
+/* 5번째 줄 나만의팁 */
 .tip{
   display: flex;
   width: 115rem;
@@ -350,7 +351,7 @@ form{
 
 /* ----------------------------------- */
 
-/* 6번째 줄 */
+/* 6번째 줄 요리정보 */
 .cookInformation{
   display: flex;
   width: 115rem;
@@ -378,12 +379,12 @@ form{
   justify-content: space-around;
   align-items: center;
   padding: 0rem 10rem 0rem 10rem;
-  font-size: 2rem;
+  font-size: 2.2rem;
   border-radius: 0rem 1.5rem 1.5rem 0rem;
 }
 
 #selectBox{
-  font-size: 1.5rem;
+  font-size: 1.8rem;
   padding: 0.2rem ;
 }
 
@@ -392,7 +393,7 @@ form{
 
 /* ----------------------------------- */
 
-/* 7번째 줄 */
+/* 7번째 줄 태그 */
 .tag{
   display: flex;
   width: 115rem;
@@ -430,7 +431,7 @@ form{
 
 /* ----------------------------------- */
 
-/* 8번째 줄 */
+/* 8번째 줄 완성사진 */
 .endPicture{
   display: flex;
   width: 115rem;
@@ -441,8 +442,8 @@ form{
   /* border: none; */
   width: 5rem;
   height: 5rem;
-  margin-top : 0.2rem;
-  font-size: 3.4rem;
+  margin-bottom : 0.7rem;
+  font-size: 4.0rem;
  }
 
 .epName{
@@ -470,7 +471,7 @@ form{
 
 /* ----------------------------------- */
 
-/* 9번째 줄 */
+/* 9번째 줄 제출버튼 */
 .pBtn9{
   padding: 2rem 0rem 1rem 0rem;
   
@@ -503,10 +504,25 @@ form{
 
 
 
+.backup{
+  position: relative;
+}
 
+.x-btn{
+  position: absolute;
+  top: -1rem;
+  right: -1rem;
+  font-size: 2rem;
+  background-color: brown;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  /* display: none; */
+}
 
-
-
+.a{
+  outline: none;
+}
 
 
 
