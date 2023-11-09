@@ -35,11 +35,6 @@ public class AdminController {
 		return "admin/detailed_inquiry";
 	}
 	
-	@GetMapping("memberDetail")
-	public String memberDetail() {
-		return "admin/member_detail";
-	}
-	
 	 
 	@GetMapping("commentResult")
 	public String commentResult() {
@@ -61,6 +56,19 @@ public class AdminController {
 		return "basicForm";
 	}
 	
+	// 회원 상세 조회
+	@PostMapping("memberDetail")
+	public String memberDetail(Member searchMember, int cp, Model model) {
+		int memberNo = searchMember.getMemberNo();
+		
+		Member myPageMember = service.memberDetail(memberNo);
+		model.addAttribute("myPageMember", myPageMember);
+		model.addAttribute("cp",cp);
+		
+		return "admin/member_detail";
+	}
+	
+	// 회원 검색
 	@GetMapping("memberSearch")
 	public String memberSearch(
 			@RequestParam(value="cp", required=false , defaultValue="1" ) int cp,
@@ -85,6 +93,7 @@ public class AdminController {
 		return "admin/member_search";
 	}
 	
+	// 관리자 권한 변경
 	@PutMapping("changeAuthority")
 	@ResponseBody
 	public int changeAuthority(@RequestBody Member member) {

@@ -44,6 +44,7 @@ public class AdminServiceImpl implements AdminService{
 		return map;
 	}
 	
+	// 회원 검색
 	@Override
 	public Map<String, Object> searchMember(Map<String, Object> paramMap, int cp) {
 		
@@ -68,12 +69,16 @@ public class AdminServiceImpl implements AdminService{
 		return map;
 	}
 	
-	
-	
-	
+	// 권한 변경
 	@Override
 	public int changeAuthority(Member member) {
 		return mapper.changeAuthority(member);
+	}
+	
+	
+	@Override
+	public Member memberDetail(int memberNo) {
+		return mapper.memberDetail(memberNo);
 	}
 	
 	

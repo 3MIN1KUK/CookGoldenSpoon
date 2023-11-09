@@ -42,4 +42,10 @@ public interface AdminMapper {
 	 */
 	int changeAuthority(Member member);
 
+	/** 회원 상세 조회
+	 * @param memberNo
+	 * @return
+	 */
+	Member memberDetail(int memberNo);
+
 }

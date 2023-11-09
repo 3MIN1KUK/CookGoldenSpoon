@@ -86,7 +86,15 @@
                     <option value="3" th:selected="*{memberAuthority} == 3">관리자</option>
                   </select>
                 </td>
-                <td class="member-search-td"><button type="button" class="btn btn-info " th:href="@{/admin/memberDetail}">상세 조회</button></td>
+                <td class="member-search-td">
+                  <form action="/admin/memberDetail" method="POST">
+                    <input type="hidden" th:value="*{memberNo}" name="memberNo">
+                    <input type="hidden" th:value="*{memberId}" name="memberId">
+                    <input type="hidden" th:value="*{memberNickname}" name="memberNickname">
+                    <input type="hidden" th:value="${map.pagination.currentPage}" name="cp">
+                    <button type="submit" class="btn btn-info ">상세 조회</button>
+                  </form>
+                </td>
             </tr>
             
           </th:block>
