@@ -3,15 +3,50 @@
 <!-- 연결할 인터페이스의 패키지명.인터페이스명을 작성 -->
 <mapper namespace="com.m1k.goldenSpoon.admin.model.mapper.AdminMapper">
 	
-	<select id="selectListCount">
-		
-		SELECT COUNT(*) FROM "MEMBER"
-		WHERE MEMBER_DEL_FL = 'N'
-		
+	<resultMap id="myPage_rm" type="Member">
+		<id property="memberNo" column="MEMBER_NO"/>
+		<association property="likeCount" select="selectMyPageLikeCount" column="MEMBER_NO" javaType="_int"/>
+		<association property="bookmarkCount" select="selectMyPageBookmarkCount" column="MEMBER_NO" javaType="_int"/>
+		<association property="recipeCount" select="selectMyPageRecipeCount" column="MEMBER_NO" javaType="_int"/>
+		<association property="boardCount" select="selectMyPageBoardCount" column="MEMBER_NO" javaType="_int"/>
+		<!--<association property="commentCount" select="selectMyPageCommentCount" column="MEMBER_NO" javaType="_int"/>-->
+	</resultMap>
+	
+	<select id="selectMyPageLikeCount" resultType="_int">
+		SELECT COUNT(*) FROM (SELECT RL.MEMBER_NO FROM RECIPE_LIKE RL JOIN RECIPE R USING(RECIPE_NO) WHERE R.MEMBER_NO = #{memberNo}
+			UNION SELECT BL.MEMBER_NO FROM BOARD_LIKE BL JOIN BOARD B USING(BOARD_NO) WHERE B.MEMBER_NO = #{memberNo})
+	</select>
+	<select id="selectMyPageBookmarkCount" resultType="_int">
+		SELECT COUNT(*) FROM RECIPE_BOOKMARK JOIN RECIPE R USING(RECIPE_NO) WHERE  R.MEMBER_NO = #{memberNo}
+	</select>
+	<select id="selectMyPageRecipeCount" resultType="_int">
+		SELECT COUNT(*) FROM "RECIPE" WHERE MEMBER_NO = #{memberNo}
+	</select>
+	<select id="selectMyPageBoardCount" resultType="_int">
+		SELECT COUNT(*) FROM "BOARD" WHERE MEMBER_NO = #{memberNo}
+	</select>
+	<select id="selectMyPageCommentCount" resultType="_int">
+		SELECT COUNT(*) FROM "COMMENT" WHERE MEMBER_NO = #{memberNo}
 	</select>
 	
+	<resultMap id="MemberRecipeSelect_rm" type="Recipe">
+		<id property="recipeNo" column="RECIPE_NO" />
+		<collection property="recipeTag" select="selectRecipeTag" column="RECIPE_NO" javaType="java.util.ArrayList" ofType="String" />
+	</resultMap>
+	<select id="selectRecipeTag" resultType="string">
+		SELECT RECIPE_TAG_NAME FROM "RECIPE_TAG"
+		WHERE RECIPE_NO = #{recipeNo}
+	</select>
+	
+	
+	<!-- 전체 회원 수 조회 -->
+	<select id="selectListCount">
+		SELECT COUNT(*) FROM "MEMBER"
+		WHERE MEMBER_DEL_FL = 'N'
+	</select>
+
+	<!-- 검색 회원 수 조회 -->	
 	<select id="searchListCount">
-		
 		SELECT COUNT(*) FROM "MEMBER"
 		WHERE MEMBER_DEL_FL = 'N'
 		<if test="memberNickname != null">
@@ -23,7 +58,6 @@
 		<if test="memberEmail != null">
 			AND MEMBER_ID LIKE '%${memberId}%'
 		</if>
-		
 	</select>
 	
 	<!-- 회원 전체 조회 -->
@@ -54,11 +88,35 @@
 		ORDER BY MEMBER_NO
 		
 	</select>
-	
+
+	<!-- 관리자 권한 변경 -->	
 	<update id="changeAuthority">
 		UPDATE "MEMBER" SET 
 		MEMBER_AUTHORITY = #{memberAuthority}
 		WHERE MEMBER_NO = #{memberNo}
 	</update>
+	
+	<!-- 회원 상세 조회 -->
+	<select id="memberDetail" resultMap="myPage_rm">
+		SELECT MEMBER_EMAIL, MEMBER_NICKNAME, MEMBER_PROFILE, TO_CHAR(MEMBER_ENROLL_DATE, 'YYYY"년" MM"월" DD"일"')
+			MEMBER_ENROLL_DATE, MEMBER_AUTHORITY, MEMBER_INTRO, MEMBER_NO
+		FROM "MEMBER"			
+		WHERE MEMBER_NO = #{memberNo}
+	</select>
+	
+	
+	<select id="getMemberRecipeListCount" resultType="_int">
+		SELECT COUNT(*) FROM "RECIPE_LIKE"
+		WHERE MEMBER_NO = #{memberNo}
+	</select>
+	
+	<select id="MemberRecipeSelect" resultMap="MemberRecipeSelect_rm">
+		SELECT RECIPE_NO, RECIPE_TITLE, RECIPE_THUMBNAIL
+		FROM RECIPE
+		WHERE MEMBER_NO = #{memberNo}
+		AND RECIPE_DEL_FL = 'N'
+		ORDER BY RECIPE_NO DESC
+	</select>
+	
 
 </mapper>

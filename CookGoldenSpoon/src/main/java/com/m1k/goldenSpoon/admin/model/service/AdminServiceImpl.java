@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.m1k.goldenSpoon.admin.model.mapper.AdminMapper;
 import com.m1k.goldenSpoon.common.model.dto.Pagination;
 import com.m1k.goldenSpoon.member.model.dto.Member;
+import com.m1k.goldenSpoon.recipe.model.dto.Recipe;
 
 import lombok.RequiredArgsConstructor;
 
@@ -44,6 +45,7 @@ public class AdminServiceImpl implements AdminService{
 		return map;
 	}
 	
+	// 회원 검색
 	@Override
 	public Map<String, Object> searchMember(Map<String, Object> paramMap, int cp) {
 		
@@ -68,12 +70,35 @@ public class AdminServiceImpl implements AdminService{
 		return map;
 	}
 	
+	// 권한 변경
+	@Override
+	public int changeAuthority(Member member) {
+		return mapper.changeAuthority(member);
+	}
+	
+	
+	@Override
+	public Member memberDetail(int memberNo) {
+		return mapper.memberDetail(memberNo);
+	}
 	
 	
 	
 	@Override
-	public int changeAuthority(Member member) {
-		return mapper.changeAuthority(member);
+	public Map<String, Object> recipeResult(int memberNo, int cp) {
+		int myRecipeListCount = mapper.getMemberRecipeListCount(memberNo);
+		Pagination pagination = new Pagination(cp, myRecipeListCount, 8, 7);
+		int offset = (pagination.getCurrentPage() -1) * pagination.getLimit();
+		int limit = pagination.getLimit();
+
+		RowBounds RowBounds = new RowBounds(offset, limit);
+		List<Recipe> recipeList = mapper.MemberRecipeSelect(memberNo, RowBounds);
+		
+		Map<String, Object> map = new HashMap<>();
+		map.put("recipeList", recipeList);
+		map.put("pagination", pagination);
+
+		return map;
 	}
 	
 	

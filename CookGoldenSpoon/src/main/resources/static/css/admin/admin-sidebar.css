@@ -59,11 +59,12 @@ main {
   overflow-y: auto;
 }
 
-.nav-item-in{
+.nav-link{  
   list-style: none;
-  padding: 5px;
-  padding-left: 20px;
   font-size: 1.5rem;
+  margin-top: 5px;
+  border-radius: 3px;
+  padding: 10px 20px 10px 15px;
 }
 
 .bd-placeholder-img {
@@ -90,4 +91,20 @@ main {
 .right-a{
   margin-left: auto !important;
   float: right !important;
+}
+
+.nav-link:not(.active):hover,
+.nav-link-in:not(.active):focus {
+  color: rgb(0, 0, 0);
+  background-color: #444444;
+  transition: 0.3s;
+}
+
+.actives{
+  background-color: #0d6efd !important;
+}
+
+.nav-title{
+  font-size: 2rem !important;
+  font-weight: bold !important;
 }

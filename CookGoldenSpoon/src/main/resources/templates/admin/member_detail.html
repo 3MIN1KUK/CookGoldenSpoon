@@ -19,53 +19,98 @@
   <section class="out-box">
     <h1>회원 상세 정보</h1>
     <div class="back-btn-box">
-      <button class="back-btn">뒤로 가기</button>
+      <button class="btn btn-dark back-btn" 
+      th:onclick="|location.href='@{/admin/memberSearch
+        (memberId=${memberId},
+         memberEmail=${memberEmail},
+         memberNickname=${memberNickname}, cp=${cp} ) }'|">뒤로 가기</button>
     </div>
 
-    <div class="detail-table-box">
-      <table class="detail-table">
-        <tr class="detail-row">
-          <th class="detail-th">회원 번호</th>
-          <td class="detail-td">1</td>
-        </tr>
-        <tr class="detail-row">
-          <th class="detail-th">회원 이름</th>
-          <td class="detail-td"></td>
-        </tr>
-        <tr class="detail-row">
-          <th class="detail-th">회원 아이디</th>
-          <td class="detail-td"></td>
-        </tr>
-        <tr class="detail-row">
-          <th class="detail-th">회원 전화번호</th>
-          <td class="detail-td"></td>
-        </tr>
-        <tr class="detail-row">
-          <th class="detail-th">회원 이메일</th>
-          <td class="detail-td"></td>
-        </tr>
-        <tr class="detail-row">
-          <th class="detail-th">회원 상태</th>
-          <td class="detail-td"></td>
-        </tr>
-        <tr class="detail-row">
-          <th class="detail-th">가입일</th>
-          <td class="detail-td"></td>
-        </tr>
-        <tr class="detail-row">
-          <th class="detail-th">주소</th>
-          <td class="detail-td"></td>
-        </tr>
-      </table>
-      <table class="board-search-table">
-        <tr class="board-search-tr">
-          <td class="board-search-td"><button>레시지 조회</button></td>
-          <td class="board-search-td"><button>게시글 조회</button></td>
-          <td class="board-search-td"><button>댓글 조회</button></td>
-        </tr>
-      </table>
+    <div class="userInfo" th:object="${myPageMember}">
+      <div class="userInfo-row">
+        <div class="userInfo-image">
+          <img th:unless="*{memberProfile}" th:src="#{user.default.image}" class="memberProfile">
+          <img th:if="*{memberProfile}" th:src="*{memberProfile}" class="memberProfile">
+        </div>
+        <div class="userInfo-nickname" th:text="*{memberNickname}">
+          김민석
+        </div>
+        <div class="userInfo-id">
+          <div th:text="*{memberEmail}">member03</div>
+          <br>
+          <div th:text="*{memberEnrollDate}">2023/03/21</div>
+        </div>
+        <div class="userInfo-grade">
+          <th:block th:if="*{memberAuthority == 1}">일반</th:block>
+          <th:block th:if="*{memberAuthority == 2}">강사</th:block>
+          <th:block th:if="*{memberAuthority == 3}">관리자</th:block>
+        </div>
+      </div>
+      <div class="userInfo-row memberIntro">
+          <div class="userInfo-intro" th:unless="*{memberIntro}">
+            한 줄 소개가 없습니다
+          </div>
+          <div class="userInfo-intro" th:if="*{memberIntro}" th:text="*{memberIntro}">
+            한 줄 소개
+          </div>
+      </div>
+      <div class="userInfo-row counts">
+        <div>
+          <i class="fa-heart fa-solid fa-lg"></i>
+          <div>
+            <div>
+              받은 좋아요
+            </div>
+            <div class="countsNumber" th:text="*{likeCount}">9</div>
+          </div>
+        </div>
+        <div>
+          <i class="fa-star fa-solid fa-lg"></i>
+          <div>
+            <div>
+              받은 즐겨찾기
+            </div>
+            <div class="countsNumber" th:text="*{bookmarkCount}">9</div>
+          </div>
+        </div>
+        <div>
+          <i class="fa-solid fa-utensils fa-lg"></i>
+          <div>
+            <div>
+              레시피 수
+            </div>
+            <div class="countsNumber" th:text="*{recipeCount}">9</div>
+          </div>
+        </div>
+        <div>
+          <i class="fa-solid fa-pencil fa-lg"></i>
+          <div>
+            <div>
+              게시글 수
+            </div>
+            <div class="countsNumber" th:text="*{boardCount}">9</div>
+          </div>
+        </div>
+        <div>
+          <i class="fa-regular fa-comment-dots fa-lg"></i>
+          <div>
+            <div>
+              댓글 수
+            </div>
+            <div class="countsNumber" th:text="*{commentCount}">9</div>
+          </div>
+        </div>
+      </div>
+      <div class="search-area d-flex justify-content-between">
+        <a th:href="@{/admin/recipeResult(memberNo=${myPageMember.memberNo})}" class="btn btn-dark search-btn d-flex align-content-center justify-content-center flex-wrap">레시피 조회</a>
+        <a href="#" class="btn btn-dark search-btn d-flex align-content-center justify-content-center flex-wrap">게시글 조회</a>
+        <a href="#" class="btn btn-dark search-btn d-flex align-content-center justify-content-center flex-wrap">쿠킹클래스 조회</a>
+        <a href="#" class="btn btn-dark search-btn d-flex align-content-center justify-content-center flex-wrap">댓글 조회</a>
+      </div>
     </div>
+
   </section>
   </main>
+  <script src="/js/admin/member_detail.js"></script>
 </body>
 </html>
