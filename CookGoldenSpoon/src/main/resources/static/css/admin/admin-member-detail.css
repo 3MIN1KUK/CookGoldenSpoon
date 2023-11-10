@@ -20,7 +20,8 @@ h1{
   width: 180px;
   height: 50px;
   border: none;
-  font-size: 2rem;
+  font-size: 2rem !important;
+  font-weight: bold !important;
 }
 
 .detail-table-box{
@@ -209,4 +210,16 @@ h1{
   font-size: 1rem;
   color: black;
   margin: auto;
+}
+
+.search-area{
+  width: 100%;
+}
+
+.search-btn{
+  width: 23%;
+  height: 50px;
+  font-size: 2rem !important;
+  font-weight: bold !important;
+
 }

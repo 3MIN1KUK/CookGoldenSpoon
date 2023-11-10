@@ -15,122 +15,50 @@
     
     <th:block th:replace="~{admin/admin_sidebar}"></th:block>
 
-  <section class="result-area">
-    <div class="recipe-search-out-box">
-      <div class="recipe-search-picture">
-        사진
-      </div>
-      <div class="recipe-search-text">
-        <p>게시자 :</p>
-        <p>제목 : </p>
-        <p>태그 :</p>
-        <p>...</p>
-        <p>...</p>
-        <p>...</p>
-      </div>
-
-      <div class="recipe-btn-box">
-        <button class="admin-reciepe-change admin-recipe-btn">수정</button><br>
-        <button class="admin-reciepe-delete admin-recipe-btn">삭제</button>
-      </div>
-
-    </div>
-    <div class="recipe-search-out-box">
-      <div class="recipe-search-picture">
-        사진
-      </div>
-      <div class="recipe-search-text">
-        <p>게시자 :</p>
-        <p>제목 : </p>
-        <p>태그 :</p>
-        <p>...</p>
-        <p>...</p>
-        <p>...</p>
-      </div>
-
-      <div class="recipe-btn-box">
-        <button class="admin-reciepe-change admin-recipe-btn">수정</button><br>
-        <button class="admin-reciepe-delete admin-recipe-btn">삭제</button>
-      </div>
-
-    </div>
-    <div class="recipe-search-out-box">
-      <div class="recipe-search-picture">
-        사진
-      </div>
-      <div class="recipe-search-text">
-        <p>게시자 :</p>
-        <p>제목 : </p>
-        <p>태그 :</p>
-        <p>...</p>
-        <p>...</p>
-        <p>...</p>
-      </div>
-
-      <div class="recipe-btn-box">
-        <button class="admin-reciepe-change admin-recipe-btn">수정</button><br>
-        <button class="admin-reciepe-delete admin-recipe-btn">삭제</button>
-      </div>
-
-    </div>
-    <div class="recipe-search-out-box">
-      <div class="recipe-search-picture">
-        사진
-      </div>
-      <div class="recipe-search-text">
-        <p>게시자 :</p>
-        <p>제목 : </p>
-        <p>태그 :</p>
-        <p>...</p>
-        <p>...</p>
-        <p>...</p>
-      </div>
-
-      <div class="recipe-btn-box">
-        <button class="admin-reciepe-change admin-recipe-btn">수정</button><br>
-        <button class="admin-reciepe-delete admin-recipe-btn">삭제</button>
-      </div>
-
-    </div>
-    <div class="recipe-search-out-box">
-      <div class="recipe-search-picture">
-        사진
-      </div>
-      <div class="recipe-search-text">
-        <p>게시자 :</p>
-        <p>제목 : </p>
-        <p>태그 :</p>
-        <p>...</p>
-        <p>...</p>
-        <p>...</p>
-      </div>
-
-      <div class="recipe-btn-box">
-        <button class="admin-reciepe-change admin-recipe-btn">수정</button><br>
-        <button class="admin-reciepe-delete admin-recipe-btn">삭제</button>
-      </div>
-
-    </div>
-    <div class="recipe-search-out-box">
-      <div class="recipe-search-picture">
-        사진
-      </div>
-      <div class="recipe-search-text">
-        <p>게시자 :</p>
-        <p>제목 : </p>
-        <p>태그 :</p>
-        <p>...</p>
-        <p>...</p>
-        <p>...</p>
-      </div>
-
-      <div class="recipe-btn-box">
-        <button class="admin-reciepe-change admin-recipe-btn">수정</button><br>
-        <button class="admin-reciepe-delete admin-recipe-btn">삭제</button>
-      </div>
-
-    </div>
-  </section>
+  <!-- <section class="result-area"> -->
+    <main th:with="recipeList=${map.recipeList}, pagination=${map.pagination}">
+      <section class="out-box">
+          <div class="recipe-title">
+            <a href="/myPage/recipe">나의 레시피</a>
+          </div>
+          
+        <div class="content-container row row-cols-3">
+          <a th:each="recipe : ${recipeList}" th:object="${recipe}" 
+              th:href="@{/recipe/select/{recipeNo}(recipeNo=*{recipeNo})}" class="recipe-col col">
+            <div class="recipe-image" th:text="*{recipeThumbnail}"></div>
+            <div class="recipe-name" th:text="*{recipeTitle}"></div>
+            <div class="recipe-hashtag">
+              <span th:each="tag : *{recipeTag}" th:text="${tag}" class="tags"></span>
+            </div>
+          </a>
+        </div>
+  
+  
+        <div class="page-number">
+          <ul th:if="${inputSearch == null}">
+            <li><a href="/myPage/recipe"><i class="fa-solid fa-backward-step"></i></a></li>
+            <li><a th:href="@{/myPage/recipe(cp=${pagination.prevPage})}"><i class="fa-solid fa-caret-left fa-lg"></i></a></li>
+            <th:block th:each="i : ${#numbers.sequence(pagination.startPage, pagination.endPage, 1)}">
+              <li th:if="${i == pagination.currentPage}"><a style="color: black;" class="text" th:text="${i}">1</a></li>
+              <li th:unless="${i == pagination.currentPage}"><a th:href="@{/myPage/recipe(cp=${i})}" class="text" th:text="${i}">1</a></li>
+            </th:block>
+            <li><a th:href="@{/myPage/recipe(cp=${pagination.nextPage})}"><i class="fa-solid fa-caret-right fa-lg"></i></a></li>
+            <li><a th:href="@{/myPage/recipe(cp=${pagination.maxPage})}"><i class="fa-solid fa-forward-step"></i></a></li>
+          </ul>
+          <ul th:unless="${inputSearch == null}">
+            <li><a th:href="@{/myPage/recipe(inputSearch=${inputSearch})}"><i class="fa-solid fa-backward-step"></i></a></li>
+            <li><a th:href="@{/myPage/recipe(cp=${pagination.prevPage}, inputSearch=${inputSearch})}"><i class="fa-solid fa-caret-left fa-lg"></i></a></li>
+            <th:block th:each="i : ${#numbers.sequence(pagination.startPage, pagination.endPage, 1)}">
+              <li th:if="${i == pagination.currentPage}"><a style="color: black;" class="text" th:text="${i}">1</a></li>
+              <li th:unless="${i == pagination.currentPage}"><a th:href="@{/myPage/recipe(cp=${i}, inputSearch=${inputSearch})}" class="text" th:text="${i}">1</a></li>
+            </th:block>
+            <li><a th:href="@{/myPage/recipe(cp=${pagination.nextPage}, inputSearch=${inputSearch})}"><i class="fa-solid fa-caret-right fa-lg"></i></a></li>
+            <li><a th:href="@{/myPage/recipe(cp=${pagination.maxPage})}"><i class="fa-solid fa-forward-step"></i></a></li>
+          </ul>
+        </div>
+      </section>
+    </main>
+  <!-- </section> -->
   </main>
 </body>
 </html>

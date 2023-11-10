@@ -19,7 +19,11 @@
   <section class="out-box">
     <h1>회원 상세 정보</h1>
     <div class="back-btn-box">
-      <button class="back-btn" th:onclick="location.href='/admin/memberSearch?${searchMember.memberNo}' ">뒤로 가기</button>
+      <button class="btn btn-dark back-btn" 
+      th:onclick="|location.href='@{/admin/memberSearch
+        (memberId=${memberId},
+         memberEmail=${memberEmail},
+         memberNickname=${memberNickname}, cp=${cp} ) }'|">뒤로 가기</button>
     </div>
 
     <div class="userInfo" th:object="${myPageMember}">
@@ -96,6 +100,12 @@
             <div class="countsNumber" th:text="*{commentCount}">9</div>
           </div>
         </div>
+      </div>
+      <div class="search-area d-flex justify-content-between">
+        <a th:href="@{/admin/recipeResult(memberNo=${myPageMember.memberNo})}" class="btn btn-dark search-btn d-flex align-content-center justify-content-center flex-wrap">레시피 조회</a>
+        <a href="#" class="btn btn-dark search-btn d-flex align-content-center justify-content-center flex-wrap">게시글 조회</a>
+        <a href="#" class="btn btn-dark search-btn d-flex align-content-center justify-content-center flex-wrap">쿠킹클래스 조회</a>
+        <a href="#" class="btn btn-dark search-btn d-flex align-content-center justify-content-center flex-wrap">댓글 조회</a>
       </div>
     </div>
 

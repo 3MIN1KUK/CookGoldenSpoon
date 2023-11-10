@@ -33,4 +33,6 @@ public interface AdminService {
 	 */
 	Member memberDetail(int memberNo);
 
+	Map<String, Object> recipeResult(int memberNo, int cp);
+
 }

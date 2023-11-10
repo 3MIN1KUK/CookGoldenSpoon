@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.session.RowBounds;
 
 import com.m1k.goldenSpoon.member.model.dto.Member;
+import com.m1k.goldenSpoon.recipe.model.dto.Recipe;
 
 @Mapper
 public interface AdminMapper {
@@ -47,5 +48,9 @@ public interface AdminMapper {
 	 * @return
 	 */
 	Member memberDetail(int memberNo);
+
+	int getMemberRecipeListCount(int memberNo);
+
+	List<Recipe> MemberRecipeSelect(int memberNo, RowBounds rowBounds);
 
 }

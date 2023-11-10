@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttribute;
 
 import com.m1k.goldenSpoon.admin.model.service.AdminService;
 import com.m1k.goldenSpoon.member.model.dto.Member;
@@ -46,14 +47,20 @@ public class AdminController {
 		return "admin/board_result";
 	}
 	
-	@GetMapping("recipeResult")
-	public String recipeResult() {
-		return "admin/recipe_result";
-	}
 	
 	@GetMapping("basic")
 	public String basic() {
 		return "basicForm";
+	}
+	
+	// 회원 레시피 조회
+	@GetMapping("recipeResult")
+	public String recipeResult(int memberNo, Model model,
+			@RequestParam(value = "cp", required = false, defaultValue = "1") int cp) {
+		Map<String, Object> map = service.recipeResult(memberNo, cp);
+		model.addAttribute("map", map);
+		
+		return "admin/recipe_result";
 	}
 	
 	// 회원 상세 조회
@@ -62,6 +69,7 @@ public class AdminController {
 		int memberNo = searchMember.getMemberNo();
 		
 		Member myPageMember = service.memberDetail(memberNo);
+		model.addAttribute("searchMember", searchMember);
 		model.addAttribute("myPageMember", myPageMember);
 		model.addAttribute("cp",cp);
 		
@@ -100,5 +108,9 @@ public class AdminController {
 		
 		return service.changeAuthority(member);
 	}
+	
+	
+	
+	
 	
 }

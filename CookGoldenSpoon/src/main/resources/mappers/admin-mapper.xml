@@ -29,6 +29,14 @@
 		SELECT COUNT(*) FROM "COMMENT" WHERE MEMBER_NO = #{memberNo}
 	</select>
 	
+	<resultMap id="MemberRecipeSelect_rm" type="Recipe">
+		<id property="recipeNo" column="RECIPE_NO" />
+		<collection property="recipeTag" select="selectRecipeTag" column="RECIPE_NO" javaType="java.util.ArrayList" ofType="String" />
+	</resultMap>
+	<select id="selectRecipeTag" resultType="string">
+		SELECT RECIPE_TAG_NAME FROM "RECIPE_TAG"
+		WHERE RECIPE_NO = #{recipeNo}
+	</select>
 	
 	
 	<!-- 전체 회원 수 조회 -->
@@ -88,12 +96,26 @@
 		WHERE MEMBER_NO = #{memberNo}
 	</update>
 	
-	
+	<!-- 회원 상세 조회 -->
 	<select id="memberDetail" resultMap="myPage_rm">
 		SELECT MEMBER_EMAIL, MEMBER_NICKNAME, MEMBER_PROFILE, TO_CHAR(MEMBER_ENROLL_DATE, 'YYYY"년" MM"월" DD"일"')
 			MEMBER_ENROLL_DATE, MEMBER_AUTHORITY, MEMBER_INTRO, MEMBER_NO
 		FROM "MEMBER"			
 		WHERE MEMBER_NO = #{memberNo}
+	</select>
+	
+	
+	<select id="getMemberRecipeListCount" resultType="_int">
+		SELECT COUNT(*) FROM "RECIPE_LIKE"
+		WHERE MEMBER_NO = #{memberNo}
+	</select>
+	
+	<select id="MemberRecipeSelect" resultMap="MemberRecipeSelect_rm">
+		SELECT RECIPE_NO, RECIPE_TITLE, RECIPE_THUMBNAIL
+		FROM RECIPE
+		WHERE MEMBER_NO = #{memberNo}
+		AND RECIPE_DEL_FL = 'N'
+		ORDER BY RECIPE_NO DESC
 	</select>
 	
 
