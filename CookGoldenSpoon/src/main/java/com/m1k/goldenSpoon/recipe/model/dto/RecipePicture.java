@@ -1,5 +1,7 @@
 package com.m1k.goldenSpoon.recipe.model.dto;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -20,5 +22,5 @@ public class RecipePicture {
 	private String recipeProcessImages;
 	private String recipeCompleteImages;
 	
-	
+	private MultipartFile uploadFile;
 }

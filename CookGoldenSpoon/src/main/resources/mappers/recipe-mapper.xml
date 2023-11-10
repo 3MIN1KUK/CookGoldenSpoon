@@ -164,6 +164,11 @@
 	</select>
 	
 	
+	<!-- 레시피 조회 수 증가-->
+	<update id="updateRecipeHits">
+		UPDATE "RECIPE" SET RECIPE_HITS = RECIPE_HITS + 1
+		WHERE RECIPE_NO = #{recipeNo}
+	</update>
 	
 	
 	<!-- 레시피 등록 -->
@@ -179,20 +184,45 @@
 		#{recipeTime}, #{recipePeople}, #{recipeLevel}, #{memberNo}, default)
 	</insert>
 	
-	<!-- 레시피 조회 수 증가-->
-	<update id="updateRecipeHits">
-		UPDATE "RECIPE" SET RECIPE_HITS = RECIPE_HITS + 1
-		WHERE RECIPE_NO = #{recipeNo}
-	</update>
+	<insert id="insertProcessList" parameterType="list">
+		INSERT INTO "RECIPE_PICTURE"
+		<foreach collection="list" item="img" separator=" UNION ">
+			SELECT NEXT_RECIPE_PICTURE_NO(),
+				   #{img.recipeNo},
+				   #{img.recipeImageOrder},
+				   #{img.recipeImageName},
+				   #{img.recipeImage},
+				   #{img.recipeImageRename},
+				   #{img.uploadFile}
+			FROM DUAL
+		</foreach>
+	</insert>
+	
+	<insert id="insertCompleteList" parameterType="list">
+		INSERT INTO "RECIPE_PICTURE"
+		<foreach collection="list" item="img" separator=" UNION ">
+			SELECT NEXT_RECIPE_PICTURE_NO(),
+				   #{img.recipeNo},
+				   #{img.recipeImageOrder},
+				   #{img.recipeImageName},
+				   #{img.recipeImage},
+				   #{img.recipeImageRename},
+				   #{img.uploadFile}
+			FROM DUAL
+		</foreach>
+	</insert>
+	
+	<!--
+					   #{img.recipeImageNo},
+				   #{img.recipeNo},
+				   #{img.recipeImage},
+				   #{img.recipeImageOrder},
+				   #{img.recipeImageRename},
+				   #{img.recipeImageName},
+				   #{img.recipeCompleteImages}
 	
 	
-	
-	
-	
-	
-	
-	
-	
+	-->
 	
 	
 	
