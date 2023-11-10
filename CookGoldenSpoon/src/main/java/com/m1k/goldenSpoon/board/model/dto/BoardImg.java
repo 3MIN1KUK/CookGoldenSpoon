@@ -19,5 +19,6 @@ public class BoardImg {
 	private String boardImageName;
 	
 	private MultipartFile uploadFile;
+
 	
 }

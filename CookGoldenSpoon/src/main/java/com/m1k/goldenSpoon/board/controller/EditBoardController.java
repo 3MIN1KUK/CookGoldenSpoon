@@ -1,16 +1,22 @@
 package com.m1k.goldenSpoon.board.controller;
 
+import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.m1k.goldenSpoon.board.model.dto.Board;
 import com.m1k.goldenSpoon.board.model.service.EditBoardService;
 import com.m1k.goldenSpoon.member.model.dto.Member;
 
@@ -82,7 +88,40 @@ public class EditBoardController {
 		return path;
 	}
 	
-	
+	/** 게시글 작성
+	 * @param boardCode : 게시판 코드
+	 * @param loginMember : 로그인한 회원의 정보가 담긴 객체
+	 * @param board : 파라미터가 담긴 커맨드 객체
+	 * @param images : 사진 
+	 * @param ra
+	 * @return
+	 * @throws IllegalStateException
+	 * @throws IOException
+	 */
+	@PostMapping("{boardCode:[0-9]+}/insert")
+	public String insertBoard( 
+			@PathVariable("boardCode") int boardCode,
+			@SessionAttribute("loginMember") Member loginMember,
+			Board board, 
+			@RequestParam("images") List<MultipartFile> images,
+			RedirectAttributes ra
+			) throws IllegalStateException, IOException {
+		
+		// 로그인한 회원의 번호, 게시판 코드 board에 세팅
+		board.setMemberNo(loginMember.getMemberNo());
+		board.setBoardCode(boardCode);
+		
+		int boardNo = service.insertBoard(board, images);
+		
+		if(boardNo > 0) {
+			ra.addFlashAttribute("message", "게시글 작성 성공");
+			return String.format("redirect:/board/%d/%d", boardCode, boardNo);
+		}
+		
+		ra.addFlashAttribute("message", "게시글이 올바르게 작성되지 않았습니다.");
+		return "redirect:insert";
+		
+	}
 	
 	
 }

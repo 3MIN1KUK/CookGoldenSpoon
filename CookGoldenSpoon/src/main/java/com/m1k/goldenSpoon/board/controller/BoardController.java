@@ -9,11 +9,17 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.m1k.goldenSpoon.board.model.dto.Board;
+import com.m1k.goldenSpoon.board.model.dto.BoardImg;
+import com.m1k.goldenSpoon.board.model.mapper.BoardMapper;
 import com.m1k.goldenSpoon.board.model.service.BoardService;
+import com.m1k.goldenSpoon.member.model.dto.Member;
 
+import jakarta.mail.internet.ParseException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -32,8 +38,11 @@ public class BoardController {
 	 * @return
 	 */
 	@GetMapping("{boardCode:[0-9]+}")
-	public String notice(Model model, @RequestParam(value = "cp", required = false, defaultValue = "1") int cp,
-			@PathVariable("boardCode") int boardCode) {
+	public String notice(Model model, 
+			@RequestParam(value = "cp", required = false, 
+			defaultValue = "1") int cp,
+			@PathVariable("boardCode") int boardCode
+			) {
 		Map<String, Object> map = service.selectAllBoard(boardCode, cp);
 		model.addAttribute("boardCode", boardCode);
 		model.addAttribute("map", map);
@@ -48,14 +57,42 @@ public class BoardController {
 	@GetMapping("{boardCode:[0-9]+}/{boardNo:[0-9]+}")
 	public String boardDetail(
 		@PathVariable("boardNo") int boardNo, @PathVariable("boardCode") int boardCode,
-		Model model
-		) {
+		Model model, RedirectAttributes ra,
+		@SessionAttribute(value="loginMember", required=false) Member loginMember
+		) throws ParseException {
+		
+		// 1. 상세조회 서비스 호출
 		Map<String, Object> map = new HashMap<>();
 		map.put("boardCode", boardCode);
 		map.put("boardNo", boardNo);
+		
 		Board board = service.boardDetail(map);
-		model.addAttribute("board", board);
-		return "board/boardDetail";
+		
+		String path = null;
+		
+		// --------------------------------------------------------------------------
+		
+		// 2. 게시글이 있을 경우
+		if(board != null) {
+			model.addAttribute("board", board);
+			path = "board/boardDetail";
+			
+			// 이미지
+			if(board.getImageList().size() > 0) {
+				BoardImg imgnail = null;
+				if (board.getImageList().get(0).getBoardImageOrder() == 0) {
+					imgnail = board.getImageList().get(0);
+				}
+				model.addAttribute("imgnail", imgnail);
+				model.addAttribute("start", imgnail != null ? 1 : 0);
+			}
+		} 
+		
+		else { // 게시글이 없을 경우
+			path = "redirect:/board/" + boardCode;
+			ra.addFlashAttribute("message", "해당 게시글이 존재하지 않습니다.");
+		}
+		return path;
 	}
 	
 }

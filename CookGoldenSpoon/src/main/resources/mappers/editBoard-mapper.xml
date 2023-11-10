@@ -12,4 +12,27 @@
 		AND MEMBER_NO = #{memberNo}
 	</update>
 	
+	<insert id="insertBoard" parameterType="Board" useGeneratedKeys="true">
+		<selectKey order="BEFORE" resultType="_int" keyProperty="boardNo" >
+			SELECT SEQ_BOARD_NO.NEXTVAL FROM DUAL
+		</selectKey>
+		INSERT INTO "BOARD"
+		VALUES( #{boardNo} , #{boardTitle},  #{boardContent},
+			DEFAULT, DEFAULT, DEFAULT, #{boardCode}, #{memberNo} )
+	</insert>
+	
+	<!-- 업로드된 게시글 이미지 일괄 삽입-->
+	<insert id="insertUploadList" parameterType="list">
+		INSERT INTO "BOARD_IMAGE"
+		<foreach collection="list" item="img" separator=" UNION ">
+			SELECT NEXT_BOARD_IMAGE_NO(),
+				   #{img.boardImage},
+				   #{img.boardImageOrder},
+				   #{img.boardNo},
+				   #{img.boardImageRename},
+				   #{img.boardImageName}
+	   		FROM DUAL
+		</foreach>
+	</insert>
+	
 </mapper>
