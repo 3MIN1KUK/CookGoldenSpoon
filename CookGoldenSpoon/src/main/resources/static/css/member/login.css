@@ -23,6 +23,11 @@
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
 }
 
+#memberId, #memberPw{
+  color: black !important;
+  font-size: 1.8rem !important;
+}
+
 h1 {
   font-size: 24px;
   text-align: center;

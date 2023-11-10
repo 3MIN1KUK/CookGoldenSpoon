@@ -7,6 +7,12 @@
 }
 
 
+.out-box{
+  margin: 40px 70px;
+  width: 1200px;
+}
+
+
 .main-container{
   position: relative;
 }
@@ -15,10 +21,7 @@
   width: 100%;
   display: flex;
   flex-wrap: wrap;
-}
-
-.recipe-col{
-  margin: 2rem 2.9rem;
+  justify-content: space-between;
 }
 
 .recipe-title{
@@ -109,4 +112,13 @@
 }
 .recipe-info *{
   color: dimgray;
+}
+
+.pagination{
+  margin-top: 20px;
+}
+
+.page-link{
+  font-size: 1.5rem !important;
+  font-weight: bold !important;
 }

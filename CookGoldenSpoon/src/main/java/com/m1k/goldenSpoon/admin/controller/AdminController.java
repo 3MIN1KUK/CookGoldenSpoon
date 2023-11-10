@@ -58,6 +58,7 @@ public class AdminController {
 	public String recipeResult(int memberNo, Model model,
 			@RequestParam(value = "cp", required = false, defaultValue = "1") int cp) {
 		Map<String, Object> map = service.recipeResult(memberNo, cp);
+		model.addAttribute("memberNo",memberNo);
 		model.addAttribute("map", map);
 		
 		return "admin/recipe_result";
@@ -95,6 +96,9 @@ public class AdminController {
 		else { // 검색인 경우
 			
 			Map<String, Object> map = service.searchMember(paramMap, cp);
+			model.addAttribute("memberId", paramMap.get("memberId"));
+			model.addAttribute("memberEmail", paramMap.get("memberEmail"));
+			model.addAttribute("memberNickname", paramMap.get("memberNickname"));
 			model.addAttribute("map", map);
 			
 		}
