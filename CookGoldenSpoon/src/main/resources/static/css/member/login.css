@@ -23,7 +23,7 @@
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
 }
 
-#memberId, #memberPw{
+#memberId, #memberPw, #memberEmail{
   color: black !important;
   font-size: 1.8rem !important;
 }

@@ -42,10 +42,6 @@ public class AdminController {
 		return "admin/comment_result";
 	}
 	
-	@GetMapping("boardResult")
-	public String boardResult() {
-		return "admin/board_result";
-	}
 	
 	
 	@GetMapping("basic")
@@ -53,16 +49,6 @@ public class AdminController {
 		return "basicForm";
 	}
 	
-	// 회원 레시피 조회
-	@GetMapping("recipeResult")
-	public String recipeResult(int memberNo, Model model,
-			@RequestParam(value = "cp", required = false, defaultValue = "1") int cp) {
-		Map<String, Object> map = service.recipeResult(memberNo, cp);
-		model.addAttribute("memberNo",memberNo);
-		model.addAttribute("map", map);
-		
-		return "admin/recipe_result";
-	}
 	
 	// 회원 상세 조회
 	@PostMapping("memberDetail")
@@ -113,8 +99,21 @@ public class AdminController {
 		return service.changeAuthority(member);
 	}
 	
+	// 회원 레시피 조회
+	@GetMapping("recipeResult")
+	public String recipeResult(int memberNo, Model model,
+			@RequestParam(value = "cp", required = false, defaultValue = "1") int cp) {
+		Map<String, Object> map = service.recipeResult(memberNo, cp);
+		model.addAttribute("memberNo",memberNo);
+		model.addAttribute("map", map);
+		
+		return "admin/recipe_result";
+	}
 	
-	
-	
+	// 회원 게시판 조회
+	@GetMapping("boardResult")
+	public String boardResult() {
+		return "admin/board_result";
+	}
 	
 }

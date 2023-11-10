@@ -18,10 +18,16 @@
   padding: 20px;
   margin: auto;
 }
-
-.input-group > *,.btn-group > *, #login-submit, .login-title{
+.input-group > *,.btn-group > *, #login-submit, .login-title, #result-id{
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
 }
+
+
+#memberId, #memberPw, #memberEmail{
+  color: black !important;
+  font-size: 1.8rem !important;
+}
+
 
 h1 {
   font-size: 24px;
@@ -70,4 +76,12 @@ input[type="submit"] {
 
 input{
   border-radius: 10px;
+}
+
+#result-id{
+  text-align: center;
+  color: black !important;
+  font-size: 1.8rem !important;
+  font-weight: bold !important;
+  margin: 10px;
 }
