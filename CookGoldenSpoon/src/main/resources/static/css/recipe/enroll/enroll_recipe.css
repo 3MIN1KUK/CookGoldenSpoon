@@ -110,16 +110,17 @@ form{
 
 
 /* 추가 버튼 */
-/* .processBtn1{
-  width: 18rem;
-  height: 16rem;
-} */
+.processBtn1{
+/*   width: 18rem;
+  height: 16rem; */
+  cursor: pointer;
+  font-size: 4rem;
+}
 
 
 /* 요리영상 */
 .video{
   width: 65rem;
-
 }
 
 #video1{
@@ -195,6 +196,7 @@ form{
   height: 94.5%;
   margin: 0.2rem;
   font-size: 2.2rem;
+  padding: 0.7rem;
 }
 
 /* ----------------------------------- */
@@ -237,6 +239,7 @@ form{
   margin-left: 0.2rem;
   font-size: 2.2rem;
   resize: none;
+  padding: 0.7rem;
 }
 
 
@@ -267,7 +270,7 @@ form{
  margin-right: 5rem;
  margin-top : 0.2rem;
  font-size: 3.4rem;
-
+ cursor: pointer;
 }
 
 .cookProcess{
@@ -308,6 +311,7 @@ form{
   justify-content: flex-start;
   margin: 0.2rem 5.4rem 0.2rem 0.2rem;
   resize: none;
+  padding: 0.7rem;
 }
 
 
@@ -347,6 +351,7 @@ form{
   margin-left: 0.2rem;
   margin-top: 0.2rem;
   font-size: 2.2rem;
+  padding: 0.7rem;
 }
 
 /* ----------------------------------- */
@@ -427,6 +432,7 @@ form{
   margin: 0.2rem;
   margin-left: 0.2rem;
   font-size: 2.2rem;
+  padding: 0.7rem;
 }
 
 /* ----------------------------------- */
@@ -444,6 +450,7 @@ form{
   height: 5rem;
   margin-bottom : 0.7rem;
   font-size: 4.0rem;
+  cursor: pointer;
  }
 
 .epName{
@@ -485,10 +492,14 @@ form{
   margin: 1rem;
   font-size: 2.2rem;
   border: none;
+  cursor: pointer;
 }
+/* ------------------------------------- */
 
-
-
+/* 전체 인풋박스 테두리 제거 */
+.a{
+  outline: none;
+}
 
 /* ------------------------------------- */
 /* 이미지 삭제 버튼(공통) */
@@ -518,11 +529,10 @@ form{
   height: 3rem;
   border-radius: 50%;
   /* display: none; */
+  border: none;
+  cursor: pointer;
 }
 
-.a{
-  outline: none;
-}
 
 
 
