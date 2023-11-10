@@ -9,7 +9,7 @@ import org.apache.ibatis.session.RowBounds;
 import com.m1k.goldenSpoon.board.model.dto.Board;
 import com.m1k.goldenSpoon.board.model.dto.BoardImg;
 import com.m1k.goldenSpoon.recipe.model.dto.Recipe;
-
+import com.m1k.goldenSpoon.recipe.model.dto.RecipePicture;
 import com.m1k.goldenSpoon.recipe.model.dto.Recipe;
 
 @Mapper
@@ -137,6 +137,21 @@ public interface RecipeMapper {
 	 * @return
 	 */
 	int updateRecipeHits(int recipeNo);
+
+	/** 과정 이미지 삽입
+	 * @param uploadList1
+	 * @return
+	 */
+	int insertProcessList(List<RecipePicture> uploadList1);
+
+	/** 완성 이미지 삽입
+	 * @param uploadList2
+	 * @return
+	 */
+	int insertCompleteList(List<RecipePicture> uploadList2);
+
+	
+	
 
 	
 	

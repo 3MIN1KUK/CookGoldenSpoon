@@ -23,7 +23,9 @@ import com.m1k.goldenSpoon.recipe.model.dto.RecipePicture;
 import com.m1k.goldenSpoon.recipe.model.mapper.RecipeMapper;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Service
 @Transactional(rollbackFor = Exception.class)
 @PropertySource("classpath:/config.properties")
@@ -153,7 +155,6 @@ public class RecipeServiceImpl implements RecipeService{
 	@Override
 	public int enroll(Recipe recipe, MultipartFile thumbnail, List<MultipartFile> processImages, List<MultipartFile> completeImages) throws IllegalStateException, IOException {
 		
-		
 		String thumbnailRename = Util.fileRename(thumbnail.getOriginalFilename());
 		
 		recipe.setRecipeThumbnail(webPath + thumbnailRename);
@@ -162,70 +163,61 @@ public class RecipeServiceImpl implements RecipeService{
 		if(result1 == 0) return 0; 
 		int recipeNo = recipe.getRecipeNo();
 		
-	
 		
-		/*
-		List<RecipePicture> uploadList = new ArrayList<>();
+		List<RecipePicture> uploadList1 = new ArrayList<>();
 		for(int i = 0 ; i<processImages.size(); i++) {
 			if(processImages.get(i).getSize() > 0) {
 				RecipePicture img = new RecipePicture();
 				img.setRecipeNo(recipeNo); 
+				log.debug("" + img.getRecipeImageNo());
 				img.setRecipeImageOrder(i);
 				img.setRecipeImageName( processImages.get(i).getOriginalFilename() ); 
 				img.setRecipeImage(webPath);
 				img.setRecipeImageRename(Util.fileRename( processImages.get(i).getOriginalFilename() ));
 				img.setUploadFile(processImages.get(i));
-				uploadList.add(img);
+				uploadList1.add(img);
+				
 			} // if문 끝
 		}// for문 끝
+		int result2 = mapper.insertProcessList(uploadList1);
 		
-		int result2 = mapper.insertProcessList(uploadList);
-		
-		*/
-		
-		
-		/*
 		List<RecipePicture> uploadList2 = new ArrayList<>();
 		for(int i = 0 ; i<completeImages.size(); i++) {
 			if(completeImages.get(i).getSize() > 0) {
 				RecipePicture img = new RecipePicture();
 				img.setRecipeNo(recipeNo); 
 				img.setRecipeImageOrder(i);
-				img.setRecipeImageName( processImages.get(i).getOriginalFilename() ); 
+				img.setRecipeImageName( completeImages.get(i).getOriginalFilename() ); 
 				img.setRecipeImage(webPath);
 				img.setRecipeImageRename(Util.fileRename( completeImages.get(i).getOriginalFilename() ));
-				img.setUploadFile(processImages.get(i));
+				img.setUploadFile(completeImages.get(i));
 				uploadList2.add(img);
+				
 			} // if문 끝
 		}// for문 끝
 		
 		int result3 = mapper.insertCompleteList(uploadList2);
 		
-		 */
 		
 		
-		
-		
-		
-		if(result1 > 0	/* && result2 == uploadList.size()*/ /* && result3 == uploadList2.size()*/) {
+		if(result1 > 0 && result2 == uploadList1.size() && result3 == uploadList2.size()) {
 			thumbnail.transferTo(new File(folderPath + thumbnailRename));
 			
-			// result2 == uploadList.size()
-//			for(RecipeImageName img : uploadList) {
-//				img.getUploadFile().transferTo(new File(folderPath + img.getRecipeImageRename()));
-//			}
+			result2 = uploadList1.size();
+			for(RecipePicture img : uploadList1) {
+				img.getUploadFile().transferTo(new File(folderPath + img.getRecipeImageRename()));
+			}
 			
-			// result3 == uploadList.size()
-//			for(RecipeImageName img : uploadList2) {
-//				img.getUploadFile().transferTo(new File(folderPath + img.getRecipeImageRename()));
-//			}
+			result3 = uploadList2.size();
+			for(RecipePicture img : uploadList2) {
+				img.getUploadFile().transferTo(new File(folderPath + img.getRecipeImageRename()));
+			}
 		}
-		
-		
-		
 		
 		return recipeNo;
 	}
+	
+	
 	
 	// 레시피 조회 수 증가
 	@Override

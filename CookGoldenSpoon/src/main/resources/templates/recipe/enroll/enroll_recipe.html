@@ -29,7 +29,7 @@
                   <img class="preview" src="">
                 </label>
                 <!-- input type = file은 무조건 제출 -->
-                <input type="file" name="thumbnail" class="inputImage" id="img0" accept="image/*">
+                <input type="file" name="thumbnail" class="inputImage1" id="img0" accept="image/*">
                 <span class="delete-image">&times;</span>
               </div>
             </div> 
@@ -139,19 +139,19 @@
                 
                 <label class="endProcessBtn8">
                   📷
-                  <input type="file" name="processImages" style="display: none;">
+                  <input type="file" name="completeImages" style="display: none;">
                 </label>
                 <label class="endProcessBtn8">
                   📷
-                  <input type="file" name="processImages" style="display: none;">
+                  <input type="file" name="completeImages" style="display: none;">
                 </label>
                 <label class="endProcessBtn8">
                   📷
-                  <input type="file" name="processImages" style="display: none;">
+                  <input type="file" name="completeImages" style="display: none;">
                 </label>
                 <label class="endProcessBtn8">
                   📷
-                  <input type="file" name="processImages" style="display: none;">
+                  <input type="file" name="completeImages" style="display: none;">
                 </label>
 
 
@@ -161,9 +161,9 @@
     
           <!-- 9번째 줄 제출버튼 -->
           <div class="pBtn9">
-            <button type="submit" class="btn9 btn9-1">저장</button>
-            <button type="" class="btn9">미리보기</button>
-            <button class="btn9">취소</button>
+            <button type="submit" class="btn9 btn9-1 subBtn">저장</button>
+            <button type="" class="btn9 prBtn">미리보기</button>
+            <button class="btn9 cancelBtn">취소</button>
           </div>
           
         </form>
@@ -173,8 +173,10 @@
     </div>
   </main>
 
-
-
+  <script th:inline="javascript">
+    const message = /*[[${message}]]*/ "전달 받은 message";
+    if(message != null) alert(message);
+  </script>
 
   <script src="/js/recipe/enroll/enroll_recipe.js"></script>
   <script src="/js/common/project.js"></script>
