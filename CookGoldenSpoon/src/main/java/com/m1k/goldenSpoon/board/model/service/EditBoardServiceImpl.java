@@ -3,6 +3,7 @@ package com.m1k.goldenSpoon.board.model.service;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -14,8 +15,10 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.m1k.goldenSpoon.board.model.dto.Board;
 import com.m1k.goldenSpoon.board.model.dto.BoardImg;
+import com.m1k.goldenSpoon.board.model.exception.BoardUpdateException;
 import com.m1k.goldenSpoon.board.model.exception.BoardWriteException;
 import com.m1k.goldenSpoon.board.model.mapper.EditBoardMapper;
+import com.m1k.goldenSpoon.common.utility.Util;
 
 import lombok.RequiredArgsConstructor;
 
@@ -94,6 +97,57 @@ public class EditBoardServiceImpl implements EditBoardService{
 			throw new BoardWriteException("파일 정보 DB 삽입 실패");
 		}
 		return boardNo;
+	}
+	
+	// 게시글 수정
+	@Override
+	public int updateBoard(Board board, List<MultipartFile> images, String deleteOrder) throws IllegalStateException, IOException {
+		
+		int result = mapper.updateBoard(board);
+		
+		if(result == 0) return 0;
+		
+		if( !deleteOrder.equals("") ) {
+			Map<String, Object> map = new HashMap<>();
+			map.put("boardNo", board.getBoardNo());
+			map.put("deleteOrder", deleteOrder);
+			
+			result = mapper.imageDelete(map);
+			
+			if(result == 0) {
+				throw new BoardUpdateException("이미 삭제 실패");
+			}
+		}
+		
+		List<BoardImg> uploadList = new ArrayList<>();
+		
+		for(int i=0 ; i<images.size() ; i++ ) {
+			if( images.get(i).getSize() > 0 ) {
+				BoardImg img = new BoardImg();
+				img.setBoardNo(board.getBoardNo());
+				img.setBoardImageOrder(i);
+				img.setBoardImageName( images.get(i).getOriginalFilename());
+				img.setBoardImage(webPath);
+				img.setBoardImageRename(Util.fileRename( images.get(i).getOriginalFilename() ));
+				img.setUploadFile(images.get(i));
+				uploadList.add(img);
+				
+				result = mapper.updateBoardImg(img);
+				
+				if(result == 0) {
+					mapper.boardImgInsert(img);
+				}
+			}
+		}
+		
+		if( !uploadList.isEmpty() ) {
+			result = 1;
+			for(BoardImg img : uploadList) {
+				img.getUploadFile().transferTo( new File( folderPath + img.getBoardImageRename() ) );
+			}
+		}
+		
+		return result;
 	}
 	
 	

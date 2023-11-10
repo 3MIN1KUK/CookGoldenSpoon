@@ -33,14 +33,12 @@
         </div>
         
       <!-- 일반 이미지가 있을 경우 -->
-      <th:block th:if="${#lists.size(board.imageList) > start}" >
-
-        <h5>업로드 이미지</h5>
+      <th:block th:if="${#lists.size(board.imageList) > 0}" >
         <div class="img-box">
-        
-          <div th:each="i : ${#numbers.sequence(start, #lists.size(board.imageList)-1, 1)}" 
-            th:with="path=|${board.imageList[i].boardImage}${board.imageList[i].boardImageRename}|"
-            class="boardImg">
+          <div th:each="i : ${#numbers.sequence(0, #lists.size(board.imageList)-1, 1)}" 
+              th:with="path=|${board.imageList[i].boardImage}${board.imageList[i].boardImageRename}|"
+              class="boardImg">
+            <img th:src="${path}" class="preview">
           </div>
         </div>
       </th:block>
@@ -67,6 +65,9 @@
 
     </div>
 
+    <!-- 댓글 영역 -->
+    <th:block th:replace="~{board/comment}"></th:block>
+
   </main>
 
 
@@ -80,12 +81,6 @@
     const loginCheck = /*[[${session.loginMember != null ? true : false}]]*/ "로그인 여부";
     // -----------------------------------------------------------
     // 게시글 수정 시 사용
-    const imageList = /*[[${board.imageList}]]*/ [];
-    const previewList = document.querySelectorAll('.boardImg > img');
-    previewList.forEach((preview, i)=>{
-        console.log(preview);
-        preview.src = imageList[i].imgPath + imageList[i].imgRename;
-    })
   </script>
 
   <script src="/js/common/project.js"></script>
