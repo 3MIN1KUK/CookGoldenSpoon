@@ -9,6 +9,7 @@ import java.util.Map;
 import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -16,14 +17,18 @@ import com.m1k.goldenSpoon.board.model.dto.Board;
 import com.m1k.goldenSpoon.common.model.dto.Pagination;
 import com.m1k.goldenSpoon.common.utility.Util;
 import com.m1k.goldenSpoon.member.model.dto.Member;
+import com.m1k.goldenSpoon.myPage.model.dto.MyPagePwChange;
 import com.m1k.goldenSpoon.myPage.model.mapper.MyPageMapper;
 import com.m1k.goldenSpoon.recipe.model.dto.Recipe;
 
+import lombok.RequiredArgsConstructor;
+
 @Service
+@RequiredArgsConstructor
 public class MyPageServiceImpl implements MyPageService{
 
-	@Autowired
-	private MyPageMapper mapper;
+	private final MyPageMapper mapper;
+	private final BCryptPasswordEncoder bcrypt;
 	
 	@Value("${my.member.webpath}")
 	private String webpath;
@@ -140,5 +145,18 @@ public class MyPageServiceImpl implements MyPageService{
 	@Override
 	public int myPageEdit(Member loginMember) {
 		return mapper.myPageEdit(loginMember);
+	}
+	
+	// 팝업 비밀번호 변경
+	@Override
+	public int myPageEditPw(MyPagePwChange pwChange) {
+		
+		String memberPw = mapper.getMemberPw(pwChange);
+		
+		if(!bcrypt.matches(pwChange.getCurPassword(), memberPw)) {
+			return -1;
+		}
+		pwChange.setNewPassword( bcrypt.encode(pwChange.getNewPassword()) );
+		return mapper.changePw(pwChange);
 	}
 }

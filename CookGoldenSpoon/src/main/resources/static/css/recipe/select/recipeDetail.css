@@ -107,6 +107,8 @@
 .recipe-review-container{
   background-color: var(--color-bg);
   border-radius: 2rem;
+  display: flex;
+  flex-direction: column;
 }
 .recipe-review{
   display: flex;
@@ -126,9 +128,10 @@
   height: 90%;
   width: 70%;
   background-color: white;
-  padding: 0.5rem;
+  padding: 1rem;
   border-radius: 1rem;
   border: 0.5px solid #FFD384;
+
 }
 
 .recipe-review-form button{
@@ -182,8 +185,8 @@
   display: flex;
   flex-wrap: wrap;
   padding: 1.5rem;
+  justify-content: space-evenly;
 }
-
 .star-point{
   padding: 1rem;
   font-size: 2rem;
@@ -194,4 +197,23 @@
   max-width: 100%;
   margin: auto;
   border-radius: 1rem;
+}
+
+.recipeCommentEnrollDate{
+  font-size: 1rem;
+}
+
+.commentNickname{
+  
+}
+
+.recipeCommentInput{
+  margin: 1rem 0 1rem;
+  justify-content: center;
+  width: 100%;
+}
+
+.child-comment{
+  width: 90%;
+  align-self: flex-end;
 }

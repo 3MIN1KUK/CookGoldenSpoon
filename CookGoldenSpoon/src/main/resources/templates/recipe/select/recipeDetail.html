@@ -134,37 +134,38 @@
       </div> -->
       <div class="recipe-content">
         <div class="recipe-subtitle">
-          요리 후기
+          댓글
         </div>
-        <div class="recipe-review-container">
-          <div class="recipe-review">
-            <div>프로필사진</div>
-            <div>아이디</div>
-            <div class="recipe-review-content">내용</div>
-            <div>사진</div>
-          </div>
-          <div class="recipe-review">
-            <div>프로필사진</div>
-            <div>아이디</div>
-            <div class="recipe-review-content">내용</div>
-            <div>사진</div>
-          </div>
-          <div class="recipe-review">
-            <div>프로필 사진</div>
-            <div>아이디</div>
-            <div class="recipe-review-content">내용</div>
-            <div>사진</div>
+        <!-- <div class="recipe-review-container" id="commentList">
+          <div class="recipe-review" th:each="comment : *{recipeCommentList}" th:object="${comment}">
+
+            <div class="recipe-writer-image" >
+
+              <img th:if="*{memberProfile}" th:src="*{memberProfile}" class="memberProfile">
+              <img th:unless="*{memberProfile}" th:src="#{user.default.image}" class="memberProfile">
+
+            </div>
+            <div class="commentNickname" th:text="*{memberNickname}">닉네임</div>
+            <div>
+              <div class="flex">
+                <div class="recipe-review-content" th:text="*{recipeCommentContent}"></div>
+                <div class="recipeCommentEnrollDate" th:text="*{recipeCommentEnrollDate}"></div>
+              </div>
+              <th:block th:if="${session.loginMember != null and session.loginMember.memberNo == comment.memberNo}">
+                <button>수정</button>
+                <button>삭제</button>
+              </th:block>
+              <button>답글</button>
+            </div>
           </div>
         </div>
-        <form action="" method="post" class="recipe-review-form">
-          <div class="recipe-review">
-            <div>프로필 사진</div>
-            <div>아이디</div>
-            <textarea name="" id="" cols="30" rows="10" style="resize: none;"  class="recipe-review-content"></textarea>
-            <div>사진</div>
+        <div class="recipe-review-form">
+          <div class="recipe-review recipeCommentInput">
+            <textarea id="commentTextarea" name="recipeCommentContent" style="resize: none;"  class="recipe-review-content"></textarea>
           </div>
-          <button>제출</button>
-        </form>
+          <button id="commentEnrollBtn">등록</button>
+        </div> -->
+        <th:block th:replace="~{recipe/recipeComment}"></th:block>
       </div>
     </div>
   </main>
@@ -173,6 +174,8 @@
     const recipeNo = /*[[${recipeNo}]]*/ "레시피 번호";
     const loginCheck = /*[[${session.loginMember != null ? true : false}]]*/ "로그인 여부";
     const recipeStarCheck = /*[[${recipeStar}]]*/ "별점 수";
+    const loginMemberNo =/*[[${session.loginMember?.memberNo}]]*/ "로그인 회원번호";
+    const userDefaultImage = /*[[#{user.default.image}]]*/ "회원 기본 이미지";
   </script>
   <script src="/js/recipe/select/recipeDetail.js"></script>
   <script src="/js/common/project.js"></script>

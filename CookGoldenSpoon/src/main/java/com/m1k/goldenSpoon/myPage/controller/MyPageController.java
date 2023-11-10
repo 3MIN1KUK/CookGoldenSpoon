@@ -17,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.m1k.goldenSpoon.member.model.dto.Member;
+import com.m1k.goldenSpoon.myPage.model.dto.MyPagePwChange;
 import com.m1k.goldenSpoon.myPage.model.service.MyPageService;
 
 import lombok.RequiredArgsConstructor;
@@ -126,5 +127,34 @@ public class MyPageController {
 		return service.myPageValidation(memberNickname);
 	}
 	
+	// 비밀번호 변경 창
+	@GetMapping("edit/pwChange")
+	public String myPageEditPwPopup() {
+		return "my_page/edit/popup";
+	}
+	
+	// 팝업 비밀번호 변경
+	@PostMapping("edit/pwChange")
+	public String myPageEditPw(@SessionAttribute("loginMember") Member loginMember, MyPagePwChange pwChange
+			, RedirectAttributes ra) {
+		pwChange.setMemberNo(loginMember.getMemberNo());
+		int result = service.myPageEditPw(pwChange);
+		
+		String path;
+		String message;
+		if(result > 0) {
+			message = "비밀번호 변경 성공";
+			path = "redirect:edit";
+		} else if(result == -1) {
+			message = "현재 비밀번호가 일치하지 않습니다";
+			path = "redirect:pwChange";
+		} else {
+			message = "비밀번호 변경 실패";
+			path = "redirect:pwChange";
+		}
+		ra.addFlashAttribute("message", message);
+		
+		return path;
+	}
 	
 }

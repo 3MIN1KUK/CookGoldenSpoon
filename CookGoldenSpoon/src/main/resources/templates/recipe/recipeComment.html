@@ -1,0 +1,52 @@
+<div id="commentArea">
+  <!-- 댓글 목록 -->
+  <div class="comment-list-area">
+      
+      <div class="recipe-review-container" id="commentList">
+
+          <!-- 대댓글인 경우 child-comment 클래스 추가 -->
+          <div class="recipe-review" 
+              th:each="comment : *{recipeCommentList}" th:object="${comment}"
+              th:classappend="${comment.recipeParentNo} != 0 ? child-comment">
+
+              <!-- 삭제된 댓글이지만 자식 댓글 때문에 조회된 경우 -->
+              <th:block th:if="*{recipeCommentDelFl == 'Y'}" >
+                  삭제된 댓글 입니다
+              </th:block>
+              
+              <!-- 삭제되지 않은 댓글인 경우 -->
+              <th:block th:unless="*{recipeCommentDelFl == 'Y'}" >
+                  <div class="recipe-writer-image">
+                      <!-- 프로필 이미지 없을 경우 -->
+                      <img th:unless="*{memberProfile}" th:src="#{user.default.image}" class="memberProfile">
+                      <!-- 프로필 이미지 있을 경우 -->
+                      <img th:if="*{memberProfile}" th:src="*{memberProfile}" class="memberProfile">
+                  </div>
+                  <div class="commentNickname" th:text="*{memberNickname}">닉네임</div>
+                  <div>
+                    <div class="flex">
+                      <div class="recipe-review-content" th:text="*{recipeCommentContent}"></div>
+                      <div class="recipeCommentEnrollDate" th:text="*{recipeCommentEnrollDate}"></div>
+                    </div>
+                    <th:block th:if="${session.loginMember != null and session.loginMember.memberNo == comment.memberNo}">
+                      <button class="buttons">수정</button>
+                      <button class="buttons">삭제</button>
+                    </th:block>
+                    <th:block th:if="${session.loginMember != null}">
+                      <button class="buttons">답글</button>
+                    </th:block>
+                  </div>
+
+              </th:block>
+          </div>
+          
+      </div>
+      <div class="recipe-review-form">
+          <div class="recipe-review recipeCommentInput">
+            <textarea id="commentTextarea" name="recipeCommentContent" style="resize: none;"  class="recipe-review-content"></textarea>
+          </div>
+          <button id="commentEnrollBtn">등록</button>
+      </div>
+  </div>
+
+</div>

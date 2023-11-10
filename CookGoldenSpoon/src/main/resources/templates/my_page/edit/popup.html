@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="/css/my_page/popup/popup.css">
+</head>
+<body>
+  <form action="/myPage/edit/pwChange" method="post" id="pwChangeFrm">
+    <table>
+      <tr>
+        <th>현재 비밀번호</th>
+        <td><input type="password" id="curPassword" name="curPassword"></td>
+      </tr>
+      <tr>
+        <th>새 비밀번호</th>
+        <td><input type="password" id="newPassword" name="newPassword"></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td id="newPwText">영어,숫자,특수문자(!,@,#,-,_) 6~20글자 사이로 입력해주세요.</td>
+      </tr>
+      <tr>
+        <th>새 비밀번호 확인</th>
+        <td><input type="password" id="newPasswordCheck"></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td id="newPwTextCheck">비밀번호를 한 번 더 입력해주세요</td>
+      </tr>
+      <tr><td colspan="2" style="text-align: end;"><button>제출</button></td></tr>
+    </table>
+  </form>
+  <script th:inline="javascript">
+    const message = /*[[${message}]]*/ "전달 받은 message";
+                    // message가 없다면 null
+
+    if(message != null) alert(message);
+</script>
+  <script src="/js/my_page/popup/popup.js"></script>
+</body>
+</html>

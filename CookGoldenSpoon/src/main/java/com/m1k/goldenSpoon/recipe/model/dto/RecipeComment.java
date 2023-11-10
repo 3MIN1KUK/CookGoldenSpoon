@@ -9,8 +9,13 @@ import lombok.ToString;
 @ToString
 public class RecipeComment {
 
+	private int recipeParentNo;
 	private String recipeCommentEnrollDate;
-	private String recipeCommnetContent;
+	private String recipeCommentContent;
+	private int recipeCommentNo;
+	private int recipeNo;
+	private int memberNo;
+	private String memberNickname;
+	private String memberProfile;
 	private String recipeCommentDelFl;
-	
 }
