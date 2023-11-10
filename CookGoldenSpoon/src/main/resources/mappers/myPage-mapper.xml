@@ -130,4 +130,16 @@
 		MEMBER_INTRO = #{memberIntro}
 		WHERE MEMBER_NO = #{memberNo}
 	</update>
+	
+	<!--로그인 멤버 현재 비번 가져오기-->
+	<select id="getMemberPw" resultType="string">
+		SELECT MEMBER_PW FROM "MEMBER"
+		WHERE MEMBER_NO = #{memberNo}
+	</select>
+	
+	<update id="changePw">
+		UPDATE "MEMBER"
+		SET MEMBER_PW = #{newPassword}
+		WHERE MEMBER_NO = #{memberNo}
+	</update>
 </mapper>

@@ -192,3 +192,9 @@ editFrm.addEventListener("submit", e=>{
   }
 })
 
+/* 비밀번호 변경 팝업창 */
+const changePwBtn = document.getElementById("changePwBtn");
+
+changePwBtn.addEventListener("click", ()=>{
+  window.open("/myPage/edit/pwChange", "_blank", "width=600, height=300, left=700, top=400");
+});

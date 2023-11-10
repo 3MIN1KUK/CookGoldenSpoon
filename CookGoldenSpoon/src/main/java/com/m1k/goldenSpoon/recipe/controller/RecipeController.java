@@ -253,4 +253,5 @@ public class RecipeController {
     	paramMap.put("memberNo", loginMember.getMemberNo());
     	return service.stars(paramMap);
     }
+    
 }

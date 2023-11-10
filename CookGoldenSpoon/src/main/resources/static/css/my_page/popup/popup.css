@@ -1,0 +1,18 @@
+body{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 15rem;
+}
+#newPwText, #newPwTextCheck{
+  font-size: 0.7rem;
+}
+.confirm{
+  color: green;
+}
+.error{
+  color: red;
+}
+input{
+  width: 300px;
+}

@@ -188,6 +188,7 @@ nav>ul{
   border-top: none;
   border-bottom-left-radius: 2rem;
   border-bottom-right-radius: 2rem;
+  padding-top: 0.8rem;
 }
 
 .recipe-info{
@@ -243,7 +244,9 @@ nav>ul{
 
 
 
-
+.flex{
+  display: flex;
+}
 
 
 

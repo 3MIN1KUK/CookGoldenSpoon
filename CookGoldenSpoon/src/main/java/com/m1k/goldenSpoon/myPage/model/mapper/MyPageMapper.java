@@ -7,6 +7,7 @@ import org.apache.ibatis.session.RowBounds;
 
 import com.m1k.goldenSpoon.board.model.dto.Board;
 import com.m1k.goldenSpoon.member.model.dto.Member;
+import com.m1k.goldenSpoon.myPage.model.dto.MyPagePwChange;
 import com.m1k.goldenSpoon.recipe.model.dto.Recipe;
 
 @Mapper
@@ -74,5 +75,17 @@ public interface MyPageMapper {
 	 * @return
 	 */
 	int myPageEdit(Member loginMember);
+
+	/** 로그인 멤버 현재 비밀번호 가져오기
+	 * @param pwChange
+	 * @return
+	 */
+	String getMemberPw(MyPagePwChange pwChange);
+
+	/** 비밀번호 변경
+	 * @param pwChange
+	 * @return
+	 */
+	int changePw(MyPagePwChange pwChange);
 
 }

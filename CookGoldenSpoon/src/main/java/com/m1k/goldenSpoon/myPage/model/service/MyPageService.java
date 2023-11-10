@@ -6,6 +6,7 @@ import java.util.Map;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.m1k.goldenSpoon.member.model.dto.Member;
+import com.m1k.goldenSpoon.myPage.model.dto.MyPagePwChange;
 
 public interface MyPageService {
 
@@ -61,6 +62,12 @@ public interface MyPageService {
 	 * @return
 	 */
 	int myPageEdit(Member loginMember);
+
+	/** 팝업 비밀번호 변경
+	 * @param pwChange
+	 * @return
+	 */
+	int myPageEditPw(MyPagePwChange pwChange);
 	
 
 }
