@@ -6,6 +6,7 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.session.RowBounds;
 
+import com.m1k.goldenSpoon.board.model.dto.Board;
 import com.m1k.goldenSpoon.member.model.dto.Member;
 import com.m1k.goldenSpoon.recipe.model.dto.Recipe;
 
@@ -49,8 +50,37 @@ public interface AdminMapper {
 	 */
 	Member memberDetail(int memberNo);
 
-	int getMemberRecipeListCount(int memberNo);
+	/** 레시피 개수 구하기
+	 * @param searchMap
+	 * @return
+	 */
+	int recipeListCount(Map<String, Object> searchMap);
 
-	List<Recipe> MemberRecipeSelect(int memberNo, RowBounds rowBounds);
+	/** 레시피 조회
+	 * @param searchMap
+	 * @param rowBounds
+	 * @return
+	 */
+	List<Recipe> recipeSelect(Map<String, Object> searchMap, RowBounds rowBounds);
+
+	/** 게시글 개수 구하기
+	 * @param map
+	 * @return
+	 */
+	int boardListCount(Map<String, Object> map);
+
+	/** 회원 번호들 구하기
+	 * @param searchBoard
+	 * @return
+	 */
+	List<Integer> getMemberNos(String memberNickname);
+
+	/**  관리자 게시글 다중 검색
+	 * @param map
+	 * @param rowBounds
+	 * @return
+	 */
+	List<Board> boardResult(Map<String, Object> map, RowBounds rowBounds);
+
 
 }

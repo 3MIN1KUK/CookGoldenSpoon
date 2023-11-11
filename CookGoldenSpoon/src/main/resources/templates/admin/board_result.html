@@ -11,7 +11,7 @@
 <body>
 
   
-  <main class="d-flex flex-nowrap">
+  <main class="d-flex flex-nowrap" th:with="boardList=${map.boardList}, pagination=${map.pagination}">
     
     <th:block th:replace="~{admin/admin_sidebar}"></th:block>
 
@@ -19,62 +19,37 @@
 
     
       
-      <section>
+      <section class="out-box">
         
         <h1 class="search-board-h1">게시글 조회 - 보오류</h1>
-        <div class="admin-board-result-out-box">
-          <div class="admin-board-result">
-            <span class="admin-board-writer">작성자</span>
-            <a href="#" class="admin-board-title">게시글 제목</a>
-            <button class="admin-reciepe-delete admin-recipe-btn">삭제</button><br>
-          </div>
-          <div class="admin-board-result">
-            <span class="admin-board-writer">작성자</span>
-            <a href="#" class="admin-board-title">게시글 제목</a>
-            <button class="admin-reciepe-delete admin-recipe-btn">삭제</button><br>
-          </div>
-          <div class="admin-board-result">
-            <span class="admin-board-writer">작성자</span>
-            <a href="#" class="admin-board-title">게시글 제목</a>
-            <button class="admin-reciepe-delete admin-recipe-btn">삭제</button><br>
-          </div>
-          <div class="admin-board-result">
-            <span class="admin-board-writer">작성자</span>
-            <a href="#" class="admin-board-title">게시글 제목</a>
-            <button class="admin-reciepe-delete admin-recipe-btn">삭제</button><br>
-          </div>
-          <div class="admin-board-result">
-            <span class="admin-board-writer">작성자</span>
-            <a href="#" class="admin-board-title">게시글 제목</a>
-            <button class="admin-reciepe-delete admin-recipe-btn">삭제</button><br>
-          </div>
-          <div class="admin-board-result">
-            <span class="admin-board-writer">작성자</span>
-            <a href="#" class="admin-board-title">게시글 제목</a>
-            <button class="admin-reciepe-delete admin-recipe-btn">삭제</button><br>
-          </div>
-          <div class="admin-board-result">
-            <span class="admin-board-writer">작성자</span>
-            <a href="#" class="admin-board-title">게시글 제목</a>
-            <button class="admin-reciepe-delete admin-recipe-btn">삭제</button><br>
-          </div>
-          <div class="admin-board-result">
-            <span class="admin-board-writer">작성자</span>
-            <a href="#" class="admin-board-title">게시글 제목</a>
-            <button class="admin-reciepe-delete admin-recipe-btn">삭제</button><br>
-          </div>
-          <div class="admin-board-result">
-            <span class="admin-board-writer">작성자</span>
-            <a href="#" class="admin-board-title">게시글 제목</a>
-            <button class="admin-reciepe-delete admin-recipe-btn">삭제</button><br>
-          </div>
-          <div class="admin-board-result">
-            <span class="admin-board-writer">작성자</span>
-            <a href="#" class="admin-board-title">게시글 제목</a>
-            <button class="admin-reciepe-delete admin-recipe-btn">삭제</button><br>
-          </div>
-    
-        </div>
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col" class="b-no">번호</th>
+              <th scope="col" class="b-title">제목</th>
+              <th scope="col" class="b-nickname">작성자</th>
+              <th scope="col" class="b-code">게시글 종류</th>
+              <th scope="col" class="b-date">작성 날짜</th>
+              <th scope="col" class="b-hits">조회수</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr th:each="board : ${boardList}" th:object="${board}" th:onclick="|location.href='@{/board/{boardCode}/{boardNo}(boardCode=*{boardCode}, boardNo=*{boardNo})}'|">
+              <td th:text="*{boardNo}"> <a href="/"></a></td>
+              <td th:text="*{boardTitle}"></td>
+              <td th:text="*{memberNickname}"></td>
+              <td>
+                <th:block th:if="*{boardCode == 3}">게시판</th:block>
+                <th:block th:if="*{boardCode == 2}">게시판</th:block>
+                <th:block th:if="*{boardCode == 1}">게시판</th:block>
+              </td>
+              <td th:text="*{boardEnrollDate}"></td>
+              <td th:text="*{boardHits}"></td>
+            </tr>
+          </tbody>
+
+        </table>
+        <h1 th:text="${map.memberNos}"></h1>
     
     
       </section>
