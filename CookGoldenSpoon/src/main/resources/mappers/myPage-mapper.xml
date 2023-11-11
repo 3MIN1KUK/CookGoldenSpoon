@@ -10,7 +10,7 @@
 		<association property="bookmarkCount" select="selectMyPageBookmarkCount" column="MEMBER_NO" javaType="_int"/>
 		<association property="recipeCount" select="selectMyPageRecipeCount" column="MEMBER_NO" javaType="_int"/>
 		<association property="boardCount" select="selectMyPageBoardCount" column="MEMBER_NO" javaType="_int"/>
-		<!--<association property="commentCount" select="selectMyPageCommentCount" column="MEMBER_NO" javaType="_int"/>-->
+		<association property="commentCount" select="selectMyPageCommentCount" column="MEMBER_NO" javaType="_int"/>
 	</resultMap>
 	<!--좋아요 받은 수-->
 	<select id="selectMyPageLikeCount" resultType="_int">
@@ -31,8 +31,9 @@
 	</select>
 	<!--댓글 등록 수-->
 	<select id="selectMyPageCommentCount" resultType="_int">
-		SELECT COUNT(*) FROM "COMMENT" WHERE MEMBER_NO = #{memberNo}
+		SELECT COUNT(*) FROM "RECIPE_COMMENT" WHERE MEMBER_NO = #{memberNo}
 	</select>
+	
 	<resultMap id="recipeSelect_rm" type="Recipe">
 		<id property="recipeNo" column="RECIPE_NO" />
 		<association property="recipeStar" select="selectRecipeStar" column="RECIPE_NO" javaType="_double"/>

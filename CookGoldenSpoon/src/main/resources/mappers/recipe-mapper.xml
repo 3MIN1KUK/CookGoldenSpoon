@@ -15,7 +15,7 @@
 	</resultMap>
 	<resultMap id="selectRecipe_rm" type="Recipe">
 		<id property="recipeNo" column="RECIPE_NO" />
-		<association property="recipeStar" select="selectRecipeStar" column="RECIPE_NO" javaType="_double"/>
+		<!--<association property="recipeStar" select="selectRecipeStar" column="RECIPE_NO" javaType="_double"/>-->
 		<collection property="recipeTag" select="selectRecipeTag" column="RECIPE_NO" javaType="java.util.ArrayList" ofType="String" />
 	</resultMap>
 
@@ -55,12 +55,6 @@
 		WHERE RECIPE_NO = #{recipeNo}
 	</select>
 	<select id="selectRecipeComment" resultType="RecipeComment">
-		<!--SELECT TO_CHAR(RECIPE_COMMENT_ENROLL_DATE, 'YYYY-MM-DD HH24:MI:SS') RECIPE_COMMENT_ENROLL_DATE, RECIPE_COMMENT_CONTENT,
-			MEMBER_NO, MEMBER_NICKNAME, MEMBER_PROFILE, RECIPE_PARENT_NO, RECIPE_COMMENT_DEL_FL
-		FROM RECIPE_COMMENT RC
-		JOIN "MEMBER" M USING(MEMBER_NO)
-		WHERE RECIPE_NO = #{recipeNo}
-		AND RECIPE_COMMENT_DEL_FL = 'N'-->
 		
 		SELECT LEVEL, C.* FROM (SELECT RECIPE_COMMENT_NO, RECIPE_COMMENT_CONTENT,
 			TO_CHAR(RECIPE_COMMENT_ENROLL_DATE, 'YYYY-MM-DD HH24:MI:SS') RECIPE_COMMENT_ENROLL_DATE,
@@ -83,25 +77,49 @@
 	</select>
 
 	<select id="listSearchCount" resultType="_int">
-		SELECT COUNT(*) FROM "RECIPE"
-		WHERE RECIPE_TITLE LIKE '%${inputSearch}%'
-		OR RECIPE_BRIEF LIKE '%${inputSearch}%'
-		OR INGREDIENT LIKE '%${inputSearch}%'
-		OR HOW_TO_COOK LIKE '%${inputSearch}%'
-		OR TIPS LIKE '%${inputSearch}%'
-		OR HASHTAGS LIKE '%${inputSearch}%'
-	</select>
-	
-<!--	<select id="selectSearchRecipe" resultType="Recipe">
-		SELECT * FROM "RECIPE"
-		JOIN "RECIPE_TAG" USING(RECIPE_NO)
+		SELECT COUNT(DISTINCT R.RECIPE_NO)
+		FROM "RECIPE" R
+		LEFT JOIN RECIPE_TAG RT ON(R.RECIPE_NO = RT.RECIPE_NO)
+		LEFT JOIN RECIPE_STEP RS ON(R.RECIPE_NO = RS.RECIPE_NO) 
+		LEFT JOIN RECIPE_MATERIAL RM ON(R.RECIPE_NO = RM.RECIPE_NO)
+		LEFT JOIN MATERIAL M ON(M.MATERIAL_NO = RM.MATERIAL_NO)
 		WHERE RECIPE_TITLE LIKE '%${inputSearch}%'
 		OR RECIPE_INTRO LIKE '%${inputSearch}%'
 		OR RECIPE_TIP LIKE '%${inputSearch}%'
+		OR RECIPE_TAG_NAME LIKE '%${inputSearch}%'
 		OR RECIPE_STEP_CONTENT LIKE '%${inputSearch}%'
-		OR RECIPE_TAG_NAME '%${inputSearch}%'
 		OR MATERIAL_NAME LIKE '%${inputSearch}%'
-	</select>-->
+	</select>
+	
+	<select id="selectSearchRecipe" resultMap="selectRecipe_rm">
+		SELECT DISTINCT R.RECIPE_NO, RECIPE_TITLE, RECIPE_THUMBNAIL, (SELECT COUNT(*) FROM RECIPE_LIKE RL WHERE RL.RECIPE_NO = R.RECIPE_NO) RECIPE_LIKE,
+		MEMBER_NICKNAME, MEMBER_NO, RECIPE_HITS, (SELECT ROUND(AVG(RECIPE_STAR), 1) RECIPE_STAR FROM RECIPE_STAR RST WHERE RST.RECIPE_NO = R.RECIPE_NO) RECIPE_STAR
+		FROM "RECIPE" R
+		LEFT JOIN "MEMBER" USING(MEMBER_NO)
+		LEFT JOIN RECIPE_TAG RT ON(R.RECIPE_NO = RT.RECIPE_NO)
+		LEFT JOIN RECIPE_STEP RS ON(R.RECIPE_NO = RS.RECIPE_NO) 
+		LEFT JOIN RECIPE_MATERIAL RM ON(R.RECIPE_NO = RM.RECIPE_NO)
+		LEFT JOIN MATERIAL M ON(M.MATERIAL_NO = RM.MATERIAL_NO)
+		WHERE RECIPE_TITLE LIKE '%${inputSearch}%'
+		OR RECIPE_INTRO LIKE '%${inputSearch}%'
+		OR RECIPE_TIP LIKE '%${inputSearch}%'
+		OR RECIPE_TAG_NAME LIKE '%${inputSearch}%'
+		OR RECIPE_STEP_CONTENT LIKE '%${inputSearch}%'
+		OR MATERIAL_NAME LIKE '%${inputSearch}%'
+		<if test='orderBy == 1'>
+			ORDER BY RECIPE_LIKE DESC
+		</if>
+		<if test='orderBy == 2'>
+			ORDER BY RECIPE_STAR DESC
+		</if>
+		<if test='orderBy == 3'>
+			ORDER BY RECIPE_NO DESC
+		</if>
+		<if test="orderBy == 4">
+			ORDER BY RECIPE_HITS DESC
+		</if>
+		NULLS LAST
+	</select>
 	
 	<delete id="deleteRecipeLike">
 		DELETE FROM "RECIPE_LIKE"
@@ -169,12 +187,6 @@
 		WHERE MEMBER_NO = #{memberNo}
 		AND RECIPE_NO = #{recipeNo}
 	</select>
-	
-	<!--<select id="countStarsCheck" resultType="_int">
-		SELECT COUNT(*) FROM RECIPE_STAR
-		WHERE MEMBER_NO = #{memberNo}
-		AND RECIPE_NO = #{recipeNo}
-	</select>-->
 	
 	<!-- 별점 평균 -->
 	<select id="selectRecipeStar" resultType="_double">

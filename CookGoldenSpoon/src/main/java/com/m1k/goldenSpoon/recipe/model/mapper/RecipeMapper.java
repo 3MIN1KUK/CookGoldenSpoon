@@ -41,11 +41,11 @@ public interface RecipeMapper {
 	int listSearchCount(String inputSearch);
 
 	/** 레시피 검색
-	 * @param inputSearch
+	 * @param paramMap
 	 * @param rowBounds
 	 * @return
 	 */
-	List<Recipe> selectSearchRecipe(String inputSearch, RowBounds rowBounds);
+	List<Recipe> selectSearchRecipe(Map<String, Object> paramMap, RowBounds rowBounds);
 	
 	/** 좋아요 삭제
 	 * @param paramMap
