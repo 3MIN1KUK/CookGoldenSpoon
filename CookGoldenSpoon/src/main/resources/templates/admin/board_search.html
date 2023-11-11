@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>admin-detailed-inquiry</title>
+  <link rel="stylesheet" href="/css/admin/admin-detailed-inquiry.css">
+  <link rel="canonical" href="https://getbootstrap.com/docs/5.2/examples/sidebars/">
+  <link href="/boot_strap_assets/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/css/admin/admin-sidebar.css" rel="stylesheet">
+</head>
+<body>
+
+  
+  <main class="d-flex flex-nowrap">
+    
+    <th:block th:replace="~{admin/admin_sidebar}"></th:block>
+  <section class="out-box">
+    <h1 class="detailed-inquiry-h1">게시글 검색</h1>
+    <div class="detailed-inquiry-out-box">
+      <form action="boardResult" method="GET">
+        <ul class="list-group">
+          <li class="list-group-item list-group-item-dark search-detail-li">
+            <span class="detailed-inquiry-title">게시글 제목</span>
+            <input type="text" class="detailed-inquiry-input form-control" name="boardTitle">
+          </li>
+  
+          <li class="list-group-item list-group-item-dark search-detail-li">
+            <span class="detailed-inquiry-title">게시글 작성자</span>
+            <input type="text" class="detailed-inquiry-input form-control" name="memberNickname">
+          </li>
+  
+          <li class="list-group-item list-group-item-dark search-detail-li">
+            <span class="detailed-inquiry-title">게시글 내용</span>
+            <input type="text" class="detailed-inquiry-input form-control" name="boardContent">
+          </li>
+          <li class="list-group-item list-group-item-dark search-detail-li">
+            <button type="submit" class="btn btn-dark detailed-inquiry-btn">검색</button>
+          </li>
+
+        </ul>
+        
+      </form>
+    </div>
+  </section>
+  </main>
+</body>
+</html>

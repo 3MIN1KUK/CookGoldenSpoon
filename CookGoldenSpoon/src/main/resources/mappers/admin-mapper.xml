@@ -9,7 +9,6 @@
 		<association property="bookmarkCount" select="selectMyPageBookmarkCount" column="MEMBER_NO" javaType="_int"/>
 		<association property="recipeCount" select="selectMyPageRecipeCount" column="MEMBER_NO" javaType="_int"/>
 		<association property="boardCount" select="selectMyPageBoardCount" column="MEMBER_NO" javaType="_int"/>
-		<!--<association property="commentCount" select="selectMyPageCommentCount" column="MEMBER_NO" javaType="_int"/>-->
 	</resultMap>
 	
 	<select id="selectMyPageLikeCount" resultType="_int">
@@ -82,7 +81,7 @@
 		<if test="memberEmail != null">
 			AND MEMBER_EMAIL LIKE '%${memberEmail}%'
 		</if>
-		<if test="memberEmail != null">
+		<if test="memberId != null">
 			AND MEMBER_ID LIKE '%${memberId}%'
 		</if>
 		ORDER BY MEMBER_NO
@@ -105,18 +104,150 @@
 	</select>
 	
 	
-	<select id="getMemberRecipeListCount" resultType="_int">
-		SELECT COUNT(*) FROM "RECIPE_LIKE"
-		WHERE MEMBER_NO = #{memberNo}
+	<!-- 게시판 개수 구하기 -->
+	<select id="recipeListCount" resultType="_int">
+		SELECT COUNT(*) FROM RECIPE
+		WHERE RECIPE_DEL_FL = 'N'
+		
+		<!-- 회원 번호 -->
+		<if test="memberNos.size() != 0">
+			AND MEMBER_NO IN 
+			<foreach collection="memberNos" item="memberNo" open="(" separator="," close=")">
+				#{memberNo}			
+			</foreach>
+		</if>
+		AND RECIPE_TITLE LIKE '%${searchRecipe.recipeTitle}%'
 	</select>
 	
-	<select id="MemberRecipeSelect" resultMap="MemberRecipeSelect_rm">
+	<!-- 레시피 검색 -->
+	<select id="recipeSelect" resultMap="MemberRecipeSelect_rm">
 		SELECT RECIPE_NO, RECIPE_TITLE, RECIPE_THUMBNAIL
 		FROM RECIPE
-		WHERE MEMBER_NO = #{memberNo}
-		AND RECIPE_DEL_FL = 'N'
-		ORDER BY RECIPE_NO DESC
+		WHERE RECIPE_DEL_FL = 'N'
+		<if test="memberNos.size() != 0">
+			AND MEMBER_NO IN 
+			<foreach collection="memberNos" item="memberNo" open="(" separator="," close=")">
+				#{memberNo}			
+			</foreach>
+		</if>
+
+		ORDER BY RECIPE_NO ASC
 	</select>
 	
+	<!-- 이름이 포함된 회원 번호들 구하기 -->
+	 <select id="getMemberNos">
+	 	SELECT MEMBER_NO 
+		FROM "MEMBER"
+		WHERE MEMBER_NICKNAME LIKE '%${memberNickname}%'
+	 </select>
+	
+	<!-- 게시판 개수 구하기 -->
+	<select id="boardListCount" resultType="_int">
+		SELECT COUNT(*) FROM "BOARD"
+		WHERE BOARD_DEL_FL = 'N'
+		
+		<!-- 회원 번호 -->
+		<if test="memberNos.size() != 0">
+			AND MEMBER_NO IN 
+			<foreach collection="memberNos" item="memberNo" open="(" separator="," close=")">
+				#{memberNo}			
+			</foreach>
+		</if>
+		AND BOARD_TITLE LIKE '%${searchBoard.boardTitle}%'
+		AND BOARD_CONTENT LIKE '%${searchBoard.boardContent}%'
+	</select>
 
+	<!-- 게시글 다중 검색 -->
+	<select id="boardResult" resultType="Board">
+		SELECT BOARD_NO, BOARD_CODE ,BOARD_TITLE ,BOARD_ENROLL_DATE ,BOARD_HITS, MEMBER_NICKNAME,
+		TO_CHAR(BOARD_ENROLL_DATE, 'YYYY"년" MM"월" DD"일"') BOARD_ENROLL_DATE
+		FROM "BOARD"
+		JOIN "MEMBER" USING (MEMBER_NO)
+		WHERE BOARD_DEL_FL = 'N'
+		
+		<!-- 회원 번호 -->
+		<if test="memberNos.size() != 0">
+		AND MEMBER_NO IN 
+		<foreach collection="memberNos" item="memberNo" open="(" separator="," close=")">
+			#{memberNo}			
+		</foreach>
+		</if>
+		AND BOARD_TITLE LIKE '%${searchBoard.boardTitle}%'
+		AND BOARD_CONTENT LIKE '%${searchBoard.boardContent}%'
+	</select>
+	
+	<select id="commentListCount">
+		SELECT COUNT(*) 
+		FROM 
+			(
+			SELECT MEMBER_NO , 
+			BOARD_NO AS COMMENT_PARENT_NO,
+			BOARD_COMMENT_ENROLL_DATE AS COMMENT_ENROLL_DATE ,
+			BOARD_COMMENT_CONTENT AS COMMENT_CONTENT,
+			BOARD_COMMENT_DEL_FL AS COMMENT_DEL_FL,
+			'게시글' AS COMMENT_TYPE,
+			(SELECT BOARD_TITLE FROM BOARD b WHERE b.BOARD_NO = bc.BOARD_NO) AS COMMENT_PARENT_TITLE
+			FROM BOARD_COMMENT bc  
+			UNION ALL
+			SELECT MEMBER_NO , 
+			RECIPE_NO AS COMMENT_PARENT_NO,
+			RECIPE_COMMENT_ENROLL_DATE AS COMMENT_ENROLL_DATE ,
+			RECIPE_COMMENT_CONTENT AS COMMENT_CONTENT,
+			RECIPE_COMMENT_DEL_FL AS COMMENT_DEL_FL,
+			'레시피' AS COMMENT_TYPE,
+			(SELECT r.RECIPE_TITLE FROM RECIPE r  WHERE r.RECIPE_NO = rc.RECIPE_NO) AS COMMENT_PARENT_TITLE
+			FROM RECIPE_COMMENT rc 
+			UNION ALL
+			SELECT MEMBER_NO , 
+			COOKING_COMMENT_NO AS COMMENT_PARENT_NO,
+			COOKING_COMMENT_ENROLL_DATE AS COMMENT_ENROLL_DATE ,
+			COOKING_COMMENT_CONTENT AS COMMENT_CONTENT,
+			COOKING_COMMENT_DEL_FL AS COMMENT_DEL_FL,
+			'쿠킹클래스' AS COMMENT_TYPE,
+			(SELECT cc.COOKING_TITLE FROM COOKING_CLASS cc  WHERE cc.COOKING_NO = ccc.COOKING_NO) AS COMMENT_PARENT_TITLE
+			FROM COOKING_CLASS_COMMENT ccc 
+			)
+		WHERE COMMENT_DEL_FL = 'N'
+		AND COMMENT_PARENT_TITLE LIKE '%%'
+		AND COMMENT_CONTENT LIKE '%%'
+		AND MEMBER_NO IN (1)
+	</select>
+	
+	<!-- 댓글 다중 검색-->
+	<select id="selectComment">
+		SELECT *
+		FROM 
+			(
+			SELECT MEMBER_NO , 
+			BOARD_NO AS COMMENT_PARENT_NO,
+			BOARD_COMMENT_ENROLL_DATE AS COMMENT_ENROLL_DATE ,
+			BOARD_COMMENT_CONTENT AS COMMENT_CONTENT,
+			BOARD_COMMENT_DEL_FL AS COMMENT_DEL_FL,
+			'게시글' AS COMMENT_TYPE,
+			(SELECT BOARD_TITLE FROM BOARD b WHERE b.BOARD_NO = bc.BOARD_NO) AS COMMENT_PARENT_TITLE
+			FROM BOARD_COMMENT bc  
+			UNION ALL
+			SELECT MEMBER_NO , 
+			RECIPE_NO AS COMMENT_PARENT_NO,
+			RECIPE_COMMENT_ENROLL_DATE AS COMMENT_ENROLL_DATE ,
+			RECIPE_COMMENT_CONTENT AS COMMENT_CONTENT,
+			RECIPE_COMMENT_DEL_FL AS COMMENT_DEL_FL,
+			'레시피' AS COMMENT_TYPE,
+			(SELECT r.RECIPE_TITLE FROM RECIPE r  WHERE r.RECIPE_NO = rc.RECIPE_NO) AS COMMENT_PARENT_TITLE
+			FROM RECIPE_COMMENT rc 
+			UNION ALL
+			SELECT MEMBER_NO , 
+			COOKING_COMMENT_NO AS COMMENT_PARENT_NO,
+			COOKING_COMMENT_ENROLL_DATE AS COMMENT_ENROLL_DATE ,
+			COOKING_COMMENT_CONTENT AS COMMENT_CONTENT,
+			COOKING_COMMENT_DEL_FL AS COMMENT_DEL_FL,
+			'쿠킹클래스' AS COMMENT_TYPE,
+			(SELECT cc.COOKING_TITLE FROM COOKING_CLASS cc  WHERE cc.COOKING_NO = ccc.COOKING_NO) AS COMMENT_PARENT_TITLE
+			FROM COOKING_CLASS_COMMENT ccc 
+			)
+		WHERE COMMENT_DEL_FL = 'N'
+		AND COMMENT_PARENT_TITLE LIKE '%%'
+		AND COMMENT_CONTENT LIKE '%%'
+		AND MEMBER_NO IN (1)
+	</select>
 </mapper>

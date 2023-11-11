@@ -3,7 +3,9 @@ package com.m1k.goldenSpoon.admin.model.service;
 import java.util.List;
 import java.util.Map;
 
+import com.m1k.goldenSpoon.board.model.dto.Board;
 import com.m1k.goldenSpoon.member.model.dto.Member;
+import com.m1k.goldenSpoon.recipe.model.dto.Recipe;
 
 public interface AdminService {
 
@@ -33,6 +35,18 @@ public interface AdminService {
 	 */
 	Member memberDetail(int memberNo);
 
-	Map<String, Object> recipeResult(int memberNo, int cp);
+	/** 레시피 검색
+	 * @param searchRecipe
+	 * @param cp
+	 * @return
+	 */
+	Map<String, Object> recipeResult(Recipe searchRecipe, int cp);
+
+	/** 게시글 검색
+	 * @param searchBoard
+	 * @param cp
+	 * @return
+	 */
+	Map<String, Object> boardResult(Board searchBoard, int cp);
 
 }
