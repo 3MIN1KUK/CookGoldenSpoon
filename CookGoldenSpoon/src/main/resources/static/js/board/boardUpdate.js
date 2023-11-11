@@ -1,12 +1,19 @@
-// img 태그 5개
-const previewList = document.getElementsByClassName("preview");
-// input type="file" 태그 5개
+// // 미리보기 모두 얻어오기
+// const previewList = document.getElementsByClassName("preview");
+
+// file 태그 5개
 const inputImgList = document.getElementsByClassName("inputImg");
+
 // x버튼 5개
 const deleteImgList = document.getElementsByClassName("delete-img");
 
-// inputImgList 크기 만큼 백업용 배열을 생성
-const backupIputList = new Array(inputImgList.length);
+// X 버튼이 클릭된 input 태그의 순서를 기록할 Set 생성
+// (Set 특징 : 순서 X, 중복 허용 X, 
+//  -> x버튼 여러번 눌러도 하나만 추가)
+const deleteOrderSet = new Set();
+
+// inputImgList 크기만큼 백업용 배열을 생성
+const backupInputList = new Array(inputImgList.length);
 
 /* 이미지 선택 시 수행할 함수 */
 const changeImgFn = (imgInput, order) => {
@@ -21,7 +28,7 @@ const changeImgFn = (imgInput, order) => {
    if(uploadFile == undefined){
       console.log("파일 선택이 취소됨");
       // 1) backup한 order 번째 요소를 복제
-      const temp = backupIputList[order].cloneNode(true);
+      const temp = backupInputList[order].cloneNode(true);
       // 2) 화면에 원본 input을 temp로 바꾸기
       imgInput.after(temp); // 원본 다음에 temp 추가
       imgInput.remove(); // 원본을 화면에서 제거
@@ -38,13 +45,13 @@ const changeImgFn = (imgInput, order) => {
       alert("10MB 이하의 이미지를 선택 해주세요");
 
       // 이미지가 없다가 -> 추가된 경우
-      if(backupIputList[order] == undefined){
+      if(backupInputList[order] == undefined){
          imgInput.value = '';
       }
       // 이미지가 있는 상태에서 새 이미지 선택
       else{
          // 1. backup한 order번째 요소를 복제
-         const temp = backupIputList[order]. cloneNode(true);
+         const temp = backupInputList[order]. cloneNode(true);
          imgInput.after(temp);
          imgInput.remove();
          imgInput = temp;
@@ -64,7 +71,9 @@ const changeImgFn = (imgInput, order) => {
    // order 번째 .preview에 이미지 추가
    previewList[order].src = url;
    // 파일이 업로드된 input 태그를 복제해서 backupInputList에 추가
-   backupIputList[order] = imgInput.cloneNode(true);
+   backupInputList[order] = imgInput.cloneNode(true);
+
+   deleteOrderSet.delete(order);
    };
 };
 
@@ -82,6 +91,8 @@ for(let i=0 ; i<inputImgList.length ; i++) {
       inputImgList[i].value = '';
       // 같은 위치 backup 요소 제거
       backupInputList[i] = undefined;
+
+      deleteOrderSet.add(i);
    });
 
 }
@@ -89,8 +100,8 @@ for(let i=0 ; i<inputImgList.length ; i++) {
 
 // ----------------------------------------------------------------------
 /* 제출 시 유효성 검사 */
-const boardWriteFrm = document.getElementById("boardWriteFrm");
-boardWriteFrm.addEventListener("submit", e => {
+const boardUpdateFrm = document.getElementById("boardUpdateFrm");
+boardUpdateFrm.addEventListener("submit", e => {
    const title = document.querySelector("[name='boardTitle']");
    const content = document.querySelector("[name='boardContent']");
    // 제목 미입력
@@ -102,12 +113,13 @@ boardWriteFrm.addEventListener("submit", e => {
       return;
    }
 
-   // 내용 미입력
-   if(content.value.trim().length == 0) {
-      alert("내용을 입력해주세요");
-      e.preventDefault(); // form 제출 X
-      content.value = "";
-      content.focus();
-      return;
-   }
+
+   // hidden 타입 태그에 삭제한 이미지 번호 목록 추가(1,2,3 모양)
+   document.querySelector("[name='deleteOrder']").value 
+      = Array.from(deleteOrderSet);
+
+   // 수정 성공 시 기존 상세조회 주소가 동일하게 유지될 수 있도록
+   // 쿼리스트링만 별도 input에 저장
+   document.querySelector("[name='querystring']").value 
+      = location.search;
 });

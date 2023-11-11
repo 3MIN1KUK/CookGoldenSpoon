@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.m1k.goldenSpoon.board.model.dto.Board;
+import com.m1k.goldenSpoon.board.model.service.BoardService;
 import com.m1k.goldenSpoon.board.model.service.EditBoardService;
 import com.m1k.goldenSpoon.member.model.dto.Member;
 
@@ -29,6 +31,9 @@ import lombok.RequiredArgsConstructor;
 public class EditBoardController {
 	
 	private final EditBoardService service;
+	
+	// 게시글 수정 시 상세 조회 호출용
+	private final BoardService boardService; 
 	
 	/** 게시글 작성 전환
 	 * @return
@@ -121,6 +126,71 @@ public class EditBoardController {
 		ra.addFlashAttribute("message", "게시글이 올바르게 작성되지 않았습니다.");
 		return "redirect:insert";
 		
+	}
+	
+	
+	/** 게시글 수정 화면 전환용
+	 * @param boardCode
+	 * @param boardNo
+	 * @param model
+	 * @return
+	 */
+	@GetMapping("/{boardCode:[0-9]+}/{boardNo:[0-9]+}/update")
+	public String updateBoard(
+			@PathVariable("boardCode") int boardCode,
+			@PathVariable("boardNo") int boardNo,
+			Model model) {
+		
+		Map<String, Object> map = new HashMap<>();
+		map.put("boardCode", boardCode);
+		map.put("boardNo", boardNo);
+		
+		Board board = boardService.boardDetail(map);
+		model.addAttribute("board", board);
+		
+		return "board/boardUpdate";
+	}
+	
+	/** 게시글 수정
+	 * @param boardCode
+	 * @param boardNo
+	 * @param board
+	 * @param querystring
+	 * @param deleteOrder
+	 * @param images
+	 * @param ra
+	 * @return
+	 * @throws IllegalStateException
+	 * @throws IOException
+	 */
+	@PostMapping("/{boardCode:[0-9]+}/{boardNo:[0-9]+}/update")
+	public String updateBoard(
+			@PathVariable("boardCode") int boardCode,
+			@PathVariable("boardNo") int boardNo,
+			Board board,
+			String querystring,
+			String deleteOrder,
+			@RequestParam("images") List<MultipartFile> images,
+			RedirectAttributes ra
+			) throws IllegalStateException, IOException {
+		
+		board.setBoardCode(boardCode);
+		board.setBoardNo(boardNo);
+		
+		int result = service.updateBoard( board, images, deleteOrder );
+		
+		String message = null;
+		String path = null;
+		
+		if(result > 0) {
+			message = "게시글 수정이 완료되었습니다";
+			path = String.format("redirect:/board/%d/%d%s", boardCode, boardNo, querystring);
+		} else {
+			message = "게시글 수정 실패하였습니다";
+			path = "redirect:update";
+		}
+		ra.addFlashAttribute("message", message);
+		return path;
 	}
 	
 	

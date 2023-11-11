@@ -26,8 +26,8 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Controller
 @RequestMapping("board")
-@SessionAttributes({"loginMember"})
 @RequiredArgsConstructor
+@SessionAttributes({"loginMember"})
 public class BoardController {
 	
 	private final BoardService service;
@@ -70,29 +70,13 @@ public class BoardController {
 		
 		String path = null;
 		
-		// --------------------------------------------------------------------------
-		
-		// 2. 게시글이 있을 경우
 		if(board != null) {
 			model.addAttribute("board", board);
 			path = "board/boardDetail";
-			
-			// 이미지
-			if(board.getImageList().size() > 0) {
-				BoardImg imgnail = null;
-				if (board.getImageList().get(0).getBoardImageOrder() == 0) {
-					imgnail = board.getImageList().get(0);
-				}
-				model.addAttribute("imgnail", imgnail);
-				model.addAttribute("start", imgnail != null ? 1 : 0);
-			}
-		} 
-		
-		else { // 게시글이 없을 경우
+		} else {
 			path = "redirect:/board/" + boardCode;
 			ra.addFlashAttribute("message", "해당 게시글이 존재하지 않습니다.");
 		}
 		return path;
 	}
-	
 }
