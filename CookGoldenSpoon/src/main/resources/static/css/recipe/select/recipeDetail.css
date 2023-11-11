@@ -72,8 +72,10 @@
   background-color: var(--color-bg);
   border-radius: 2rem;
   font-size: 2rem;
-  padding: 0.5rem 1rem 0;
+  padding: 2rem;
   min-height: 15rem;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .recipe-subtitle{
@@ -230,7 +232,7 @@
 
 .contentContainer{
   text-align: end;
-  flex-grow: 1;
+  width: 66.5rem;
   padding-top: 2rem;
 }
 .buttons{
@@ -254,4 +256,8 @@
   width: 100%;
   height: 6rem;
   resize: none;
+}
+
+.recipeMaterial{
+  margin: 0 1rem 1rem 0;
 }

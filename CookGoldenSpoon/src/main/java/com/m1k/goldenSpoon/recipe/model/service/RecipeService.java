@@ -28,9 +28,10 @@ public interface RecipeService {
 	/** 레시피 검색
 	 * @param cp 
 	 * @param inputSearch
+	 * @param orderBy 
 	 * @return
 	 */
-	Map<String, Object> search(int cp, String inputSearch);
+	Map<String, Object> search(int cp, String inputSearch, int orderBy);
 
 
 	/** 좋아요 처리

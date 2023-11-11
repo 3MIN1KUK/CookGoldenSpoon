@@ -24,7 +24,7 @@ button{
   margin: 0;
   padding: 0;
   list-style: none;
-  border: 0.1px solid black;
+  /* border: 0.1px solid black; */
 }
 a{
   text-decoration: none;
@@ -378,4 +378,15 @@ footer *{
 }
 .sideMenu div{
   margin: 0.5rem;
+}
+
+#recipeSearchBtn{
+  width: 5rem;
+  border-radius: 1rem;
+}
+#recipeSearch{
+  border-radius: 1rem;
+}
+#orderBy{
+  border-radius: 1rem;
 }

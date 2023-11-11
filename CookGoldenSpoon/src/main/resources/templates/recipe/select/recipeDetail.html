@@ -65,9 +65,10 @@
           재료
         </div>
         <div class="content">
-          <div th:each="recipeMaterial : *{recipeMaterialList}" th:object="${recipeMaterial}">
+          <div class="recipeMaterial" th:each="recipeMaterial : *{recipeMaterialList}" th:object="${recipeMaterial}">
             <span th:text="*{materialName}"></span>
             <span th:text="*{recipeMaterialQuantity}"></span>
+            <th:block th:if="${#lis}"></th:block>
           </div>
 
         </div>
@@ -121,50 +122,10 @@
           <div></div>
         </div>
       </div>
-      <!-- <div class="recipe-content  recipe-photos">
-        <div class="recipe-subtitle">
-          최근 본 레시피
-        </div>
-        <div class="recipe-photo">
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-        </div>
-      </div> -->
       <div class="recipe-content">
         <div class="recipe-subtitle">
           댓글
         </div>
-        <!-- <div class="recipe-review-container" id="commentList">
-          <div class="recipe-review" th:each="comment : *{recipeCommentList}" th:object="${comment}">
-
-            <div class="recipe-writer-image" >
-
-              <img th:if="*{memberProfile}" th:src="*{memberProfile}" class="memberProfile">
-              <img th:unless="*{memberProfile}" th:src="#{user.default.image}" class="memberProfile">
-
-            </div>
-            <div class="commentNickname" th:text="*{memberNickname}">닉네임</div>
-            <div>
-              <div class="flex">
-                <div class="recipe-review-content" th:text="*{recipeCommentContent}"></div>
-                <div class="recipeCommentEnrollDate" th:text="*{recipeCommentEnrollDate}"></div>
-              </div>
-              <th:block th:if="${session.loginMember != null and session.loginMember.memberNo == comment.memberNo}">
-                <button>수정</button>
-                <button>삭제</button>
-              </th:block>
-              <button>답글</button>
-            </div>
-          </div>
-        </div>
-        <div class="recipe-review-form">
-          <div class="recipe-review recipeCommentInput">
-            <textarea id="commentTextarea" name="recipeCommentContent" style="resize: none;"  class="recipe-review-content"></textarea>
-          </div>
-          <button id="commentEnrollBtn">등록</button>
-        </div> -->
         <th:block th:replace="~{recipe/recipeComment}"></th:block>
       </div>
     </div>

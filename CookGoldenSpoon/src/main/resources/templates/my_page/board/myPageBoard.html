@@ -21,8 +21,12 @@
       </div>
       <th:block th:replace="~{my_page/myPageSideMenu}"></th:block>
       <div class="content-container">
+        <th:block th:if="${#lists.isEmpty(boardList)}">
+          <br><br><br><br>
+          <h1>조회 결과가 없습니다</h1>
+        </th:block>
         <th:block th:each="board : ${boardList}" th:object="${board}">
-          <a th:href="@{/cs/notice/{noticeNo}(noticeNo=*{boardNo})}" class="notice">
+          <a th:href="@{/board/{boardCode}/{boardNo}(boardCode=*{boardCode} ,boardNo=*{boardNo})}" class="notice">
             <span th:text="*{boardNo}">No.1</span>
             <span th:text="*{boardTitle}">첫 번째 공지사항 입니다</span>
             <span th:text="*{memberNickname}">작성자</span>

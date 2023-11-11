@@ -17,15 +17,20 @@
         </div>
         
       <div class="search-area">
-        <select name="" id="">
-          <option value="">인기순</option>
-          <option value="">최신순</option>
-          <option value="">조회순</option>
+        <select name="orderBy" id="orderBy">
+          <option value="1">인기순</option>
+          <option value="2">평점순</option>
+          <option value="3">최신순</option>
+          <option value="4">조회순</option>
         </select>
         <input type="text" placeholder="검색어를 입력해주세요" name="recipeSearch" id="recipeSearch">
         <button type="button" id="recipeSearchBtn">검색</button>
       </div>
       <th:block th:replace="~{my_page/myPageSideMenu}"></th:block>
+      <th:block th:if="${#lists.isEmpty(recipeList)}">
+          <br><br><br><br>
+          <h1>조회 결과가 없습니다</h1>
+        </th:block>
       <div class="content-container">
         <a th:each="recipe : ${recipeList}" th:object="${recipe}" 
             th:href="@{/recipe/select/{recipeNo}(recipeNo=*{recipeNo})}" class="recipe-col">
