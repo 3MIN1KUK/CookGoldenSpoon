@@ -168,8 +168,6 @@ const selectCommentList = () => {
                 // 작성 내용, 날짜
                 const div1 = document.createElement("div");
                 div1.classList.add("contentContainer");
-                const div2 = document.createElement("div");
-                div2.classList.add("flex");
                 
                 const recipeCommentContent = document.createElement("div");
                 recipeCommentContent.classList.add("recipe-review-content");
@@ -179,15 +177,14 @@ const selectCommentList = () => {
                 recipeCommentEnrollDate.classList.add("recipeCommentEnrollDate");
                 recipeCommentEnrollDate.innerText = comment.recipeCommentEnrollDate;
 
-                div2.append(recipeCommentContent);
-                div1.append(recipeCommentEnrollDate, div2);
+                div1.append(recipeCommentEnrollDate, recipeCommentContent);
             
                 
                 // 로그인이 되어있는 경우 답글 버튼 추가
                 if(loginCheck){
                     // 답글 버튼
                     const childCommentBtn = document.createElement("button");
-                    childCommentBtn.setAttribute("onclick", "insertRecipeComment("+comment.recipeCommentNo+", this)");
+                    childCommentBtn.setAttribute("onclick", "showInsertRecipeComment("+comment.recipeCommentNo+", this)");
                     childCommentBtn.classList.add("buttons");
                     childCommentBtn.innerText = "답글";
 
@@ -200,7 +197,7 @@ const selectCommentList = () => {
                         updateBtn.innerText = "수정";
 
                         // 수정 버튼에 onclick 이벤트 속성 추가
-                        updateBtn.setAttribute("onclick", "updateRecipeComment("+comment.recipeCommentNo+", this)");                        
+                        updateBtn.setAttribute("onclick", "showUpdateRecipeComment("+comment.recipeCommentNo+", this)");                        
 
 
                         // 삭제 버튼
@@ -227,7 +224,7 @@ const selectCommentList = () => {
 
 }
 
-
+// 댓글 등록
 
 const commentEnrollBtn = document.getElementById("commentEnrollBtn");
 const commentTextarea = document.getElementById("commentTextarea");
@@ -298,7 +295,7 @@ function showUpdateRecipeComment(recipeCommentNo, btn){
 
     if(temp.length > 0){ // 수정이 한 개 이상 열려 있는 경우
 
-        temp[0].parentElement.innerHTML = beforeCommentRow;
+        temp[0].parentElement.parentElement.innerHTML = beforeCommentRow;
         // comment-row                       // 백업한 댓글
         // 백업 내용으로 덮어 씌워 지면서 textarea 사라짐
             
@@ -308,7 +305,7 @@ function showUpdateRecipeComment(recipeCommentNo, btn){
     const commentRow = btn.previousElementSibling;
 
     // 2. 행 내용 삭제 전 현재 상태를 저장(백업)
-    beforeCommentRow = commentRow.outerHTML;
+    beforeCommentRow = btn.parentElement.parentElement.innerHTML;
 
     // 3. 댓글에 작성되어 있던 내용만 얻어오기 -> 새롭게 생성된 textarea 추가될 예정
     let beforeContent = btn.previousElementSibling.innerHTML;
@@ -319,12 +316,134 @@ function showUpdateRecipeComment(recipeCommentNo, btn){
     // 5. textarea 요소 생성 + 클래스 추가  +  **내용 추가**
     const textarea = document.createElement("textarea");
     textarea.classList.add("recipe-review-content", "updateTextarea");
-    textarea.innerHTML = beforeContent;
-    btn.before(textarea);
     // XSS 방지 처리 해제
     beforeContent =  beforeContent.replaceAll("&amp;", "&");
     beforeContent =  beforeContent.replaceAll("&lt;", "<");
     beforeContent =  beforeContent.replaceAll("&gt;", ">");
     beforeContent =  beforeContent.replaceAll("&quot;", "\"");
+    textarea.innerHTML = beforeContent;
+    btn.before(textarea);
+    textarea.focus();
+    textarea.setSelectionRange(textarea.value.length, textarea.value.length);
+    
+    const newUpateBtn = document.createElement("button");
+    newUpateBtn.setAttribute("onclick", "updateRecipeComment("+recipeCommentNo+", this)");
+    newUpateBtn.innerText = "수정";
+    newUpateBtn.classList.add("buttons");
+    
+    const cancelBtn = document.createElement("button");
+    cancelBtn.setAttribute("onclick", "cencelRecipeComment(this)");
+    cancelBtn.innerText = "취소";
+    cancelBtn.classList.add("buttons");
+    btn.after(newUpateBtn, cancelBtn);
+    btn.remove();
+}
 
+function cencelRecipeComment(btn){
+    btn.parentElement.parentElement.innerHTML = beforeCommentRow;
+}
+
+function updateRecipeComment(recipeCommentNo, btn){
+
+    const newRecipeComment = btn.previousElementSibling.value;
+
+    const data = {
+        "recipeCommentNo" : recipeCommentNo,
+        "recipeCommentContent" : newRecipeComment
+    }
+
+    fetch("/recipeComment/updateComment", {
+        method : "put",
+        headers : {"Content-Type" : "application/json"},
+        body : JSON.stringify(data)
+    })
+    .then(resp=>resp.text())
+    .then(result=>{
+        if(result > 0){
+            alert("수정 성공");
+            selectCommentList();
+        } else {
+            alert("수정 실패")
+        }
+    })
+    .catch(e=>console.log(e));
+}
+
+function showInsertRecipeComment(parentNo, btn){
+
+    const temp = document.getElementsByClassName("recipeCommentReply");
+
+    if(temp.length > 0){
+        temp[0].parentElement.parentElement.remove()
+    }
+
+    const div1 = document.createElement("div");
+    div1.classList.add("recipe-review-form");
+
+    const div2 = document.createElement("div");
+    div2.classList.add("recipeCommentInput");
+    
+    const replyBtn = document.createElement("button");
+    replyBtn.innerText = "등록";
+    replyBtn.setAttribute("onclick", "insertChildComment("+parentNo+", this)");
+
+    const cancleBtn = document.createElement("button");
+    cancleBtn.innerText = "취소";
+    cancleBtn.setAttribute("onclick", "insertCancel(this)");
+
+    const textarea = document.createElement("textarea");
+    textarea.classList.add("recipeCommentReply")
+    textarea.classList.add("commentTextarea");
+    textarea.setAttribute("cols", "44");
+    textarea.setAttribute("rows", "3");
+
+    div2.append(textarea);
+    div1.append(div2, cancleBtn, replyBtn);
+
+    btn.parentElement.parentElement.after(div1);
+    textarea.focus();
+}
+
+function insertCancel(btn){
+    btn.parentElement.remove();
+}
+
+// 답글 등록
+function insertChildComment(parentNo, btn){
+    // 부모 댓글 번호, 답글 등록 버튼
+    if(!loginCheck){
+        alert("로그인 후 이용해주세요");
+        return;
+    }
+    // 답글 내용
+    const commentContent = btn.previousElementSibling.previousElementSibling.children[0];
+    // 답글 내용이 작성되지 않은 경우
+    if(commentContent.value.trim().length == 0){
+        alert("답글 작성 후 등록 버튼을 클릭해주세요.");
+        commentContent.value = "";
+        commentContent.focus();
+        return;
+    }
+
+    const data = {"recipeCommentContent" : commentContent.value,
+        "memberNo" : loginMemberNo,
+        "recipeNo" : recipeNo,
+        "recipeParentNo" : parentNo}; // JS객체
+
+    fetch("/recipeComment/enrollComment",{
+        method : "POST",
+        headers : {"Content-Type" : "application/json"},
+        body : JSON.stringify(data) // JS객체 -> JSON 파싱
+    })
+    .then(resp => resp.text())
+    .then(result => {
+        if(result > 0){ // 등록 성공
+            alert("답글 등록 성공");
+            selectCommentList();
+
+        } else { // 실패
+            alert("답글 등록 실패");
+        }
+    })
+    .catch(e => console.log(e));
 }

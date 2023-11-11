@@ -5,8 +5,10 @@ import java.util.List;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.m1k.goldenSpoon.recipe.model.dto.RecipeComment;
@@ -38,4 +40,11 @@ public class RecipeCommentController {
     public int deleteComment(@RequestBody int recipeCommentNo) {
     	return service.deleteComment(recipeCommentNo);
     }
+    
+    // 댓글 수정
+    @PutMapping("updateComment")
+    public int updateComment(@RequestBody RecipeComment recipeComment) {
+    	return service.updateComment(recipeComment);
+    }
+    
 }
