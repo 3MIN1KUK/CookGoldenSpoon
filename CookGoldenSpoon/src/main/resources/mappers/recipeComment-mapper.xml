@@ -30,7 +30,11 @@
       	ORDER SIBLINGS BY RECIPE_COMMENT_NO
 	</select>
 	
-	
+	<update id="deleteComment">
+		UPDATE "RECIPE_COMMENT" SET
+		RECIPE_COMMENT_DEL_FL = 'Y'
+		WHERE RECIPE_COMMENT_NO = #{recipeCommentNo}
+	</update>
 	
 	
 </mapper>

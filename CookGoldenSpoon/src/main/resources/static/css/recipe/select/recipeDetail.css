@@ -54,8 +54,8 @@
 }
 .recipe-writer-image{
   height: 8rem;
-  width: 8rem;
   margin: 1rem;
+  flex-basis: 8rem;
   display: flex;
 }
 .recipe-writer-nickname{
@@ -103,21 +103,22 @@
 .recipe-photos{
   width: 80%;
 }
+.recipe-review{
+  position: relative;
+  display: flex;
+  align-items: center;
+  background-color: var(--color-bg);
+  font-size: 2rem;
+  margin: 1rem;
+  border-bottom: 0.03rem solid darkorange;
+}
 
 .recipe-review-container{
   background-color: var(--color-bg);
   border-radius: 2rem;
   display: flex;
   flex-direction: column;
-}
-.recipe-review{
-  display: flex;
-  align-items: center;
-  border-radius: 2rem;
-  background-color: var(--color-bg);
-  height: 10rem;
-  font-size: 2rem;
-  margin: 1rem;
+  margin: 0;
 }
 
 .recipe-review-form{
@@ -125,13 +126,13 @@
   flex-direction: column;
 }
 .recipe-review-content{
-  height: 90%;
-  width: 70%;
   background-color: white;
   padding: 1rem;
   border-radius: 1rem;
+  text-align: start;
   border: 0.5px solid #FFD384;
-
+  word-break: break-all;
+  white-space: pre-wrap;
 }
 
 .recipe-review-form button{
@@ -204,16 +205,54 @@
 }
 
 .commentNickname{
-  
+  flex-basis: 20rem;
+  text-align: center;
+  margin-right: 1rem;
 }
 
 .recipeCommentInput{
   margin: 1rem 0 1rem;
   justify-content: center;
   width: 100%;
+  padding: 0.5rem 7rem;
+
 }
 
 .child-comment{
-  width: 90%;
+  width: 95%;
   align-self: flex-end;
+}
+
+.reply{
+  color: black;
+  position: absolute;
+  top: 2rem;
+  left: -2rem;
+}
+
+.contentContainer{
+  text-align: end;
+  flex-grow: 1;
+  margin: 0 1rem;
+  padding-top: 2rem;
+}
+.buttons{
+  margin: 0 0.3rem;
+}
+
+.flex{
+  display: flex;
+  justify-content: space-between;
+}
+
+.commentTextarea{
+  resize: none;
+  font-size: 2rem;
+  padding: 0.5rem;
+}
+
+.updateTextarea{
+  width: 100%;
+  overflow: visible;
+  height: 6rem;
 }

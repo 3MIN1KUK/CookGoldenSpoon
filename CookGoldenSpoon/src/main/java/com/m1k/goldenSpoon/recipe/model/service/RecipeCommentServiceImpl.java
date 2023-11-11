@@ -15,13 +15,21 @@ public class RecipeCommentServiceImpl implements RecipeCommentService{
 	
 	private final RecipeCommentMapper mapper;
 
+	// 댓글 등록
 	@Override
 	public int enrollComment(RecipeComment recipeComment) {
 		return mapper.enrollComment(recipeComment);
 	}
 	
+	// 댓글 목록 조회
 	@Override
 	public List<RecipeComment> selectRecipeComment(int recipeNo) {
 		return mapper.selectRecipeComment(recipeNo);
+	}
+	
+	// 댓글 삭제
+	@Override
+	public int deleteComment(int recipeCommentNo) {
+		return mapper.deleteComment(recipeCommentNo);
 	}
 }

@@ -21,4 +21,10 @@ public interface RecipeCommentMapper {
 	 */
 	List<RecipeComment> selectRecipeComment(int recipeNo);
 
+	/** 댓글 삭제
+	 * @param recipeNo
+	 * @return
+	 */
+	int deleteComment(int recipeCommentNo);
+
 }
