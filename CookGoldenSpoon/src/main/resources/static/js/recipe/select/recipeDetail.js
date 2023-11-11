@@ -114,7 +114,7 @@ for(let i = 0; i<stars.length ; i++){
 const selectCommentList = () => {
     // 기본적으로 form태그는 GET/POST만 지원
     
-    fetch("/recipeComment?recipeNo="+recipeNo)  // GET방식은 주소에 파라미터를 담아서 전달
+    fetch("/recipeComment/select?recipeNo="+recipeNo)  // GET방식은 주소에 파라미터를 담아서 전달
     .then(response => response.json()) // 응답 객체 -> 파싱
     .then(cList => { // cList : 댓글 목록(객체 배열)
         // console.log(cList);
@@ -131,7 +131,12 @@ const selectCommentList = () => {
             commentRow.classList.add("recipe-review");
 
             // 답글일 경우 child-comment 클래스 추가
-            if(comment.recipeParentNo != 0)  commentRow.classList.add("child-comment");
+            if(comment.recipeParentNo != 0)  {
+                commentRow.classList.add("child-comment");
+                const i = document.createElement("i");
+                i.classList.add("fa-solid", "fa-arrow-turn-up", "fa-rotate-90", "reply");
+                commentRow.append(i);
+            }
 
 
             // 삭제된 댓글이지만 자식 댓글 때문에 조회된 경우
@@ -162,6 +167,7 @@ const selectCommentList = () => {
                 
                 // 작성 내용, 날짜
                 const div1 = document.createElement("div");
+                div1.classList.add("contentContainer");
                 const div2 = document.createElement("div");
                 div2.classList.add("flex");
                 
@@ -173,8 +179,8 @@ const selectCommentList = () => {
                 recipeCommentEnrollDate.classList.add("recipeCommentEnrollDate");
                 recipeCommentEnrollDate.innerText = comment.recipeCommentEnrollDate;
 
-                div2.append(recipeCommentContent, recipeCommentEnrollDate);
-                div1.append(div2);
+                div2.append(recipeCommentContent);
+                div1.append(recipeCommentEnrollDate, div2);
             
                 
                 // 로그인이 되어있는 경우 답글 버튼 추가
@@ -229,14 +235,15 @@ const commentTextarea = document.getElementById("commentTextarea");
 commentEnrollBtn.addEventListener("click", ()=>{
     if(!loginCheck){
         alert("로그인 후 이용해주세요");
+        commentTextarea.focus();
         return;
     }
     if(commentTextarea.value.trim().length == 0){
         alert("내용을 입력해주세요");
+        commentTextarea.focus();
         return;
     }
     let data = {"recipeCommentContent" : commentTextarea.value, "memberNo" : loginMemberNo, "recipeNo" : recipeNo};
-    console.log(data);
     fetch("/recipeComment/enrollComment",{
         method : "POST",
         headers : {"Content-Type" : "application/json"},
@@ -255,3 +262,69 @@ commentEnrollBtn.addEventListener("click", ()=>{
     })
     .catch(e=>console.log(e));
 });
+
+function deleteRecipeComment(recipeCommentNo){
+
+    if(confirm("댓글을 삭제하시겠습니까?")){
+
+        fetch("/recipeComment/deleteComment", {
+            method : "DELETE",
+            headers : {"Content-Type" : "application/json"},
+            body : recipeCommentNo
+        })
+        .then(resp => resp.text())
+        .then(result=>{
+            if(result>0){
+                alert("삭제 성공")
+                selectCommentList();
+            } else {
+                alert("삭제 실패");
+            }
+        })
+        .catch(e=>console.log(e));
+    }
+
+};
+
+
+// 댓글 수정
+
+let beforeCommentRow;
+
+function showUpdateRecipeComment(recipeCommentNo, btn){
+
+    // 댓글 수정 하나만 열리게
+    const temp = document.getElementsByClassName("updateTextarea");
+
+    if(temp.length > 0){ // 수정이 한 개 이상 열려 있는 경우
+
+        temp[0].parentElement.innerHTML = beforeCommentRow;
+        // comment-row                       // 백업한 댓글
+        // 백업 내용으로 덮어 씌워 지면서 textarea 사라짐
+            
+    }
+
+    // 1. 댓글 수정을 할 div를 선택
+    const commentRow = btn.previousElementSibling;
+
+    // 2. 행 내용 삭제 전 현재 상태를 저장(백업)
+    beforeCommentRow = commentRow.outerHTML;
+
+    // 3. 댓글에 작성되어 있던 내용만 얻어오기 -> 새롭게 생성된 textarea 추가될 예정
+    let beforeContent = btn.previousElementSibling.innerHTML;
+
+    // 4. 댓글 행 내부 내용을 모두 삭제
+    commentRow.outerHTML = "";
+    
+    // 5. textarea 요소 생성 + 클래스 추가  +  **내용 추가**
+    const textarea = document.createElement("textarea");
+    textarea.classList.add("recipe-review-content", "updateTextarea");
+    textarea.innerHTML = beforeContent;
+    btn.before(textarea);
+    // XSS 방지 처리 해제
+    beforeContent =  beforeContent.replaceAll("&amp;", "&");
+    beforeContent =  beforeContent.replaceAll("&lt;", "<");
+    beforeContent =  beforeContent.replaceAll("&gt;", ">");
+    beforeContent =  beforeContent.replaceAll("&quot;", "\"");
+
+}

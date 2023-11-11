@@ -69,24 +69,65 @@ addBtn.addEventListener("click", () => {
   
 });
 
-const inputTag = document.getElementById("inputTag");
-inputTag.addEventListener("keyup", e=>{
-  if(e.key == "Enter"){
-    let tag = e.target.value;
-    const span = document.createElement("span");
-    span.innerText = tag;
-    span.classList.add("tags");
-    inputTag.append(span);
-  }
-});
-
 
 
 //-------------------------------------------------------------------------
 
 
 
+function preventSubmit(event) {
+  if (event.keyCode === 13) {
+    event.preventDefault();
+  }
+}
+document.getElementById("recipeFrm").addEventListener("keydown", preventSubmit);
 
+
+
+
+
+
+
+
+const inputTag = document.getElementById("inputTag");
+const tagnBox = document.querySelector(".tagnBox");
+let tagName;
+inputTag.addEventListener("keyup", e=>{
+  if((e.target.value.trim().length == 0 && e.key == " ")
+    || (e.target.value.trim().length == 0 && e.key == "Enter")){
+      e.target.value = "";
+      return;
+  }
+
+
+  if(e.key == "Enter"){
+
+    tagName = e.target.value;
+
+    e.target.value = "";
+
+    const span = document.createElement("span");
+    span.classList.add("tags");
+    span.innerText = tagName;
+
+    const button = document.createElement("button");
+    button.setAttribute("type","button");
+    button.classList.add("tagBtn");
+    button.innerHTML = "&times;";
+
+    const input = document.createElement("input");
+    input.setAttribute("type","hidden");
+    input.setAttribute("name","recipeTagName");
+    input.setAttribute("value", tagName);
+    
+    span.append(button, input);
+    e.target.before(span);
+
+    button.addEventListener("click", event=>{
+      event.target.parentElement.remove();
+    });
+  }
+});
 
 
 

@@ -18,4 +18,10 @@ public interface RecipeCommentService {
 	 */
 	List<RecipeComment> selectRecipeComment(int recipeNo);
 
+	/** 댓글삭제
+	 * @param recipeNo
+	 * @return
+	 */
+	int deleteComment(int recipeCommentNo);
+
 }
