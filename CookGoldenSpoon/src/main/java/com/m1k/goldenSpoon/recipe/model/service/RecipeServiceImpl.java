@@ -156,7 +156,7 @@ public class RecipeServiceImpl implements RecipeService{
 	
 	// 레시피 등록
 	@Override
-	public int enroll(Recipe recipe, MultipartFile thumbnail, List<MultipartFile> processImages, List<MultipartFile> completeImages) throws IllegalStateException, IOException {
+	public int enroll(Recipe recipe, MultipartFile thumbnail, List<MultipartFile> recipeStepImage, List<MultipartFile> completeImages) throws IllegalStateException, IOException {
 		
 		String thumbnailRename = Util.fileRename(thumbnail.getOriginalFilename());
 		
@@ -168,16 +168,15 @@ public class RecipeServiceImpl implements RecipeService{
 		
 		
 		List<RecipePicture> uploadList1 = new ArrayList<>();
-		for(int i = 0 ; i<processImages.size(); i++) {
-			if(processImages.get(i).getSize() > 0) {
+		for(int i = 0 ; i<recipeStepImage.size(); i++) {
+			if(recipeStepImage.get(i).getSize() > 0) {
 				RecipePicture img = new RecipePicture();
 				img.setRecipeNo(recipeNo); 
-				log.debug("" + img.getRecipeImageNo());
 				img.setRecipeImageOrder(i);
-				img.setRecipeImageName( processImages.get(i).getOriginalFilename() ); 
+				img.setRecipeImageName( recipeStepImage.get(i).getOriginalFilename() ); 
 				img.setRecipeImage(webPath);
-				img.setRecipeImageRename(Util.fileRename( processImages.get(i).getOriginalFilename() ));
-				img.setUploadFile(processImages.get(i));
+				img.setRecipeImageRename(Util.fileRename( recipeStepImage.get(i).getOriginalFilename() ));
+				img.setUploadFile(recipeStepImage.get(i));
 				uploadList1.add(img);
 				
 			} // if문 끝

@@ -90,7 +90,7 @@ public interface RecipeService {
 	 * @throws IllegalStateException
 	 * @throws IOException
 	 */
-	int enroll(Recipe recipe, MultipartFile thumbnail, List<MultipartFile> processImages, List<MultipartFile> completeImages) throws IllegalStateException, IOException;
+	int enroll(Recipe recipe, MultipartFile thumbnail, List<MultipartFile> recipeStepImage, List<MultipartFile> completeImages) throws IllegalStateException, IOException;
 
 	/** 레시피 조회 수 증가
 	 * @param recipeNo

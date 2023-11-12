@@ -19,8 +19,6 @@ public class RecipePicture {
 	private int recipeImageOrder;
 	private String recipeImageRename;
 	private String recipeImageName;
-	private String recipeProcessImages;
-	private String recipeCompleteImages;
 	
 	private MultipartFile uploadFile;
 }

@@ -71,7 +71,7 @@
               <div class="cpName">요리 과정</div>
               <div class="cpnameBox row">
   
-                <div><textarea name="processCook" class="recipe4line a"></textarea></div>
+                <div><textarea name="recipeStepContent" class="recipe4line a"></textarea></div>
                 
                 <label class="processPhotoBtn4">
                   📷
@@ -129,7 +129,7 @@
           <!-- 7번째 줄 태그 -->
           <div class="tag">
               <div class="tagName">태그</div>
-              <div class="tagnBox"><input type="text" name="tags" class="recipe7line a" size="30" id="inputTag"></div>
+              <div class="tagnBox"><input type="text" name="recipeTag" class="recipe7line a" size="30" id="inputTag"></div>
           </div>
     
           <!-- 8번째 줄 완성사진 -->
@@ -177,6 +177,7 @@
     const message = /*[[${message}]]*/ "전달 받은 message";
     if(message != null) alert(message);
   </script>
+
 
   <script src="/js/recipe/enroll/enroll_recipe.js"></script>
   <script src="/js/common/project.js"></script>
