@@ -7,9 +7,11 @@ import java.util.Map;
 import org.apache.ibatis.session.RowBounds;
 import org.springframework.stereotype.Service;
 
+import com.m1k.goldenSpoon.admin.model.dto.unionComment;
 import com.m1k.goldenSpoon.admin.model.mapper.AdminMapper;
 import com.m1k.goldenSpoon.board.model.dto.Board;
 import com.m1k.goldenSpoon.common.model.dto.Pagination;
+import com.m1k.goldenSpoon.member.model.dto.Instructor;
 import com.m1k.goldenSpoon.member.model.dto.Member;
 import com.m1k.goldenSpoon.recipe.model.dto.Recipe;
 
@@ -77,7 +79,7 @@ public class AdminServiceImpl implements AdminService{
 		return mapper.changeAuthority(member);
 	}
 	
-	
+	// 회원 상세 조회
 	@Override
 	public Member memberDetail(int memberNo) {
 		return mapper.memberDetail(memberNo);
@@ -88,7 +90,7 @@ public class AdminServiceImpl implements AdminService{
 	@Override
 	public Map<String, Object> recipeResult(Recipe searchRecipe, int cp) {
 		
-		
+		// 검색한 이름이 포함된 회원번호 리스트 구하기
 		List<Integer> memberNos= mapper.getMemberNos(searchRecipe.getMemberNickname());
 		if (searchRecipe.getMemberNo() != 0) {
 			memberNos.clear();
@@ -118,6 +120,7 @@ public class AdminServiceImpl implements AdminService{
 	@Override
 	public Map<String, Object> boardResult(Board searchBoard, int cp) {
 		
+		// 검색한 이름이 포함된 회원번호 리스트 구하기
 		List<Integer> memberNos= mapper.getMemberNos(searchBoard.getMemberNickname());
 		if (searchBoard.getMemberNo() != 0) {
 			memberNos.clear();
@@ -128,6 +131,7 @@ public class AdminServiceImpl implements AdminService{
 		map.put("memberNos", memberNos);
 		map.put("searchBoard", searchBoard);
 		
+		// 게시판 개수 구하기
 		int boardListCount = mapper.boardListCount(map); 
 		
 		Pagination pagination = new Pagination(cp, boardListCount, 8, 7);
@@ -136,6 +140,7 @@ public class AdminServiceImpl implements AdminService{
 		
 		RowBounds RowBounds = new RowBounds(offset, limit);
 		
+		// 게시판 구하기
 		List<Board> boardList = mapper.boardResult(map, RowBounds);
 		
 		map.put("boardList", boardList);
@@ -145,5 +150,60 @@ public class AdminServiceImpl implements AdminService{
 		return map;
 	}
 	
+	
+	@Override
+	public Map<String, Object> commentResult(unionComment searchComment, int cp) {
+		
+		// 검색한 이름이 포함된 회원번호 리스트 구하기
+		List<Integer> memberNos = mapper.getMemberNos(searchComment.getMemberNickname() );
+		if (searchComment.getMemberNo() != 0) {
+			memberNos.clear();
+			memberNos.add(searchComment.getMemberNo());
+		}
+		Map<String, Object> map = new HashMap<>();
+		
+		map.put("memberNos", memberNos);
+		map.put("searchComment", searchComment);
+		
+		// 댓글 개수 구하기
+		int commentListCount = mapper.commentListCount(map);
+		
+		Pagination pagination = new Pagination(cp, commentListCount, 8, 7);
+		int offset = (pagination.getCurrentPage() -1) * pagination.getLimit();
+		int limit = pagination.getLimit();
+		
+		RowBounds RowBounds = new RowBounds(offset, limit);
+		
+		List<unionComment> commentList = mapper.commentResult(map, RowBounds);
+		
+		map.put("commentList", commentList);
+		map.put("pagination", pagination);
+		
+		return map;
+	}
+	
+	
+	// 미승인 강사승인 조회
+	@Override
+	public Map<String, Object> instructorApproval(Instructor searchInstructor, int cp) {
+		
+		
+		// 미승인 강사신청 개수구하기
+		int instructorListCount = mapper.instructorListCount();
+		
+		Pagination pagination = new Pagination(cp, instructorListCount, 8, 7);
+		int offset = (pagination.getCurrentPage() -1) * pagination.getLimit();
+		int limit = pagination.getLimit();
+		
+		RowBounds RowBounds = new RowBounds(offset, limit);
+		
+		List<Instructor> instructorList = mapper.instructorApproval(RowBounds);
+		
+		Map<String, Object> map = new HashMap<>();
+		map.put("instructorList", instructorList);
+		map.put("pagination", pagination);
+		
+		return map;
+	}
 	
 }

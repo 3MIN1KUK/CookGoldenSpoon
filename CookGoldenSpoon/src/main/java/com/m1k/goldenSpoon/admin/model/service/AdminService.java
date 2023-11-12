@@ -3,7 +3,9 @@ package com.m1k.goldenSpoon.admin.model.service;
 import java.util.List;
 import java.util.Map;
 
+import com.m1k.goldenSpoon.admin.model.dto.unionComment;
 import com.m1k.goldenSpoon.board.model.dto.Board;
+import com.m1k.goldenSpoon.member.model.dto.Instructor;
 import com.m1k.goldenSpoon.member.model.dto.Member;
 import com.m1k.goldenSpoon.recipe.model.dto.Recipe;
 
@@ -48,5 +50,14 @@ public interface AdminService {
 	 * @return
 	 */
 	Map<String, Object> boardResult(Board searchBoard, int cp);
+
+	/** 댓글 통합 검색
+	 * @param searchComment
+	 * @param cp
+	 * @return
+	 */
+	Map<String, Object> commentResult(unionComment searchComment, int cp);
+
+	Map<String, Object> instructorApproval(Instructor searchInstructor, int cp);
 
 }

@@ -6,7 +6,9 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.session.RowBounds;
 
+import com.m1k.goldenSpoon.admin.model.dto.unionComment;
 import com.m1k.goldenSpoon.board.model.dto.Board;
+import com.m1k.goldenSpoon.member.model.dto.Instructor;
 import com.m1k.goldenSpoon.member.model.dto.Member;
 import com.m1k.goldenSpoon.recipe.model.dto.Recipe;
 
@@ -81,6 +83,18 @@ public interface AdminMapper {
 	 * @return
 	 */
 	List<Board> boardResult(Map<String, Object> map, RowBounds rowBounds);
+
+	/** 댓글 개수 구하기
+	 * @param map
+	 * @return
+	 */
+	int commentListCount(Map<String, Object> map);
+
+	List<unionComment> commentResult(Map<String, Object> map, RowBounds rowBounds);
+
+	List<Instructor> instructorApproval(RowBounds rowBounds);
+
+	int instructorListCount();
 
 
 }

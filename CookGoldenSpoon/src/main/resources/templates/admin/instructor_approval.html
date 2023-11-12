@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>admin-member-search</title>
+  <link rel="stylesheet" href="/css/admin/admin-member-search.css">
+  <link rel="canonical" href="https://getbootstrap.com/docs/5.2/examples/sidebars/">
+  <link href="/boot_strap_assets/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/css/admin/admin-sidebar.css" rel="stylesheet">
+</head>
+<body>
+
+  
+<main class="d-flex flex-nowrap" th:with="instructorList=${map.instructorList}, pagination=${map.pagination}">
+    
+    <th:block th:replace="~{admin/admin_sidebar}"></th:block>
+
+<section class="main-box">
+
+  
+  
+    <section class="out-box">
+  
+      <h1>강시 신청</h1>
+        <form accept="/admin/memberSearch" method="get">
+          <div class="d-flex">
+            <div class="member-search-box">
+              <table class="search-box-table" >
+
+                <tr class="search-box-tr">
+                  <td class="search-box-td">회원 닉네임</td>
+                  <td class="search-box-td search-box-td-input"><input type="text" class="member-search-input form-control" id="memberNick" name="memberNickname"></td>
+                </tr>
+
+                <tr class="table-hr"></tr>
+
+                <tr class="search-box-tr">
+                  <td class="search-box-td">회원 이메일</td>
+                  <td class="search-box-td search-box-td-input"><input type="text" class="member-search-input form-control" id="memberEmail" name="memberEmail"></td>
+                </tr>
+
+                <tr class="table-hr"></tr>
+
+                <tr class="search-box-tr">
+                  <td class="search-box-td">회원 아이디</td>
+                  <td class="search-box-td search-box-td-input"><input type="text" class="member-search-input form-control" id="memberId" name="memberId">
+                  </td>
+                </tr>
+
+              </table>
+            </div>
+            <button class="btn btn-primary">제출</button>
+          </div>
+        </form>
+  
+        <table class="member-search-result">
+          <thead>
+          <tr class="member-search-tr">
+              <th class="member-search-th">회원 번호</th>
+              <th class="member-search-th">회원 아이디</th>
+              <th class="member-search-th">닉네임</th>
+              <th class="member-search-th">이메일</th>
+              <th class="member-search-th">상태</th>
+              <th class="member-search-th">상세 조회</th>
+          </tr>
+          </thead>
+
+          <tbody>
+
+          <tr th:if="${#lists.size(instructorList) == 0}">
+              <th colspan="6">검색결과가 존재하지 않습니다.</th>
+          </tr>
+
+          <th:block th:unless="${#lists.size(instructorList) == 0}">
+
+            <tr class="member-search-tr" th:each="instructor : ${instructorList}" th:object="${instructor}">
+              <td th:text="*{memberNickname}"></td>
+            </tr>
+            
+          </th:block>
+          
+          </tbody>
+      </table>
+
+
+    </section>
+
+
+  </section>
+  </main>
+  <script src="/js/admin/admin_sidebar.js"></script>
+  <script src="/js/admin/member_search.js"></script>
+</body>
+</html>

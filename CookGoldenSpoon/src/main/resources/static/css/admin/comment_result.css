@@ -1,0 +1,33 @@
+/* 댓글 */
+
+
+.input-tag{
+  width: 200px;
+}
+
+.comment-out-box{
+  width: 800px;
+  background-color: #D9D9D9;
+  border-radius: 5px;
+  margin: 10px auto;
+  box-sizing: border-box;
+  padding: 5px;
+  padding-top: 5px;
+}
+
+.comment-content{
+  box-sizing: border-box;
+  padding: 10px;
+  margin-top: 5px;
+  background-color: white;
+  height: 40px;
+  border-radius: 5px;
+  font-size: 1.5rem;
+  overflow: hidden;
+}
+
+.comment-in-text{
+  margin-left: 10px;
+  font-size: 1.5rem;
+}
+
