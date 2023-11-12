@@ -11,6 +11,7 @@
 		<collection property="recipeMaterialList" select="selectRecipeMaterial" column="RECIPE_NO" javaType="java.util.ArrayList" ofType="RecipeMaterial" />
 		<collection property="recipeCommentList" select="selectRecipeComment" column="RECIPE_NO" javaType="java.util.ArrayList" ofType="RecipeComment" />
 		<collection property="recipeTag" select="selectRecipeTag" column="RECIPE_NO" javaType="java.util.ArrayList" ofType="String" />
+		<collection property="recipePicture" select="selectRecipePicture" column="RECIPE_NO" javaType="java.util.ArrayList" ofType="RecipePicture" />
 		
 	</resultMap>
 	<resultMap id="selectRecipe_rm" type="Recipe">
@@ -44,10 +45,15 @@
 		AND RECIPE_DEL_FL = 'N'
 	</select>	
 	<select id="selectRecipeStep" resultType="RecipeStep">
-		SELECT RECIPE_STEP_CONTENT, RECIPE_STEP_ORDER, RECIPE_STEP_IMAGE
+		SELECT RECIPE_STEP_CONTENT, RECIPE_STEP_ORDER, RECIPE_STEP_IMAGE, RECIPE_STEP_IMAGE_RENAME
 		FROM "RECIPE_STEP"
 		WHERE RECIPE_NO = #{recipeNo}
 		ORDER BY RECIPE_STEP_ORDER
+	</select>
+	<select id="selectRecipePicture" resultType="RecipePicture">
+		SELECT RECIPE_IMAGE, RECIPE_IMAGE_ORDER, RECIPE_IMAGE_RENAME
+		FROM RECIPE_PICTURE
+		WHERE RECIPE_NO = #{recipeNo}
 	</select>
 	<select id="selectRecipeMaterial" resultType="RecipeMaterial">
 		SELECT MATERIAL_NAME, RECIPE_MATERIAL_QUANTITY, RECIPE_MATERIAL_ORDER
@@ -210,54 +216,68 @@
 		
 		
 		INSERT INTO "RECIPE"
-		VALUES ( #{recipeNo} , #{recipeTitle}, #{recipeThumbnail}, #{recipeIntro}, #{recipeTip}, default, default,
-		#{recipeTime}, #{recipePeople}, #{recipeLevel}, #{memberNo}, default)
+		VALUES ( ${recipeNo} , #{recipeTitle}, #{recipeThumbnail}, #{recipeIntro}, #{recipeTip}, DEFAULT, DEFAULT,
+		#{recipeTime}, ${memberNo}, DEFAULT, #{recipePeople}, #{recipeLevel})
 	</insert>
 	
+	<!--레시피 과정 삽입-->
 	<insert id="insertProcessList" parameterType="list">
-		INSERT INTO "RECIPE_PICTURE"
-		<foreach collection="list" item="img" separator=" UNION ">
-			SELECT NEXT_RECIPE_PICTURE_NO(),
-				   #{img.recipeNo},
-				   #{img.recipeImage},
-				   #{img.recipeImageOrder},
-				   #{img.recipeImageRename},
-				   #{img.recipeImageName},
-				   #{img.recipeProcessImages},
-				   #{img.recipeCompleteImages}
+		INSERT INTO "RECIPE_STEP" 
+		<foreach collection="list" item="step" separator=" UNION ">
+			SELECT NEXT_RECIPE_STEP_NO(),
+				   ${step.recipeNo},
+				   #{step.recipeStepContent},
+				   ${step.recipeStepOrder},
+				   #{step.recipeStepImage},
+				   #{step.recipeStepImageRename},
+				   #{step.recipeStepImageName}
 			FROM DUAL
 		</foreach>
+		
 	</insert>
 	
+	<!--레시피 완성 사진 삽입-->
 	<insert id="insertCompleteList" parameterType="list">
 		INSERT INTO "RECIPE_PICTURE"
 		<foreach collection="list" item="img" separator=" UNION ">
 			SELECT NEXT_RECIPE_PICTURE_NO(),
-				   #{img.recipeNo},
+				   ${img.recipeNo},
 				   #{img.recipeImage},
-				   #{img.recipeImageOrder},
+				   ${img.recipeImageOrder},
 				   #{img.recipeImageRename},
-				   #{img.recipeImageName},
-				   #{img.recipeProcessImages},
-				   #{img.recipeCompleteImages}
+				   #{img.recipeImageName}
 			FROM DUAL
 		</foreach>
 	</insert>
 	
-	<!--
-					   #{img.recipeImageNo},
-				   #{img.recipeNo},
-				   #{img.recipeImage},
-				   #{img.recipeImageOrder},
-				   #{img.recipeImageRename},
-				   #{img.recipeImageName},
-				   #{img.recipeCompleteImages}
+	<!--레시피 태그 삽입-->
+	<insert id="insertRecipeTag">
+		INSERT INTO "RECIPE_TAG"
+		<foreach collection="list" item="tag" separator=" UNION ">
+			SELECT NEXT_RECIPE_TAG_NO(),
+				   #{tag.recipeTagName},
+				   ${tag.recipeNo}
+			FROM DUAL
+		</foreach>
+	</insert>
 	
+	<!--재료 종류 추가-->
+	<insert id="insertMaterialName">
+		INSERT INTO "MATERIAL" 
+		VALUES(SEQ_MATERIAL_NO.NEXTVAL, #{materialName})
+	</insert>
 	
-	-->
-	
-	
-	
+	<!--레시피별 재료 삽입-->
+	<insert id="insertRecipeMaterial">
+		INSERT INTO "RECIPE_MATERIAL"
+		<foreach collection="list" item="mat" separator=" UNION ">
+			SELECT (SELECT MATERIAL_NO FROM MATERIAL WHERE MATERIAL_NAME = #{mat.materialName}),
+				   ${mat.recipeNo},
+				   #{mat.recipeMaterialQuantity},
+				   ${mat.recipeMaterialOrder}
+			FROM DUAL
+		</foreach>
+	</insert>
 	
 	
 	

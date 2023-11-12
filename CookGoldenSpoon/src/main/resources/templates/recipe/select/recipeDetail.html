@@ -14,7 +14,7 @@
     <div class="main-container">
       <div class="media-container">
         <div class="main-media">
-  
+          <img th:src="*{recipeThumbnail}">
         </div>
         <div class="recipe-summary">
           <div class="recipe-title" th:text="*{recipeTitle}">
@@ -62,6 +62,25 @@
       </div>
       <div class="recipe-content">
         <div class="recipe-subtitle">
+          요리 정보
+        </div>
+        <div class="content recipe-info">
+          <span>
+            인원 &nbsp;
+            <span class="recipe-info-detail" th:text="*{recipePeople}"></span>
+          </span>
+          <span>
+            시간 &nbsp;
+            <span class="recipe-info-detail" th:text="*{recipeTime}"></span>
+          </span>
+          <span>
+            난이도 &nbsp;
+            <span class="recipe-info-detail" th:text="*{recipeLevel}"></span>
+          </span>
+        </div>
+      </div>
+      <div class="recipe-content">
+        <div class="recipe-subtitle">
           재료
         </div>
         <div class="content">
@@ -87,13 +106,13 @@
         </div>
         <th:block th:each="recipeStep : *{recipeStepList}" th:object="${recipeStep}">
           <div class="recipe-step">
-            STEP [[*{recipeStepOrder}]]
+            STEP [[*{recipeStepOrder+1}]]
           </div>
-          <div class="content" th:text="*{recipeStepContent}">
-            순서가 들어가는 칸
-          </div>
-          <div>
-            <img th:src="*{recipeStepImage}">
+          <div class="content step-content">
+            <div th:text="*{recipeStepContent}">
+              순서가 들어가는 칸
+            </div>
+            <div class="stepImage"><img th:if="*{recipeStepImage}" th:src="|*{recipeStepImage}*{recipeStepImageRename}|"></div>
           </div>
         </th:block>
       </div>
@@ -102,16 +121,13 @@
           완성 사진
         </div>
         <div class="recipe-photo">
-          <div>
-            <img src="">
+          <div th:each="img : *{recipePicture}" th:object="${img}">
+            <img class="recipeCompletePhotos" th:src="|*{recipeImage}*{recipeImageRename}|">
           </div>
-          <div></div>
-          <div></div>
-          <div></div>
         </div>
       </div>
       
-      <div class="recipe-content recipe-photos">
+      <!-- <div class="recipe-content recipe-photos">
         <div class="recipe-subtitle">
           또 다른 추천 음식
         </div>
@@ -121,7 +137,7 @@
           <div></div>
           <div></div>
         </div>
-      </div>
+      </div> -->
       <div class="recipe-content">
         <div class="recipe-subtitle">
           댓글

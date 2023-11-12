@@ -12,4 +12,6 @@ public class RecipeMaterial {
 	private String materialName;
 	private String recipeMaterialQuantity;
 	private int recipeMaterialOrder;
+	private int recipeNo;
+	private int meterialNo;
 }

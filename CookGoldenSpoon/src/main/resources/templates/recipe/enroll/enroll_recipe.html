@@ -45,18 +45,61 @@
     
           <!-- 2번째 줄 요리이름/한줄소개 -->
           <div class="cookName">
-            <div class="cName">요리 이름</div><div class="cNameBox"><input type="text" name="recipeTitle" class="recipe2line a" size="30"></div>
+            <div class="cName">요리 이름</div><div class="cNameBox"><input id="recipeTitle" type="text" name="recipeTitle" class="recipe2line a" size="30"></div>
           </div>
           <div class="cookName">
-            <div class="cName">한줄 소개</div><div class="cNameBox"><input type="text" name="recipeIntro" class="recipe2line a" size="30"></div>
+            <div class="cName">한줄 소개</div><div class="cNameBox"><input id="recipeIntro" type="text" name="recipeIntro" class="recipe2line a" size="30"></div>
           </div>
     
           <!-- 3번째 줄 재료 -->
-          <div class="material">
-            <div class="mName">재료</div>
-            <div class="mnameBox"><textarea name="materialName"  class="recipe3line a"></textarea></div>
-          </div>
+          <div class="materialAndInfo">
+            <div class="material">
+              <button type="button" id="materialBtn">➕</button>
+              <div class="mName">재료</div>
+              <div class="mnameBox">
+                <div class="material-detail">
+                  재료명 <input type="text" name="materialName">
+                  수량 <input type="text" name="recipeMaterialQuantity">
+                </div>
+              </div>
+            </div>
+            <!-- 6번째 줄 요리정보 -->
+            <div class="cookInformation">
+              <div class="ciName">요리 정보</div>
+              <div class="cinBox">
+                
+                <div>
+                  인원<select name="recipePeople" id="selectBox">
+                    <option>1명</option>
+                    <option>2명</option>
+                    <option>3명</option>
+                    <option>4명 이상</option>
+                  </select>
+                </div>
 
+                <div>
+                  시간<select name="recipeTime" id="selectBox">
+                      <option>30분 이하</option>
+                      <option>1시간 이하</option>
+                      <option>1시간반 이하</option>
+                      <option>2시간 이하</option>
+                      <option>2시간 초과</option>
+                    </select>
+                </div>
+    
+              <div>
+                난이도
+                <select name="recipeLevel" id="selectBox">
+                  <option>하</option>
+                  <option>중하</option>
+                  <option>중</option>
+                  <option>중상</option>
+                  <option>상</option>
+                </select>
+              </div>
+              </div>
+            </div>
+          </div> 
 
 
     
@@ -87,49 +130,15 @@
           <!-- 5번째 줄 나만의팁 -->
           <div class="tip">
               <div class="tName">나만의 팁</div>
-              <div class="tnBox"><input type="text" name="recipeTip" class="recipe5line a"></div>
+              <div class="tnBox"><input type="text" id="recipeTip" name="recipeTip" class="recipe5line a"></div>
           </div>
     
-          <!-- 6번째 줄 요리정보 -->
-          <div class="cookInformation">
-            <div class="ciName">요리 정보</div>
-            <div class="cinBox">
-              
-              <div>
-                인원 &nbsp;<select name="recipePeople" id="selectBox">
-                  <option value="1">1명</option>
-                  <option value="2">2명</option>
-                  <option value="3">3명</option>
-                  <option value="4">4명 이상</option>
-                </select>
-              </div>
-
-              <div>
-                시간 &nbsp;<select name="recipeTime" id="selectBox">
-                    <option>30분</option>
-                    <option>1시간</option>
-                    <option>1시간반</option>
-                    <option>2시간</option>
-                    <option>2시간 이상</option>
-                  </select>
-              </div>
-  
-            <div>
-              난이도 &nbsp;<select name="recipeLevel" id="selectBox">
-                <option value="1">하</option>
-                <option value="2">중하</option>
-                <option value="3">중</option>
-                <option value="4">중상</option>
-                <option value="5">상</option>
-              </select>
-            </div>
-            </div>
-          </div>
+          
     
           <!-- 7번째 줄 태그 -->
           <div class="tag">
               <div class="tagName">태그</div>
-              <div class="tagnBox"><input type="text" name="recipeTag" class="recipe7line a" size="30" id="inputTag"></div>
+              <div class="tagnBox"><input type="text" class="recipe7line a" size="30" id="inputTag"></div>
           </div>
     
           <!-- 8번째 줄 완성사진 -->
@@ -162,7 +171,6 @@
           <!-- 9번째 줄 제출버튼 -->
           <div class="pBtn9">
             <button type="submit" class="btn9 btn9-1 subBtn">저장</button>
-            <button type="" class="btn9 prBtn">미리보기</button>
             <button class="btn9 cancelBtn">취소</button>
           </div>
           

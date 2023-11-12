@@ -9,7 +9,10 @@ import org.apache.ibatis.session.RowBounds;
 import com.m1k.goldenSpoon.board.model.dto.Board;
 import com.m1k.goldenSpoon.board.model.dto.BoardImg;
 import com.m1k.goldenSpoon.recipe.model.dto.Recipe;
+import com.m1k.goldenSpoon.recipe.model.dto.RecipeMaterial;
 import com.m1k.goldenSpoon.recipe.model.dto.RecipePicture;
+import com.m1k.goldenSpoon.recipe.model.dto.RecipeStep;
+import com.m1k.goldenSpoon.recipe.model.dto.RecipeTag;
 import com.m1k.goldenSpoon.recipe.model.dto.Recipe;
 
 @Mapper
@@ -138,17 +141,35 @@ public interface RecipeMapper {
 	 */
 	int updateRecipeHits(int recipeNo);
 
-	/** 과정 이미지 삽입
+	/** 요리 과정 삽입
 	 * @param uploadList1
 	 * @return
 	 */
-	int insertProcessList(List<RecipePicture> uploadList1);
+	int insertProcessList(List<RecipeStep> uploadList1);
 
 	/** 완성 이미지 삽입
 	 * @param uploadList2
 	 * @return
 	 */
 	int insertCompleteList(List<RecipePicture> uploadList2);
+
+
+	/** 레시피 태그 넣기
+	 * @param map
+	 * @return
+	 */
+	int insertRecipeTag(List<RecipeTag> tagList);
+
+	/** 재료 종류 추가
+	 * @param string
+	 */
+	void insertMaterialName(String materialName);
+
+	/** 레시피별 재료 삽입
+	 * @param materialList
+	 * @return
+	 */
+	int insertRecipeMaterial(List<RecipeMaterial> materialList);
 
 	
 	
