@@ -211,16 +211,18 @@ public class RecipeController {
     @PostMapping("enroll")
     public String enroll (Recipe recipe, @SessionAttribute("loginMember") Member loginMember, 
     	@RequestParam("thumbnail") MultipartFile thumbnail,
-    	List<RecipeStep> recipeStepList,
-    	List<String> recipeTag,
+    	@RequestParam(value = "recipeTagName", required = false) List<String> recipeTagName,
+    	@RequestParam("recipeStepContent") List<String> recipeStepContent,
 		@RequestParam("processImages") List<MultipartFile> recipeStepImage,
-		@RequestParam("completeImages") List<MultipartFile> completeImages, 
+		@RequestParam("completeImages") List<MultipartFile> completeImages,
+		@RequestParam("materialName") List<String> materialName,
+		@RequestParam("recipeMaterialQuantity") List<String> recipeMaterialQuantity,
 		RedirectAttributes ra) throws IllegalStateException, IOException {
     	
     	recipe.setMemberNo(loginMember.getMemberNo());
-    	log.debug("recipeTag :" + recipeTag);
     	
-    	int recipeNo = service.enroll(recipe, thumbnail, recipeStepImage, completeImages);
+    	int recipeNo = service.enroll(recipe, thumbnail, recipeTagName, recipeStepContent,
+    			recipeStepImage, completeImages, materialName, recipeMaterialQuantity);
     	
     	if( recipeNo > 0 ) {
 			ra.addFlashAttribute("message", "레시피 등록 성공");

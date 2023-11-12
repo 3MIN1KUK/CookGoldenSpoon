@@ -19,7 +19,10 @@ import com.m1k.goldenSpoon.board.model.exception.BoardWriteException;
 import com.m1k.goldenSpoon.common.model.dto.Pagination;
 import com.m1k.goldenSpoon.common.utility.Util;
 import com.m1k.goldenSpoon.recipe.model.dto.Recipe;
+import com.m1k.goldenSpoon.recipe.model.dto.RecipeMaterial;
 import com.m1k.goldenSpoon.recipe.model.dto.RecipePicture;
+import com.m1k.goldenSpoon.recipe.model.dto.RecipeStep;
+import com.m1k.goldenSpoon.recipe.model.dto.RecipeTag;
 import com.m1k.goldenSpoon.recipe.model.mapper.RecipeMapper;
 
 import lombok.RequiredArgsConstructor;
@@ -156,7 +159,12 @@ public class RecipeServiceImpl implements RecipeService{
 	
 	// 레시피 등록
 	@Override
-	public int enroll(Recipe recipe, MultipartFile thumbnail, List<MultipartFile> recipeStepImage, List<MultipartFile> completeImages) throws IllegalStateException, IOException {
+	public int enroll(Recipe recipe, MultipartFile thumbnail,
+			 List<String> recipeTagName, List<String> recipeStepContent, 
+			 List<MultipartFile> recipeStepImage, List<MultipartFile> completeImages
+			 , List<String> materialName, List<String> recipeMaterialQuantity) 
+					 throws IllegalStateException, IOException {
+		
 		
 		String thumbnailRename = Util.fileRename(thumbnail.getOriginalFilename());
 		
@@ -166,22 +174,49 @@ public class RecipeServiceImpl implements RecipeService{
 		if(result1 == 0) return 0; 
 		int recipeNo = recipe.getRecipeNo();
 		
+		List<RecipeMaterial> materialList = new ArrayList<>();
 		
-		List<RecipePicture> uploadList1 = new ArrayList<>();
-		for(int i = 0 ; i<recipeStepImage.size(); i++) {
+		for(int i = 0; i<materialName.size(); i++) {
+			if(materialName.get(i).trim().length() != 0) {
+			mapper.insertMaterialName(materialName.get(i));
+			RecipeMaterial material = new RecipeMaterial();
+			material.setMaterialName(materialName.get(i));
+			material.setRecipeMaterialOrder(i);
+			material.setRecipeMaterialQuantity(recipeMaterialQuantity.get(i));
+			material.setRecipeNo(recipeNo);
+			materialList.add(material);
+			}
+		}
+		int result2 = mapper.insertRecipeMaterial(materialList);
+		if(result2 == 0) return 0;
+		
+		List<RecipeTag> tagList = new ArrayList<>();
+		for(int i = 0 ; i<recipeTagName.size(); i++) {
+			RecipeTag tag = new RecipeTag();
+			tag.setRecipeNo(recipeNo);
+			tag.setRecipeTagName(recipeTagName.get(i));
+			tagList.add(tag);
+		}
+		int result3 = mapper.insertRecipeTag(tagList);
+		if(result3 == 0) return 0;
+		
+		
+		List<RecipeStep> uploadList1 = new ArrayList<>();
+		for(int i = 0 ; i<recipeStepContent.size(); i++) {
+			RecipeStep step = new RecipeStep();
+			step.setRecipeNo(recipeNo); 
+			step.setRecipeStepContent(recipeStepContent.get(i));
+			step.setRecipeStepOrder(i);
 			if(recipeStepImage.get(i).getSize() > 0) {
-				RecipePicture img = new RecipePicture();
-				img.setRecipeNo(recipeNo); 
-				img.setRecipeImageOrder(i);
-				img.setRecipeImageName( recipeStepImage.get(i).getOriginalFilename() ); 
-				img.setRecipeImage(webPath);
-				img.setRecipeImageRename(Util.fileRename( recipeStepImage.get(i).getOriginalFilename() ));
-				img.setUploadFile(recipeStepImage.get(i));
-				uploadList1.add(img);
+				step.setRecipeStepImageName( recipeStepImage.get(i).getOriginalFilename() ); 
+				step.setRecipeStepImage(webPath);
+				step.setRecipeStepImageRename(Util.fileRename( recipeStepImage.get(i).getOriginalFilename() ));
+				step.setUploadFile(recipeStepImage.get(i));
 				
 			} // if문 끝
+			uploadList1.add(step);
 		}// for문 끝
-		int result2 = mapper.insertProcessList(uploadList1);
+		int result4 = mapper.insertProcessList(uploadList1);
 		
 		List<RecipePicture> uploadList2 = new ArrayList<>();
 		for(int i = 0 ; i<completeImages.size(); i++) {
@@ -194,23 +229,24 @@ public class RecipeServiceImpl implements RecipeService{
 				img.setRecipeImageRename(Util.fileRename( completeImages.get(i).getOriginalFilename() ));
 				img.setUploadFile(completeImages.get(i));
 				uploadList2.add(img);
-				
 			} // if문 끝
 		}// for문 끝
 		
-		int result3 = mapper.insertCompleteList(uploadList2);
+		int result5 = mapper.insertCompleteList(uploadList2);
 		
 		
 		
-		if(result1 > 0 && result2 == uploadList1.size() && result3 == uploadList2.size()) {
+		if(result1 > 0 && result4 == uploadList1.size() && result5 == uploadList2.size()) {
 			thumbnail.transferTo(new File(folderPath + thumbnailRename));
 			
-			result2 = uploadList1.size();
-			for(RecipePicture img : uploadList1) {
-				img.getUploadFile().transferTo(new File(folderPath + img.getRecipeImageRename()));
+			result4 = uploadList1.size();
+			for(RecipeStep img : uploadList1) {
+				if(img.getUploadFile() != null) {
+					img.getUploadFile().transferTo(new File(folderPath + img.getRecipeStepImageRename()));
+				}
 			}
 			
-			result3 = uploadList2.size();
+			result5 = uploadList2.size();
 			for(RecipePicture img : uploadList2) {
 				img.getUploadFile().transferTo(new File(folderPath + img.getRecipeImageRename()));
 			}

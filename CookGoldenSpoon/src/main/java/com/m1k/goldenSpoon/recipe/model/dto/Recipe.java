@@ -30,6 +30,7 @@ public class Recipe {
 	private int recipeHits;
 	private int recipeParentNo;
 	
+	private List<RecipePicture> recipePicture;
 	private List<String> recipeTag;
 	private List<RecipeStep> recipeStepList;
 	private List<RecipeMaterial> recipeMaterialList;

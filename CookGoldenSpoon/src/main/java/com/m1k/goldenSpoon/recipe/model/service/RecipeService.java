@@ -84,13 +84,17 @@ public interface RecipeService {
 	/** 레시피 등록
 	 * @param recipe 
 	 * @param thumbnail 
+	 * @param recipeStepContent 
+	 * @param recipeTagName 
 	 * @param images
 	 * @param completeImages 
+	 * @param recipeMaterialQuantity 
+	 * @param materialName 
 	 * @return
 	 * @throws IllegalStateException
 	 * @throws IOException
 	 */
-	int enroll(Recipe recipe, MultipartFile thumbnail, List<MultipartFile> recipeStepImage, List<MultipartFile> completeImages) throws IllegalStateException, IOException;
+	int enroll(Recipe recipe, MultipartFile thumbnail, List<String> recipeTagName, List<String> recipeStepContent, List<MultipartFile> recipeStepImage, List<MultipartFile> completeImages, List<String> materialName, List<String> recipeMaterialQuantity) throws IllegalStateException, IOException;
 
 	/** 레시피 조회 수 증가
 	 * @param recipeNo

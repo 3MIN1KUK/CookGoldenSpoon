@@ -1,3 +1,8 @@
+<th:block th:if="*{#lists.size(recipeCommentList) == 0}">
+  <span style="font-size: 3rem; color: azure;">
+    댓글이 없습니다
+  </span>
+</th:block>
 <div id="commentArea">
   <!-- 댓글 목록 -->
   <div class="comment-list-area">
@@ -14,9 +19,8 @@
               </th:block>
               <!-- 삭제된 댓글이지만 자식 댓글 때문에 조회된 경우 -->
               <th:block th:if="*{recipeCommentDelFl == 'Y'}" >
-                  삭제된 댓글 입니다 
+                삭제된 댓글 입니다 
               </th:block>
-              
               <!-- 삭제되지 않은 댓글인 경우 -->
               <th:block th:unless="*{recipeCommentDelFl == 'Y'}" >
                 <div class="recipe-writer-image">
