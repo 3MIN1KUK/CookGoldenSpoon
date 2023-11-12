@@ -38,7 +38,7 @@ public class BoardController {
 	 * @return
 	 */
 	@GetMapping("{boardCode:[0-9]+}")
-	public String selectAllBoard(Model model, 
+	public String notice(Model model, 
 			@RequestParam(value = "cp", required = false, 
 			defaultValue = "1") int cp,
 			@PathVariable("boardCode") int boardCode
