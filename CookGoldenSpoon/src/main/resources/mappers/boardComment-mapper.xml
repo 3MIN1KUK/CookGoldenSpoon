@@ -1,23 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <!-- 연결할 인터페이스의 패키지명.인터페이스명을 작성 -->
-<mapper namespace="com.m1k.goldenSpoon.board.model.mapper.CommentBoardMapper">
+<mapper namespace="com.m1k.goldenSpoon.board.model.mapper.BoardCommentMapper">
 	
-	<select id="select" resultType="boardComment">
+	<select id="selectBoardComment" resultType="boardComment">
 		SELECT LEVEL, C.* FROM
-        	(SELECT COMMENT_NO, COMMENT_CONTENT,
-            TO_CHAR(COMMENT_WRITE_DATE, 'YYYY"년" MM"월" DD"일" HH24"시" MI"분" SS"초"') COMMENT_WRITE_DATE,
-            BOARD_NO, MEMBER_NO, MEMBER_NICKNAME, PROFILE_IMG, PARENT_NO, COMMENT_DEL_FL
-        FROM "COMMENT"
+        	(SELECT BOARD_COMMENT_NO, BOARD_COMMENT_CONTENT,
+            TO_CHAR(BOARD_COMMENT_ENROLL_DATE, 'YYYY-MM-DD HH24:MI:SS') BOARD_COMMENT_ENROLL_DATE,
+            BOARD_NO, MEMBER_NO, MEMBER_NICKNAME, MEMBER_PROFILE, BOARD_PARENT_NO, BOARD_COMMENT_DEL_FL
+        FROM "BOARD_COMMENT"
         JOIN MEMBER USING(MEMBER_NO)
         WHERE BOARD_NO = #{boardNo}) C
-      	WHERE COMMENT_DEL_FL = 'N'
-      	OR 0 != (SELECT COUNT(*) FROM "COMMENT" SUB
-        	WHERE SUB.PARENT_NO = C.COMMENT_NO
-            AND COMMENT_DEL_FL = 'N')
-        START WITH PARENT_NO IS NULL
-        CONNECT BY PRIOR COMMENT_NO = PARENT_NO
-        ORDER SIBLINGS BY COMMENT_NO
+      	WHERE BOARD_COMMENT_DEL_FL = 'N'
+      	OR 0 != (SELECT COUNT(*) FROM "BOARD_COMMENT" SUB
+        	WHERE SUB.BOARD_PARENT_NO = C.BOARD_COMMENT_NO
+            AND BOARD_COMMENT_DEL_FL = 'N')
+        START WITH BOARD_PARENT_NO IS NULL
+        CONNECT BY PRIOR BOARD_COMMENT_NO = BOARD_PARENT_NO
+        ORDER SIBLINGS BY BOARD_COMMENT_NO
 	</select>
 	
+	<insert id="enrollComment">
+		INSERT INTO "BOARD_COMMENT"
+		VALUES(SEQ_BOARD_COMMENT_NO.NEXTVAL, DEFAULT, #{boardCommentContent}, DEFAULT, ${memberNo}, ${boardNo},
+		<if test='boardParentNo == 0'>
+			NULL)
+		</if> 
+		<if test='boardParentNo != 0'>
+			${boardParentNo})
+		</if>
+	</insert>
+	
+	<update id="deleteComment">
+		UPDATE "BOARD_COMMENT" SET
+		BOARD_COMMENT_DEL_FL = 'Y'
+		WHERE BOARD_COMMENT_NO = #{boardCommentNo}
+	</update>
+	
+	<update id="updateComment">
+		UPDATE "BOARD_COMMENT"
+		SET BOARD_COMMENT_CONTENT = #{boardCommentContent}
+		WHERE BOARD_COMMENT_NO = #{boardCommentNo}
+	</update>
 </mapper>
