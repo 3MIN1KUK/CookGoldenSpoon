@@ -1,0 +1,54 @@
+<div id="commentArea">
+  <!-- 댓글 목록 -->
+  <div class="comment-list-area">
+      
+      <div class="board2-review-container" id="commentList">
+
+          <!-- 대댓글인 경우 child-comment 클래스 추가 -->
+          <div class="board2-review" 
+              th:each="comment : ${board.boardCommentList}" th:object="${comment}"
+              th:classappend="${comment.boardParentNo} != 0 ? child-comment">
+
+              <th:block th:if="*{boardParentNo != 0}">
+                <i class="fa-solid fa-arrow-turn-up fa-rotate-90 reply"></i>
+              </th:block>
+              <!-- 삭제된 댓글이지만 자식 댓글 때문에 조회된 경우 -->
+              <th:block th:if="*{boardCommentDelFl == 'Y'}" >
+                  삭제된 댓글 입니다 
+              </th:block>
+              
+              <!-- 삭제되지 않은 댓글인 경우 -->
+              <th:block th:unless="*{boardCommentDelFl == 'Y'}" >
+                <div class="board2-writer-image">
+                  <!-- 프로필 이미지 없을 경우 -->
+                  <img th:unless="*{memberProfile}" th:src="#{user.default.image}" class="memberProfile">
+                  <!-- 프로필 이미지 있을 경우 -->
+                  <img th:if="*{memberProfile}" th:src="*{memberProfile}" class="memberProfile">
+                </div>
+                <div class="commentNickname" th:text="*{memberNickname}">닉네임</div>
+                <div class="contentContainer">
+                  <div class="board2CommentEnrollDate" th:text="*{boardCommentEnrollDate}"></div>
+                  <div class="board2-review-content" th:text="*{boardCommentContent}"></div>
+                  <th:block th:if="${session.loginMember != null and session.loginMember.memberNo == comment.memberNo}">
+                  <button class="buttons" th:onclick="|showUpdateboardComment(*{boardCommentNo}, this)|">수정</button>
+                  <button class="buttons" th:onclick="|deleteBoardComment(*{boardCommentNo})|">삭제</button>
+                  </th:block>
+                  <button class="buttons" th:onclick="|showInsertBoardComment(*{boardCommentNo}, this)|">답글</button>
+                </div>
+
+              </th:block>
+          </div>
+          
+      </div>
+      <div class="board2-subtitle">
+        댓글 작성
+      </div>
+      <div class="board2-review-form">
+          <div class="board2CommentInput">
+            <textarea class="commentTextarea" id="commentTextarea" rows="3" cols="44" wrap="hard" name="boardCommentContent"></textarea>
+          </div>
+          <button id="commentEnrollBtn">등록</button>
+      </div>
+  </div>
+
+</div>

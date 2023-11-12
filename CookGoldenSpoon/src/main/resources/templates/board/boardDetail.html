@@ -6,6 +6,8 @@
   <title>공지사항</title>
   <link rel="stylesheet" href="/css/common/project.css">
   <link rel="stylesheet" href="/css/board/boardDetail.css">
+  <link rel="stylesheet" href="/css/board/boardComment.css">
+  <script src="https://kit.fontawesome.com/921e1d60a7.js" crossorigin="anonymous"></script>
 </head>
 <body>
   <th:block th:replace="~{common/header}"></th:block>
@@ -63,10 +65,16 @@
       </div>
 
 
+      <!-- 댓글 영역 -->
+    <div class="board2-content">
+      <div class="board2-subtitle">
+        댓글
+      </div>
+      <th:block th:replace="~{board/boardComment}"></th:block>
+    </div>
     </div>
 
-    <!-- 댓글 영역 -->
-    <th:block th:replace="~{board/comment}"></th:block>
+    
 
   </main>
 
@@ -75,15 +83,17 @@
 
 
   <script th:inline="javascript">
-    const boardCode = /*[[${boardCode}]]*/ "게시판 코드";
-    const boardNo = /*[[${boardNo}]]*/ "게시글 번호";
+    const boardCode = /*[[${board.boardCode}]]*/ "게시판 코드";
+    const boardNo = /*[[${board.boardNo}]]*/ "게시글 번호";
+    const loginMemberNo =/*[[${session.loginMember?.memberNo}]]*/ "로그인 회원번호";
+    const userDefaultImage = /*[[#{user.default.image}]]*/ "회원 기본 이미지";
 
     const loginCheck = /*[[${session.loginMember != null ? true : false}]]*/ "로그인 여부";
     // -----------------------------------------------------------
     // 게시글 수정 시 사용
   </script>
-
   <script src="/js/common/project.js"></script>
   <script src="/js/board/boardDetail.js"></script>
+  <script src="/js/board/boardComment.js"></script>
 </body>
 </html>

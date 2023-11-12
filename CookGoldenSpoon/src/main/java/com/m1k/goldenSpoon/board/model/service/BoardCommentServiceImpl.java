@@ -16,29 +16,24 @@ public class BoardCommentServiceImpl implements BoardCommentService {
 	
 	private final BoardCommentMapper mapper;
 	
-	// 댓글 목록 조회
 	@Override
-		public List<BoardComment> select(int boardNo) {
-			return mapper.select(boardNo);
-		}
-	
-	// 댓글 등록
-	@Override
-	public int insert(BoardComment boardComment) {
-		return mapper.insert(boardComment);
+	public List<BoardComment> selectBoardComment(int boardNo) {
+		return mapper.selectBoardComment(boardNo);
 	}
 	
-	// 댓글 수정
 	@Override
-	public int update(BoardComment boardComment) {
-		return mapper.update(boardComment);
+	public int enrollComment(BoardComment boardComment) {
+		return mapper.enrollComment(boardComment);
 	}
 	
-	// 댓글 삭제
 	@Override
-	public int delete(int commentNo) {
-		return mapper.delete(commentNo);
+	public int updateComment(BoardComment boardComment) {
+		return mapper.updateComment(boardComment);
 	}
 	
+	@Override
+	public int deleteComment(int boardCommentNo) {
+		return mapper.deleteComment(boardCommentNo);
+	}
 	
 }

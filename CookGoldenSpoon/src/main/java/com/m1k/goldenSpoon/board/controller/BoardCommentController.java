@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.m1k.goldenSpoon.board.model.dto.BoardComment;
@@ -17,6 +18,7 @@ import lombok.RequiredArgsConstructor;
 
 @RestController // 응답만 하는 컨트롤러
 @RequiredArgsConstructor
+@RequestMapping("boardComment")
 public class BoardCommentController {
 	
 	private final BoardCommentService service;
@@ -25,36 +27,36 @@ public class BoardCommentController {
 	 * @param boardNo
 	 * @return
 	 */
-	@GetMapping(value="boardComment", produces = "application/json")
-	public List<BoardComment> select(int boardNo){
-		return service.select(boardNo);
+	@GetMapping(value="select", produces = "application/json")
+	public List<BoardComment> selectBoardComment(int boardNo){
+		return service.selectBoardComment(boardNo);
 	}
 	
 	/** 댓글 등록
 	 * @param boardComment
 	 * @return
 	 */
-	@PostMapping("boardComment")
-	public int insert(@RequestBody BoardComment boardComment) {
-		return service.insert(boardComment);
+	@PostMapping("enrollComment")
+	public int enrollComment(@RequestBody BoardComment boardComment) {
+		return service.enrollComment(boardComment);
 	}
 		
 	/** 댓글 수정
 	 * @param boardComment
 	 * @return
 	 */
-	@PutMapping("boardComment")
-	public int update(@RequestBody BoardComment boardComment) {
-		return service.update(boardComment);
+	@PutMapping("updateComment")
+	public int updateComment(@RequestBody BoardComment boardComment) {
+		return service.updateComment(boardComment);
 	}
 	
 	/** 댓글 삭제
 	 * @param commentNo
 	 * @return
 	 */
-	@DeleteMapping("boardComment")
-	public int delete(@RequestBody int commentNo) {
-		return service.delete(commentNo);
+	@DeleteMapping("deleteComment")
+	public int deleteComment(@RequestBody int boardCommentNo) {
+		return service.deleteComment(boardCommentNo);
 	}
 	
 }
