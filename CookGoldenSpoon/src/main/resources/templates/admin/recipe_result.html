@@ -18,9 +18,6 @@
   <!-- <section class="result-area"> -->
     <main th:with="recipeList=${map.recipeList}, pagination=${map.pagination}">
       <section class="out-box">
-          <div class="recipe-title">
-            <a href="/myPage/recipe">나의 레시피</a>
-          </div>
           
         <div class="content-container">
           <a th:each="recipe : ${recipeList}" th:object="${recipe}" 
@@ -64,8 +61,8 @@
   
           </ul>
         </nav>
-        <th:block th:text="${pagination.startPage}"></th:block>
-        <th:block th:text="${pagination.endPage}"></th:block>
+        <th:block th:text="${map.searchRecipe.recipeTitle}"></th:block>
+        <th:block th:text="${map.searchRecipe.recipeTip}"></th:block>
       </section>
     </main>
   <!-- </section> -->

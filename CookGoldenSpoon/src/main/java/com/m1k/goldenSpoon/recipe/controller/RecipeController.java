@@ -52,8 +52,9 @@ public class RecipeController {
 	}
 	
 	@GetMapping("select/search")
-	public String search(String inputSearch, Model model, @RequestParam(value = "cp", required = false, defaultValue = "1") int cp) {
-		Map<String, Object> map = service.search(cp, inputSearch);
+	public String search(String inputSearch, Model model, @RequestParam(value = "cp", required = false, defaultValue = "1") int cp,
+			@RequestParam(value = "orderBy", required = false, defaultValue = "1") int orderBy) {
+		Map<String, Object> map = service.search(cp, inputSearch, orderBy);
 		model.addAttribute("map", map);
 		model.addAttribute("inputSearch", inputSearch);
 		return "recipe/select/recipe";

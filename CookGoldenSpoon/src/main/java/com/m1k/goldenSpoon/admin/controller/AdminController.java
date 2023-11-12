@@ -17,23 +17,32 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
 import com.m1k.goldenSpoon.admin.model.service.AdminService;
+import com.m1k.goldenSpoon.board.model.dto.Board;
 import com.m1k.goldenSpoon.member.model.dto.Member;
+import com.m1k.goldenSpoon.recipe.model.dto.Recipe;
 
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import oracle.jdbc.proxy.annotation.Post;
 
 @Controller
 @RequestMapping("admin")
+@Slf4j
 @RequiredArgsConstructor
 public class AdminController {
 	
 	private final AdminService service;
 
 	
-	@GetMapping("detailInquiry")
-	public String detailInquiry() {
-		return "admin/detailed_inquiry";
+	@GetMapping("boardSearch")
+	public String boardSearch() {
+		return "admin/board_search";
+	}
+	
+	@GetMapping("recipeSearch")
+	public String recipeSearch() {
+		return "admin/recipe_search";
 	}
 	
 	 
@@ -101,9 +110,10 @@ public class AdminController {
 	
 	// 회원 레시피 조회
 	@GetMapping("recipeResult")
-	public String recipeResult(int memberNo, Model model,
+	public String recipeResult(Recipe searchRecipe, Model model,
 			@RequestParam(value = "cp", required = false, defaultValue = "1") int cp) {
-		Map<String, Object> map = service.recipeResult(memberNo, cp);
+		int memberNo = searchRecipe.getMemberNo();
+		Map<String, Object> map = service.recipeResult(searchRecipe, cp);
 		model.addAttribute("memberNo",memberNo);
 		model.addAttribute("map", map);
 		
@@ -112,7 +122,12 @@ public class AdminController {
 	
 	// 회원 게시판 조회
 	@GetMapping("boardResult")
-	public String boardResult() {
+	public String boardResult(Board searchBoard, Model model,
+			@RequestParam(value = "cp", required = false, defaultValue = "1") int cp) {
+		
+		Map<String, Object> map = service.boardResult(searchBoard, cp);
+		model.addAttribute("map",map);
+
 		return "admin/board_result";
 	}
 	

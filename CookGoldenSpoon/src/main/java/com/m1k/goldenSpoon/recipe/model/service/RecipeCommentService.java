@@ -24,4 +24,10 @@ public interface RecipeCommentService {
 	 */
 	int deleteComment(int recipeCommentNo);
 
+	/** 댓글 수정
+	 * @param recipeComment
+	 * @return
+	 */
+	int updateComment(RecipeComment recipeComment);
+
 }

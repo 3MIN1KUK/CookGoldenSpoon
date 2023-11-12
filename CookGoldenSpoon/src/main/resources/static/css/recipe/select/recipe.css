@@ -24,14 +24,14 @@
 }
 
 .search-area *{
-  height: 5rem;
+  height: 4rem;
 }
 
 .tags{
   font-size: 1.6rem;
   background-color: var(--color-main);
   color: white;
-  margin: 0.3rem;
+  margin: 0.4rem;
   padding: var(--padding-font);
   border-radius: 1rem;
 }

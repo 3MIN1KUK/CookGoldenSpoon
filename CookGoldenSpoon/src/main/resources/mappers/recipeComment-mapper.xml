@@ -10,7 +10,7 @@
 			NULL)
 		</if> 
 		<if test='recipeParentNo != 0'>
-			#{recipeParentNo})
+			${recipeParentNo})
 		</if>
 	</insert>
 	
@@ -33,6 +33,12 @@
 	<update id="deleteComment">
 		UPDATE "RECIPE_COMMENT" SET
 		RECIPE_COMMENT_DEL_FL = 'Y'
+		WHERE RECIPE_COMMENT_NO = #{recipeCommentNo}
+	</update>
+	
+	<update id="updateComment">
+		UPDATE "RECIPE_COMMENT"
+		SET RECIPE_COMMENT_CONTENT = #{recipeCommentContent}
 		WHERE RECIPE_COMMENT_NO = #{recipeCommentNo}
 	</update>
 	

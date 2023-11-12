@@ -4,7 +4,9 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
+
 import com.m1k.goldenSpoon.board.model.dto.BoardComment;
+
 @Mapper
 public interface BoardCommentMapper {
 

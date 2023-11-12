@@ -32,4 +32,10 @@ public class RecipeCommentServiceImpl implements RecipeCommentService{
 	public int deleteComment(int recipeCommentNo) {
 		return mapper.deleteComment(recipeCommentNo);
 	}
+	
+	// 댓글 수정
+	@Override
+	public int updateComment(RecipeComment recipeComment) {
+		return mapper.updateComment(recipeComment);
+	}
 }

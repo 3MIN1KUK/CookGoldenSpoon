@@ -72,8 +72,10 @@
   background-color: var(--color-bg);
   border-radius: 2rem;
   font-size: 2rem;
-  padding: 0.5rem 1rem 0;
+  padding: 2rem;
   min-height: 15rem;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .recipe-subtitle{
@@ -122,8 +124,7 @@
 }
 
 .recipe-review-form{
-  display: flex;
-  flex-direction: column;
+  text-align: end;
 }
 .recipe-review-content{
   background-color: white;
@@ -131,18 +132,17 @@
   border-radius: 1rem;
   text-align: start;
   border: 0.5px solid #FFD384;
+  overflow: auto;
   word-break: break-all;
-  white-space: pre-wrap;
 }
 
 .recipe-review-form button{
   border-radius: 1rem;
-  margin: 1rem;
-  align-self: flex-end;
-  height: 4rem;
-  width: 14rem;
-  font-size: 2rem;
-  padding: var(--padding-font);
+  height: 3rem;
+  margin: 0.5rem 0 0;
+  width: 7rem;
+  font-size: 1.7rem;
+  padding: 0.5rem 0 1rem;
 }
 
 .bookmark{
@@ -211,11 +211,11 @@
 }
 
 .recipeCommentInput{
-  margin: 1rem 0 1rem;
-  justify-content: center;
   width: 100%;
   padding: 0.5rem 7rem;
-
+  background-color: var(--color-bg);
+  text-align: center;
+  border-radius: 2rem;
 }
 
 .child-comment{
@@ -232,8 +232,7 @@
 
 .contentContainer{
   text-align: end;
-  flex-grow: 1;
-  margin: 0 1rem;
+  width: 66.5rem;
   padding-top: 2rem;
 }
 .buttons{
@@ -249,10 +248,16 @@
   resize: none;
   font-size: 2rem;
   padding: 0.5rem;
+  border-radius: 1rem;
+  border: 0.1rem solid darkorange;
 }
 
 .updateTextarea{
   width: 100%;
-  overflow: visible;
   height: 6rem;
+  resize: none;
+}
+
+.recipeMaterial{
+  margin: 0 1rem 1rem 0;
 }

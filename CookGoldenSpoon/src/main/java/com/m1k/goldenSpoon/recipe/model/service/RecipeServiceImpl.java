@@ -60,13 +60,16 @@ public class RecipeServiceImpl implements RecipeService{
 	}
 	
 	@Override
-	public Map<String, Object> search(int cp, String inputSearch) {
+	public Map<String, Object> search(int cp, String inputSearch, int orderBy) {
 		int listCount = mapper.listSearchCount(inputSearch);
 		Pagination pagination = new Pagination(cp, listCount, 8, 7);
 		int offset = (pagination.getCurrentPage() -1) * pagination.getLimit();
 		int limit = pagination.getLimit();
 		RowBounds rowBounds = new RowBounds(offset, limit);
-		List<Recipe> recipeList = mapper.selectSearchRecipe(inputSearch, rowBounds);
+		Map<String, Object> paramMap = new HashMap<>();
+		paramMap.put("inputSearch", inputSearch);
+		paramMap.put("orderBy", orderBy);
+		List<Recipe> recipeList = mapper.selectSearchRecipe(paramMap, rowBounds);
 		Map<String,	Object> map = new HashMap<>();
 		map.put("recipeList", recipeList);
 		map.put("pagination", pagination);
