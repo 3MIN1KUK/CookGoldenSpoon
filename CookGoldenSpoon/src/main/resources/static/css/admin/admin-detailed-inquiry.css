@@ -24,22 +24,42 @@
   margin: 0 10px;
 }
 
+.input-tag{
+  width: 100% !important;
+}
+
+.tag-box{
+  box-sizing: border-box !important;
+  width: 70% !important;
+  margin: 0 10px;
+  padding: 0;
+}
+
+.input-tag{
+  margin: 0 !important;
+}
+
 
 .search-detail-li{
   display: flex !important;
   justify-content: space-between;
   align-items: center;
-  width: 550px !important;
+  width: 650px !important;
 }
 
 .detailed-inquiry-title{
+  text-align: center !important;
   font-weight: bold !important;
+  margin: auto !important;
 }
 
 .detailed-inquiry-btn{
   width: 100%;
 }
 
-.input-tag{
-  width: 200px;
+.delete-btn{
+  font-size: 1.4rem !important;
+  margin-right: 10px;
+  width: 80px;
+  cursor: pointer;
 }

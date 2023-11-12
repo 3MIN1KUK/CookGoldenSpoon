@@ -16,8 +16,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
+import com.m1k.goldenSpoon.admin.model.dto.unionComment;
 import com.m1k.goldenSpoon.admin.model.service.AdminService;
 import com.m1k.goldenSpoon.board.model.dto.Board;
+import com.m1k.goldenSpoon.member.model.dto.Instructor;
 import com.m1k.goldenSpoon.member.model.dto.Member;
 import com.m1k.goldenSpoon.recipe.model.dto.Recipe;
 
@@ -46,12 +48,10 @@ public class AdminController {
 	}
 	
 	 
-	@GetMapping("commentResult")
-	public String commentResult() {
-		return "admin/comment_result";
+	@GetMapping("commentSearch")
+	public String commentSearch() {
+		return "admin/comment_search";
 	}
-	
-	
 	
 	@GetMapping("basic")
 	public String basic() {
@@ -131,4 +131,35 @@ public class AdminController {
 		return "admin/board_result";
 	}
 	
+	// 댓글 통합 검색
+	@GetMapping("commentResult")
+	public String commentResult(unionComment searchComment, Model model,
+			@RequestParam(value = "cp", required = false, defaultValue = "1") int cp) {
+		
+		Map<String, Object> map = service.commentResult(searchComment, cp);
+		model.addAttribute("map",map);
+		
+		return "admin/comment_result";
+	}
+	
+	@GetMapping("instructorApproval")
+	public String instructorApproval(Instructor searchInstructor, Model model,
+			@RequestParam(value = "cp", required = false, defaultValue = "1") int cp) {
+		
+		Map<String, Object> map = service.instructorApproval(searchInstructor, cp);
+		
+		model.addAttribute("map", map);
+		
+		return "admin/instructor_approval";
+	}
+	
+	
+	
+	
+	
 }
+
+
+
+
+
