@@ -2,8 +2,10 @@ package com.m1k.goldenSpoon.board.model.mapper;
 
 import java.util.List;
 
-import com.m1k.goldenSpoon.board.model.dto.BoardComment;
+import org.apache.ibatis.annotations.Mapper;
 
+import com.m1k.goldenSpoon.board.model.dto.BoardComment;
+@Mapper
 public interface BoardCommentMapper {
 
 	/** 댓글 목록 조회

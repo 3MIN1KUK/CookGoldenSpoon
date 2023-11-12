@@ -26,6 +26,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.m1k.goldenSpoon.board.model.dto.Board;
 import com.m1k.goldenSpoon.member.model.dto.Member;
 import com.m1k.goldenSpoon.recipe.model.dto.Recipe;
+import com.m1k.goldenSpoon.recipe.model.dto.RecipeStep;
 import com.m1k.goldenSpoon.recipe.model.service.RecipeService;
 
 import jakarta.servlet.http.Cookie;
@@ -209,13 +210,16 @@ public class RecipeController {
     @PostMapping("enroll")
     public String enroll (Recipe recipe, @SessionAttribute("loginMember") Member loginMember, 
     	@RequestParam("thumbnail") MultipartFile thumbnail,
-		@RequestParam("processImages") List<MultipartFile> processImages,
+    	List<RecipeStep> recipeStepList,
+    	List<String> recipeTag,
+		@RequestParam("processImages") List<MultipartFile> recipeStepImage,
 		@RequestParam("completeImages") List<MultipartFile> completeImages, 
 		RedirectAttributes ra) throws IllegalStateException, IOException {
     	
     	recipe.setMemberNo(loginMember.getMemberNo());
+    	log.debug("recipeTag :" + recipeTag);
     	
-    	int recipeNo = service.enroll(recipe, thumbnail, processImages, completeImages);
+    	int recipeNo = service.enroll(recipe, thumbnail, recipeStepImage, completeImages);
     	
     	if( recipeNo > 0 ) {
 			ra.addFlashAttribute("message", "레시피 등록 성공");

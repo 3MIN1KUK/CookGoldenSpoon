@@ -207,11 +207,12 @@
 		<foreach collection="list" item="img" separator=" UNION ">
 			SELECT NEXT_RECIPE_PICTURE_NO(),
 				   #{img.recipeNo},
-				   #{img.recipeImageOrder},
-				   #{img.recipeImageName},
 				   #{img.recipeImage},
+				   #{img.recipeImageOrder},
 				   #{img.recipeImageRename},
-				   #{img.uploadFile}
+				   #{img.recipeImageName},
+				   #{img.recipeProcessImages},
+				   #{img.recipeCompleteImages}
 			FROM DUAL
 		</foreach>
 	</insert>
@@ -221,11 +222,12 @@
 		<foreach collection="list" item="img" separator=" UNION ">
 			SELECT NEXT_RECIPE_PICTURE_NO(),
 				   #{img.recipeNo},
-				   #{img.recipeImageOrder},
-				   #{img.recipeImageName},
 				   #{img.recipeImage},
+				   #{img.recipeImageOrder},
 				   #{img.recipeImageRename},
-				   #{img.uploadFile}
+				   #{img.recipeImageName},
+				   #{img.recipeProcessImages},
+				   #{img.recipeCompleteImages}
 			FROM DUAL
 		</foreach>
 	</insert>

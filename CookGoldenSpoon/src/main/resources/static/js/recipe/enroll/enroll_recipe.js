@@ -73,7 +73,7 @@ addBtn.addEventListener("click", () => {
 
 //-------------------------------------------------------------------------
 
-
+// 태그
 
 function preventSubmit(event) {
   if (event.keyCode === 13) {
@@ -129,7 +129,7 @@ inputTag.addEventListener("keyup", e=>{
   }
 });
 
-
+// ----------------------------------------------------------------
 
 
 
