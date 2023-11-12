@@ -6,34 +6,45 @@
   <title>문의사항</title>
   <link rel="stylesheet" href="/css/common/project.css">
   <link rel="stylesheet" href="/css/cs/cs.css">
+  <script src="https://kit.fontawesome.com/921e1d60a7.js" crossorigin="anonymous"></script>
 </head>
 <body>
   <th:block th:replace="~{common/header}"></th:block>
-  <main>
+  <main th:with="noticeList=${map.noticeList}, pagination=${map.pagination}">
     <div class="main-container">
       <div class="cs-title">
-        <a>1대1 문의</a>
-      </div>
-      <div class="cs-subtitle-container">
-        <div class="cs-subtitle">
-          내 문의 사항
+        <a href="/cs/notice">공지사항</a>
+        <div class="searchForm">
+          <input id="searchNotice" name="searchNotice" type="text" placeholder="검색어를 입력해주세요">
+          <button id="searchNoticeBtn" >검색</button>
         </div>
       </div>
       <div class="content-container">
-        <div class="notice">
-          내 문의1
-        </div>
-        <div class="notice">
-          내 문의1
-        </div>
-        <div class="notice">
-          내 문의1
-        </div>
+        <th:block th:each="notice : ${noticeList}" th:object="${notice}">
+          <a th:href="@{/cs/notice/{noticeNo}(noticeNo=*{boardNo})}" class="notice">
+            <span th:text="*{boardNo}">No.1</span>
+            <span th:text="*{boardTitle}">첫 번째 공지사항 입니다</span>
+            <span th:text="*{memberNickname}">작성자</span>
+            <span th:text="*{boardEnrollDate}" >날짜</span>
+            <span th:text="*{boardHits}">조회수</span>
+          </a>
+        </th:block>
       </div>
-      <button><a href="/cs/inquiry/fillOut">문의 작성</a></button>
+      <div class="page-number">
+        <ul>
+          <li><a href="/cs/notice"><i class="fa-solid fa-backward-step"></i></a></li>
+          <li><a th:href="@{/cs/notice(cp=${pagination.prevPage})}"><i class="fa-solid fa-caret-left fa-lg"></i></a></li>
+          <th:block th:each="i : ${#numbers.sequence(pagination.startPage, pagination.endPage, 1)}">
+            <li th:if="${i == pagination.currentPage}"><a style="color: black;" class="text" th:text="${i}">1</a></li>
+            <li th:unless="${i == pagination.currentPage}"><a th:href="@{/cs/notice(cp=${i})}" class="text" th:text="${i}">1</a></li>
+          </th:block>
+          <li><a th:href="@{/cs/notice(cp=${pagination.nextPage})}"><i class="fa-solid fa-caret-right fa-lg"></i></a></li>
+          <li><a th:href="@{/cs/notice(cp=${pagination.maxPage})}"><i class="fa-solid fa-forward-step"></i></a></li>
+        </ul>
+      </div>
     </div>
-  </main>
-  
+</main>
+
 
 
 
