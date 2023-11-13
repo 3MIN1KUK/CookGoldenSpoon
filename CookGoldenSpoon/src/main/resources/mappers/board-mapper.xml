@@ -91,7 +91,17 @@
 	
 	<!-- 게시글 조회 수 증가-->
 	<update id="updateBoardHits">
-		UPDATE "BOARD" SET BOARD_HITS = BOARD_HIT + 1
+		UPDATE "BOARD" SET BOARD_HITS = BOARD_HITS + 1
 		WHERE BOARD_NO = #{boardNo}
 	</update>
+	
+	<select id="selectBoardType" resultType="string">
+		SELECT BOARD_TYPE FROM BOARD_TYPE
+		WHERE BOARD_CODE = #{boardCode}
+	</select>
+
+	
+	
+	
+	
 </mapper>

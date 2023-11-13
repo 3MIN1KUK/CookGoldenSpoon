@@ -398,3 +398,22 @@ footer *{
 #orderBy{
   border-radius: 1rem;
 }
+
+
+/* 작성하기 버튼 */
+.btn-area{
+  display: inline;
+  text-align: right;
+  z-index: 1;
+  width: 5rem;
+  margin-right: 2rem;
+}
+
+#insertBtn{
+  display: flex;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+}
+
