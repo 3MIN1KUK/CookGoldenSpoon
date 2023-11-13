@@ -159,13 +159,12 @@ public class AdminController {
 	@ResponseBody
 	public int boardDelete(@RequestBody int boardNo) {
 		
-		System.out.println( "--------------------------------" + boardNo + "--------------------------------");
 		return service.boardDelete(boardNo);
 	}
 	
-	@PostMapping(value = "createBoardList", produces = "application/json")
+	@GetMapping(value = "createBoardList", produces = "application/json")
 	@ResponseBody
-	public Map<String, Object> createBoardList(Board searchBoard, int cp){
+	public Map<String, Object> createBoardList(Board searchBoard,@RequestParam int cp){
 		
 		Map<String, Object> map = service.boardResult(searchBoard, cp);
 		

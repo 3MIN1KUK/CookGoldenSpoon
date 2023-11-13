@@ -39,20 +39,19 @@
               <th colspan="6"><h1  style="text-align: center; font-weight: bold; font-size: 4rem;">검색결과가 존재하지 않습니다.</h1></th>
            </tr>
 
-            <tr style="cursor:pointer;" th:each="board : ${boardList}" th:object="${board}" th:onclick="|location.href='@{/board/{boardCode}/{boardNo}(boardCode=*{boardCode}, boardNo=*{boardNo})}'|">
-              <td th:text="*{boardNo}" class="text-center boardNo"></td>
-              <td th:text="*{boardTitle}" class="text-center"></td>
-              <td th:text="*{memberNickname}" class="text-center"></td>
-              <td class="text-center">
-                <th:block th:if="*{boardCode == 3}">게시판</th:block>
-                <th:block th:if="*{boardCode == 2}">게시판</th:block>
-                <th:block th:if="*{boardCode == 1}">게시판</th:block>
-              </td>
-              <td th:text="*{boardEnrollDate}" class="text-center"></td>
-              <td th:text="*{boardHits}" class="text-center"></td>
-              
-              <td>
-                <button class="delete-btn btn btn-outline-danger" th:onclick="|deleteBoard(*{boardNo})|">삭제</button>
+            <tr th:each="board : ${boardList}" th:object="${board}">
+                <td th:text="*{boardNo}" class="text-center boardNo c-po" th:object="${board}" th:onclick="|location.href='@{/board/{boardCode}/{boardNo}(boardCode=*{boardCode}, boardNo=*{boardNo})}'|"></td>
+                <td th:text="*{boardTitle}" class="text-center c-po" th:onclick="|location.href='@{/board/{boardCode}/{boardNo}(boardCode=*{boardCode}, boardNo=*{boardNo})}'|" ></td>
+                <td th:text="*{memberNickname}" class="text-center c-po" th:onclick="|location.href='@{/board/{boardCode}/{boardNo}(boardCode=*{boardCode}, boardNo=*{boardNo})}'|"></td>
+                <td class="text-center c-po" th:onclick="|location.href='@{/board/{boardCode}/{boardNo}(boardCode=*{boardCode}, boardNo=*{boardNo})}'|">
+                  <th:block th:if="*{boardCode == 3}">게시판</th:block>
+                  <th:block th:if="*{boardCode == 2}">게시판</th:block>
+                  <th:block th:if="*{boardCode == 1}">게시판</th:block>
+                </td>
+                <td th:text="*{boardEnrollDate}" class="text-center c-po" th:onclick="|location.href='@{/board/{boardCode}/{boardNo}(boardCode=*{boardCode}, boardNo=*{boardNo})}'|"></td>
+                <td th:text="*{boardHits}" class="text-center c-po" th:onclick="|location.href='@{/board/{boardCode}/{boardNo}(boardCode=*{boardCode}, boardNo=*{boardNo})}'|"></td>
+              <td class="btn-box">
+                <button class="delete-btn btn btn-outline-danger" th:onclick="|deleteBoard(*{boardNo}, this)|">삭제</button>
               </td>
             </tr>
           </tbody>

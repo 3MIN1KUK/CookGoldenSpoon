@@ -223,3 +223,7 @@ h1{
   font-weight: bold !important;
 
 }
+
+.btn-box{
+  cursor: none !important;
+}

@@ -63,3 +63,7 @@
   width: 80px;
   cursor: pointer;
 }
+
+.c-po{
+  cursor: pointer !important;
+}
