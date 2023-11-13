@@ -60,4 +60,10 @@ public interface AdminService {
 
 	Map<String, Object> instructorApproval(Instructor searchInstructor, int cp);
 
+	/** 게시글 삭제
+	 * @param boardNo
+	 * @return
+	 */
+	int boardDelete(int boardNo);
+
 }

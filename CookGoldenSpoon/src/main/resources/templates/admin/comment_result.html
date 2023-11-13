@@ -20,6 +20,11 @@
     
     
       <section class="out-box"> 
+        <h1 style="text-align: center;">댓글 조회</h1>
+
+        <th:block th:if="${#lists.size(commentList) == 0}">
+          <h1 style="text-align: center; font-weight: bold; font-size: 4rem;">검색 결과가 없습니다</h1>
+        </th:block>
         <div class="comment-out-box" th:each="comment : ${commentList}" th:object="${comment}">
           <div>
             <span class="comment-in-text" th:text="*{memberNickname}">작성자</span>
@@ -63,7 +68,6 @@
   
           </ul>
         </nav>
-
       </section>
   </main>
 </body>

@@ -61,7 +61,7 @@
 }
 .recipe-col{
   width: 25rem;
-  height: 35rem;
+  height: 40rem;
   border-radius: 2rem;
   margin: 1rem 0;
   border: 0.1rem solid var(--color-main);
@@ -80,7 +80,7 @@
 }
 .recipe-image{
   background-color: black;
-  height: 70%;
+  height: 60%;
   border-top-left-radius: 2rem;
   border-top-right-radius: 2rem;
 }
