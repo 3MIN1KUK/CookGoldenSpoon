@@ -21,9 +21,11 @@
           <form action="/member/findId" method="post">
             <div class="input-group">
               <input type="text" id="memberEmail" name="memberEmail" placeholder="이메일을 입력해주세요">
+              <div class="signupTest" id="emailMessage">유효한 이메일을 입력해주세요</div>
             </div>
             
             <input type="submit" value="아이디 찾기" class="btn" id="login-submit">
+
           </form>
     
         </div>
@@ -33,5 +35,7 @@
   </main>
   <th:block th:replace="~{common/footer}"></th:block>
   <script src="/js/common/project.js"></script>
+  <script src="/js/member/signup.js"></script>
+
 </body>
 </html>

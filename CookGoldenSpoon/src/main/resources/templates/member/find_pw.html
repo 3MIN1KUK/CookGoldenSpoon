@@ -22,10 +22,14 @@
             
             <div class="input-group">
               <input type="text" id="memberId" name="memberId" placeholder="아이디을 입력해주세요">
+              <div class="signupTest" id="idMessage">4 ~ 16 자리의 영어 또는 숫자만 입력해주세요</div>
+
             </div>
 
             <div class="input-group">
               <input type="text" id="memberEmail" name="memberEmail" placeholder="이메일을 입력해주세요">
+              <div class="signupTest" id="idMessage">4 ~ 16 자리의 영어 또는 숫자만 입력해주세요</div>
+
             </div>
             
             <input type="submit" value="비밀번호 변경" class="btn" id="login-submit">
@@ -38,5 +42,7 @@
   </main>
   <th:block th:replace="~{common/footer}"></th:block>
   <script src="/js/common/project.js"></script>
+  <script src="/js/member/signup.js"></script>
+
 </body>
 </html>

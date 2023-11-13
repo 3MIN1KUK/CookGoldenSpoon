@@ -13,6 +13,7 @@ function objectToQueryString(obj) {
     .join('&');
 }
 
+// 게시글 목록 추가
 function createBoardList(thisTr){
   const boardArea = document.getElementById('boardArea');
   boardArea.innerHTML = "";
@@ -48,9 +49,9 @@ function createBoardList(thisTr){
       const tdBoardCode = document.createElement("td");
       tdBoardCode.classList.add("text-center", "c-po");
       tdBoardCode.setAttribute("onclick", `location.href='/board/${board.boardCode}/${board.boardNo}'`);
-      if(board.boardCode == 1){
-        tdBoardCode.innerHTML = "게시판";
-      }
+      if(board.boardCode == 1) tdBoardCode.innerHTML = "게시판";
+      if(board.boardCode == 2) tdBoardCode.innerHTML = "게시판";
+      if(board.boardCode == 3) tdBoardCode.innerHTML = "게시판";
 
       const tdboardEnrollDate = document.createElement("td");
       tdboardEnrollDate.classList.add("text-center", "c-po");
@@ -76,26 +77,13 @@ function createBoardList(thisTr){
         tdMemberNickname, tdBoardCode,
         tdboardEnrollDate, tdboardHits, tdDeleteBtn);
       boardArea.append(boardTr);
-      /* location.href='/board/3/10' */
-      // <tr>
-      //   <td class="text-center boardNo c-po" onclick="location.href=@`{/board/{boardCode}/{boardNo}(boardCode=*{boardCode}, boardNo=*{boardNo})}`"></td>
-      //   <td class="text-center c-po" th:onclick="|location.href='@{/board/{boardCode}/{boardNo}(boardCode=*{boardCode}, boardNo=*{boardNo})}'|" ></td>
-      //   <td class="text-center c-po" th:onclick="|location.href='@{/board/{boardCode}/{boardNo}(boardCode=*{boardCode}, boardNo=*{boardNo})}'|"></td>
-      //   <td class="text-center c-po" th:onclick="|location.href='@{/board/{boardCode}/{boardNo}(boardCode=*{boardCode}, boardNo=*{boardNo})}'|">
-      //     <th:block th:if="*{boardCode == 1}">게시판</th:block>
-      //   </td>
-      //   <td th:text="*{boardEnrollDate}" class="text-center c-po" th:onclick="|location.href='@{/board/{boardCode}/{boardNo}(boardCode=*{boardCode}, boardNo=*{boardNo})}'|"></td>
-      //   <td th:text="*{boardHits}" class="text-center c-po" th:onclick="|location.href='@{/board/{boardCode}/{boardNo}(boardCode=*{boardCode}, boardNo=*{boardNo})}'|"></td>
-      //     <td class="btn-box">
-      //       <button class="delete-btn btn btn-outline-danger" th:onclick="|deleteBoard(*{boardNo}, this)|">삭제</button>
-      //     </td>
-      // </tr>
     }
   })
+  .catch(err => console.log(err));
 }
 
 
-
+// 게시글 삭제
 function deleteBoard(boardNo, thisTr){
   if( confirm("해당 게시글을 삭제 하시겠습니까?") ){
     console.log(searchBoard);

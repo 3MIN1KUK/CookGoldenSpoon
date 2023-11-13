@@ -66,4 +66,10 @@ public interface AdminService {
 	 */
 	int boardDelete(int boardNo);
 
+	/** 댓글 삭제
+	 * @param deleteComment
+	 * @return
+	 */
+	int commentDelete(unionComment deleteComment);
+
 }

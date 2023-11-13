@@ -79,6 +79,13 @@
     const boardCode = /*[[${boardCode}]]*/ "게시판 "
   </script>
 
+<script th:inline="javascript">
+  const message = /*[[${message}]]*/ "전달 받은 message";
+                  // message가 없다면 null
+
+  if(message != null) alert(message);
+</script>
+
   
   <script src="/js/board/board.js"></script>
   <script src="/js/common/project.js"></script>
