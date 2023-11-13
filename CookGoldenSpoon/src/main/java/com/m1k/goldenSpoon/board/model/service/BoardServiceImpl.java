@@ -12,6 +12,7 @@ import com.m1k.goldenSpoon.board.model.mapper.BoardMapper;
 import com.m1k.goldenSpoon.common.model.dto.Pagination;
 import com.m1k.goldenSpoon.cs.model.dto.Notice;
 
+import jakarta.mail.internet.ParseException;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -21,7 +22,7 @@ public class BoardServiceImpl implements BoardService{
 	private final BoardMapper mapper;
 	
 	@Override
-	public Map<String, Object> selectAllBoard(int boardCode, int cp) {
+	public Map<String, Object> selectAllBoard(int boardCode, int cp) throws ParseException {
 		
 		// 전체 글 수 조회
 		int listCount = mapper.getBoardListCount(boardCode);
@@ -33,7 +34,9 @@ public class BoardServiceImpl implements BoardService{
 
 		RowBounds rowBounds = new RowBounds(offset, limit);
 		List<Board> boardList = mapper.selectAllBoard(boardCode, rowBounds);
+		String boardType = mapper.selectBoardType(boardCode);
 		Map<String, Object> map = new HashMap<>();
+		map.put("boardType", boardType);
 		map.put("boardList", boardList);
 		map.put("pagination", pagination);
 		return map;
@@ -46,8 +49,14 @@ public class BoardServiceImpl implements BoardService{
 	
 	// 게시글 조회 수 증가
 	@Override
-	public int updateBoardHits(int boardNo) {
-		return mapper.updateBoardHits(boardNo);
+	public int updateBoardHits(int boardNo){
+		return mapper.updateBoardHits(boardNo) ;
 	}
+	
+	
+
+	
+	
+	
 	
 }

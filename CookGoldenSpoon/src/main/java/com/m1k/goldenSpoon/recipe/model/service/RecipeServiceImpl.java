@@ -262,4 +262,7 @@ public class RecipeServiceImpl implements RecipeService{
 	public int updateRecipeHits(int recipeNo) {
 		return mapper.updateRecipeHits(recipeNo);
 	}
+	
+	
+	
 }

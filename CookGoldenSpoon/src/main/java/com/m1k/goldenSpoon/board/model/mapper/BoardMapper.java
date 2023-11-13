@@ -8,6 +8,8 @@ import org.apache.ibatis.session.RowBounds;
 
 import com.m1k.goldenSpoon.board.model.dto.Board;
 
+import jakarta.mail.internet.ParseException;
+
 @Mapper
 public interface BoardMapper {
 
@@ -22,7 +24,7 @@ public interface BoardMapper {
 	 * @param rowBounds
 	 * @return
 	 */
-	List<Board> selectAllBoard(int boardCode, RowBounds rowBounds);
+	List<Board> selectAllBoard(int boardCode, RowBounds rowBounds) throws ParseException;
 
 	/** 자유게시판 상세조회
 	 * @param map
@@ -35,5 +37,11 @@ public interface BoardMapper {
 	 * @return
 	 */
 	int updateBoardHits(int boardNo);
+
+	/** 게시판 종류 조회
+	 * @param boardCode
+	 * @return
+	 */
+	String selectBoardType(int boardCode) ;
 
 }

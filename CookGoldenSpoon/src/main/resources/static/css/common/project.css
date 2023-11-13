@@ -24,7 +24,7 @@ button{
   margin: 0;
   padding: 0;
   list-style: none;
-  border: 0.1px solid black;
+  /* border: 0.1px solid black; */
 }
 a{
   text-decoration: none;
@@ -390,3 +390,22 @@ footer *{
 #orderBy{
   border-radius: 1rem;
 }
+
+
+/* 작성하기 버튼 */
+.btn-area{
+  display: inline;
+  text-align: right;
+  z-index: 1;
+  width: 5rem;
+  margin-right: 2rem;
+}
+
+#insertBtn{
+  display: flex;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+}
+
