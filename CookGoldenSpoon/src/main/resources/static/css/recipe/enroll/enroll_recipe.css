@@ -54,9 +54,11 @@ form{
   margin: auto;
 }
 
+
+
 /* 이미지 */
 
-.boardImg > img{
+.boardImg img{
   max-width: 99%;
   max-height: 99%;
   margin-bottom: 0.5rem;
@@ -74,6 +76,7 @@ form{
   align-items: center;
   border: 1px solid #ccc;
   cursor: pointer;
+  border: none;
 }
 
 .inputImage1{
@@ -188,6 +191,7 @@ form{
   width: 94.5rem;
   height: 7rem;
   border-radius: 0rem 1.6rem 1.6rem 0rem;
+  background-color: white;
 }
 
 .recipe2line{
@@ -239,6 +243,7 @@ form{
   flex-direction: column;
   align-items: center;
   padding: 0.8rem 0;
+  background-color: white;
 }
 
 .material-detail{
@@ -252,6 +257,8 @@ form{
   height: 4rem;
   padding: 1rem;
   font-size: 1.5rem;
+  border-radius: 1rem;
+  border: 0.01rem solid rgb(165, 78, 78);
 }
 .materialAndInfo{
   display: flex;
@@ -295,6 +302,7 @@ form{
   font-size: 2.2rem;
   padding: 2rem 0;
   border-radius: 0rem 0rem 1.5rem 1.5rem;
+  background-color: white;
 }
 .cinBox>div{
   margin: 0;
@@ -330,16 +338,24 @@ form{
   border: none;
   font-size: 2rem;
   cursor: pointer;
+  right: -3.5rem;
+  top: 8rem;
+  position: absolute;
 }
 
 .processPhotoBtn4{
  /* border: none; */
- width: 5rem;
- height: 5rem;
- margin-right: 5rem;
- margin-top : 0.2rem;
+ width: 15rem;
+ height: 15rem;
+ margin: 0.2rem;
  font-size: 3.4rem;
  cursor: pointer;
+ display: flex;
+}
+.stepPreview{
+  max-width: 100%;
+  max-height: 100%;
+  margin: auto;
 }
 
 .cookProcess{
@@ -369,6 +385,16 @@ form{
   display: flex;
   align-items: center;
   justify-content: flex-end;
+  background-color: white;
+  position: relative;
+}
+.stepDeleteBtn{
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  color: black;
+  font-size: 2rem;
+  cursor: pointer;
 }
 
 .recipe4line{
@@ -378,11 +404,14 @@ form{
   font-size: 2.2rem;
   display: flex;
   justify-content: flex-start;
-  margin: 0.2rem 5.4rem 0.2rem 0.2rem;
+  margin: 0.2rem;
   resize: none;
   padding: 0.7rem;
 }
 
+#parentElement{
+  position: relative;
+}
 
 /* ----------------------------------- */
 
@@ -411,6 +440,7 @@ form{
   width: 94.5rem;
   height: 10rem;
   border-radius: 0rem 1.6rem 1.6rem 0rem;
+  background-color: white;
 }
 
 .recipe5line{
@@ -497,14 +527,24 @@ form{
   width: 115rem;
   height: 18rem;
 }
-
+.position{
+  position: relative;
+}
 .endProcessBtn8{
   /* border: none; */
-  width: 5rem;
-  height: 5rem;
+  width: 15rem;
+  height: 15rem;
   margin-bottom : 0.7rem;
-  font-size: 4.0rem;
+  font-size: 2.0rem;
   cursor: pointer;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+ }
+ .endProcessBtn8>img{
+  max-width: 100%;
+  max-height: 100%;
+  margin: auto;
  }
 
 .epName{
@@ -527,7 +567,16 @@ form{
   display: flex;
   align-items: center;
   justify-content: space-around;
- 
+  background-color: white;
+}
+
+.completeDeleteBtn{
+  position: absolute;
+  top: 0rem;
+  right: -2rem;
+  font-size: 2rem;
+  color: black;
+  cursor: pointer;
 }
 
 /* ----------------------------------- */
@@ -576,18 +625,22 @@ form{
 
 .x-btn{
   position: absolute;
-  top: -1rem;
-  right: -1rem;
+  top: 8rem;
+  right: -3.5rem;
   font-size: 2rem;
-  background-color: brown;
-  width: 3rem;
-  height: 3rem;
   border-radius: 50%;
   border: none;
+  font-weight: bold;
   cursor: pointer;
 }
 
+.fa-plus{
+  color: green;
+}
 
+.fa-minus{
+  color: red;
+}
 
 
 

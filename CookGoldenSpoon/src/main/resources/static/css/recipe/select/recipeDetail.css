@@ -304,3 +304,17 @@
   border-radius: 1rem;
   padding: 1rem;
 }
+
+.btnArea{
+  display: flex;
+  justify-content: flex-end;
+  width: 110rem;
+  margin-top: 2rem;
+}
+.btnArea>button{
+  font-size: 2rem;
+  width: 7rem;
+  height: 4rem;
+  border-radius: 1rem;
+  margin: 1rem;
+}

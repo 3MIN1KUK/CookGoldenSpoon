@@ -29,7 +29,10 @@
         </div> -->
         <a th:each="recipe : ${map.recipeList}" th:object="${recipe}" 
             th:href="@{/recipe/select/{recipeNo}(recipeNo=*{recipeNo})}" class="recipe-col">
-          <div class="recipe-image" th:text="*{recipeThumbnail}"></div>
+          <div class="recipe-image">
+            <img class="recipe-image-detail" th:if="*{recipeThumbnail}" th:src="*{recipeThumbnail}">
+            <img class="recipe-image-detail" th:unless="*{recipeThumbnail}" th:src="#{logo.default.image}">
+          </div>
           <div class="recipe-name" th:text="*{recipeTitle}"></div>
           <div class="recipe-info">
             <div th:text="*{memberNickname}"></div>
@@ -52,7 +55,7 @@
     </section>
     <br><br><br>
     <!-- 쿠킹클래스 -->
-    <h3 class="small-title">쿠킹 클래스</h3>
+    <!-- <h3 class="small-title">쿠킹 클래스</h3>
     <section class="recipe-row cooking-row">
       <div class="cooking-col1">
         <div class="recipe-col cooking-col2">
@@ -66,7 +69,7 @@
         <div class="recipe-col cooking-col2">
         </div>
       </div>
-    </section>
+    </section> -->
 
     <!-- <h3 class="small-title">공지사항</h3>
     <section class="recipe-row">
