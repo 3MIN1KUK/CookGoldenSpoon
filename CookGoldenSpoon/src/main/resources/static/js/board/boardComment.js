@@ -337,3 +337,11 @@ function insertChildComment(parentNo, btn){
     })
     .catch(e => console.log(e));
 }
+
+
+/* 신고 팝업창 */
+const csBtn = document.getElementById("csBtn");
+
+csBtn.addEventListener("click", ()=>{
+  window.open("/board/csCustomer", "_blank", "width=600, height=300, left=700, top=400");
+});
