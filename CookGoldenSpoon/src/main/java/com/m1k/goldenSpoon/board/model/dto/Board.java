@@ -31,6 +31,8 @@ public class Board {
 	
 	private String boardType;
 
+	// 신고 버튼
+	private String csBtn;
 	
 	
 }
