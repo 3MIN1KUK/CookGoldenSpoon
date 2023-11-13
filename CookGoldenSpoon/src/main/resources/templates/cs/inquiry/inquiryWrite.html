@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>문의사항 등록하기</title>
+  <link rel="stylesheet" href="/css/common/project.css">
+  <link rel="stylesheet" href="/css/cs/inquiry/inquiryWrite.css">
+</head>
+<body>
+  <th:block th:replace="~{common/header}"></th:block>
+  <main>
+    <div class="main-container">
+      <div class="inquiryWrite-mainTitle">  
+        <a>1대1 문의</a>
+      </div>
+      <form action="insert" method="POST"  class="inquiry-write" id="inquiryWriteFrm" enctype="multipart/form-data">
+        <input type="text" class="inquiryWrite-title" placeholder="제목을 입력해주세요">
+        <textarea name="" id="" cols="30" rows="10" class="inquiryWrite-textarea"></textarea>
+        <button class="inquiryWrite-btn">제출</button>
+      </form>
+    </div>
+  </main>
+  
+
+  <script src="/js/common/project.js"></script>
+</body>
+</html>

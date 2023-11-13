@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>내 문의사항</title>
+  <link rel="stylesheet" href="/css/common/project.css">
+  <link rel="stylesheet" href="/css/cs/inquiry/inquiryDetail.css">
+</head>
+<body>
+  <th:block th:replace="~{common/header}"></th:block>
+  <main th:object="${inquiry}">
+    <div class="main-container">
+      <div class="inquiryDetail-title">
+        <a href="/cs/inquiry">문의사항</a>
+      </div>
+      <div class="inquiryDetail-subtitle-container">
+        <div class="inquiryDetail-subtitle">
+          내 문의 사항
+        </div>
+      </div>
+      <div class="inquiryDetail-main">
+        <span th:text="*{inquiryNo}">번호</span>
+        <span th:text="*{inquiryTitle}">제목</span>
+      </div>
+      <div class="inquiryDetail-content" th:text="*{inquiryContent}">
+        <p>
+          이곳은 내용을 적는 곳입니다<br>
+          만나서 반갑습니다
+        </p>
+      </div>
+      <div class="inquiryDetail-subtitle-container">
+        <div class="inquiryDetail-subtitle">
+          답변
+        </div>
+        <div class="reply-box">
+          <div class="inquiryDetail-reply" th:text="*{inquiryReply}">
+            <p>
+              이곳은 내용을 적는 곳입니다<br>
+              만나서 반갑습니다
+            </p>
+          </div>
+            <button class="replyBtn">등록하기</button>
+            <button class="replyBtn-reply">수정하기</button>
+        </div>
+      </div>
+    </div>
+  </main>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <script src="/js/common/project.js"></script>
+</body>
+</html>

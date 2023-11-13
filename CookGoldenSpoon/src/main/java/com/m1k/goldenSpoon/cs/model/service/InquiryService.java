@@ -3,6 +3,7 @@ package com.m1k.goldenSpoon.cs.model.service;
 import java.util.Map;
 
 import com.m1k.goldenSpoon.cs.model.dto.Inquiry;
+import com.m1k.goldenSpoon.member.model.dto.Member;
 
 public interface InquiryService {
 
@@ -11,13 +12,14 @@ public interface InquiryService {
 	 * @param order
 	 * @return
 	 */
-	Map<String, Object> selectAllInquiry(int cp, int order);
+	Map<String, Object> selectAllInquiry(int cp, int memberNo);
 
-	/** 문의사항 상세 조회
+	/** 문의사항 상세 조회 화면 전환
 	 * @param inquiryNo
 	 * @return
 	 */
 	Inquiry inquiryDetail(int inquiryNo);
+
 
 
 	

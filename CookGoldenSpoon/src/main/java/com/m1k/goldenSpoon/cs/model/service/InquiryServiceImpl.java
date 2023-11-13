@@ -13,6 +13,7 @@ import com.m1k.goldenSpoon.cs.model.dto.Inquiry;
 import com.m1k.goldenSpoon.cs.model.dto.Notice;
 import com.m1k.goldenSpoon.cs.model.mapper.CsMapper;
 import com.m1k.goldenSpoon.cs.model.mapper.InquiryMapper;
+import com.m1k.goldenSpoon.member.model.dto.Member;
 
 import lombok.RequiredArgsConstructor;
 
@@ -23,14 +24,10 @@ public class InquiryServiceImpl implements InquiryService{
 
 	private final InquiryMapper mapper;
 	
-	/** 문의사항 전체 조회
-	 *
-	 */
 	@Override
-	public Map<String, Object> selectAllInquiry(int cp, int order) {
+	public Map<String, Object> selectAllInquiry(int cp, int memberNo) {
 		
-		// 전체 글 수 조회
-		int listCount = mapper.getInquiryListCount();
+		int listCount = mapper.getInquiryListCount(memberNo);
 		
 		Pagination pagination = new Pagination(cp, listCount, 14, 7);
 		
@@ -38,20 +35,16 @@ public class InquiryServiceImpl implements InquiryService{
 		int limit = pagination.getLimit();
 		
 		RowBounds rowBounds = new RowBounds(offset, limit);
-		List<Notice> noticeList = mapper.selectAllInquiry(order, rowBounds);
+		List<Inquiry> inquiryList = mapper.selectAllInquiry(memberNo, rowBounds);
 		Map<String, Object> map = new HashMap<>();
-		map.put("noticeList", noticeList);
+		map.put("inquiryList", inquiryList);
 		map.put("pagination", pagination);
+
 		return map;
-		
 	}
 	
-	/** 문의사항 상세 조회
-	 *
-	 */
 	@Override
 	public Inquiry inquiryDetail(int inquiryNo) {
 		return mapper.inquiryDetail(inquiryNo);
 	}
-	
 }
