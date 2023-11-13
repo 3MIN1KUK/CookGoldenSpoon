@@ -26,4 +26,5 @@ public class Inquiry {
 	private String inquiryReply;
 	private int memberNo;
 	
+	
 }

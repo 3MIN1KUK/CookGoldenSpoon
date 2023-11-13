@@ -1,0 +1,77 @@
+/* 게시글 */
+.content-container{
+   min-width: 90%;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   height: 60rem;
+}
+/* 공지사항 */
+.inquiry-title{
+   width: 90%;
+   margin: 3rem 0 2rem 0;
+   display: flex;
+   justify-content: space-between;
+}
+.inquiry-title>a{
+   margin: 0.5rem;
+   font-size: 3rem;
+   color: var(--color-bg);
+}
+
+/* 게시글 위 이름 */
+.inquiry-main{
+   cursor: pointer;
+   font-size: 2rem;
+   margin: 0.5rem 0;
+   width: 100%;
+   border-radius: 1rem;
+   height: 3rem;
+   padding: 0.5rem 0.5rem 0;
+   display: flex;
+   justify-content: space-between;
+}
+.inquiry-main>span:first-of-type{
+   width: 10%;
+}
+.inquiry-main>span:nth-of-type(2){
+   width: 75%;
+}
+.inquiry-main>span:nth-of-type(3){
+   width: 15%;
+}
+
+/* 게시글 줄 */
+.inquiry{
+   cursor: pointer;
+   font-size: 2rem;
+   margin: 0.5rem 0;
+   width: 100%;
+   border-radius: 1rem;
+   background-color: var(--color-bg);
+   height: 3rem;
+   padding: 0.5rem 0.5rem 0;
+   display: flex;
+   justify-content: space-between;
+}
+.inquiry>span:first-of-type{
+   width: 10%;
+}
+.inquiry>span:nth-of-type(2){
+   width: 75%;
+}
+.inquiry>span:nth-of-type(3){
+   width: 15%;
+}
+
+/* 작성하기 버튼 */
+.btn-area{
+   margin-left: 120rem;
+}
+ 
+.btn-area > button{
+   width: 8.5rem;
+   height: 2.5rem;
+   border-radius: 20px;
+   font-size: 16px;
+}

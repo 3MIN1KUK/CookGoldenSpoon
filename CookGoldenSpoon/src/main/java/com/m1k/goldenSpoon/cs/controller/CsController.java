@@ -69,18 +69,6 @@ public class CsController {
 	}
 	
 	
-	// 문의사항 ------------------------------------------------------------------------------------
-	@GetMapping("inquiry")
-	public String inquiry() {
-		return "cs/inquiry/inquiry";
-	}
-	
-	@GetMapping("inquiry/fillOut")
-	public String inquiryFillOut() {
-		return "cs/inquiry/inquiryForm";
-	}
-	
-	
 	// 신고 ------------------------------------------------------------------------------------
 	@GetMapping("report")
 	public String report() {

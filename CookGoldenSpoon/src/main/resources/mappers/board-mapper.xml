@@ -35,6 +35,7 @@
 			
 	</resultMap>
 	
+	<!-- 이미지 리스트 -->
 	<select id="selectImageList" resultType="BoardImg">
 		SELECT * FROM BOARD_IMAGE
 		WHERE BOARD_NO = #{boardNo}

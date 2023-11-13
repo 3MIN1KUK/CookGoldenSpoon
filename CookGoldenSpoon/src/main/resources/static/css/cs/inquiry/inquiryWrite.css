@@ -1,0 +1,23 @@
+.inquiryWrite-mainTitle{
+  width: 90%;
+  margin: 3rem 0 2rem 0;
+  display: flex;
+  justify-content: space-between;
+}
+.inquiryWrite-mainTitle>a{
+  margin: 0.5rem;
+  font-size: 3rem;
+  color: var(--color-bg);
+}
+
+.inquiryWrite-title{
+   font-size: 3rem;
+   background-color: var(--color-bg);
+   margin: 0.5rem 0;
+   width: 90%;
+   border-radius: 1rem;
+   height: 4rem;
+   padding: 0.5rem 0.5rem 0;
+   display: flex;
+   justify-content: space-between;
+}

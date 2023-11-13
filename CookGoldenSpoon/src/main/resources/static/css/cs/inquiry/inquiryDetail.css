@@ -1,0 +1,86 @@
+/* 공지사항 */
+.inquiryDetail-title{
+   width: 90%;
+   margin: 3rem 0 2rem 0;
+   display: flex;
+   justify-content: space-between;
+}
+.inquiryDetail-title>a{
+   margin: 0.5rem;
+   font-size: 3rem;
+   color: var(--color-bg);
+   cursor: pointer;
+}
+
+/* 내문의사항, 답변 */
+.inquiryDetail-subtitle{
+   border-radius: 2rem;
+   background-color: var(--color-bg);
+   width: fit-content;
+   padding: 0.5rem;
+   font-size: 2rem;
+   margin: 1rem 0;
+   padding: 1rem 2rem 0.5rem;
+}
+.inquiryDetail-subtitle-container{
+   width: 90%;
+}
+
+/* 게시글번호, 제목 */
+.inquiryDetail-main{
+   font-size: 3rem;
+   background-color: var(--color-bg);
+   margin: 0.5rem 0;
+   width: 90%;
+   border-radius: 1rem;
+   height: 4rem;
+   padding: 0.5rem 0.5rem 0;
+   display: flex;
+   justify-content: space-between;
+}
+.inquiryDetail-main>span:first-of-type{
+   width: 25%;
+}
+.inquiryDetail-main>span:nth-of-type(2){
+   width: 75%;
+}
+
+/* 내용 */
+.inquiryDetail-content{
+   font-size: 2rem;
+   background-color: var(--color-bg);
+   margin: 0.5rem 0;
+   width: 90%;
+   border-radius: 1rem;
+   min-height: 22rem;
+   padding: 0.5rem 0.5rem 0;
+}
+/* 답글 */
+.inquiryDetail-reply{
+   font-size: 2rem;
+   background-color: var(--color-bg);
+   width: 90%;
+   min-height: 20rem;
+   border-radius: 20px;
+   padding: 0.8rem 0.8rem 0;
+}
+
+.reply-box{
+   display: flex;
+   align-items: center;
+}
+
+.replyBtn{
+   font-size: 16px;
+   width: 8rem;
+   height: 3rem;
+   border-radius: 10px;
+   margin-left: 8px;
+}
+.replyBtn-reply{
+   font-size: 16px;
+   width: 8rem;
+   height: 3rem;
+   border-radius: 10px;
+   margin-left: 8px;
+}

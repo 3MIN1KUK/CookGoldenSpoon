@@ -3,6 +3,27 @@
 <!-- 연결할 인터페이스의 패키지명.인터페이스명을 작성 -->
 <mapper namespace="com.m1k.goldenSpoon.cs.model.mapper.InquiryMapper">
 	
+	<!-- 문의사항 전체글 카운트 -->
+	<select id="getInquiryListCount" resultType="_int">
+		SELECT COUNT(*) FROM "INQUIRY" WHERE MEMBER_NO = #{memberNo}
+	</select>
+	
+	<!-- 문의사항 전체 조회 -->
+	<select id="selectAllInquiry" resultType="Inquiry">
+		SELECT INQUIRY_NO, INQUIRY_TITLE, INQUIRY_CONTENT,
+			INQUIRY_REPLY, MEMBER_NO, MEMBER_NICKNAME
+		FROM "INQUIRY" JOIN "MEMBER" USING(MEMBER_NO)
+		WHERE MEMBER_NO = #{memberNo}
+		ORDER BY INQUIRY_NO DESC
+	</select>
+	
+	<!-- 문의사항 상세 조회 -->
+	<select id="inquiryDetail" resultType="Inquiry">
+		SELECT INQUIRY_NO, INQUIRY_TITLE, INQUIRY_CONTENT,
+			INQUIRY_REPLY, MEMBER_NO, MEMBER_NICKNAME
+		FROM "INQUIRY" JOIN "MEMBER" USING(MEMBER_NO)
+		WHERE INQUIRY_NO = #{inquiryNo}
+	</select>
 	
 		
 </mapper>
