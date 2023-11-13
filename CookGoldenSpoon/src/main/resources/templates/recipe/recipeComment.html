@@ -1,14 +1,14 @@
-<th:block th:if="*{#lists.size(recipeCommentList) == 0}">
-  <span style="font-size: 3rem; color: azure;">
-    댓글이 없습니다
-  </span>
-</th:block>
+
 <div id="commentArea">
   <!-- 댓글 목록 -->
   <div class="comment-list-area">
       
       <div class="recipe-review-container" id="commentList">
-
+        <th:block th:if="*{#lists.size(recipeCommentList) == 0}">
+          <span style="font-size: 3rem; padding: 1rem;">
+            댓글이 없습니다
+          </span>
+        </th:block>
           <!-- 대댓글인 경우 child-comment 클래스 추가 -->
           <div class="recipe-review" 
               th:each="comment : *{recipeCommentList}" th:object="${comment}"

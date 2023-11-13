@@ -6,6 +6,7 @@
   <title>기본 양식</title>
   <link rel="stylesheet" href="/css/common/basicForm.css">
   <link rel="stylesheet" href="/css/recipe/enroll/enroll_recipe.css">
+  <script src="https://kit.fontawesome.com/921e1d60a7.js" crossorigin="anonymous"></script>
 </head>
 <body>
   <th:block th:replace="~{common/header}"></th:block>
@@ -26,7 +27,7 @@
               <div class="name">대표사진</div>
               <div class="boardImg firstPicture"> 
                 <label for="img0">
-                  <img class="preview" src="">
+                  <img class="preview" th:src="#{logo.default.image}">
                 </label>
                 <!-- input type = file은 무조건 제출 -->
                 <input type="file" name="thumbnail" class="inputImage1" id="img0" accept="image/*">
@@ -37,7 +38,7 @@
             <div class="video">
               <div id="video1">요리 영상</div>
               <div id="video2">
-                <div class="thumbnail"></div><div class="link"> <button class="processBtn1">➕</button></div>
+                <div class="thumbnail"></div><div class="link"> <button class="processBtn1"><i class="fa-solid fa-plus"></i></button></div>
               </div>
             </div>
           </div>
@@ -54,7 +55,7 @@
           <!-- 3번째 줄 재료 -->
           <div class="materialAndInfo">
             <div class="material">
-              <button type="button" id="materialBtn">➕</button>
+              <button type="button" id="materialBtn"><i class="fa-solid fa-plus"></i></button>
               <div class="mName">재료</div>
               <div class="mnameBox">
                 <div class="material-detail">
@@ -105,21 +106,24 @@
     
           <!-- 4번째 줄 요리과정 -->
           <div class="btnControl">
-            <button class="processAddBtn4" id="add" type="button">➕</button>
           </div>
-
+          
           <div id="parentElement">
+            <button class="processAddBtn4" id="add" type="button"><i class="fa-solid fa-plus"></i></button>
             <div class="cookProcess container backup">
-              <!-- <button type="button" class="x-btn">&times;</button> -->
               <div class="cpName">요리 과정</div>
               <div class="cpnameBox row">
-  
-                <div><textarea name="recipeStepContent" class="recipe4line a"></textarea></div>
+                
+                <div>
+                  <textarea name="recipeStepContent" class="recipe4line a"></textarea>
+                </div>
                 
                 <label class="processPhotoBtn4">
-                  📷
-                  <input type="file" name="processImages" style="display: none;">
+                  <img class="stepPreview" th:src="#{camera.image}">
+                  <input type="file" name="processImages" class="processImages" style="display: none;">
                 </label>
+                <span class="stepDeleteBtn">&times;</span>
+                <!-- <span type="button" class="x-btn">&times;</span> -->
               </div>
             </div>
           </div>
@@ -146,22 +150,34 @@
               <div class="epName">완성사진</div>
               <div class="epnBox">
                 
-                <label class="endProcessBtn8">
-                  📷
-                  <input type="file" name="completeImages" style="display: none;">
-                </label>
-                <label class="endProcessBtn8">
-                  📷
-                  <input type="file" name="completeImages" style="display: none;">
-                </label>
-                <label class="endProcessBtn8">
-                  📷
-                  <input type="file" name="completeImages" style="display: none;">
-                </label>
-                <label class="endProcessBtn8">
-                  📷
-                  <input type="file" name="completeImages" style="display: none;">
-                </label>
+                <div class="position">
+                  <label class="endProcessBtn8">
+                    <img class="completePreview" th:src="#{camera.image}">
+                    <input type="file" name="completeImages" class="completeImages" style="display: none;">
+                  </label>
+                  <span class="completeDeleteBtn">&times;</span>
+                </div>
+                <div class="position">
+                  <label class="endProcessBtn8">
+                    <img class="completePreview" th:src="#{camera.image}">
+                    <input type="file" name="completeImages" class="completeImages" style="display: none;">
+                  </label>
+                  <span class="completeDeleteBtn">&times;</span>
+                </div>
+                <div class="position">
+                  <label class="endProcessBtn8">
+                    <img class="completePreview" th:src="#{camera.image}">
+                    <input type="file" name="completeImages" class="completeImages" style="display: none;">
+                  </label>
+                  <span class="completeDeleteBtn">&times;</span>
+                </div>
+                <div class="position">
+                  <label class="endProcessBtn8">
+                    <img class="completePreview" th:src="#{camera.image}">
+                    <input type="file" name="completeImages" class="completeImages" style="display: none;">
+                  </label>
+                  <span class="completeDeleteBtn">&times;</span>
+                </div>
 
 
               </div>
@@ -184,6 +200,9 @@
   <script th:inline="javascript">
     const message = /*[[${message}]]*/ "전달 받은 message";
     if(message != null) alert(message);
+
+    const logo = /*[[#{logo.default.image}]]*/ "로고 이미지";
+    const camera = /*[[#{camera.image}]]*/ "로고 이미지";
   </script>
 
 

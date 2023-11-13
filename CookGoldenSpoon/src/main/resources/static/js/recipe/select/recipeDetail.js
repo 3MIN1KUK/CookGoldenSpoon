@@ -447,3 +447,18 @@ function insertChildComment(parentNo, btn){
     })
     .catch(e => console.log(e));
 }
+
+const editRecipeBtn = document.getElementById("editRecipeBtn");
+const deleteRecipeBtn = document.getElementById("deleteRecipeBtn");
+
+// 레시피 삭제
+if(deleteRecipeBtn != null){
+    deleteRecipeBtn.addEventListener("click", ()=>{
+        
+        fetch()
+        .then()
+        .then()
+        .catch(e=>console.log(e));
+    });
+
+}

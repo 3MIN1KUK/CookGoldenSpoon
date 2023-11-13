@@ -14,7 +14,8 @@
     <div class="main-container">
       <div class="media-container">
         <div class="main-media">
-          <img th:src="*{recipeThumbnail}">
+          <img class="recipe-image-detail" th:if="*{recipeThumbnail}" th:src="*{recipeThumbnail}">
+          <img class="recipe-image-detail" th:unless="*{recipeThumbnail}" th:src="#{logo.default.image}">
         </div>
         <div class="recipe-summary">
           <div class="recipe-title" th:text="*{recipeTitle}">
@@ -87,7 +88,6 @@
           <div class="recipeMaterial" th:each="recipeMaterial : *{recipeMaterialList}" th:object="${recipeMaterial}">
             <span th:text="*{materialName}"></span>
             <span th:text="*{recipeMaterialQuantity}"></span>
-            <th:block th:if="${#lis}"></th:block>
           </div>
 
         </div>
@@ -125,6 +125,10 @@
             <img class="recipeCompletePhotos" th:src="|*{recipeImage}*{recipeImageRename}|">
           </div>
         </div>
+      </div>
+      <div th:if="${session.loginMember.memberNo == recipe.memberNo}" class="btnArea">
+        <button id="editRecipeBtn">수정</button>
+        <button id="deleteRecipeBtn">삭제</button>
       </div>
       
       <!-- <div class="recipe-content recipe-photos">
