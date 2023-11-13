@@ -52,6 +52,12 @@ public interface AdminMapper {
 	 */
 	Member memberDetail(int memberNo);
 
+	/** 레시피 태그 검색
+	 * @param searchRecipe
+	 * @return
+	 */
+	List<Integer> getRecipeNos(Recipe searchRecipe);
+	
 	/** 레시피 개수 구하기
 	 * @param searchMap
 	 * @return
@@ -92,9 +98,20 @@ public interface AdminMapper {
 
 	List<unionComment> commentResult(Map<String, Object> map, RowBounds rowBounds);
 
+	/** 강사 승인 리스트
+	 * @param rowBounds
+	 * @return
+	 */
 	List<Instructor> instructorApproval(RowBounds rowBounds);
 
 	int instructorListCount();
+
+	/** 게시글 삭제
+	 * @param boardNo
+	 * @return
+	 */
+	int boardDelete(int boardNo);
+
 
 
 }

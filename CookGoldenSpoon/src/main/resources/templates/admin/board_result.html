@@ -21,30 +21,39 @@
       
       <section class="out-box">
         
-        <h1 class="search-board-h1">게시글 조회 - 보오류</h1>
-        <table class="table">
-          <thead>
+        <h1 class="search-board-h1" style="text-align: center;">게시글 조회</h1>
+        
+        <table class="table table-hover table-border">
+          <thead class="table-light">
             <tr>
-              <th scope="col" class="b-no">번호</th>
-              <th scope="col" class="b-title">제목</th>
-              <th scope="col" class="b-nickname">작성자</th>
-              <th scope="col" class="b-code">게시글 종류</th>
-              <th scope="col" class="b-date">작성 날짜</th>
-              <th scope="col" class="b-hits">조회수</th>
+              <th scope="col" class="b-no text-center">번호</th>
+              <th scope="col" class="b-title text-center">제목</th>
+              <th scope="col" class="b-nickname text-center">작성자</th>
+              <th scope="col" class="b-code text-center">게시글 종류</th>
+              <th scope="col" class="b-date text-center">작성 날짜</th>
+              <th scope="col" class="b-hits text-center">조회수</th>
             </tr>
           </thead>
-          <tbody>
-            <tr th:each="board : ${boardList}" th:object="${board}" th:onclick="|location.href='@{/board/{boardCode}/{boardNo}(boardCode=*{boardCode}, boardNo=*{boardNo})}'|">
-              <td th:text="*{boardNo}"> <a href="/"></a></td>
-              <td th:text="*{boardTitle}"></td>
-              <td th:text="*{memberNickname}"></td>
-              <td>
+          <tbody id="boardArea">
+            <tr th:if="${#lists.size(boardList) == 0}">
+              <th colspan="6"><h1  style="text-align: center; font-weight: bold; font-size: 4rem;">검색결과가 존재하지 않습니다.</h1></th>
+           </tr>
+
+            <tr style="cursor:pointer;" th:each="board : ${boardList}" th:object="${board}" th:onclick="|location.href='@{/board/{boardCode}/{boardNo}(boardCode=*{boardCode}, boardNo=*{boardNo})}'|">
+              <td th:text="*{boardNo}" class="text-center boardNo"></td>
+              <td th:text="*{boardTitle}" class="text-center"></td>
+              <td th:text="*{memberNickname}" class="text-center"></td>
+              <td class="text-center">
                 <th:block th:if="*{boardCode == 3}">게시판</th:block>
                 <th:block th:if="*{boardCode == 2}">게시판</th:block>
                 <th:block th:if="*{boardCode == 1}">게시판</th:block>
               </td>
-              <td th:text="*{boardEnrollDate}"></td>
-              <td th:text="*{boardHits}"></td>
+              <td th:text="*{boardEnrollDate}" class="text-center"></td>
+              <td th:text="*{boardHits}" class="text-center"></td>
+              
+              <td>
+                <button class="delete-btn btn btn-outline-danger" th:onclick="|deleteBoard(*{boardNo})|">삭제</button>
+              </td>
             </tr>
           </tbody>
 
@@ -85,5 +94,8 @@
       
   </section>
   </main>
+  <script th:inline="javascript">
+    const searchBoard = /*[[${map.searchBoard}]]*/ "리스트";
+  </script>
 </body>
 </html>

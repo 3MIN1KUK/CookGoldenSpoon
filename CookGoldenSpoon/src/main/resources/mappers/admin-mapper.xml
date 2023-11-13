@@ -116,7 +116,24 @@
 				#{memberNo}			
 			</foreach>
 		</if>
+		<if test="memberNos.size() == 0">
+				AND MEMBER_NO = 0
+		</if>
 		AND RECIPE_TITLE LIKE '%${searchRecipe.recipeTitle}%'
+	</select>
+	
+	<!-- 태그 검색 -->
+	<select id="getRecipeNos">
+		SELECT RECIPE_NO
+		FROM RECIPE_TAG
+		<where>
+			<if test="recipeTag.size() != 0 and recipeTag != null">
+				RECIPE_TAG_NAME LIKE 
+				<foreach collection="recipeTag" item="tag"  separator=" AND ">
+					'%${tag}%'			
+				</foreach>
+			</if>
+		</where>
 	</select>
 	
 	<!-- 레시피 검색 -->
@@ -128,6 +145,16 @@
 			AND MEMBER_NO IN 
 			<foreach collection="memberNos" item="memberNo" open="(" separator="," close=")">
 				#{memberNo}			
+			</foreach>
+		</if>
+		<if test="memberNos.size() == 0">
+				AND MEMBER_NO = 0
+		</if>
+		
+		<if test="recipeNos.size() != 0">
+			AND RECIPE_NO IN 
+			<foreach collection="recipeNos" item="recipeNo" open="(" separator="," close=")">
+				#{recipeNo}			
 			</foreach>
 		</if>
 
@@ -153,29 +180,39 @@
 				#{memberNo}			
 			</foreach>
 		</if>
+		<if test="memberNos.size() == 0">
+				AND MEMBER_NO = 0
+		</if>
 		AND BOARD_TITLE LIKE '%${searchBoard.boardTitle}%'
 		AND BOARD_CONTENT LIKE '%${searchBoard.boardContent}%'
 	</select>
 
 	<!-- 게시글 다중 검색 -->
-	<select id="boardResult" resultType="Board">
-		SELECT BOARD_NO, BOARD_CODE ,BOARD_TITLE ,BOARD_ENROLL_DATE ,BOARD_HITS, MEMBER_NICKNAME,
-		TO_CHAR(BOARD_ENROLL_DATE, 'YYYY"년" MM"월" DD"일"') BOARD_ENROLL_DATE
+	<select id="boardResult">
+		SELECT BOARD_NO, BOARD_CODE ,
+		BOARD_TITLE ,
+		BOARD_HITS, 
+		TO_CHAR(BOARD_ENROLL_DATE, 'YYYY"년" MM"월" DD"일"') BOARD_ENROLL_DATE,
+		MEMBER_NICKNAME
 		FROM "BOARD"
 		JOIN "MEMBER" USING (MEMBER_NO)
 		WHERE BOARD_DEL_FL = 'N'
 		
 		<!-- 회원 번호 -->
 		<if test="memberNos.size() != 0">
-		AND MEMBER_NO IN 
-		<foreach collection="memberNos" item="memberNo" open="(" separator="," close=")">
-			#{memberNo}			
-		</foreach>
+			AND MEMBER_NO IN 
+			<foreach collection="memberNos" item="memberNo" open="(" separator="," close=")">
+				#{memberNo}			
+			</foreach>
+		</if>
+		<if test="memberNos.size() == 0">
+				AND MEMBER_NO = 0
 		</if>
 		AND BOARD_TITLE LIKE '%${searchBoard.boardTitle}%'
 		AND BOARD_CONTENT LIKE '%${searchBoard.boardContent}%'
 	</select>
 	
+	<!-- 댓글 개수 구하기 -->
 	<select id="commentListCount">
 		SELECT COUNT(*) 
 		FROM 
@@ -208,13 +245,16 @@
 			FROM COOKING_CLASS_COMMENT ccc 
 			)
 		WHERE COMMENT_DEL_FL = 'N'
-		AND COMMENT_PARENT_TITLE LIKE '%${commentParentTitle}%'
-		AND COMMENT_CONTENT LIKE '%${commentContent}%'
+		AND COMMENT_PARENT_TITLE LIKE '%${searchComment.commentParentTitle}%'
+		AND COMMENT_CONTENT LIKE '%${searchComment.commentContent}%'
 		<if test="memberNos.size() != 0">
 			AND MEMBER_NO IN 
 			<foreach collection="memberNos" item="memberNo" open="(" separator="," close=")">
 				#{memberNo}			
 			</foreach>
+		</if>
+		<if test="memberNos.size() == 0">
+			AND MEMBER_NO = 0
 		</if>
 	</select>
 	
@@ -261,13 +301,16 @@
 			FROM COOKING_CLASS_COMMENT ccc 
 			)
 		WHERE COMMENT_DEL_FL = 'N'
-		AND COMMENT_PARENT_TITLE LIKE '%${commentParentTitle}%'
-		AND COMMENT_CONTENT LIKE '%${commentContent}%'
+		AND COMMENT_PARENT_TITLE LIKE '%${searchComment.commentParentTitle}%'
+		AND COMMENT_CONTENT LIKE '%${searchComment.commentContent}%'
 		<if test="memberNos.size() != 0">
 			AND MEMBER_NO IN 
 			<foreach collection="memberNos" item="memberNo" open="(" separator="," close=")">
 				#{memberNo}			
 			</foreach>
+		</if>
+		<if test="memberNos.size() == 0">
+			AND MEMBER_NO = 0
 		</if>
 	</select>
 	
@@ -286,6 +329,12 @@
 		(SELECT MEMBER_NICKNAME FROM "MEMBER" m WHERE M.MEMBER_NO = I.MEMBER_NO) AS MEMBER_NICKNANM
 		FROM INSTRUCTOR i  
 		WHERE MEMBER_APPROVAL = 'N' 
+	</select>
+	
+	<select id="boardDelete">
+		UPDATE BOARD SET
+		BOARD_DEL_FL = 'Y'
+		WHERE BOARD_NO = #{boardNo}
 	</select>
 	
 </mapper>

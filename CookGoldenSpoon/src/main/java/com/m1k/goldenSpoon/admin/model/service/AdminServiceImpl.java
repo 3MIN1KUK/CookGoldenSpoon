@@ -1,6 +1,7 @@
 package com.m1k.goldenSpoon.admin.model.service;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -14,6 +15,7 @@ import com.m1k.goldenSpoon.common.model.dto.Pagination;
 import com.m1k.goldenSpoon.member.model.dto.Instructor;
 import com.m1k.goldenSpoon.member.model.dto.Member;
 import com.m1k.goldenSpoon.recipe.model.dto.Recipe;
+import com.m1k.goldenSpoon.recipe.model.dto.RecipeTag;
 
 import lombok.RequiredArgsConstructor;
 
@@ -90,6 +92,17 @@ public class AdminServiceImpl implements AdminService{
 	@Override
 	public Map<String, Object> recipeResult(Recipe searchRecipe, int cp) {
 		
+		List<String> tagList = searchRecipe.getRecipeTag();
+		
+		for (int i = 1 ; i <= tagList.size() + 1 ; i++) {
+			tagList.remove("");
+		}
+
+		searchRecipe.setRecipeTag(tagList);
+		
+		// 태그 검색
+		List<Integer> recipeNos = mapper.getRecipeNos(searchRecipe);
+		
 		// 검색한 이름이 포함된 회원번호 리스트 구하기
 		List<Integer> memberNos= mapper.getMemberNos(searchRecipe.getMemberNickname());
 		if (searchRecipe.getMemberNo() != 0) {
@@ -99,6 +112,7 @@ public class AdminServiceImpl implements AdminService{
 		Map<String, Object> map = new HashMap<>();
 		
 		map.put("memberNos", memberNos);
+		map.put("recipeNos", recipeNos);
 		map.put("searchRecipe", searchRecipe);
 		
 		
@@ -120,6 +134,7 @@ public class AdminServiceImpl implements AdminService{
 	@Override
 	public Map<String, Object> boardResult(Board searchBoard, int cp) {
 		
+		
 		// 검색한 이름이 포함된 회원번호 리스트 구하기
 		List<Integer> memberNos= mapper.getMemberNos(searchBoard.getMemberNickname());
 		if (searchBoard.getMemberNo() != 0) {
@@ -134,7 +149,7 @@ public class AdminServiceImpl implements AdminService{
 		// 게시판 개수 구하기
 		int boardListCount = mapper.boardListCount(map); 
 		
-		Pagination pagination = new Pagination(cp, boardListCount, 8, 7);
+		Pagination pagination = new Pagination(cp, boardListCount, 14, 7);
 		int offset = (pagination.getCurrentPage() -1) * pagination.getLimit();
 		int limit = pagination.getLimit();
 		
@@ -204,6 +219,14 @@ public class AdminServiceImpl implements AdminService{
 		map.put("pagination", pagination);
 		
 		return map;
+	}
+	
+	@Override
+	public int boardDelete(int boardNo) {
+		
+		int result = mapper.boardDelete(boardNo);
+		
+		return 0;
 	}
 	
 }

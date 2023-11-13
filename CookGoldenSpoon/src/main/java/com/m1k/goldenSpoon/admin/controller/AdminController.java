@@ -153,8 +153,15 @@ public class AdminController {
 		return "admin/instructor_approval";
 	}
 	
-	
-	
+	@PutMapping("boardDelete")
+	@ResponseBody
+	public int boardDelete(int boardNo) {
+		
+		int result = service.boardDelete(boardNo);
+		
+		return result;
+	}
+
 	
 	
 }
