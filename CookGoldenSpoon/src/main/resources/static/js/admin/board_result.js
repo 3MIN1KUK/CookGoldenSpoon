@@ -14,6 +14,8 @@ function objectToQueryString(obj) {
 }
 
 function createBoardList(thisTr){
+  const boardArea = document.getElementById('boardArea');
+  boardArea.innerHTML = "";
   const queryString = objectToQueryString(searchBoard);
   console.log(queryString);
   fetch("/admin/createBoardList?" + queryString,{
@@ -31,8 +33,49 @@ function createBoardList(thisTr){
       const tdBoardNo = document.createElement("td");
       tdBoardNo.classList.add("text-center", "boardNo", "c-po");
       tdBoardNo.setAttribute("onclick", `location.href='/board/${board.boardCode}/${board.boardNo}'`);
-      boardTr.append(tdBoardNo);
-      thisTr.append(boardTr);
+      tdBoardNo.innerHTML = board.boardNo;
+
+      const tdBoardTitle = document.createElement("td");
+      tdBoardTitle.classList.add("text-center", "c-po");
+      tdBoardTitle.setAttribute("onclick", `location.href='/board/${board.boardCode}/${board.boardNo}'`);
+      tdBoardTitle.innerHTML = board.boardTitle;
+
+      const tdMemberNickname = document.createElement("td");
+      tdMemberNickname.classList.add("text-center", "c-po");
+      tdMemberNickname.setAttribute("onclick", `location.href='/board/${board.boardCode}/${board.boardNo}'`);
+      tdMemberNickname.innerHTML = board.memberNickname;
+
+      const tdBoardCode = document.createElement("td");
+      tdBoardCode.classList.add("text-center", "c-po");
+      tdBoardCode.setAttribute("onclick", `location.href='/board/${board.boardCode}/${board.boardNo}'`);
+      if(board.boardCode == 1){
+        tdBoardCode.innerHTML = "게시판";
+      }
+
+      const tdboardEnrollDate = document.createElement("td");
+      tdboardEnrollDate.classList.add("text-center", "c-po");
+      tdboardEnrollDate.setAttribute("onclick", `location.href='/board/${board.boardCode}/${board.boardNo}'`);
+      tdboardEnrollDate.innerHTML = board.boardEnrollDate;
+
+      const tdboardHits = document.createElement("td");
+      tdboardHits.classList.add("text-center", "c-po");
+      tdboardHits.setAttribute("onclick", `location.href='/board/${board.boardCode}/${board.boardNo}'`);
+      tdboardHits.innerHTML = board.boardHits;
+      
+      const tdDeleteBtn = document.createElement("td");
+      tdDeleteBtn.classList.add("btn-box");
+
+      const deleteBtn = document.createElement("button");
+      deleteBtn.classList.add("delete-btn", "btn", "btn-outline-danger");
+      deleteBtn.setAttribute("onclick", `deleteBoard(${board.boardNo}, this)`);
+      deleteBtn.innerHTML = "삭제";
+
+      tdDeleteBtn.append(deleteBtn);
+
+      boardTr.append(tdBoardNo, tdBoardTitle,
+        tdMemberNickname, tdBoardCode,
+        tdboardEnrollDate, tdboardHits, tdDeleteBtn);
+      boardArea.append(boardTr);
       /* location.href='/board/3/10' */
       // <tr>
       //   <td class="text-center boardNo c-po" onclick="location.href=@`{/board/{boardCode}/{boardNo}(boardCode=*{boardCode}, boardNo=*{boardNo})}`"></td>
