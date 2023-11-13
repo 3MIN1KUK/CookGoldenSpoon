@@ -96,6 +96,9 @@
   </main>
   <script th:inline="javascript">
     const searchBoard = /*[[${map.searchBoard}]]*/ "리스트";
+    const cp = /*[[${map.pagination.currentPage}]]*/ "현재보는페이지";
+    searchBoard.cp = cp;
   </script>
+  <script src="/js/admin/board_result.js"></script>
 </body>
 </html>

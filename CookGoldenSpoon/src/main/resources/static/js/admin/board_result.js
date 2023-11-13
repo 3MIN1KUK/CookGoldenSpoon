@@ -1,13 +1,22 @@
 
 function createBoardList(){
-  const boardList = "";
-  boardList.inner
+  fetch("/admin/createBoardList",{
+    method : "POST",
+    headers : {"Content-type" : "application/json"},
+    body : searchBoard
+  })
+  .then(res => res.json())
+  .then(result =>{
+    console.log(result);
+    boardList = result.boardList;
+  })
 }
 
 
 
 
 function deleteBoard(boardNo){
+  console.log(boardNo);
   if( confirm("해당 게시글을 삭제 하시겠습니까?") ){
     fetch("/admin/boardDelete", {
       method : "PUT",

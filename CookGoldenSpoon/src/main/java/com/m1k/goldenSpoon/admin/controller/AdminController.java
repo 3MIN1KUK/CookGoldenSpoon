@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.context.annotation.RequestScope;
 
 import com.m1k.goldenSpoon.admin.model.dto.unionComment;
 import com.m1k.goldenSpoon.admin.model.service.AdminService;
@@ -153,13 +154,22 @@ public class AdminController {
 		return "admin/instructor_approval";
 	}
 	
+	// 게시글 삭제 
 	@PutMapping("boardDelete")
 	@ResponseBody
-	public int boardDelete(int boardNo) {
+	public int boardDelete(@RequestBody int boardNo) {
 		
-		int result = service.boardDelete(boardNo);
+		System.out.println( "--------------------------------" + boardNo + "--------------------------------");
+		return service.boardDelete(boardNo);
+	}
+	
+	@PostMapping(value = "createBoardList", produces = "application/json")
+	@ResponseBody
+	public Map<String, Object> createBoardList(Board searchBoard, int cp){
 		
-		return result;
+		Map<String, Object> map = service.boardResult(searchBoard, cp);
+		
+		return map;
 	}
 
 	

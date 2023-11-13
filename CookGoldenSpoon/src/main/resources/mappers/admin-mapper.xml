@@ -331,7 +331,7 @@
 		WHERE MEMBER_APPROVAL = 'N' 
 	</select>
 	
-	<select id="boardDelete">
+	<select id="boardDelete" resultType="_int">
 		UPDATE BOARD SET
 		BOARD_DEL_FL = 'Y'
 		WHERE BOARD_NO = #{boardNo}

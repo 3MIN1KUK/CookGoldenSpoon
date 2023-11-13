@@ -7,6 +7,7 @@ import java.util.Map;
 
 import org.apache.ibatis.session.RowBounds;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.m1k.goldenSpoon.admin.model.dto.unionComment;
 import com.m1k.goldenSpoon.admin.model.mapper.AdminMapper;
@@ -20,6 +21,7 @@ import com.m1k.goldenSpoon.recipe.model.dto.RecipeTag;
 import lombok.RequiredArgsConstructor;
 
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class AdminServiceImpl implements AdminService{
 
@@ -223,10 +225,10 @@ public class AdminServiceImpl implements AdminService{
 	
 	@Override
 	public int boardDelete(int boardNo) {
+		System.out.println( "--------------------------------" + boardNo + "--------------------------------");
+
 		
-		int result = mapper.boardDelete(boardNo);
-		
-		return 0;
+		return mapper.boardDelete(boardNo);
 	}
 	
 }
