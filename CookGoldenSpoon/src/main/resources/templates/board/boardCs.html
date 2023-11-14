@@ -2,9 +2,36 @@
 
   <form action="/board/csCustomer" method="POST">
     <div>
-      <input type="text" name="inquiryTitle" id="inquiryTitle">
-      <textarea name="inquiryContent" id="inquiryContent" cols="30" rows="10"></textarea>
+      <input type="text" name="reportTitle" id="reportTitle">
     </div>
+    <div th:text="${report}">
+
+    </div>
+    <div>
+      <textarea name="reportContent" id="reportContent" cols="30" rows="10"></textarea>
+    </div>
+    <button th:onclick="|lastBtn(${report.reporterNo},this)|" id="lastBtn">제출</button>
   </form>
 
+
 </div>
+<script>
+
+
+  const popBtn = document.querySelector("form");
+  popBtn.addEventListener('submit', e => {
+    const reportContent = document.getElementById("reportContent")
+    const reportTitle = document.getElementById("reportTitle")
+
+    if (reportContent.value.trim().length == 0 || reportTitle.value.trim().length == 0) {
+      e.preventDefault();
+      alert("제목이나 신고 내용을 작성해주세요")
+
+      return;
+    }
+
+    alert("신고되었습니다.")
+    window.close()
+  })
+
+</script>

@@ -87,11 +87,14 @@
     const boardNo = /*[[${board.boardNo}]]*/ "게시글 번호";
     const loginMemberNo =/*[[${session.loginMember?.memberNo}]]*/ "로그인 회원번호";
     const userDefaultImage = /*[[#{user.default.image}]]*/ "회원 기본 이미지";
+    const boards = /*[[${board}]]*/ "게시글";
 
     const loginCheck = /*[[${session.loginMember != null ? true : false}]]*/ "로그인 여부";
     // -----------------------------------------------------------
     // 게시글 수정 시 사용
   </script>
+
+
   <script src="/js/common/project.js"></script>
   <script src="/js/board/boardDetail.js"></script>
   <script src="/js/board/boardComment.js"></script>
