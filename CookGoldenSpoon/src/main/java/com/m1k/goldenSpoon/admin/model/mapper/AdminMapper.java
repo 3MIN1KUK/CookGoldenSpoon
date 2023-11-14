@@ -112,6 +112,10 @@ public interface AdminMapper {
 	 */
 	int boardDelete(int boardNo);
 
+	int deleteBoardComment(unionComment deleteComment);
+
+	int deleteRecipeComment(unionComment deleteComment);
+
 
 
 }

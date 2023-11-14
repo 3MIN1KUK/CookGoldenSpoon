@@ -78,3 +78,13 @@ input[type="submit"] {
 input{
   border-radius: 10px;
 }
+
+.signupTest{
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-size: 1.2rem;
+  color: #000;
+  text-align: left;
+}
+
+.confirm{ color : green; }
+.error{ color : red; }

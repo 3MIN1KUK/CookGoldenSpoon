@@ -143,6 +143,24 @@ public class AdminController {
 		return "admin/comment_result";
 	}
 	
+	// 댓글 비동기 삭제
+	@PutMapping("commentDelete")
+	@ResponseBody
+	public int commentDelete(@RequestBody unionComment deleteComment) {
+		return service.commentDelete(deleteComment);
+	}
+	
+	// 댓글 비동기 검색
+	@GetMapping(value = "createCommentList", produces = "application/json")
+	@ResponseBody
+	public Map<String, Object> createCommentList(unionComment searchComment, Model model, int cp) {
+		
+		Map<String, Object> map = service.commentResult(searchComment, cp);
+		
+		return map;
+	}
+	
+	
 	@GetMapping("instructorApproval")
 	public String instructorApproval(Instructor searchInstructor, Model model,
 			@RequestParam(value = "cp", required = false, defaultValue = "1") int cp) {
@@ -162,6 +180,7 @@ public class AdminController {
 		return service.boardDelete(boardNo);
 	}
 	
+	// 게시글 비동기 검색
 	@GetMapping(value = "createBoardList", produces = "application/json")
 	@ResponseBody
 	public Map<String, Object> createBoardList(Board searchBoard, @RequestParam int cp){

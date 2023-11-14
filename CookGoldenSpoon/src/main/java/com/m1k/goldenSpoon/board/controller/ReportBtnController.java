@@ -46,7 +46,7 @@ public class ReportBtnController {
 			report.setMemberNickname(loginMember.getMemberNickname() );
 			
 			int result = service.csPopupBtn(report);
-			
+      
 			String path;
 			String message;
 			if(result > 0) {
@@ -55,8 +55,8 @@ public class ReportBtnController {
 			}  else {
 				message = "잘못된 신고 양식입니다";
 				path = "redirect:/";
-				
 			}
+      
 			ra.addFlashAttribute("message", message);
 			
 			return path;

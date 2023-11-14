@@ -354,6 +354,7 @@ function insertChildComment(parentNo, btn){
 
 
 
+
 // /* 신고 팝업창 */
 // const csBtn = document.getElementById("csBtn");
 
@@ -405,10 +406,6 @@ function submitFrom(popup, reportContent, reportTitle, memberNo){
         popup.window.close();
     }
 }
-
-
-
-
 
 
 

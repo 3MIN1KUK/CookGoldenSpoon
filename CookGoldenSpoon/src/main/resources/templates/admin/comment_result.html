@@ -25,18 +25,20 @@
         <th:block th:if="${#lists.size(commentList) == 0}">
           <h1 style="text-align: center; font-weight: bold; font-size: 4rem;">검색 결과가 없습니다</h1>
         </th:block>
-        <div class="comment-out-box" th:each="comment : ${commentList}" th:object="${comment}">
-          <div>
-            <span class="comment-in-text" th:text="*{memberNickname}">작성자</span>
-            <span class="comment-in-text" th:text="*{commentParentTitle}">게시글 제목</span>
-            <span class="comment-in-text" th:text="*{commentEnrollDate}">댓글 날짜</span>
-            <button class="delete-btn btn btn-outline-danger float-end">삭제</button>
-          </div>
-          <div class="comment-content" th:text="*{commentContent}">
-            댓 글 내 용
+        <div id="comment-area">
+          <div class="comment-out-box" th:each="comment : ${commentList}" th:object="${comment}">
+            <div>
+              <span class="comment-in-text" th:text="*{memberNickname}">작성자</span>
+              <span class="comment-in-text" th:text="*{commentParentTitle}">게시글 제목</span>
+              <span class="comment-in-text" th:text="*{commentEnrollDate}">댓글 날짜</span>
+              <span class="comment-in-text" th:text="*{commentType}">유형</span>
+              <button class="delete-btn btn btn-outline-danger float-end" th:value="*{commentType}" th:onclick="|deleteComment(*{commentNo}, this)|">삭제</button>
+            </div>
+            <div class="comment-content" th:text="*{commentContent}">
+              댓 글 내 용
+            </div>
           </div>
         </div>
-        <div th:text="*{commentType}"></div>
 
         <nav aria-label="Page navigation"  th:if="${#lists.size(commentList) > 0}">
           <ul class="pagination pagination-lg justify-content-center pagination-css" th:object="${map.searchComment}"> 
@@ -58,8 +60,6 @@
                   </li>
               </th:block>
     
-    
-    
               <!-- 다음 목록 시작 번호로 이동 -->
               <li class="page-item"><a class="page-link" th:href="@{/admin/commentResult(memberNo=*{memberNo}, commentParentTitle=*{commentParentTitle}, memberNickname=*{memberNickname}, commentContent=*{commentContent}, cp=${pagination.nextPage }  )}">&gt;</a></li>
     
@@ -70,5 +70,13 @@
         </nav>
       </section>
   </main>
+
+  <script th:inline="javascript">
+    const searchComment = /*[[${map.searchComment}]]*/ "리스트";
+    const cp = /*[[${map.pagination.currentPage}]]*/ "현재보는페이지";
+    searchComment.cp = cp;
+  </script>
+
+  <script src="/js/admin/comment_result.js"></script>
 </body>
 </html>

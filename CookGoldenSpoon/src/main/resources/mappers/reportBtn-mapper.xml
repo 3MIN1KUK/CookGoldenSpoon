@@ -3,6 +3,7 @@
 <mapper namespace="com.m1k.goldenSpoon.board.model.mapper.ReportBtnMapper">
 	
 	<!-- 신고버튼(통합) -->
+
 	<insert id="csPopupBtn">
 		INSERT INTO REPORT VALUES
 		(SEQ_REPORT_NO.NEXTVAL , #{memberNo}, #{reportContent} , #{reporterNo}, #{reportTitle}) 

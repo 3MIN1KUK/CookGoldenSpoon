@@ -167,7 +167,7 @@ public class AdminServiceImpl implements AdminService{
 		return map;
 	}
 	
-	
+	// 댓글 검색
 	@Override
 	public Map<String, Object> commentResult(unionComment searchComment, int cp) {
 		
@@ -223,12 +223,27 @@ public class AdminServiceImpl implements AdminService{
 		return map;
 	}
 	
+	// 게시글 삭제
 	@Override
 	public int boardDelete(int boardNo) {
-		System.out.println( "--------------------------------" + boardNo + "--------------------------------");
-
-		
 		return mapper.boardDelete(boardNo);
+	}
+	
+	// 댓글 삭제
+	@Override
+	public int commentDelete(unionComment deleteComment) {
+		
+		int result = 0;
+		
+		if (deleteComment.getCommentType().equals("게시글")) {
+			result = mapper.deleteBoardComment(deleteComment);
+		}
+		
+		if (deleteComment.getCommentType().equals("게시글")) {
+			result = mapper.deleteRecipeComment(deleteComment);
+		}
+		
+		return result;
 	}
 	
 }
