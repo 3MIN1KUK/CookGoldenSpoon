@@ -122,7 +122,13 @@ const selectCommentList = () => {
         // 화면에 출력되어 있는 댓글 목록 삭제
         const commentList = document.getElementById("commentList");
         commentList.innerHTML = "";
-
+        if(cList.length == 0){
+            const h3 = document.createElement("h3");
+            h3.innerText = "댓글이 없습니다";
+            h3.style.padding = "2rem";
+            h3.style.fontSize = "2rem";
+            commentList.append(h3);
+        }
         // cList에 저장된 요소를 하나씩 접근
         for(let comment of cList){
 
@@ -454,11 +460,15 @@ const deleteRecipeBtn = document.getElementById("deleteRecipeBtn");
 // 레시피 삭제
 if(deleteRecipeBtn != null){
     deleteRecipeBtn.addEventListener("click", ()=>{
-        
-        fetch()
-        .then()
-        .then()
-        .catch(e=>console.log(e));
+        if(confirm("레시피를 삭제하시겠습니까?")){
+            location.href = "/editRecipe/delete?recipeNo=" + recipeNo;
+        }
     });
 
+}
+
+if(editRecipeBtn != null){
+    editRecipeBtn.addEventListener("click", ()=>{
+        location.href = "/editRecipe/update?recipeNo=" + recipeNo;
+    })
 }

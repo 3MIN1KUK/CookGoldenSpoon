@@ -26,7 +26,7 @@
             <i class="fa-heart fa-solid" style="color: red;"></i> [[*{recipeLike}]]
             <i class="fa-user fa-solid" style="color: black;"></i> [[*{recipeHits}]]
           </div>
-          <div th:text="*{recipeIntro}">
+          <div class="recipe-intro" th:text="*{recipeIntro}">
             간략한 소개<br><br><br>입니다
           </div>
           <div class="recipeTag">
@@ -59,6 +59,14 @@
         </div>
         <div class="recipe-writer-info" th:unless="*{memberIntro}">
           한 줄 소개가 없습니다
+        </div>
+      </div>
+      <div class="recipe-content" th:if="*{recipeVideo}">
+        <div class="recipe-subtitle">
+          요리 영상
+        </div>
+        <div class="content recipeVideo">
+          <iframe class="recipeVideoDetail" th:src="*{recipeVideo}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
         </div>
       </div>
       <div class="recipe-content">
@@ -102,7 +110,7 @@
       </div>
       <div class="recipe-content">
         <div class="recipe-subtitle">
-          요리순서
+          요리 과정
         </div>
         <th:block th:each="recipeStep : *{recipeStepList}" th:object="${recipeStep}">
           <div class="recipe-step">
@@ -126,7 +134,7 @@
           </div>
         </div>
       </div>
-      <div th:if="${session.loginMember.memberNo == recipe.memberNo}" class="btnArea">
+      <div th:if="${session.loginMember != null and session.loginMember.memberNo == recipe.memberNo}" class="btnArea">
         <button id="editRecipeBtn">수정</button>
         <button id="deleteRecipeBtn">삭제</button>
       </div>
@@ -151,6 +159,7 @@
     </div>
   </main>
 
+  <th:block th:replace="~{common/footer}"></th:block>
   <script th:inline="javascript">
     const recipeNo = /*[[${recipeNo}]]*/ "레시피 번호";
     const loginCheck = /*[[${session.loginMember != null ? true : false}]]*/ "로그인 여부";

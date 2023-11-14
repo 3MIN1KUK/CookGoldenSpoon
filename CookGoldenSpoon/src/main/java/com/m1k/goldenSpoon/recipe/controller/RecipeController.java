@@ -209,7 +209,7 @@ public class RecipeController {
 	
     // 레시피 등록
     @PostMapping("enroll")
-    public String enroll (Recipe recipe, @SessionAttribute("loginMember") Member loginMember, 
+    public String enroll (Recipe recipe, String originRecipeVideo, @SessionAttribute("loginMember") Member loginMember, 
     	@RequestParam("thumbnail") MultipartFile thumbnail,
     	@RequestParam(value = "recipeTagName", required = false) List<String> recipeTagName,
     	@RequestParam("recipeStepContent") List<String> recipeStepContent,
@@ -221,7 +221,7 @@ public class RecipeController {
     	
     	recipe.setMemberNo(loginMember.getMemberNo());
     	
-    	int recipeNo = service.enroll(recipe, thumbnail, recipeTagName, recipeStepContent,
+    	int recipeNo = service.enroll(recipe, originRecipeVideo, thumbnail, recipeTagName, recipeStepContent,
     			recipeStepImage, completeImages, materialName, recipeMaterialQuantity);
     	
     	if( recipeNo > 0 ) {

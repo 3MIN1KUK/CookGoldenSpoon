@@ -10,7 +10,7 @@
 </head>
 <body>
   <th:block th:replace="~{common/header}"></th:block>
-  <main>
+  <main th:object="${recipe}">
     <div class="main-container">
 
       <section class="sAll">
@@ -20,14 +20,15 @@
           <h1>나의 레시피</h1>
         </div>
         
-        <form action="/recipe/enroll" method="post" enctype="multipart/form-data" id="recipeFrm">
+        <form action="/editRecipe/update" method="put" enctype="multipart/form-data" id="recipeFrm">
           <!-- 1번째 줄 대표사진 / 요리영상 -->
           <div id="firstLine">
             <div class="main-Picture">
               <div class="name">대표사진</div>
               <div class="boardImg firstPicture"> 
                 <label for="img0">
-                  <img class="preview" th:src="#{logo.default.image}">
+                  <img th:if="*{recipeThumbnail}" class="preview" th:src="*{recipeThumbnail}">
+                  <img th:unless="*{recipeThumbnail}" class="preview" th:src="#{logo.default.image}">
                 </label>
                 <!-- input type = file은 무조건 제출 -->
                 <input type="file" name="thumbnail" class="inputImage1" id="img0" accept="image/*">
@@ -36,9 +37,9 @@
             </div> 
             
             <div class="video">
-              <div id="video1">요리 영상 URL</div>
+              <div id="video1">요리 영상</div>
               <div id="video2">
-                <textarea name="originRecipeVideo" id="recipeVideo" rows="10" class="recipeVideo"></textarea>
+                <div class="thumbnail"></div><div class="link"> <button class="processBtn1"><i class="fa-solid fa-plus"></i></button></div>
               </div>
             </div>
           </div>
@@ -46,10 +47,10 @@
     
           <!-- 2번째 줄 요리이름/한줄소개 -->
           <div class="cookName">
-            <div class="cName">요리 이름</div><div class="cNameBox"><input id="recipeTitle" type="text" name="recipeTitle" class="recipe2line a" size="30"></div>
+            <div class="cName">요리 이름</div><div class="cNameBox"><input id="recipeTitle" type="text" name="recipeTitle" class="recipe2line a" size="30" th:value="*{recipeTitle}"></div>
           </div>
           <div class="cookName">
-            <div class="cName">한줄 소개</div><div class="cNameBox"><input id="recipeIntro" type="text" name="recipeIntro" class="recipe2line a" size="30"></div>
+            <div class="cName">한줄 소개</div><div class="cNameBox"><input id="recipeIntro" type="text" name="recipeIntro" class="recipe2line a" size="30" th:value="*{recipeIntro}"></div>
           </div>
     
           <!-- 3번째 줄 재료 -->
@@ -58,9 +59,9 @@
               <button type="button" id="materialBtn"><i class="fa-solid fa-plus"></i></button>
               <div class="mName">재료</div>
               <div class="mnameBox">
-                <div class="material-detail">
-                  재료명 <input type="text" name="materialName">
-                  수량 <input type="text" name="recipeMaterialQuantity">
+                <div class="material-detail" th:each="recipeMaterial : *{recipeMaterialList}" th:object="${recipeMaterial}">
+                  재료명 <input type="text" name="materialName" th:value="*{materialName}">
+                  수량 <input type="text" name="recipeMaterialQuantity" th:value="*{recipeMaterialQuantity}">
                 </div>
               </div>
             </div>
@@ -110,16 +111,17 @@
           
           <div id="parentElement">
             <button class="processAddBtn4" id="add" type="button"><i class="fa-solid fa-plus"></i></button>
-            <div class="cookProcess container backup">
+            <div class="cookProcess container backup" th:each="recipeStep : *{recipeStepList}" th:object="${recipeStep}">
               <div class="cpName">요리 과정</div>
               <div class="cpnameBox row">
                 
                 <div>
-                  <textarea name="recipeStepContent" class="recipe4line a"></textarea>
+                  <textarea name="recipeStepContent" class="recipe4line a" th:text="*{recipeStepContent}"></textarea>
                 </div>
                 
                 <label class="processPhotoBtn4">
-                  <img class="stepPreview" th:src="#{camera.image}">
+                  <img class="stepPreview" th:src="#{camera.image}" th:unless="*{recipeStepImage}">
+                  <img class="stepPreview" th:src="|*{recipeStepImage}*{recipeStepImageRename}|" th:if="*{recipeStepImage}">
                   <input type="file" name="processImages" class="processImages" style="display: none;">
                 </label>
                 <span class="stepDeleteBtn">&times;</span>
@@ -134,7 +136,9 @@
           <!-- 5번째 줄 나만의팁 -->
           <div class="tip">
               <div class="tName">나만의 팁</div>
-              <div class="tnBox"><input type="text" id="recipeTip" name="recipeTip" class="recipe5line a"></div>
+              <div class="tnBox">
+                <input type="text" id="recipeTip" name="recipeTip" class="recipe5line a" th:value="*{recipeTip}">
+              </div>
           </div>
     
           
@@ -142,14 +146,19 @@
           <!-- 7번째 줄 태그 -->
           <div class="tag">
               <div class="tagName">태그</div>
-              <div class="tagnBox"><input type="text" class="recipe7line a" size="30" id="inputTag"></div>
+              <div class="tagnBox">
+                <span class="tags" th:each="tag : *{recipeTag}">
+                  [[${tag}]]
+                  <button type="button" class="tagBtn">&times;</button>
+                  <input type="hidden" name="recipeTagName" th:value="${tag}">
+                </span>
+                <input type="text" class="recipe7line a" size="30" id="inputTag"></div>
           </div>
     
           <!-- 8번째 줄 완성사진 -->
           <div class="endPicture">
               <div class="epName">완성사진</div>
               <div class="epnBox">
-                
                 <div class="position">
                   <label class="endProcessBtn8">
                     <img class="completePreview" th:src="#{camera.image}">
@@ -203,10 +212,18 @@
 
     const logo = /*[[#{logo.default.image}]]*/ "로고 이미지";
     const camera = /*[[#{camera.image}]]*/ "로고 이미지";
+
+    const imageList = /*[[${recipe.recipePicture}]]*/ [];
+    const previewList = document.getElementsByClassName("completePreview");
+
+    for(let img of imageList){
+      previewList[img.recipeImageOrder].src = img.recipeImage + img.recipeImageRename;
+    }
+
   </script>
 
 
-  <script src="/js/recipe/enroll/enroll_recipe.js"></script>
+  <script src="/js/recipe/edit/recipeUpdate.js"></script>
   <script src="/js/common/project.js"></script>
 </body>
 </html>
