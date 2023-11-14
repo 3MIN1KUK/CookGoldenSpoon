@@ -375,24 +375,7 @@ function csComment(memberNo, boardCommentNo, thisComment){
     var popup = window.open("/board/csCustomer?" + queryString, "_blank", "width=600, height=300, left=700, top=400");
     if(popup){
         popup.onload = function(){
-            const popBtn = popup.document.getElementById("lastBtn");
-            popBtn.addEventListener('click', e => {
-                const reportContent = popup.document.getElementById("reportContent")
-                const reportTitle = popup.document.getElementById("reportTitle")
-                console.log(reportContent.value);
-                console.log(reportTitle.value);
-
-                if(reportContent.value.trim().length==0 && reportTitle.value.trim().length==0 ){
-                    e.preventDefault();
-                    alert("제목이나 신고 내용을 작성해주세요")
-
-                    return;
-                }
-                
-
-
-                submitFrom(popup, reportContent, reportTitle, memberNo)
-            })
+            
             
         }
     }
