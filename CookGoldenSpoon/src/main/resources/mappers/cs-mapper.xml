@@ -36,6 +36,15 @@
 	<select id="getNoticeListCount" resultType="_int">
 		SELECT COUNT(*) FROM "BOARD" WHERE BOARD_CODE = 2
 	</select>
+	
+	<!-- 공지사항 조회 수 증가 -->
+	<update id="updateCsHits">
+		UPDATE "BOARD" SET NOTICE_HITS = BOARD_HITS + 1
+		WHERE BOARD_NO = #{noticeNo}
+		
+	</update>
+	
+	
 
 
 </mapper>

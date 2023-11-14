@@ -4,7 +4,12 @@
    display: flex;
    flex-direction: column;
    align-items: center;
-   height: 60rem;
+   min-height: 60rem;
+}
+/* 작성창 박스 */
+.line-area{
+   width: 100%;
+   display: flex
 }
 /* 공지사항 */
 .inquiry-title{

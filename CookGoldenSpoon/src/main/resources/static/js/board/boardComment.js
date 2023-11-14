@@ -73,7 +73,16 @@ const selectCommentList = () => {
                 boardCommentEnrollDate.classList.add("board2CommentEnrollDate");
                 boardCommentEnrollDate.innerText = comment.boardCommentEnrollDate;
 
-                div1.append(boardCommentEnrollDate, boardCommentContent);
+
+                const csComment = document.createElement("div");
+                const csCommentBtn = document.createElement("button");
+                csCommentBtn.setAttribute("id", "csBtn");
+                csCommentBtn.setAttribute("onclick", `csComment(${comment.boardNo})`);
+                csCommentBtn.innerHTML = "신고하기";
+
+                csComment.append(csCommentBtn);
+
+                div1.append(csComment, boardCommentEnrollDate, boardCommentContent);
             
                 
                 // 로그인이 되어있는 경우 답글 버튼 추가
@@ -94,7 +103,6 @@ const selectCommentList = () => {
 
                         // 수정 버튼에 onclick 이벤트 속성 추가
                         updateBtn.setAttribute("onclick", "showUpdateboardComment("+comment.boardCommentNo+", this)");                        
-
 
                         // 삭제 버튼
                         const deleteCommentBtn = document.createElement("button");
@@ -345,9 +353,63 @@ function insertChildComment(parentNo, btn){
 }
 
 
+
 // /* 신고 팝업창 */
 // const csBtn = document.getElementById("csBtn");
 
 // csBtn.addEventListener("click", ()=>{
 //   window.open("/board/csCustomer", "_blank", "width=600, height=300, left=700, top=400");
 // });
+
+// function csComment(boardNo){
+//     window.open("/board/csCustomer", "_blank", "width=600, height=300, left=700, top=400");
+// }
+
+// 객체 쿼리스트링 변환
+function objectToQueryString(obj) {
+    return Object.keys(obj)
+      .map(key => {
+        // 값이 null이 아닌 경우에만 추가
+        if (obj[key] !== null && obj[key] !== undefined) {
+          return encodeURIComponent(key) + '=' + encodeURIComponent(obj[key]);
+        } else {
+          return ''; // 값이 null이면 빈 문자열 반환
+        }
+      })
+      .filter(queryPart => queryPart !== '') // 빈 문자열 제거
+      .join('&');
+  }
+
+/* 신고 팝업창 */
+
+function csComment(memberNo, boardCommentNo, thisComment){
+    boards.type = "board";
+    boards.reporterNo = memberNo;
+    boards.reporterNickname = thisComment.value;
+    boards.reportCommentNo = boardCommentNo;
+    
+    const queryString = objectToQueryString(boards);
+    console.log(boards);
+    var popup = window.open("/board/csCustomer?" + queryString, "_blank", "width=600, height=300, left=700, top=400");
+    if(popup){
+        popup.onload = function(){
+            
+            
+        }
+    }
+
+}
+
+function submitFrom(popup, reportContent, reportTitle, memberNo){
+    if(confirm("제출하시겠습니까?")){
+        popup.window.close();
+    }
+}
+
+
+
+
+
+
+
+

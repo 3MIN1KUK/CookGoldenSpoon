@@ -57,4 +57,14 @@ public class CsServiceImpl implements CsService{
 	public Notice noticeDetail(int noticeNo) {
 		return mapper.noticeDetail(noticeNo);
 	}
+
+	// 공지사항 조회 수 증가
+	@Override
+	public int updateCsHits(int noticeNo) {
+		return mapper.updateCsHits(noticeNo);
+	}
+	
+	
+	
+	
 }

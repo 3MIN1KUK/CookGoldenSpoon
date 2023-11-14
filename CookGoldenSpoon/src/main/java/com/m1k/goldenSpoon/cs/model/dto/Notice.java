@@ -17,5 +17,8 @@ public class Notice {
 	private String memberNickname;
 	private String boardEnrollDate;
 	private int boardHits;
+	private int boardCode;
+	
 
+	private String memberNo;
 }

@@ -44,14 +44,22 @@ public class BoardController {
 	 * @return
 	 */
 	@GetMapping("{boardCode:[0-9]+}")
-	public String selectAllBoard(Model model, 
-			@RequestParam(value = "cp", required = false, 
-			defaultValue = "1") int cp,
-			@PathVariable("boardCode") int boardCode
+	public String selectAllBoard(
+			Model model, 
+			@RequestParam(value = "cp", required = false, defaultValue = "1") int cp,
+			@PathVariable("boardCode") int boardCode,
+			@RequestParam Map<String, Object> paramMap
 			) throws ParseException{
-		Map<String, Object> map = service.selectAllBoard(boardCode, cp);
-		model.addAttribute("boardCode", boardCode);
-		model.addAttribute("map", map);
+		
+		if(paramMap.get("key") == null && paramMap.get("query") == null) {
+			Map<String, Object> map = service.selectAllBoard(boardCode, cp);
+			model.addAttribute("map", map);
+		}
+		else {
+			paramMap.put("boardCode", boardCode);
+			Map<String, Object> map = service.searchAllBoard(paramMap, cp);
+			model.addAttribute("map", map);
+		}
 		return "board/board";
 	}
 	

@@ -35,4 +35,10 @@ public interface CsMapper {
 	 */
 	int getNoticeListCount();
 
+	/** 공지사항 조회 수 증가
+	 * @param noticeNo
+	 * @return
+	 */
+	int updateCsHits(int noticeNo);
+
 }
