@@ -144,6 +144,8 @@ form{
   border-radius: 0rem 0rem 2rem 2rem;
   display: flex;
   width: 61rem;
+  padding: 2rem;
+  background-color: white;
 }
 
 .thumbnail{
@@ -159,6 +161,14 @@ form{
   align-items: center;
 }
 
+.recipeVideo{
+  width: 100%;
+  font-size: 2rem;
+  padding: 1rem;
+  border: none;
+  resize: none;
+  border-radius: 1rem;
+}
 
 
 /* ----------------------------------- */

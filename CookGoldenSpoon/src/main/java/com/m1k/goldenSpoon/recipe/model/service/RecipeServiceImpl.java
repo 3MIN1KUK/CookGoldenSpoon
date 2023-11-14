@@ -159,13 +159,13 @@ public class RecipeServiceImpl implements RecipeService{
 	
 	// 레시피 등록
 	@Override
-	public int enroll(Recipe recipe, MultipartFile thumbnail,
+	public int enroll(Recipe recipe, String originRecipeVideo, MultipartFile thumbnail,
 			 List<String> recipeTagName, List<String> recipeStepContent, 
 			 List<MultipartFile> recipeStepImage, List<MultipartFile> completeImages
 			 , List<String> materialName, List<String> recipeMaterialQuantity) 
 					 throws IllegalStateException, IOException {
-		
-		
+		String recipeVideo = originRecipeVideo.replace("watch?v=","embed/");
+		recipe.setRecipeVideo(recipeVideo);
 		String thumbnailRename = Util.fileRename(thumbnail.getOriginalFilename());
 		
 		recipe.setRecipeThumbnail(webPath + thumbnailRename);

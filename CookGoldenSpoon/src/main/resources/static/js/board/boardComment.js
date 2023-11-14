@@ -12,7 +12,13 @@ const selectCommentList = () => {
         // 화면에 출력되어 있는 댓글 목록 삭제
         const commentList = document.getElementById("commentList");
         commentList.innerHTML = "";
-
+        if(cList.length == 0){
+            const h1 = document.createElement("h1");
+            h1.innerText = "댓글이 없습니다";
+            h1.style.padding = "2rem";
+            commentList.append(h1);
+            console.log("하하");
+        }
         // cList에 저장된 요소를 하나씩 접근
         for(let comment of cList){
 
@@ -67,14 +73,23 @@ const selectCommentList = () => {
                 boardCommentEnrollDate.classList.add("board2CommentEnrollDate");
                 boardCommentEnrollDate.innerText = comment.boardCommentEnrollDate;
 
-                div1.append(boardCommentEnrollDate, boardCommentContent);
+
+                const csComment = document.createElement("div");
+                const csCommentBtn = document.createElement("button");
+                csCommentBtn.setAttribute("id", "csBtn");
+                csCommentBtn.setAttribute("onclick", `csComment(${comment.boardNo})`);
+                csCommentBtn.innerHTML = "신고하기";
+
+                csComment.append(csCommentBtn);
+
+                div1.append(csComment, boardCommentEnrollDate, boardCommentContent);
             
                 
                 // 로그인이 되어있는 경우 답글 버튼 추가
                 if(loginCheck){
                     // 답글 버튼
                     const childCommentBtn = document.createElement("button");
-                    childCommentBtn.setAttribute("onclick", "showInsertboardComment("+comment.boardCommentNo+", this)");
+                    childCommentBtn.setAttribute("onclick", "showInsertBoardComment("+comment.boardCommentNo+", this)");
                     childCommentBtn.classList.add("buttons");
                     childCommentBtn.innerText = "답글";
 
@@ -89,13 +104,12 @@ const selectCommentList = () => {
                         // 수정 버튼에 onclick 이벤트 속성 추가
                         updateBtn.setAttribute("onclick", "showUpdateboardComment("+comment.boardCommentNo+", this)");                        
 
-
                         // 삭제 버튼
                         const deleteCommentBtn = document.createElement("button");
                         deleteCommentBtn.classList.add("buttons");
                         deleteCommentBtn.innerText = "삭제";
                         // 삭제 버튼에 onclick 이벤트 속성 추가
-                        deleteCommentBtn.setAttribute("onclick", "deleteboardComment("+comment.boardCommentNo+")");                       
+                        deleteCommentBtn.setAttribute("onclick", "deleteBoardComment("+comment.boardCommentNo+")");                       
 
                         div1.append(updateBtn, deleteCommentBtn);
 
@@ -150,7 +164,7 @@ commentEnrollBtn.addEventListener("click", ()=>{
     .catch(e=>console.log(e));
 });
 
-function deleteboardComment(boardCommentNo){
+function deleteBoardComment(boardCommentNo){
 
     if(confirm("댓글을 삭제하시겠습니까?")){
 
@@ -259,7 +273,7 @@ function updateboardComment(boardCommentNo, btn){
     .catch(e=>console.log(e));
 }
 
-function showInsertboardComment(parentNo, btn){
+function showInsertBoardComment(parentNo, btn){
 
     const temp = document.getElementsByClassName("board2CommentReply");
 
@@ -339,9 +353,60 @@ function insertChildComment(parentNo, btn){
 }
 
 
-/* 신고 팝업창 */
-const csBtn = document.getElementById("csBtn");
 
-csBtn.addEventListener("click", ()=>{
-  window.open("/board/csCustomer", "_blank", "width=600, height=300, left=700, top=400");
-});
+
+// /* 신고 팝업창 */
+// const csBtn = document.getElementById("csBtn");
+
+// csBtn.addEventListener("click", ()=>{
+//   window.open("/board/csCustomer", "_blank", "width=600, height=300, left=700, top=400");
+// });
+
+// function csComment(boardNo){
+//     window.open("/board/csCustomer", "_blank", "width=600, height=300, left=700, top=400");
+// }
+
+// 객체 쿼리스트링 변환
+function objectToQueryString(obj) {
+    return Object.keys(obj)
+      .map(key => {
+        // 값이 null이 아닌 경우에만 추가
+        if (obj[key] !== null && obj[key] !== undefined) {
+          return encodeURIComponent(key) + '=' + encodeURIComponent(obj[key]);
+        } else {
+          return ''; // 값이 null이면 빈 문자열 반환
+        }
+      })
+      .filter(queryPart => queryPart !== '') // 빈 문자열 제거
+      .join('&');
+  }
+
+/* 신고 팝업창 */
+
+function csComment(memberNo, boardCommentNo, thisComment){
+    boards.type = "board";
+    boards.reporterNo = memberNo;
+    boards.reporterNickname = thisComment.value;
+    boards.reportCommentNo = boardCommentNo;
+    
+    const queryString = objectToQueryString(boards);
+    console.log(boards);
+    var popup = window.open("/board/csCustomer?" + queryString, "_blank", "width=600, height=300, left=700, top=400");
+    if(popup){
+        popup.onload = function(){
+            
+            
+        }
+    }
+
+}
+
+function submitFrom(popup, reportContent, reportTitle, memberNo){
+    if(confirm("제출하시겠습니까?")){
+        popup.window.close();
+    }
+}
+
+
+
+

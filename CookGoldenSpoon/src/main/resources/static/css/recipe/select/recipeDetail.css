@@ -290,7 +290,9 @@
 .step-content{
   justify-content: space-between;
 }
-
+.recipe-intro{
+  font-size: 3rem;
+}
 .recipe-info{
   justify-content: space-evenly;
 }
@@ -317,4 +319,14 @@
   height: 4rem;
   border-radius: 1rem;
   margin: 1rem;
+}
+
+.recipeVideo{
+  min-height: 40rem;
+}
+
+.recipeVideoDetail{
+  margin: auto;
+  width: 100%;
+  height: 50rem;
 }

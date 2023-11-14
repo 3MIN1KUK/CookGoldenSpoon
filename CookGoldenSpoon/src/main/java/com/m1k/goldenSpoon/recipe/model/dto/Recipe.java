@@ -16,6 +16,7 @@ public class Recipe {
 	private String recipeThumbnail;
 	private String recipeIntro;
 	private String recipeTip;
+	private String recipeVideo;
 	private String recipeEnrollDate;
 	private String recipeDelFl;
 	private String recipeTime;

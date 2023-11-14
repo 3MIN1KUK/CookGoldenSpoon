@@ -36,7 +36,7 @@
 	</select>
 	
 	<select id="recipeDetail" resultMap="recipeDetail_rm">
-		SELECT RECIPE_NO, RECIPE_TITLE, RECIPE_THUMBNAIL, RECIPE_INTRO, RECIPE_TIP,
+		SELECT RECIPE_NO, RECIPE_TITLE, RECIPE_THUMBNAIL, RECIPE_INTRO, RECIPE_TIP, RECIPE_VIDEO,
 			TO_CHAR(RECIPE_ENROLL_DATE, 'YYYY-MM-DD') RECIPE_ENROLL_DATE,
 			RECIPE_TIME, RECIPE_PEOPLE, RECIPE_LEVEL, MEMBER_NO, MEMBER_NICKNAME,
 			MEMBER_PROFILE, MEMBER_INTRO, RECIPE_HITS, (SELECT COUNT(*) FROM RECIPE_LIKE RL WHERE RL.RECIPE_NO = R.RECIPE_NO) RECIPE_LIKE
@@ -89,12 +89,13 @@
 		LEFT JOIN RECIPE_STEP RS ON(R.RECIPE_NO = RS.RECIPE_NO) 
 		LEFT JOIN RECIPE_MATERIAL RM ON(R.RECIPE_NO = RM.RECIPE_NO)
 		LEFT JOIN MATERIAL M ON(M.MATERIAL_NO = RM.MATERIAL_NO)
-		WHERE RECIPE_TITLE LIKE '%${inputSearch}%'
+		WHERE (RECIPE_TITLE LIKE '%${inputSearch}%'
 		OR RECIPE_INTRO LIKE '%${inputSearch}%'
 		OR RECIPE_TIP LIKE '%${inputSearch}%'
 		OR RECIPE_TAG_NAME LIKE '%${inputSearch}%'
 		OR RECIPE_STEP_CONTENT LIKE '%${inputSearch}%'
-		OR MATERIAL_NAME LIKE '%${inputSearch}%'
+		OR MATERIAL_NAME LIKE '%${inputSearch}%')
+		AND RECIPE_DEL_FL = 'N'
 	</select>
 	
 	<select id="selectSearchRecipe" resultMap="selectRecipe_rm">
@@ -106,12 +107,13 @@
 		LEFT JOIN RECIPE_STEP RS ON(R.RECIPE_NO = RS.RECIPE_NO) 
 		LEFT JOIN RECIPE_MATERIAL RM ON(R.RECIPE_NO = RM.RECIPE_NO)
 		LEFT JOIN MATERIAL M ON(M.MATERIAL_NO = RM.MATERIAL_NO)
-		WHERE RECIPE_TITLE LIKE '%${inputSearch}%'
+		WHERE (RECIPE_TITLE LIKE '%${inputSearch}%'
 		OR RECIPE_INTRO LIKE '%${inputSearch}%'
 		OR RECIPE_TIP LIKE '%${inputSearch}%'
 		OR RECIPE_TAG_NAME LIKE '%${inputSearch}%'
 		OR RECIPE_STEP_CONTENT LIKE '%${inputSearch}%'
-		OR MATERIAL_NAME LIKE '%${inputSearch}%'
+		OR MATERIAL_NAME LIKE '%${inputSearch}%')
+		AND RECIPE_DEL_FL = 'N'
 		<if test='orderBy == 1'>
 			ORDER BY RECIPE_LIKE DESC
 		</if>
@@ -217,7 +219,7 @@
 		
 		INSERT INTO "RECIPE"
 		VALUES ( ${recipeNo} , #{recipeTitle}, #{recipeThumbnail}, #{recipeIntro}, #{recipeTip}, DEFAULT, DEFAULT,
-		#{recipeTime}, ${memberNo}, DEFAULT, #{recipePeople}, #{recipeLevel})
+		#{recipeTime}, ${memberNo}, DEFAULT, #{recipePeople}, #{recipeLevel}, #{recipeVideo})
 	</insert>
 	
 	<!--레시피 과정 삽입-->

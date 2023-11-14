@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>기본 양식</title>
+  <link rel="stylesheet" href="/css/common/basicForm.css">
+  <link rel="stylesheet" href="/css/recipe/enroll/enroll_recipe.css">
+  <script src="https://kit.fontawesome.com/921e1d60a7.js" crossorigin="anonymous"></script>
+</head>
+<body>
+  <th:block th:replace="~{common/header}"></th:block>
+  <main th:object="${recipe}">
+    <div class="main-container">
+
+      <section class="sAll">
+        
+        <div class="topName">
+          
+          <h1>나의 레시피</h1>
+        </div>
+        
+        <form action="/editRecipe/update" method="put" enctype="multipart/form-data" id="recipeFrm">
+          <!-- 1번째 줄 대표사진 / 요리영상 -->
+          <div id="firstLine">
+            <div class="main-Picture">
+              <div class="name">대표사진</div>
+              <div class="boardImg firstPicture"> 
+                <label for="img0">
+                  <img th:if="*{recipeThumbnail}" class="preview" th:src="*{recipeThumbnail}">
+                  <img th:unless="*{recipeThumbnail}" class="preview" th:src="#{logo.default.image}">
+                </label>
+                <!-- input type = file은 무조건 제출 -->
+                <input type="file" name="thumbnail" class="inputImage1" id="img0" accept="image/*">
+                <span class="delete-image">&times;</span>
+              </div>
+            </div> 
+            
+            <div class="video">
+              <div id="video1">요리 영상</div>
+              <div id="video2">
+                <div class="thumbnail"></div><div class="link"> <button class="processBtn1"><i class="fa-solid fa-plus"></i></button></div>
+              </div>
+            </div>
+          </div>
+    
+    
+          <!-- 2번째 줄 요리이름/한줄소개 -->
+          <div class="cookName">
+            <div class="cName">요리 이름</div><div class="cNameBox"><input id="recipeTitle" type="text" name="recipeTitle" class="recipe2line a" size="30" th:value="*{recipeTitle}"></div>
+          </div>
+          <div class="cookName">
+            <div class="cName">한줄 소개</div><div class="cNameBox"><input id="recipeIntro" type="text" name="recipeIntro" class="recipe2line a" size="30" th:value="*{recipeIntro}"></div>
+          </div>
+    
+          <!-- 3번째 줄 재료 -->
+          <div class="materialAndInfo">
+            <div class="material">
+              <button type="button" id="materialBtn"><i class="fa-solid fa-plus"></i></button>
+              <div class="mName">재료</div>
+              <div class="mnameBox">
+                <div class="material-detail" th:each="recipeMaterial : *{recipeMaterialList}" th:object="${recipeMaterial}">
+                  재료명 <input type="text" name="materialName" th:value="*{materialName}">
+                  수량 <input type="text" name="recipeMaterialQuantity" th:value="*{recipeMaterialQuantity}">
+                </div>
+              </div>
+            </div>
+            <!-- 6번째 줄 요리정보 -->
+            <div class="cookInformation">
+              <div class="ciName">요리 정보</div>
+              <div class="cinBox">
+                
+                <div>
+                  인원<select name="recipePeople" id="selectBox">
+                    <option>1명</option>
+                    <option>2명</option>
+                    <option>3명</option>
+                    <option>4명 이상</option>
+                  </select>
+                </div>
+
+                <div>
+                  시간<select name="recipeTime" id="selectBox">
+                      <option>30분 이하</option>
+                      <option>1시간 이하</option>
+                      <option>1시간반 이하</option>
+                      <option>2시간 이하</option>
+                      <option>2시간 초과</option>
+                    </select>
+                </div>
+    
+              <div>
+                난이도
+                <select name="recipeLevel" id="selectBox">
+                  <option>하</option>
+                  <option>중하</option>
+                  <option>중</option>
+                  <option>중상</option>
+                  <option>상</option>
+                </select>
+              </div>
+              </div>
+            </div>
+          </div> 
+
+
+    
+          <!-- 4번째 줄 요리과정 -->
+          <div class="btnControl">
+          </div>
+          
+          <div id="parentElement">
+            <button class="processAddBtn4" id="add" type="button"><i class="fa-solid fa-plus"></i></button>
+            <div class="cookProcess container backup" th:each="recipeStep : *{recipeStepList}" th:object="${recipeStep}">
+              <div class="cpName">요리 과정</div>
+              <div class="cpnameBox row">
+                
+                <div>
+                  <textarea name="recipeStepContent" class="recipe4line a" th:text="*{recipeStepContent}"></textarea>
+                </div>
+                
+                <label class="processPhotoBtn4">
+                  <img class="stepPreview" th:src="#{camera.image}" th:unless="*{recipeStepImage}">
+                  <img class="stepPreview" th:src="|*{recipeStepImage}*{recipeStepImageRename}|" th:if="*{recipeStepImage}">
+                  <input type="file" name="processImages" class="processImages" style="display: none;">
+                </label>
+                <span class="stepDeleteBtn">&times;</span>
+                <!-- <span type="button" class="x-btn">&times;</span> -->
+              </div>
+            </div>
+          </div>
+
+
+
+    
+          <!-- 5번째 줄 나만의팁 -->
+          <div class="tip">
+              <div class="tName">나만의 팁</div>
+              <div class="tnBox">
+                <input type="text" id="recipeTip" name="recipeTip" class="recipe5line a" th:value="*{recipeTip}">
+              </div>
+          </div>
+    
+          
+    
+          <!-- 7번째 줄 태그 -->
+          <div class="tag">
+              <div class="tagName">태그</div>
+              <div class="tagnBox">
+                <span class="tags" th:each="tag : *{recipeTag}">
+                  [[${tag}]]
+                  <button type="button" class="tagBtn">&times;</button>
+                  <input type="hidden" name="recipeTagName" th:value="${tag}">
+                </span>
+                <input type="text" class="recipe7line a" size="30" id="inputTag"></div>
+          </div>
+    
+          <!-- 8번째 줄 완성사진 -->
+          <div class="endPicture">
+              <div class="epName">완성사진</div>
+              <div class="epnBox">
+                <div class="position">
+                  <label class="endProcessBtn8">
+                    <img class="completePreview" th:src="#{camera.image}">
+                    <input type="file" name="completeImages" class="completeImages" style="display: none;">
+                  </label>
+                  <span class="completeDeleteBtn">&times;</span>
+                </div>
+                <div class="position">
+                  <label class="endProcessBtn8">
+                    <img class="completePreview" th:src="#{camera.image}">
+                    <input type="file" name="completeImages" class="completeImages" style="display: none;">
+                  </label>
+                  <span class="completeDeleteBtn">&times;</span>
+                </div>
+                <div class="position">
+                  <label class="endProcessBtn8">
+                    <img class="completePreview" th:src="#{camera.image}">
+                    <input type="file" name="completeImages" class="completeImages" style="display: none;">
+                  </label>
+                  <span class="completeDeleteBtn">&times;</span>
+                </div>
+                <div class="position">
+                  <label class="endProcessBtn8">
+                    <img class="completePreview" th:src="#{camera.image}">
+                    <input type="file" name="completeImages" class="completeImages" style="display: none;">
+                  </label>
+                  <span class="completeDeleteBtn">&times;</span>
+                </div>
+
+
+              </div>
+        
+          </div>
+    
+          <!-- 9번째 줄 제출버튼 -->
+          <div class="pBtn9">
+            <button type="submit" class="btn9 btn9-1 subBtn">저장</button>
+            <button class="btn9 cancelBtn">취소</button>
+          </div>
+          
+        </form>
+        
+      </section>
+
+    </div>
+  </main>
+
+  <script th:inline="javascript">
+    const message = /*[[${message}]]*/ "전달 받은 message";
+    if(message != null) alert(message);
+
+    const logo = /*[[#{logo.default.image}]]*/ "로고 이미지";
+    const camera = /*[[#{camera.image}]]*/ "로고 이미지";
+
+    const imageList = /*[[${recipe.recipePicture}]]*/ [];
+    const previewList = document.getElementsByClassName("completePreview");
+
+    for(let img of imageList){
+      previewList[img.recipeImageOrder].src = img.recipeImage + img.recipeImageRename;
+    }
+
+  </script>
+
+
+  <script src="/js/recipe/edit/recipeUpdate.js"></script>
+  <script src="/js/common/project.js"></script>
+</body>
+</html>
