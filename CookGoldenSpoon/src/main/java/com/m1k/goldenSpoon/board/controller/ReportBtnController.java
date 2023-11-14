@@ -29,12 +29,14 @@ public class ReportBtnController {
 		// 신고하기 눌렀을 때 팝업 창
 		@GetMapping("csCustomer")
 		public String csPopup() {
-			return "board/csCustomer";
+			return "board/boardComment";
 		}
 		
 		// 팝업 신고하기
-		@PostMapping("board/csCustomer")
-		public String csPopupBtn(Board board, @SessionAttribute("loginMember") Member loginMember, @PathVariable("boardCode") int boardCode,
+		@PostMapping("csCustomer")
+		public String csPopupBtn(Board board,
+				@SessionAttribute("loginMember") Member loginMember,
+				@PathVariable("boardCode") int boardCode,
 				 RedirectAttributes ra) {
 			board.setMemberNo(loginMember.getMemberNo());
 			board.setBoardCode(boardCode);
@@ -52,6 +54,7 @@ public class ReportBtnController {
 			} else {
 				message = "잘못된 신고 양식입니다";
 				path = "redirect:/";
+				
 			}
 			ra.addFlashAttribute("message", message);
 			

@@ -67,7 +67,16 @@ const selectCommentList = () => {
                 boardCommentEnrollDate.classList.add("board2CommentEnrollDate");
                 boardCommentEnrollDate.innerText = comment.boardCommentEnrollDate;
 
-                div1.append(boardCommentEnrollDate, boardCommentContent);
+
+                const csComment = document.createElement("div");
+                const csCommentBtn = document.createElement("button");
+                csCommentBtn.setAttribute("id", "csBtn");
+                csCommentBtn.setAttribute("onclick", `csComment(${comment.boardNo})`);
+                csCommentBtn.innerHTML = "신고하기";
+
+                csComment.append(csCommentBtn);
+
+                div1.append(csComment, boardCommentEnrollDate, boardCommentContent);
             
                 
                 // 로그인이 되어있는 경우 답글 버튼 추가
@@ -88,7 +97,6 @@ const selectCommentList = () => {
 
                         // 수정 버튼에 onclick 이벤트 속성 추가
                         updateBtn.setAttribute("onclick", "showUpdateboardComment("+comment.boardCommentNo+", this)");                        
-
 
                         // 삭제 버튼
                         const deleteCommentBtn = document.createElement("button");
@@ -345,3 +353,7 @@ const csBtn = document.getElementById("csBtn");
 csBtn.addEventListener("click", ()=>{
   window.open("/board/csCustomer", "_blank", "width=600, height=300, left=700, top=400");
 });
+
+function csComment(boardNo){
+    window.open("/board/csCustomer", "_blank", "width=600, height=300, left=700, top=400");
+}

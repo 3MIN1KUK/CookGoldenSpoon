@@ -26,4 +26,11 @@ public interface CsService {
 	 */
 	Notice noticeDetail(int noticeNo);
 
+	/** 공지사항 조회수
+	 * @param noticeNo
+	 * @return
+	 */
+	int updateCsHits(int noticeNo);
+
+
 }
