@@ -28,6 +28,14 @@ public interface BoardService {
 	 */
 	int updateBoardHits(int boardNo);
 
+	/** 자유게시판 검색 목록 조회
+	 * @param boardCode
+	 * @param cp
+	 * @return
+	 */
+	Map<String, Object> searchAllBoard(Map<String, Object> paramMap, int cp);
+
+
 
 
 }
