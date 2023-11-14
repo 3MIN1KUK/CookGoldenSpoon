@@ -1,6 +1,7 @@
 package com.m1k.goldenSpoon.board.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.m1k.goldenSpoon.board.model.dto.Board;
+import com.m1k.goldenSpoon.board.model.dto.Report;
 import com.m1k.goldenSpoon.board.model.service.ReportBtnService;
 import com.m1k.goldenSpoon.member.model.dto.Member;
 import com.m1k.goldenSpoon.myPage.model.dto.MyPagePwChange;
@@ -28,30 +30,29 @@ public class ReportBtnController {
 	
 		// 신고하기 눌렀을 때 팝업 창
 		@GetMapping("csCustomer")
-		public String csPopup() {
-			return "board/boardComment";
+		public String csPopup(Report report, Model model) {
+			
+			model.addAttribute("report", report);
+			
+			return "board/boardCs";
 		}
 		
 		// 팝업 신고하기
 		@PostMapping("csCustomer")
-		public String csPopupBtn(Board board,
+		public String csPopupBtn(Report report,
 				@SessionAttribute("loginMember") Member loginMember,
-				@PathVariable("boardCode") int boardCode,
 				 RedirectAttributes ra) {
-			board.setMemberNo(loginMember.getMemberNo());
-			board.setBoardCode(boardCode);
+			report.setMemberNo(loginMember.getMemberNo() );
+			report.setMemberNickname(loginMember.getMemberNickname() );
 			
-			int result = service.csPopupBtn(board);
+			int result = service.csPopupBtn(report);
 			
 			String path;
 			String message;
 			if(result > 0) {
 				message = "신고가 접수되었습니다.";
-				path = "board/csCustomer";
-			} else if(result == -1) {
-				message = "글을 작성해주세요";
 				path = "redirect:/";
-			} else {
+			}  else {
 				message = "잘못된 신고 양식입니다";
 				path = "redirect:/";
 				
