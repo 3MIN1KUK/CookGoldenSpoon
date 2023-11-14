@@ -2,9 +2,24 @@
 
   <form action="/board/csCustomer" method="POST">
     <div>
-      <input type="text" name="inquiryTitle" id="inquiryTitle">
-      <textarea name="inquiryContent" id="inquiryContent" cols="30" rows="10"></textarea>
+      <input type="text" name="reportTitle" id="reportTitle">
     </div>
+    <div th:text="${report}">
+
+    </div>
+    <div>
+      <textarea name="reportContent" id="reportContent" cols="30" rows="10"></textarea>
+    </div>
+    <button th:onclick="|lastBtn(${report.reporterNo},this)|" id="lastBtn">제출</button>
   </form>
 
+
 </div>
+<script>
+  function lastBtn(reporterNo, this) {
+
+  window.close();
+  alert("호에에엥");
+  }
+
+</script>

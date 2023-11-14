@@ -347,13 +347,67 @@ function insertChildComment(parentNo, btn){
 }
 
 
+// 객체 쿼리스트링 변환
+function objectToQueryString(obj) {
+    return Object.keys(obj)
+      .map(key => {
+        // 값이 null이 아닌 경우에만 추가
+        if (obj[key] !== null && obj[key] !== undefined) {
+          return encodeURIComponent(key) + '=' + encodeURIComponent(obj[key]);
+        } else {
+          return ''; // 값이 null이면 빈 문자열 반환
+        }
+      })
+      .filter(queryPart => queryPart !== '') // 빈 문자열 제거
+      .join('&');
+  }
+
 /* 신고 팝업창 */
-const csBtn = document.getElementById("csBtn");
 
-csBtn.addEventListener("click", ()=>{
-  window.open("/board/csCustomer", "_blank", "width=600, height=300, left=700, top=400");
-});
+function csComment(memberNo, boardCommentNo, thisComment){
+    boards.type = "board";
+    boards.reporterNo = memberNo;
+    boards.reporterNickname = thisComment.value;
+    boards.reportCommentNo = boardCommentNo;
+    
+    const queryString = objectToQueryString(boards);
+    console.log(boards);
+    var popup = window.open("/board/csCustomer?" + queryString, "_blank", "width=600, height=300, left=700, top=400");
+    if(popup){
+        popup.onload = function(){
+            const popBtn = popup.document.getElementById("lastBtn");
+            popBtn.addEventListener('click', e => {
+                const reportContent = popup.document.getElementById("reportContent")
+                const reportTitle = popup.document.getElementById("reportTitle")
+                console.log(reportContent.value);
+                console.log(reportTitle.value);
 
-function csComment(boardNo){
-    window.open("/board/csCustomer", "_blank", "width=600, height=300, left=700, top=400");
+                if(reportContent.value.trim().length==0 && reportTitle.value.trim().length==0 ){
+                    e.preventDefault();
+                    alert("제목이나 신고 내용을 작성해주세요")
+
+                    return;
+                }
+                
+
+
+                submitFrom(popup, reportContent, reportTitle, memberNo)
+            })
+            
+        }
+    }
+
 }
+
+function submitFrom(popup, reportContent, reportTitle, memberNo){
+    if(confirm("제출하시겠습니까?")){
+        popup.window.close();
+    }
+}
+
+
+
+
+
+
+

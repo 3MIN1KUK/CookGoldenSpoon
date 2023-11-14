@@ -27,7 +27,7 @@
                 </div>
                 <div class="commentNickname" th:text="*{memberNickname}">닉네임</div>
                 <div class="contentContainer">
-                  <div><button id="csBtn" th:onclick="csComment(*{boardNo})">신고하기</button></div>
+                  <div><button id="csBtn" th:value="*{memberNickname}" th:onclick="|csComment(*{memberNo}, *{boardCommentNo}, this)|">신고하기</button></div>
                   <div class="board2CommentEnrollDate" th:text="*{boardCommentEnrollDate}"></div>
                   <div class="board2-review-content" th:text="*{boardCommentContent}"></div>
                   <th:block th:if="${session.loginMember != null and session.loginMember.memberNo == comment.memberNo}">

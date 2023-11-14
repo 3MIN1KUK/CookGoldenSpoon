@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.m1k.goldenSpoon.board.model.dto.Board;
+import com.m1k.goldenSpoon.board.model.dto.Report;
 import com.m1k.goldenSpoon.board.model.mapper.ReportBtnMapper;
 import com.m1k.goldenSpoon.myPage.model.dto.MyPagePwChange;
 
@@ -18,8 +19,8 @@ public class ReportBtnServiceImpl implements ReportBtnService{
 
 	// 신고버튼
 	@Override
-	public int csPopupBtn(Board board) {
-		return mapper.csPopupBtn(board);
+	public int csPopupBtn(Report report) {
+		return mapper.csPopupBtn(report);
 	}
 	
 	
