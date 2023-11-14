@@ -3,7 +3,9 @@
   <div class="comment-list-area">
       
       <div class="board2-review-container" id="commentList">
-
+        <h3 th:if="${#lists.size(board.boardCommentList) == 0}" style="padding: 2rem; font-size: 2rem;">
+          댓글이 없습니다
+        </h3>
           <!-- 대댓글인 경우 child-comment 클래스 추가 -->
           <div class="board2-review" 
               th:each="comment : ${board.boardCommentList}" th:object="${comment}"

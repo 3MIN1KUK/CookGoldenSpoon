@@ -177,6 +177,7 @@ nav>ul{
   max-width: 100%;
   max-width: 100%;
   margin: auto;
+  border-radius: 2rem;
 }
 .recipe-name, .recipe-hashtag{
   padding-top: 0.5rem;

@@ -12,7 +12,13 @@ const selectCommentList = () => {
         // 화면에 출력되어 있는 댓글 목록 삭제
         const commentList = document.getElementById("commentList");
         commentList.innerHTML = "";
-
+        if(cList.length == 0){
+            const h1 = document.createElement("h1");
+            h1.innerText = "댓글이 없습니다";
+            h1.style.padding = "2rem";
+            commentList.append(h1);
+            console.log("하하");
+        }
         // cList에 저장된 요소를 하나씩 접근
         for(let comment of cList){
 
@@ -74,7 +80,7 @@ const selectCommentList = () => {
                 if(loginCheck){
                     // 답글 버튼
                     const childCommentBtn = document.createElement("button");
-                    childCommentBtn.setAttribute("onclick", "showInsertboardComment("+comment.boardCommentNo+", this)");
+                    childCommentBtn.setAttribute("onclick", "showInsertBoardComment("+comment.boardCommentNo+", this)");
                     childCommentBtn.classList.add("buttons");
                     childCommentBtn.innerText = "답글";
 
@@ -95,7 +101,7 @@ const selectCommentList = () => {
                         deleteCommentBtn.classList.add("buttons");
                         deleteCommentBtn.innerText = "삭제";
                         // 삭제 버튼에 onclick 이벤트 속성 추가
-                        deleteCommentBtn.setAttribute("onclick", "deleteboardComment("+comment.boardCommentNo+")");                       
+                        deleteCommentBtn.setAttribute("onclick", "deleteBoardComment("+comment.boardCommentNo+")");                       
 
                         div1.append(updateBtn, deleteCommentBtn);
 
@@ -150,7 +156,7 @@ commentEnrollBtn.addEventListener("click", ()=>{
     .catch(e=>console.log(e));
 });
 
-function deleteboardComment(boardCommentNo){
+function deleteBoardComment(boardCommentNo){
 
     if(confirm("댓글을 삭제하시겠습니까?")){
 
@@ -259,7 +265,7 @@ function updateboardComment(boardCommentNo, btn){
     .catch(e=>console.log(e));
 }
 
-function showInsertboardComment(parentNo, btn){
+function showInsertBoardComment(parentNo, btn){
 
     const temp = document.getElementsByClassName("board2CommentReply");
 
@@ -339,9 +345,9 @@ function insertChildComment(parentNo, btn){
 }
 
 
-/* 신고 팝업창 */
-const csBtn = document.getElementById("csBtn");
+// /* 신고 팝업창 */
+// const csBtn = document.getElementById("csBtn");
 
-csBtn.addEventListener("click", ()=>{
-  window.open("/board/csCustomer", "_blank", "width=600, height=300, left=700, top=400");
-});
+// csBtn.addEventListener("click", ()=>{
+//   window.open("/board/csCustomer", "_blank", "width=600, height=300, left=700, top=400");
+// });
