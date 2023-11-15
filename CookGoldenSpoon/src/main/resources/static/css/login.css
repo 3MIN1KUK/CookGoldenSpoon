@@ -70,3 +70,9 @@ a{
 input{
   border-radius: 10px;
 }
+
+.idCkBox{
+  width: 1rem;
+  height: 1rem;
+}
+
