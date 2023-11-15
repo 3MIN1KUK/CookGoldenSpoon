@@ -124,7 +124,7 @@
           </div>
         </th:block>
       </div>
-      <div class="recipe-content  recipe-photos">
+      <div th:unless="*{#lists.size(recipePicture) == 0}" class="recipe-content  recipe-photos">
         <div class="recipe-subtitle">
           완성 사진
         </div>

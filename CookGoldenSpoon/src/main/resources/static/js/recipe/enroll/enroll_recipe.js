@@ -14,9 +14,6 @@ const endProcessBtn8 = document.getElementsByClassName("endProcessBtn8")
 /* 레시피 제출 버튼 */
 const subBtn = document.getElementsByClassName("subBtn");
 
-/* 레시피 미리보기 버튼 */
-const prBtn = document.getElementsByClassName("prBtn");
-
 
 /* 사진 추가 버튼 백업용 */
 
@@ -208,7 +205,6 @@ const changeStepImageFn = (imageInput)=>{
   
   for(let i=0; i<stepInputImageList.length ; i++){
     if(stepInputImageList[i] == imageInput){
-      console.log(`index : ${i}`);
       order = i;
     }
   }
@@ -275,7 +271,7 @@ for(let i = 0; i<stepInputImageList.length; i++){
   
   // 이미지 선택 또는 취소 시
   stepInputImageList[i].addEventListener("change", e=>{
-    changeStepImageFn(e.target, i);
+    changeStepImageFn(e.target);
   });
 
   // x 버튼 클릭 시
@@ -409,6 +405,19 @@ inputTag.addEventListener("keyup", e=>{
 
 
   if(e.key == "Enter"){
+    const tags = document.querySelectorAll('input[name="recipeTagName"]');
+    let maxLength = "";
+    if(tags.length > 0){
+      for(let tag of tags){
+        maxLength += tag.value;
+      }
+      if(maxLength.length > 50){
+        alert("더 이상 태그를 입력할 수 없습니다");
+        e.preventDefault
+        return;
+      }
+    }
+
 
     tagName = e.target.value;
 
@@ -434,6 +443,8 @@ inputTag.addEventListener("keyup", e=>{
     button.addEventListener("click", event=>{
       event.target.parentElement.remove();
     });
+
+    
   }
 });
 

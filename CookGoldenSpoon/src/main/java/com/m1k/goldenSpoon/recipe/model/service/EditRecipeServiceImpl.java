@@ -52,11 +52,9 @@ public class EditRecipeServiceImpl implements EditRecipeService{
 			String deleteCompleteOrder, String deleteThumbnail) throws IllegalStateException, IOException {
 		
 		String recipeVideo = originRecipeVideo.replace("watch?v=","embed/");
-		recipe.setRecipeVideo(recipeVideo);
+		recipe.setRecipeVideo(recipeVideo.substring(0, recipeVideo.indexOf("embed/")+17));
 		
 		
-		
-		System.out.println("============thumbnail==========" + thumbnail.getSize());
 		
 		// 썸네일이 삭제됐을 때
 		if(!deleteThumbnail.equals("")) {
@@ -76,7 +74,7 @@ public class EditRecipeServiceImpl implements EditRecipeService{
 		List<RecipeMaterial> materialList = new ArrayList<>();
 
 		for(int i = 0; i<materialName.size(); i++) {
-			if(materialName.get(i).trim().length() != 0) {
+			if(materialName.get(i) != null) {
 				int materialResult = recipeMapper.checkMaterial(materialName.get(i));
 
 				if(materialResult == 0) {
@@ -141,7 +139,7 @@ public class EditRecipeServiceImpl implements EditRecipeService{
 			} // if문 끝
 		}// for문 끝
 
-		// 과정 이미지 경로 불러오기
+		// 과정 이미지 삭제
 		List<String> stepImgPath = mapper.stepImgPath(recipe.getRecipeNo());
 		for(int i = 0; i<stepImgPath.size(); i++) {
 			File deleteFile = new File(folderPath + stepImgPath.get(i));
@@ -159,26 +157,29 @@ public class EditRecipeServiceImpl implements EditRecipeService{
 			step.setRecipeNo(recipe.getRecipeNo()); 
 			step.setRecipeStepContent(recipeStepContent.get(i));
 			step.setRecipeStepOrder(i);
-			if(recipeStepImage.get(i).getSize() > 0 && recipeStepImage.get(i) != null) {
+			if(recipeStepImage.get(i).getSize() > 0) {
 				step.setRecipeStepImageName( recipeStepImage.get(i).getOriginalFilename() ); 
 				step.setRecipeStepImage(webPath);
 				step.setRecipeStepImageRename(Util.fileRename( recipeStepImage.get(i).getOriginalFilename() ));
 				step.setUploadFile(recipeStepImage.get(i));
-
 			} // if문 끝
+//			System.out.println("=-=-=recipeStepImage.get(i).getSize()-=-=-" + recipeStepImage.get(i).getSize());
 			uploadList1.add(step);
 		}// for문 끝
 
+		
 		int result4 = recipeMapper.insertProcessList(uploadList1);
 
-		if(!uploadList2.isEmpty() && result4 == uploadList1.size() && result > 0) {
+		if(!uploadList2.isEmpty()) {
 			result = 1;
-			
 			for(RecipePicture img : uploadList2) {
 				if(img.getUploadFile() != null) {
 					img.getUploadFile().transferTo(new File(folderPath + img.getRecipeImageRename()));
 				}
 			}
+		}
+		if(result4 == uploadList1.size()) {
+			result = 1;
 			for(RecipeStep img : uploadList1) {
 				if(img.getUploadFile() != null) {
 					img.getUploadFile().transferTo(new File(folderPath + img.getRecipeStepImageRename()));

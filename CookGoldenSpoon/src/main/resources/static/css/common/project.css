@@ -157,14 +157,7 @@ nav>ul{
 .small-title{
   font-size: 4rem;
 }
-#inputSearch{
-  width: 55rem;
-  height: 6rem;
-  font-size: 3rem;
-  border-radius: 1rem;
-  border: none;
-  padding: 0.5rem;
-}
+
 .recipe-image{
   background-color: none;
   height: 70%;
