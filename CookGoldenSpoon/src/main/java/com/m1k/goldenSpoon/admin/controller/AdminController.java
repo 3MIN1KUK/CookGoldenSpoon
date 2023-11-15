@@ -218,7 +218,7 @@ public class AdminController {
 	}
 	
 	// 신고 답변 입력
-	@PostMapping
+	@PostMapping("reportAnswer")
 	@ResponseBody
 	public int reportAnswer(Report report) {
 		return service.reportAnswer(report);

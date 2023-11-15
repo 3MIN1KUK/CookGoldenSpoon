@@ -23,16 +23,21 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body fs-4">
-          <div id="report-title"></div>
-          <div id="report-content"></div>
+          <div >
+            <span id="report-title" class="fs-3">제목</span>
+            <button type="button" class="btn btn-outline-secondary float-end fs-5">신고 대상으로 이동</button>
+          </div>
+          
+          <hr>
+          <div id="report-content">내용</div>
           <div class="mb-3">
-            <label for="message-text" class="col-form-label">Message:</label>
-            <textarea class="form-control" id="message-text"></textarea>
+            <label for="message-text" class="col-form-label">답변</label>
+            <textarea class="form-control" id="message-text" rows="5"></textarea>
           </div>
         </div>
         <div class="modal-footer" >
           <button type="button" class="btn btn-secondary fs-4" data-bs-dismiss="modal">닫기</button>
-          <button type="button" class="btn btn-primary fs-4">제출</button>
+          <button type="button" class="btn btn-primary fs-4" id="report-answer-submit">제출</button>
         </div>
       </div>
     </div>
