@@ -287,9 +287,10 @@
   max-width: 100%;
 }
 
-.step-content{
-  justify-content: space-between;
+.stepText{
+  width: 84.5%;
 }
+
 .recipe-intro{
   font-size: 3rem;
 }
