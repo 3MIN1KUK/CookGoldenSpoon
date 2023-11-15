@@ -54,8 +54,11 @@ public class BoardServiceImpl implements BoardService{
 		RowBounds rowBounds = new RowBounds(offset, limit);
 		
 		List<Board> boardList = mapper.searchAllBoard(paramMap, rowBounds);
-		
+		int boardCode = (int) paramMap.get("boardCode");
+		String boardType = mapper.selectBoardType(boardCode);
+
 		Map<String, Object> map = new HashMap<>();
+		map.put("boardType", boardType);
 		map.put("boardList", boardList);
 		map.put("pagination", pagination);
 		return map;
