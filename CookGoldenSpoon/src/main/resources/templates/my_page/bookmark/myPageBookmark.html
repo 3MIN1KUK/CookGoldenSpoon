@@ -31,10 +31,13 @@
           <h1>조회 결과가 없습니다</h1>
       </th:block>
       <th:block th:replace="~{my_page/myPageSideMenu}"></th:block>
-      <div class="content-container">
+      <div class="content-container">            
         <a th:each="recipe : ${recipeList}" th:object="${recipe}" 
             th:href="@{/recipe/select/{recipeNo}(recipeNo=*{recipeNo})}" class="recipe-col">
-          <div class="recipe-image" th:text="*{recipeThumbnail}"></div>
+          <div class="recipe-image">
+            <img class="recipe-image-detail" th:if="*{recipeThumbnail}" th:src="*{recipeThumbnail}">
+            <img class="recipe-image-detail" th:unless="*{recipeThumbnail}" th:src="#{logo.default.image}">
+          </div>
           <div class="recipe-name" th:text="*{recipeTitle}"></div>
           <div class="recipe-info">
             <div th:text="*{memberNickname}"></div>
