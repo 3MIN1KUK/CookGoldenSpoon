@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.m1k.goldenSpoon.admin.model.dto.unionComment;
 import com.m1k.goldenSpoon.admin.model.mapper.AdminMapper;
 import com.m1k.goldenSpoon.board.model.dto.Board;
+import com.m1k.goldenSpoon.board.model.dto.Report;
 import com.m1k.goldenSpoon.common.model.dto.Pagination;
 import com.m1k.goldenSpoon.member.model.dto.Instructor;
 import com.m1k.goldenSpoon.member.model.dto.Member;
@@ -94,16 +95,16 @@ public class AdminServiceImpl implements AdminService{
 	@Override
 	public Map<String, Object> recipeResult(Recipe searchRecipe, int cp) {
 		
-		List<String> tagList = searchRecipe.getRecipeTag();
-		
-		for (int i = 1 ; i <= tagList.size() + 1 ; i++) {
-			tagList.remove("");
+		if (searchRecipe.getRecipeTag() != null) {
+			
+			List<String> tagList = searchRecipe.getRecipeTag();
+			
+			for (int i = 1 ; i <= tagList.size() + 1 ; i++) {
+				tagList.remove("");
+			}
+			searchRecipe.setRecipeTag(tagList);
 		}
 
-		searchRecipe.setRecipeTag(tagList);
-		
-		// 태그 검색
-		List<Integer> recipeNos = mapper.getRecipeNos(searchRecipe);
 		
 		// 검색한 이름이 포함된 회원번호 리스트 구하기
 		List<Integer> memberNos= mapper.getMemberNos(searchRecipe.getMemberNickname());
@@ -114,7 +115,6 @@ public class AdminServiceImpl implements AdminService{
 		Map<String, Object> map = new HashMap<>();
 		
 		map.put("memberNos", memberNos);
-		map.put("recipeNos", recipeNos);
 		map.put("searchRecipe", searchRecipe);
 		
 		
@@ -244,6 +244,61 @@ public class AdminServiceImpl implements AdminService{
 		}
 		
 		return result;
+	}
+	
+	// 신고 전체 조회
+	@Override
+	public Map<String, Object> selectReport(int cp) {
+		
+		int reportListCount = mapper.selectLeportListCount();
+		
+		Pagination pagination = new Pagination(cp, reportListCount, 8, 7);
+		int offset = (pagination.getCurrentPage() -1) * pagination.getLimit();
+		int limit = pagination.getLimit();
+		
+		RowBounds RowBounds = new RowBounds(offset, limit);
+		
+		Map<String, Object> map = new HashMap<>();
+		List<Report> reportList = mapper.selectReport(RowBounds);
+		
+		map.put("pagination", pagination);
+		map.put("reportList", reportList);
+		
+		return map;
+	}
+	
+	@Override
+	public Map<String, Object> searchReport(Report report, int cp) {
+		
+		int reportListCount = mapper.searchLeportListCount();
+		
+		Pagination pagination = new Pagination(cp, reportListCount, 8, 7);
+		int offset = (pagination.getCurrentPage() -1) * pagination.getLimit();
+		int limit = pagination.getLimit();
+		
+		RowBounds RowBounds = new RowBounds(offset, limit);
+		
+		Map<String, Object> map = new HashMap<>();
+		List<Report> reportList = mapper.searchReport(RowBounds);
+		
+		map.put("pagination", pagination);
+		map.put("reportList", reportList);
+		
+		return map;
+	}
+	
+	
+	// 신고 상세 조회
+	@Override
+	public Report reportDetail(int reportNo, int cp) {
+		
+		return mapper.reportDetail(reportNo);
+	}
+	
+	// 신고 답변 작성
+	@Override
+	public int reportAnswer(Report report) {
+		return mapper.reportAnswer(report);
 	}
 	
 }

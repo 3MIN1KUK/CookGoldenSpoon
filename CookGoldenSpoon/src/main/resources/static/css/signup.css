@@ -12,7 +12,7 @@ body {
 }
 
 .container {
-  width: 800px;
+  width: 900px;
   margin: 70px auto;
 }
 
@@ -49,11 +49,11 @@ input[type="radio"] {
 }
 
 .input-name{
-  width: 20%;
+  width: 30%;
 }
 
 .input-area{
-  width: 80%;
+  width: 70%;
 }
 
 #email-td{

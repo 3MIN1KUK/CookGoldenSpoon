@@ -8,6 +8,7 @@ import org.apache.ibatis.session.RowBounds;
 
 import com.m1k.goldenSpoon.admin.model.dto.unionComment;
 import com.m1k.goldenSpoon.board.model.dto.Board;
+import com.m1k.goldenSpoon.board.model.dto.Report;
 import com.m1k.goldenSpoon.member.model.dto.Instructor;
 import com.m1k.goldenSpoon.member.model.dto.Member;
 import com.m1k.goldenSpoon.recipe.model.dto.Recipe;
@@ -52,12 +53,6 @@ public interface AdminMapper {
 	 */
 	Member memberDetail(int memberNo);
 
-	/** 레시피 태그 검색
-	 * @param searchRecipe
-	 * @return
-	 */
-	List<Integer> getRecipeNos(Recipe searchRecipe);
-	
 	/** 레시피 개수 구하기
 	 * @param searchMap
 	 * @return
@@ -112,9 +107,51 @@ public interface AdminMapper {
 	 */
 	int boardDelete(int boardNo);
 
+	/** 게시글 삭제
+	 * @param deleteComment
+	 * @return
+	 */
 	int deleteBoardComment(unionComment deleteComment);
 
+	/** 댓글 삭제
+	 * @param deleteComment
+	 * @return
+	 */
 	int deleteRecipeComment(unionComment deleteComment);
+
+	/** 신고 상세 조회
+	 * @param reportNo
+	 * @return
+	 */
+	Report reportDetail(int reportNo);
+
+	/** 신고 답변 작성
+	 * @param report
+	 * @return
+	 */
+	int reportAnswer(Report report);
+
+	/** 신고 전체 조회
+	 * @param rowBounds
+	 * @return
+	 */
+	List<Report> selectReport(RowBounds rowBounds);
+
+	/** 신고 전체 개수 조회
+	 * @return
+	 */
+	int selectLeportListCount();
+
+	/** 신고 검색 개수 조회
+	 * @return
+	 */
+	int searchLeportListCount();
+
+	/** 신고 검색
+	 * @param rowBounds
+	 * @return
+	 */
+	List<Report> searchReport(RowBounds rowBounds);
 
 
 

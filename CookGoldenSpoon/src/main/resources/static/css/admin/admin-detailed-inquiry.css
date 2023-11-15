@@ -10,10 +10,16 @@
 
 .detailed-inquiry-h1{
   font-size: 3rem;
+  text-align: center;
 }
 
 
 .detailed-inquiry-out-box{
+  display: flex;
+  justify-content: center;
+
+  width: 100% !important;
+  
   margin: auto;
 }
 

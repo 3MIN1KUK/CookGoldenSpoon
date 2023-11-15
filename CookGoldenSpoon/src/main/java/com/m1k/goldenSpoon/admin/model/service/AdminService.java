@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.m1k.goldenSpoon.admin.model.dto.unionComment;
 import com.m1k.goldenSpoon.board.model.dto.Board;
+import com.m1k.goldenSpoon.board.model.dto.Report;
 import com.m1k.goldenSpoon.member.model.dto.Instructor;
 import com.m1k.goldenSpoon.member.model.dto.Member;
 import com.m1k.goldenSpoon.recipe.model.dto.Recipe;
@@ -71,5 +72,22 @@ public interface AdminService {
 	 * @return
 	 */
 	int commentDelete(unionComment deleteComment);
+
+	/** 신고 상세 조회
+	 * @param reportNo
+	 * @param cp 
+	 * @return
+	 */
+	Report reportDetail(int reportNo, int cp);
+
+	/** 신고 답변 작성
+	 * @param report
+	 * @return
+	 */
+	int reportAnswer(Report report);
+
+	Map<String, Object> selectReport(int cp);
+
+	Map<String, Object> searchReport(Report report, int cp);
 
 }
