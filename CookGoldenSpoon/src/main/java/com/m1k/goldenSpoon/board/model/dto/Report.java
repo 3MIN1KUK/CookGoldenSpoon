@@ -22,8 +22,8 @@ public class Report {
 	private String reporterNickname;
 	private String reportTitle;
 	
-	
-	
+	private String selectOption;
+	private String reportAnswer;
 	private int commentBoardNo;
 	private String type;
 }

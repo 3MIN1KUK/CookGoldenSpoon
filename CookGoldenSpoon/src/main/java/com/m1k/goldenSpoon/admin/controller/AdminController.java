@@ -20,6 +20,7 @@ import org.springframework.web.context.annotation.RequestScope;
 import com.m1k.goldenSpoon.admin.model.dto.unionComment;
 import com.m1k.goldenSpoon.admin.model.service.AdminService;
 import com.m1k.goldenSpoon.board.model.dto.Board;
+import com.m1k.goldenSpoon.board.model.dto.Report;
 import com.m1k.goldenSpoon.member.model.dto.Instructor;
 import com.m1k.goldenSpoon.member.model.dto.Member;
 import com.m1k.goldenSpoon.recipe.model.dto.Recipe;
@@ -190,7 +191,38 @@ public class AdminController {
 		return map;
 	}
 
+	// 신고 이동 및 검색
+	@GetMapping("reportManagement")
+	public String reportManagement(Report report, Model model,
+			@RequestParam(value = "cp", required = false, defaultValue = "1") int cp) {
+		
+		if (report.getSelectOption() == null) {
+			Map<String, Object> map = service.selectReport(cp);
+			model.addAttribute("map", map);
+		} else {
+			Map<String, Object> map = service.searchReport(report, cp);
+			model.addAttribute("map", map);
+		}
+		
+		
+		return "admin/report_management";
+	}
 	
+	// 신고 상세 조회
+	@GetMapping(value = "reportDetail", produces = "application/json")
+	@ResponseBody
+	public Report reportDetail(int reportNo,
+			@RequestParam(value = "cp", required = false, defaultValue = "1") int cp) {
+		
+		return service.reportDetail(reportNo, cp);
+	}
+	
+	// 신고 답변 입력
+	@PostMapping
+	@ResponseBody
+	public int reportAnswer(Report report) {
+		return service.reportAnswer(report);
+	}
 	
 }
 

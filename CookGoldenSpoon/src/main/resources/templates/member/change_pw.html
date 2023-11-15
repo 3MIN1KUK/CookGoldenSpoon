@@ -7,6 +7,7 @@
   <title>기본 양식</title>
   <link rel="stylesheet" href="/css/common/project.css">
   <link rel="stylesheet" href="/css/member/find_pw.css">
+  <link rel="stylesheet" href="/css/member/member.css">
 </head>
 <body>
   <th:block th:replace="~{common/header}"></th:block>
@@ -31,7 +32,7 @@
             </div>
             
             <input type="submit" value="비밀번호 변경" class="btn" id="login-submit">
-            <input type="text" th:value="${memberNo}" name="memberNo">
+            <input type="hidden" th:value="${memberNo}" name="memberNo">
           </form>
     
         </div>
@@ -41,7 +42,7 @@
   </main>
   <th:block th:replace="~{common/footer}"></th:block>
   <script src="/js/common/project.js"></script>
-  <script src="/js/member/signup.js"></script>
+  <script src="/js/member/changePw.js"></script>
 
 </body>
 </html>

@@ -7,6 +7,7 @@
   <title>기본 양식</title>
   <link rel="stylesheet" href="/css/common/project.css">
   <link rel="stylesheet" href="/css/member/find_pw.css">
+  <link rel="stylesheet" href="/css/member/member.css">
 </head>
 <body>
   <th:block th:replace="~{common/header}"></th:block>
@@ -28,7 +29,7 @@
 
             <div class="input-group">
               <input type="text" id="memberEmail" name="memberEmail" placeholder="이메일을 입력해주세요">
-              <div class="signupTest" id="idMessage">4 ~ 16 자리의 영어 또는 숫자만 입력해주세요</div>
+              <div class="signupTest" id="emailMessage">유효한 이메일을 입력해주세요</div>
 
             </div>
             
@@ -42,7 +43,7 @@
   </main>
   <th:block th:replace="~{common/footer}"></th:block>
   <script src="/js/common/project.js"></script>
-  <script src="/js/member/signup.js"></script>
+  <script src="/js/member/find_pw.js"></script>
 
 </body>
 </html>

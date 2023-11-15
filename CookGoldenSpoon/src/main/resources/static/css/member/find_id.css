@@ -18,10 +18,6 @@
   padding: 20px;
   margin: auto;
 }
-.input-group > *,.btn-group > *, #login-submit, .login-title, #result-id{
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
-}
-
 
 #memberId, #memberPw, #memberEmail{
   color: black !important;
@@ -85,14 +81,3 @@ input{
   font-weight: bold !important;
   margin: 10px;
 }
-
-
-.signupTest{
-  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-  font-size: 1.2rem;
-  color: #000;
-  text-align: left;
-}
-
-.confirm{ color : green; }
-.error{ color : red; }

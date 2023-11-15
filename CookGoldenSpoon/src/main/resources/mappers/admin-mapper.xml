@@ -106,55 +106,56 @@
 	
 	<!-- 게시판 개수 구하기 -->
 	<select id="recipeListCount" resultType="_int">
-		SELECT COUNT(*) FROM RECIPE
-		WHERE RECIPE_DEL_FL = 'N'
+		SELECT COUNT(*)
+		FROM RECIPE R
+		LEFT JOIN "MEMBER" USING(MEMBER_NO)
+		LEFT JOIN RECIPE_STEP RS ON(R.RECIPE_NO = RS.RECIPE_NO) 
+		LEFT JOIN RECIPE_TAG RT ON(R.RECIPE_NO = RT.RECIPE_NO) 
+		LEFT JOIN RECIPE_MATERIAL RM ON(R.RECIPE_NO = RM.RECIPE_NO)
 		
-		<!-- 회원 번호 -->
-		<if test="memberNos.size() != 0">
-			AND MEMBER_NO IN 
-			<foreach collection="memberNos" item="memberNo" open="(" separator="," close=")">
-				#{memberNo}			
+		WHERE RECIPE_DEL_FL = 'N'
+		AND RECIPE_TITLE LIKE '%${searchRecipe.recipeTitle}%'
+		<if test="searchRecipe.memberNo != 0">
+			AND MEMBER_NO = #{searchRecipe.memberNo}  
+		</if>
+		AND MEMBER_NICKNAME LIKE '%${searchRecipe.memberNickname}%'
+		AND (RECIPE_INTRO LIKE '%${searchRecipe.recipeContent}%'
+		OR RECIPE_TIP LIKE '%${searchRecipe.recipeContent}%'
+		OR RECIPE_STEP_CONTENT LIKE '%${searchRecipe.recipeContent}%')
+		<if test="searchRecipe.recipeTag != null">
+			<foreach collection="searchRecipe.recipeTag" item="tag">
+			<if test="tag != null and tag != ''">
+				AND RECIPE_TAG_NAME LIKE '%${tag}%'			
+			</if>
 			</foreach>
 		</if>
-		<if test="memberNos.size() == 0">
-				AND MEMBER_NO = 0
-		</if>
-		AND RECIPE_TITLE LIKE '%${searchRecipe.recipeTitle}%'
-	</select>
-	
-	<!-- 태그 검색 -->
-	<select id="getRecipeNos">
-		SELECT RECIPE_NO
-		FROM RECIPE_TAG
-		<where>
-			<if test="recipeTag.size() != 0 and recipeTag != null">
-				RECIPE_TAG_NAME LIKE 
-				<foreach collection="recipeTag" item="tag"  separator=" AND ">
-					'%${tag}%'			
-				</foreach>
-			</if>
-		</where>
 	</select>
 	
 	<!-- 레시피 검색 -->
 	<select id="recipeSelect" resultMap="MemberRecipeSelect_rm">
-		SELECT RECIPE_NO, RECIPE_TITLE, RECIPE_THUMBNAIL
-		FROM RECIPE
-		WHERE RECIPE_DEL_FL = 'N'
-		<if test="memberNos.size() != 0">
-			AND MEMBER_NO IN 
-			<foreach collection="memberNos" item="memberNo" open="(" separator="," close=")">
-				#{memberNo}			
-			</foreach>
-		</if>
-		<if test="memberNos.size() == 0">
-				AND MEMBER_NO = 0
-		</if>
+		SELECT R.RECIPE_NO, RECIPE_TITLE, RECIPE_THUMBNAIL
+		FROM RECIPE R
+		LEFT JOIN "MEMBER" USING(MEMBER_NO)
+		LEFT JOIN RECIPE_STEP RS ON(R.RECIPE_NO = RS.RECIPE_NO) 
+		LEFT JOIN RECIPE_TAG RT ON(R.RECIPE_NO = RT.RECIPE_NO) 
+		LEFT JOIN RECIPE_MATERIAL RM ON(R.RECIPE_NO = RM.RECIPE_NO)
 		
-		<if test="recipeNos.size() != 0">
-			AND RECIPE_NO IN 
-			<foreach collection="recipeNos" item="recipeNo" open="(" separator="," close=")">
-				#{recipeNo}			
+		WHERE RECIPE_DEL_FL = 'N'
+		AND RECIPE_TITLE LIKE '%${searchRecipe.recipeTitle}%'
+		<if test="searchRecipe.memberNo != 0">
+			AND MEMBER_NO = #{searchRecipe.memberNo} 
+		</if>
+		AND MEMBER_NICKNAME LIKE '%${searchRecipe.memberNickname}%'
+		
+		AND (RECIPE_INTRO LIKE '%${searchRecipe.recipeContent}%'
+		OR RECIPE_TIP LIKE '%${searchRecipe.recipeContent}%'
+		OR RECIPE_STEP_CONTENT LIKE '%${searchRecipe.recipeContent}%')
+		
+		<if test="searchRecipe.recipeTag != null">
+			<foreach collection="searchRecipe.recipeTag" item="tag">
+			<if test="tag != null and tag != ''">
+				AND RECIPE_TAG_NAME LIKE '%${tag}%'			
+			</if>
 			</foreach>
 		</if>
 
@@ -349,4 +350,53 @@
 		UPDATE "RECIPE_COMMENT" SET 
 		RECIPE_COMMENT_DEL_FL = 'Y' 
 		WHERE RECIPE_COMMENT_NO = ${commentNo} 	</update>
+	
+	<!-- 신고 전체 개수 조회 -->
+	<select id="selectLeportListCount">
+		SELECT COUNT(*) 
+		FROM REPORT R
+	</select>
+	
+	<select id="searchLeportListCount">
+		SELECT COUNT(*) 
+		FROM REPORT R
+		WHERE REPORT_TITLE LIKE '%%'
+		AND REPORT_CONTENT LIKE '%%'
+	</select>
+	
+	<select id="searchReport">
+		SELECT REPORT_NO ,MEMBER_NO ,REPORT_CONTENT ,
+			REPORTER_NO ,REPORT_TITLE ,REPORT_TYPE ,REPORT_CONTENT_NO ,
+			(SELECT MEMBER_NICKNAME FROM "MEMBER" m WHERE R.MEMBER_NO = M.MEMBER_NO) MEMBER_NICKNAME ,
+			(SELECT MEMBER_NICKNAME FROM "MEMBER" m WHERE R.REPORTER_NO = M.MEMBER_NO) REPORTER_NICKNAME 
+		FROM REPORT R
+		WHERE REPORT_TITLE LIKE '%%'
+		AND REPORT_CONTENT LIKE '%%'
+	</select>
+	
+	<!-- 신고 전체 조회 -->
+	<select id="selectReport">
+		SELECT REPORT_NO ,MEMBER_NO ,REPORT_CONTENT ,
+			REPORTER_NO ,REPORT_TITLE ,REPORT_TYPE ,REPORT_CONTENT_NO ,
+			(SELECT MEMBER_NICKNAME FROM "MEMBER" m WHERE R.MEMBER_NO = M.MEMBER_NO) MEMBER_NICKNAME ,
+			(SELECT MEMBER_NICKNAME FROM "MEMBER" m WHERE R.REPORTER_NO = M.MEMBER_NO) REPORTER_NICKNAME 
+		FROM REPORT R
+	</select>
+	
+	<!-- 신고 상세 조회 -->
+	<select id="reportDetail">
+		SELECT REPORT_NO ,MEMBER_NO ,REPORT_CONTENT ,
+			REPORTER_NO ,REPORT_TITLE ,REPORT_TYPE ,REPORT_CONTENT_NO ,
+			(SELECT MEMBER_NICKNAME FROM "MEMBER" m WHERE R.MEMBER_NO = M.MEMBER_NO) MEMBER_NICKNAME ,
+			(SELECT MEMBER_NICKNAME FROM "MEMBER" m WHERE R.REPORTER_NO = M.MEMBER_NO) REPORTER_NICKNAME 
+		FROM REPORT R
+		WHERE REPORT_NO = #{reportNo}
+	</select>
+	
+	<!-- 신고 답변 삽입 -->
+	<update id="reportAnswer">
+		UPDATE REPORT SET 
+		REPORT_ANSWER = #{reportAnswer}
+		WHERE REPORT_NO = #{reportNo}
+	</update>
 </mapper>

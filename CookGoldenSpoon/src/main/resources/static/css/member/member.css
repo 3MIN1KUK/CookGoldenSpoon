@@ -1,0 +1,36 @@
+.container {
+  background-color: white;
+  width: 600px;
+  margin: 10rem auto;
+  justify-content: center;
+  align-items: center;
+  border-radius: 2rem;
+}
+
+input[type="text"], input[type="password"], input[type="email"]{
+  margin-top: 2rem;
+}
+
+.signupTest{
+  margin: 1rem 0;
+}
+
+input[type="submit"] {
+  background-color: #E3C24A;
+  color: #000;
+  font-size: 2rem;
+  height: 40px;
+  border: none;
+  cursor: pointer;
+  margin-top: 2rem;
+}
+
+.signupTest{
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-size: 1.2rem;
+  color: #000;
+  text-align: left;
+}
+
+.confirm{ color : green; }
+.error{ color : red; }

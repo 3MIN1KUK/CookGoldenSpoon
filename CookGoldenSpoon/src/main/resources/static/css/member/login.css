@@ -48,7 +48,10 @@ input {
   border: 1px solid #ccc;
   padding: 5px;
   box-sizing: border-box;
-  margin: 2rem 0;
+}
+
+input[type="text"], input[type="password"]{
+  margin-top: 2rem;
 }
 
 input[type="submit"] {
@@ -77,14 +80,3 @@ input[type="submit"] {
 input{
   border-radius: 10px;
 }
-
-
-.signupTest{
-  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-  font-size: 1.2rem;
-  color: #000;
-  text-align: left;
-}
-
-.confirm{ color : green; }
-.error{ color : red; }

@@ -1,5 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
+
+
+
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,8 +15,31 @@
 </head>
 <body>
 
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-3" id="exampleModalLabel">신고 상세 조회</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body fs-4">
+          <div id="report-title"></div>
+          <div id="report-content"></div>
+          <div class="mb-3">
+            <label for="message-text" class="col-form-label">Message:</label>
+            <textarea class="form-control" id="message-text"></textarea>
+          </div>
+        </div>
+        <div class="modal-footer" >
+          <button type="button" class="btn btn-secondary fs-4" data-bs-dismiss="modal">닫기</button>
+          <button type="button" class="btn btn-primary fs-4">제출</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   
-<main class="d-flex flex-nowrap" th:with="listMember=${map.listMember}, pagination=${map.pagination}">
+<main class="d-flex flex-nowrap" th:with="reportList=${map.reportList}, pagination=${map.pagination}">
     
     <th:block th:replace="~{admin/admin_sidebar}"></th:block>
 
@@ -23,7 +50,7 @@
     <section class="out-box">
   
       <h1>회원 조회</h1>
-        <form accept="/admin/memberSearch" method="get">
+        <form accept="/admin/reportManagement" method="get">
           <div class="d-flex">
             <div class="member-search-box">
               <table class="search-box-table" >
@@ -57,10 +84,10 @@
         <table class="member-search-result">
           <thead>
           <tr class="member-search-tr">
-              <th class="member-search-th">회원 번호</th>
-              <th class="member-search-th">회원 아이디</th>
-              <th class="member-search-th">닉네임</th>
-              <th class="member-search-th">이메일</th>
+              <th class="member-search-th">신고 번호</th>
+              <th class="member-search-th">신고자</th>
+              <th class="member-search-th">신고 대상자</th>
+              <th class="member-search-th">신고 제목</th>
               <th class="member-search-th">상태</th>
               <th class="member-search-th">상세 조회</th>
           </tr>
@@ -68,32 +95,22 @@
 
           <tbody>
 
-          <tr th:if="${#lists.size(listMember) == 0}">
-              <th colspan="6">검색결과가 존재하지 않습니다.</th>
+          <tr th:if="${#lists.size(reportList) == 0}">
+              <th colspan="5">검색결과가 존재하지 않습니다.</th>
           </tr>
 
-          <th:block th:unless="${#lists.size(listMember) == 0}">
+          <th:block th:unless="${#lists.size(reportList) == 0}">
 
-            <tr class="member-search-tr" th:each="member : ${listMember}" th:object="${member}">
-                <td class="member-search-td" th:text="*{memberNo}">James</td>
-                <td class="member-search-td" th:text="*{memberId}">Matman</td>
-                <td class="member-search-td" th:text="*{memberNickname}">(713) 123-8965</td>
-                <td class="member-search-td" th:text="*{memberEmail}"><a href="mailto:jmatman@stewart.com">jmatman@stewart.com</a></td>
+            <tr class="member-search-tr" th:each="report : ${reportList}" th:object="${report}">
+                <td class="member-search-td" th:text="*{reportNo}">신고 번호</td>
+                <td class="member-search-td" th:text="*{memberNickname}">신고자</td>
+                <td class="member-search-td" th:text="*{reporterNickname}">신고 대상자</td>
+                <td class="member-search-td" th:text="*{reportTitle}">신고 제목</a></td>
                 <td class="member-search-td">
-                  <select class="form-select" name="memberAuthoritySelect" id="memberAuthoritySelect" th:onchange="|changeAuthority(this, *{memberNo})|">
-                    <option value="1" th:selected="*{memberAuthority} == 1">일반회원</option>
-                    <option value="2" th:selected="*{memberAuthority} == 2">강사</option>
-                    <option value="3" th:selected="*{memberAuthority} == 3">관리자</option>
-                  </select>
-                </td>
                 <td class="member-search-td">
-                  <form action="/admin/memberDetail" method="POST">
-                    <input type="hidden" th:value="*{memberNo}" name="memberNo">
-                    <input type="hidden" th:value="*{memberId}" name="memberId">
-                    <input type="hidden" th:value="*{memberNickname}" name="memberNickname">
+                    <input type="hidden" th:value="*{reportNo}" name="memberNo">
                     <input type="hidden" th:value="${map.pagination.currentPage}" name="cp">
-                    <button type="submit" class="btn btn-info ">상세 조회</button>
-                  </form>
+                    <button type="submit" class="btn btn-info " data-bs-toggle="modal" data-bs-target="#exampleModal" th:onclick="|reportDetail(*{reportNo}, this)|">상세 조회</button>
                 </td>
             </tr>
             
@@ -103,15 +120,13 @@
       </table>
 
 
-      <nav aria-label="Page navigation"  th:if="${#lists.size(listMember) > 0}">
+      <nav aria-label="Page navigation"  th:if="${#lists.size(reportList) > 0}">
         <ul class="pagination pagination-lg justify-content-center pagination-css" > 
             <!-- 첫 페이지로 이동 -->
-            <li class="page-item"><a class="page-link" th:href="@{/admin/memberSearch(memberId=${memberId}, memberEmail=${memberEmail},
-              memberNickname=${memberNickname}, cp=1 ) }">&lt;&lt;</a></li>
+            <li class="page-item"><a class="page-link" th:href="@{/admin/reportManagement(cp=1) }">&lt;&lt;</a></li>
   
             <!-- 이전 목록 마지막 번호로 이동 -->
-            <li class="page-item"><a class="page-link" th:href="@{/admin/memberSearch(memberId=${memberId}, memberEmail=${memberEmail},
-              memberNickname=${memberNickname},  cp=${pagination.prevPage }  )}">&lt;</a></li>
+            <li class="page-item"><a class="page-link" th:href="@{/admin/reportManagement(cp=${pagination.prevPage }  )}">&lt;</a></li>
   
             <!-- 특정 페이지로 이동 -->
   
@@ -126,20 +141,17 @@
   
                 <!-- 보고있지 않은 페이지 -->                    
                 <li th:unless="${i == pagination.currentPage}" class="page-item"> 
-                    <a class="page-link" th:href="@{/admin/memberSearch(memberId=${memberId}, memberEmail=${memberEmail},
-                                   memberNickname=${memberNickname}, cp=${i}  )} " th:text="${i}">2</a> 
+                    <a class="page-link" th:href="@{/admin/reportManagement( cp=${i}  )} " th:text="${i}">2</a> 
                 </li>
             </th:block>
   
   
   
             <!-- 다음 목록 시작 번호로 이동 -->
-            <li class="page-item"><a class="page-link" th:href="@{/admin/memberSearch(memberId=${memberId}, memberEmail=${memberEmail},
-              memberNickname=${memberNickname}, cp=${pagination.nextPage }  )}">&gt;</a></li>
+            <li class="page-item"><a class="page-link" th:href="@{/admin/reportManagement( cp=${pagination.nextPage }  )}">&gt;</a></li>
   
             <!-- 끝 페이지로 이동 -->
-            <li class="page-item"><a class="page-link" th:href="@{/admin/memberSearch(memberId=${memberId}, memberEmail=${memberEmail},
-              memberNickname=${memberNickname}, cp=${pagination.maxPage }  )}">&gt;&gt;</a></li>
+            <li class="page-item"><a class="page-link" th:href="@{/admin/reportManagement( cp=${pagination.maxPage }  )}">&gt;&gt;</a></li>
 
         </ul>
       </nav>
@@ -150,6 +162,6 @@
   </section>
   </main>
   <script src="/js/admin/admin_sidebar.js"></script>
-  <script src="/js/admin/member_search.js"></script>
+  <script src="/js/admin/report_management.js"></script>
 </body>
 </html>
