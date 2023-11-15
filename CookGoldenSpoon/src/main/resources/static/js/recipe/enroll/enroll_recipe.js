@@ -187,6 +187,9 @@ for(let i = 0; i<completeInputImageList.length; i++){
   })
 }
 // ---------------------------------------------------------------------------------
+// ---------------------------------------------------------------------------------
+// ---------------------------------------------------------------------------------
+// ---------------------------------------------------------------------------------
 
 
 
@@ -196,9 +199,12 @@ const stepDeleteImageList = document.getElementsByClassName("stepDeleteBtn");
 let backupStepList = new Array(stepInputImageList.length);
 
 // Step -----------------------------------------------------------------------------
+// Step -----------------------------------------------------------------------------
+// Step -----------------------------------------------------------------------------
+// Step -----------------------------------------------------------------------------
+// Step -----------------------------------------------------------------------------
 const changeStepImageFn = (imageInput)=>{
   let order;
-  console.log(stepInputImageList);
   
   for(let i=0; i<stepInputImageList.length ; i++){
     if(stepInputImageList[i] == imageInput){
@@ -263,64 +269,6 @@ const changeStepImageFn = (imageInput)=>{
     backupStepList[order] = imageInput.cloneNode(true);
   }
 };
-// const changeStepImageFntemp = ()=>{
-  
-//   const maxSize = 1024*1024*10;
-//   for(let i = 0 ; i<stepInputImageList.length; i++){
-//     const uploadFile = stepInputImageList[i].files[0];
-    
-//     // 파일 선택 취소
-//     if(uploadFile == undefined){
-      
-//       const temp = backupStepList[i].cloneNode(true);
-      
-//       stepInputImageList[i].after(temp);
-//       stepInputImageList[i].remove();
-//       stepInputImageList[i] = temp;
-      
-//       stepInputImageList[i].addEventListener("change", ()=>{
-//         changeStepImageFn();
-//       });
-//       return;
-//     }
-    
-//     // 크기 초과
-//     if(uploadFile.size > maxSize){
-//       alert("10MB 이하의 이미지를 선택해주세요");
-      
-//       // 없다가 추가한 경우 빈칸으로 만들어 초기화
-//       if(backupStepList[i] == undefined){
-//         stepInputImageList[i].value = "";
-//       }
-      
-//       // 있다가 추가한 경우
-//       else{
-//         let temp = backupStepList[i].cloneNode(true);
-        
-//         stepInputImageList[i].after(temp);
-//         stepInputImageList[i].remove();
-//         stepInputImageList[i] = temp;
-        
-//         imageInput.addEventListener("change", ()=>{
-//           changeStepImageFn();
-//         });
-//       }
-//       return;
-//     }
-    
-//     const reader = new FileReader();
-    
-//     reader.readAsDataURL(uploadFile);
-    
-//     reader.onload = e=>{
-//       const url = e.target.result;
-//       stepPreviewList[i].src = url;
-//       backupStepList[i] = stepInputImageList[i].cloneNode(true);
-//       console.log(order + "onload 완료");
-//     }
-
-//   }
-// };
 // 과정사진
 
 for(let i = 0; i<stepInputImageList.length; i++){
@@ -354,6 +302,10 @@ for(let i = 0; i<stepInputImageList.length; i++){
 // ----------------------------------------------------------------
 
 //-------------------------------------------------------------------------
+//-------------------------------------------------------------------------
+//-------------------------------------------------------------------------
+//-------------------------------------------------------------------------
+//-------------------------------------------------------------------------
 /* 요리 과정 추가 버튼 */
 const addBtn = document.getElementById("add");
 const parentElement = document.getElementById("parentElement");
@@ -386,8 +338,6 @@ addBtn.addEventListener("click", () => {
   
   backupStepList = new Array(stepInputImageList.length);
   
-  console.log("object");
-  
   xBtn.addEventListener("click", e=>{
     e.target.parentElement.parentElement.remove();
     backupStepList = new Array(stepInputImageList.length);
@@ -395,9 +345,6 @@ addBtn.addEventListener("click", () => {
       
       backupStepList[i] = stepInputImageList[i].cloneNode(true);
       // 이미지 선택 또는 취소 시
-      // stepInputImageList[i].addEventListener("change", e=>{
-      //   changeStepImageFn(e.target, i);
-      // });
     
       // x 버튼 클릭 시
       stepDeleteImageList[i].addEventListener("click", ()=>{

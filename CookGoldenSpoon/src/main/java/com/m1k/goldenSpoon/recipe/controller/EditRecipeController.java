@@ -67,8 +67,9 @@ public class EditRecipeController {
 		
 		if(result > 0) {
 			ra.addFlashAttribute("message", "수정 성공");
+		} else {
+			ra.addFlashAttribute("message", "수정 실패");
 		}
-		ra.addFlashAttribute("message", "수정 실패");
 		return "redirect:/recipe/select/" + recipe.getRecipeNo();
 	}
 	

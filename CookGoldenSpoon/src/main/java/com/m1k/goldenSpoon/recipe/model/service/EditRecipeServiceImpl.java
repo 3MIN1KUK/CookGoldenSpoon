@@ -50,12 +50,13 @@ public class EditRecipeServiceImpl implements EditRecipeService{
 			List<String> recipeStepContent, List<MultipartFile> recipeStepImage, List<MultipartFile> completeImages,
 			List<String> materialName, List<String> recipeMaterialQuantity,
 			String deleteCompleteOrder, String deleteThumbnail) throws IllegalStateException, IOException {
+		
 		String recipeVideo = originRecipeVideo.replace("watch?v=","embed/");
 		recipe.setRecipeVideo(recipeVideo);
 		
 		
-		int result = mapper.updateRecipe(recipe);
-		if(result == 0) return 0; 
+		
+		System.out.println("============thumbnail==========" + thumbnail.getSize());
 		
 		// 썸네일이 삭제됐을 때
 		if(!deleteThumbnail.equals("")) {
@@ -66,6 +67,8 @@ public class EditRecipeServiceImpl implements EditRecipeService{
 			recipe.setRecipeThumbnail(webPath + thumbnailRename);
 			thumbnail.transferTo(new File(folderPath + thumbnailRename));
 		}
+		int result = mapper.updateRecipe(recipe);
+		if(result == 0) return 0; 
 		
 		int delMaterial = mapper.delMaterial(recipe.getRecipeNo());
 		if(delMaterial == 0) return 0;
@@ -118,7 +121,6 @@ public class EditRecipeServiceImpl implements EditRecipeService{
 			}
 		}
 		List<RecipePicture> uploadList2 = new ArrayList<>();
-		System.out.println("=================completeImages.size()=================== " + completeImages.size());
 		
 		for(int i = 0 ; i<completeImages.size(); i++) {
 			if(completeImages.get(i).getSize() > 0) {
@@ -168,24 +170,19 @@ public class EditRecipeServiceImpl implements EditRecipeService{
 		}// for문 끝
 
 		int result4 = recipeMapper.insertProcessList(uploadList1);
-		System.out.println("======================================" + uploadList1.size());
-		System.out.println("======================================" + result4);
-		System.out.println("====================================" + result);
-		System.out.println("====================================" + uploadList2.isEmpty());
-		System.out.println("====================================" + thumbnail.getSize());
-		
 
 		if(!uploadList2.isEmpty() && result4 == uploadList1.size() && result > 0) {
 			result = 1;
-			System.out.println("=====================================================================");
-			System.out.println("=====================================================================");
-			System.out.println("=====================================================================");
 			
 			for(RecipePicture img : uploadList2) {
-				img.getUploadFile().transferTo(new File(folderPath + img.getRecipeImageRename()));
+				if(img.getUploadFile() != null) {
+					img.getUploadFile().transferTo(new File(folderPath + img.getRecipeImageRename()));
+				}
 			}
 			for(RecipeStep img : uploadList1) {
-				img.getUploadFile().transferTo(new File(folderPath + img.getRecipeStepImageRename()));
+				if(img.getUploadFile() != null) {
+					img.getUploadFile().transferTo(new File(folderPath + img.getRecipeStepImageRename()));
+				}
 			}
 		}
 		

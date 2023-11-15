@@ -124,13 +124,14 @@ for(let i = 0; i<inputThumbnail.length; i++){
 
 
 // Step -----------------------------------------------------------------------------
-const changeStepImageFn = (imageInput, order)=>{
+const changeStepImageFn = (imageInput)=>{
 
-  console.log(stepInputImageList);
+  let order;
   
   for(let i=0; i<stepInputImageList.length ; i++){
     if(stepInputImageList[i] == imageInput){
       console.log(`index : ${i}`);
+      order = i;
     }
   }
   
@@ -307,6 +308,15 @@ let backup;
 /* 추가 버튼 클릭 시 */
 addBtn.addEventListener("click", () => {
   
+  let order;
+  
+  for(let i=0; i<stepInputImageList.length ; i++){
+    if(stepInputImageList[i] == imageInput){
+      console.log(`index : ${i}`);
+      order = i;
+    }
+  }
+
   backup = backDiv.cloneNode(true);
   
   const textarea = backup.children[1].children[0].children[0];
@@ -317,7 +327,9 @@ addBtn.addEventListener("click", () => {
   
   inputFile.previousElementSibling.src = camera;
 
-  // inputFile.previousElementSibling.classList.add("stepPreview");
+  const preview = inputFile.previousElementSibling;
+  
+  const delStepBtn = backup.children[1].children[2];
 
   const xBtn = document.createElement("span");
   xBtn.classList.add("x-btn");
@@ -336,9 +348,6 @@ addBtn.addEventListener("click", () => {
   
       backupStepList[i] = stepInputImageList[i].cloneNode(true);
       // 이미지 선택 또는 취소 시
-      stepInputImageList[i].addEventListener("change", e=>{
-        changeStepImageFn(e.target, i);
-      });
     
       // x 버튼 클릭 시
       stepDeleteImageList[i].addEventListener("click", ()=>{
@@ -351,21 +360,31 @@ addBtn.addEventListener("click", () => {
     }
   })
   for(let i = 0; i<stepInputImageList.length; i++){
-  
+    backupStepList[i] = stepInputImageList[i].cloneNode(true);
+  }
     // 이미지 선택 또는 취소 시
-    stepInputImageList[i].addEventListener("change", e=>{
-      changeStepImageFn(e.target, i);
+    inputFile.addEventListener("change", e=>{
+      changeStepImageFn(e.target);
     });
   
     // x 버튼 클릭 시
-    stepDeleteImageList[i].addEventListener("click", ()=>{
-      stepPreviewList[i].setAttribute("src", camera);
+    delStepBtn.addEventListener("click", ()=>{
+      preview.setAttribute("src", camera);
   
-      stepInputImageList[i].value = "";
+      inputFile.value = "";
   
-      backupStepList[i] = undefined;
+      let order;
+  
+      for(let i=0; i<stepInputImageList.length ; i++){
+        if(stepInputImageList[i] == imageInput){
+          order = i;
+        }
+      }
+
+
+      backupStepList[order] = undefined;
     })
-  }
+  
 });
 
 const cookProcess = document.getElementsByClassName("cookProcess");
@@ -390,6 +409,8 @@ function preventSubmit(event) {
     event.preventDefault();
   }
 }
+
+       
 document.getElementById("recipeFrm").addEventListener("keydown", preventSubmit);
 
 const inputTag = document.getElementById("inputTag");
