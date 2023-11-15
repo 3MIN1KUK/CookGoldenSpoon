@@ -18,6 +18,7 @@ public interface EditRecipeService {
 
 	/** 레시피 수정
 	 * @param recipe
+	 * @param originRecipeVideo
 	 * @param thumbnail
 	 * @param recipeTagName
 	 * @param recipeStepContent
@@ -25,10 +26,12 @@ public interface EditRecipeService {
 	 * @param completeImages
 	 * @param materialName
 	 * @param recipeMaterialQuantity
+	 * @param deleteCompleteOrder 
+	 * @param deleteThumbnail 
 	 * @return
 	 */
-//	int update(Recipe recipe, MultipartFile thumbnail, List<String> recipeTagName, List<String> recipeStepContent,
-//			List<MultipartFile> recipeStepImage, List<MultipartFile> completeImages, List<String> materialName,
-//			List<String> recipeMaterialQuantity) throws IllegalStateException, IOException;
+	int update(Recipe recipe, String originRecipeVideo, MultipartFile thumbnail, List<String> recipeTagName,
+			List<String> recipeStepContent, List<MultipartFile> recipeStepImage, List<MultipartFile> completeImages,
+			List<String> materialName, List<String> recipeMaterialQuantity, String deleteCompleteOrder, String deleteThumbnail) throws IllegalStateException, IOException;
 
 }

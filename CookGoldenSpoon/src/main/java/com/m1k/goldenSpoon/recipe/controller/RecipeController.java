@@ -57,6 +57,7 @@ public class RecipeController {
 		Map<String, Object> map = service.search(cp, inputSearch, orderBy);
 		model.addAttribute("map", map);
 		model.addAttribute("inputSearch", inputSearch);
+		model.addAttribute("orderBy", orderBy);
 		return "recipe/select/recipe";
 	}
 	

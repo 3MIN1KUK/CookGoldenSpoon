@@ -9,4 +9,78 @@
 		AND MEMBER_NO = #{memberNo}
 	</update>
 	
+	<update id="updateRecipe">
+		UPDATE "RECIPE" SET
+		RECIPE_TITLE = #{recipeTitle} ,
+		<if test='recipeThumbnail != null'>
+			RECIPE_THUMBNAIL = #{recipeThumbnail} ,
+		</if>
+		RECIPE_INTRO = #{recipeIntro} ,
+		RECIPE_TIP = #{recipeTip} ,
+		RECIPE_TIME = #{recipeTime} ,
+		RECIPE_PEOPLE = #{recipePeople} ,
+		RECIPE_LEVEL = #{recipeLevel} ,
+		RECIPE_VIDEO = #{recipeVideo} 
+		WHERE RECIPE_NO = #{recipeNo}
+	</update>
+	
+	<select id="checkMaterial" resultType="_int">
+		SELECT COUNT(*) FROM MATERIAL
+		WHERE MATERIAL_NAME = #{materialName}
+	</select>
+	
+	<update id="updateRecipeMaterial">
+		UPDATE "RECIPE_MATERIAL" SET
+		MATERIAL_NO = #{materialNo}
+		RECIPE_MATERIAL_QUANTITY = #{recipeMaterialQuantity},
+		RECIPE_MATERIAL_ORDER = #{recipeMaterialOrder}
+		WHERE RECIPE_NO = #{recipeNo}
+		
+	</update>
+	
+	<delete id="delMaterial">
+		DELETE FROM "RECIPE_MATERIAL"
+		WHERE RECIPE_NO = #{recipeNo}
+	</delete>
+	
+	<delete id="delTag">
+		DELETE FROM "RECIPE_TAG"
+		WHERE RECIPE_NO = #{recipeNo}
+	</delete>
+	
+	<delete id="completeImageDelete">
+		DELETE FROM RECIPE_PICTURE WHERE RECIPE_NO = #{recipeNo}
+		AND RECIPE_IMAGE_ORDER IN(${deleteCompleteOrder})
+	</delete>
+	
+	<update id="updateCompleteImg">
+		UPDATE "RECIPE_PICTURE" SET
+		RECIPE_IMAGE = #{recipeImage},
+		RECIPE_IMAGE_RENAME = #{recipeImageRename},
+		RECIPE_IMAGE_NAME = #{recipeImageName}
+		WHERE RECIPE_NO = #{recipeNo}
+		AND RECIPE_IMAGE_ORDER = #{recipeImageOrder}
+	</update>
+	
+	<insert id="insertCompleteImg">
+		INSERT INTO "RECIPE_PICTURE"
+		VALUES(SEQ_RECIPE_PICTURE_NO.NEXTVAL, ${recipeNo}, #{recipeImage}, ${recipeImageOrder}, #{recipeImageRename}, #{recipeImageName})
+	</insert>
+	
+	<update id="thumbnailDelete">
+		UPDATE "RECIPE" SET
+		RECIPE_THUMBNAIL = NULL
+		WHERE RECIPE_NO = #{recipeNo}
+	</update>
+	
+	<delete id="delStep">
+		DELETE FROM "RECIPE_STEP"
+		WHERE RECIPE_NO = #{recipeNo}
+	</delete>
+	
+	<select id="stepImgPath">
+		SELECT RECIPE_STEP_IMAGE_RENAME FROM RECIPE_STEP
+		WHERE RECIPE_NO = #{recipeNo}
+	</select>
+	
 </mapper>

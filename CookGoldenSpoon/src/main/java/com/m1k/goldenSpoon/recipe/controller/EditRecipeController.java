@@ -47,9 +47,30 @@ public class EditRecipeController {
 	}
 	
 	// 레시피 수정
-	@PutMapping("update")
-	public String updateRecipe() {
-		return null;
+	@PostMapping("update")
+	public String updateRecipe(Recipe recipe, String originRecipeVideo, @SessionAttribute("loginMember") Member loginMember, 
+	    	@RequestParam("thumbnail") MultipartFile thumbnail,
+	    	@RequestParam(value = "recipeTagName", required = false) List<String> recipeTagName,
+	    	@RequestParam("recipeStepContent") List<String> recipeStepContent,
+			@RequestParam("processImages") List<MultipartFile> recipeStepImage,
+			@RequestParam("completeImages") List<MultipartFile> completeImages,
+			@RequestParam("materialName") List<String> materialName,
+			@RequestParam("recipeMaterialQuantity") List<String> recipeMaterialQuantity,
+			String deleteCompleteOrder,String deleteThumbnail,
+			RedirectAttributes ra) throws IllegalStateException, IOException {
+		
+		recipe.setMemberNo(loginMember.getMemberNo());
+		
+		int result = service.update(recipe, originRecipeVideo, thumbnail, recipeTagName, recipeStepContent,
+    			recipeStepImage, completeImages, materialName, recipeMaterialQuantity, deleteCompleteOrder,
+    			deleteThumbnail);
+		
+		if(result > 0) {
+			ra.addFlashAttribute("message", "수정 성공");
+		} else {
+			ra.addFlashAttribute("message", "수정 실패");
+		}
+		return "redirect:/recipe/select/" + recipe.getRecipeNo();
 	}
 	
 	
@@ -73,34 +94,5 @@ public class EditRecipeController {
 		ra.addFlashAttribute("message", "레시피 삭제 실패");
 		return "redirect:" + recipeNo;
 	}
-	
-//	// 레시피 수정
-//    @PutMapping("update")
-//    public String update (Recipe recipe, @SessionAttribute("loginMember") Member loginMember, 
-//    	@RequestParam("thumbnail") MultipartFile thumbnail,
-//    	@RequestParam(value = "recipeTagName", required = false) List<String> recipeTagName,
-//    	@RequestParam("recipeStepContent") List<String> recipeStepContent,
-//		@RequestParam("processImages") List<MultipartFile> recipeStepImage,
-//		@RequestParam("completeImages") List<MultipartFile> completeImages,
-//		@RequestParam("materialName") List<String> materialName,
-//		@RequestParam("recipeMaterialQuantity") List<String> recipeMaterialQuantity,
-//		RedirectAttributes ra, int recipeNo) throws IllegalStateException, IOException {
-//    	
-//    	recipe.setMemberNo(loginMember.getMemberNo());
-//    	recipe.setRecipeNo(recipeNo);
-//    	int result = service.update(recipe, thumbnail, recipeTagName, recipeStepContent,
-//    			recipeStepImage, completeImages, materialName, recipeMaterialQuantity);
-//    	
-//    	if( result > 0 ) {
-//			ra.addFlashAttribute("message", "레시피 등록 성공");
-//			return String.format("redirect:/recipe/select/%d", recipeNo);
-//		}
-//		
-//		// 실패 시 
-//		ra.addFlashAttribute("message", "레시피 등록 실패...");
-//    	
-//    	
-//        return "redirect:update";
-//    }
 	
 }

@@ -26,7 +26,20 @@
 	<select id="listCount" resultType="_int">
 		SELECT COUNT(*) FROM RECIPE
 	</select>
-	
+	<select id="listWriterCount" resultType="_int">
+		SELECT COUNT(*) FROM RECIPE
+		JOIN "MEMBER" USING(MEMBER_NO)
+		WHERE MEMBER_NICKNAME LIKE '%${inputSearch}%'
+	</select>
+	<!-- 작성자 이름으로 검색 -->
+	<select id="selectWriterRecipe" resultMap="selectRecipe_rm">
+		SELECT RECIPE_NO, RECIPE_TITLE, RECIPE_THUMBNAIL, (SELECT COUNT(*) FROM RECIPE_LIKE RL WHERE RL.RECIPE_NO = R.RECIPE_NO) RECIPE_LIKE,
+		MEMBER_NICKNAME, MEMBER_NO, RECIPE_HITS
+		FROM "RECIPE" R JOIN "MEMBER" USING(MEMBER_NO)
+		WHERE RECIPE_DEL_FL = 'N'
+		AND MEMBER_NICKNAME LIKE '%${inputSearch}%'
+		ORDER BY RECIPE_NO DESC
+	</select>
 	<select id="selectRecipe" resultMap="selectRecipe_rm">
 		SELECT RECIPE_NO, RECIPE_TITLE, RECIPE_THUMBNAIL, (SELECT COUNT(*) FROM RECIPE_LIKE RL WHERE RL.RECIPE_NO = R.RECIPE_NO) RECIPE_LIKE,
 		MEMBER_NICKNAME, MEMBER_NO, RECIPE_HITS
