@@ -64,7 +64,12 @@ public class RecipeServiceImpl implements RecipeService{
 	
 	@Override
 	public Map<String, Object> search(int cp, String inputSearch, int orderBy) {
-		int listCount = mapper.listSearchCount(inputSearch);
+		int listCount = 0;
+		if(orderBy == 5) {
+			listCount = mapper.listWriterCount(inputSearch);
+		} else {
+			listCount = mapper.listSearchCount(inputSearch);
+		}
 		Pagination pagination = new Pagination(cp, listCount, 8, 7);
 		int offset = (pagination.getCurrentPage() -1) * pagination.getLimit();
 		int limit = pagination.getLimit();
@@ -72,7 +77,12 @@ public class RecipeServiceImpl implements RecipeService{
 		Map<String, Object> paramMap = new HashMap<>();
 		paramMap.put("inputSearch", inputSearch);
 		paramMap.put("orderBy", orderBy);
-		List<Recipe> recipeList = mapper.selectSearchRecipe(paramMap, rowBounds);
+		List<Recipe> recipeList = null;
+		if(orderBy == 5) {
+			recipeList = mapper.selectWriterRecipe(inputSearch, rowBounds);
+		} else {
+			recipeList = mapper.selectSearchRecipe(paramMap, rowBounds);
+		}
 		Map<String,	Object> map = new HashMap<>();
 		map.put("recipeList", recipeList);
 		map.put("pagination", pagination);
@@ -166,8 +176,8 @@ public class RecipeServiceImpl implements RecipeService{
 					 throws IllegalStateException, IOException {
 		String recipeVideo = originRecipeVideo.replace("watch?v=","embed/");
 		recipe.setRecipeVideo(recipeVideo);
-		String thumbnailRename = Util.fileRename(thumbnail.getOriginalFilename());
 		
+		String thumbnailRename = Util.fileRename(thumbnail.getOriginalFilename());
 		recipe.setRecipeThumbnail(webPath + thumbnailRename);
 		
 		int result1 = mapper.insertRecipe(recipe);

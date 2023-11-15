@@ -50,4 +50,52 @@ public interface EditRecipeMapper {
 	 */
 	int updateCompleteList(List<RecipePicture> uploadList2);
 
+	/** 레시피 별 재료 삭제
+	 * @param recipeNo
+	 * @return
+	 */
+	int delMaterial(int recipeNo);
+
+	/** 태그 삭제
+	 * @param recipeNo
+	 * @return
+	 */
+	int delTag(int recipeNo);
+
+	/** 완성 사진 이미지 삭제
+	 * @param map
+	 * @return
+	 */
+	int completeImageDelete(Map<String, Object> map);
+
+	/** 완성 사진 업데이트
+	 * @param img
+	 * @return
+	 */
+	int updateCompleteImg(RecipePicture img);
+
+	/** 완성 사진 하나씩 삽입
+	 * @param img
+	 */
+	void insertCompleteImg(RecipePicture img);
+
+	/** 썸네일 삭제
+	 * @param recipeNo
+	 * @return
+	 */
+	int thumbnailDelete(int recipeNo);
+
+	/** 과정 삭제
+	 * @param recipeNo
+	 * @return
+	 */
+	int delStep(int recipeNo);
+
+	/** 과정 이미지 경로
+	 * @param recipeNo
+	 * @return
+	 */
+	List<String> stepImgPath(int recipeNo);
+
+
 }

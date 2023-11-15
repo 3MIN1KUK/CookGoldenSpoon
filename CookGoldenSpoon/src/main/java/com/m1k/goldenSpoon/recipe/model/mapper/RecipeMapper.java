@@ -177,6 +177,19 @@ public interface RecipeMapper {
 	 */
 	int checkMaterial(String string);
 
+	/** 작성자 검색
+	 * @param inputSearch
+	 * @param rowBounds
+	 * @return
+	 */
+	List<Recipe> selectWriterRecipe(String inputSearch, RowBounds rowBounds);
+
+	/** 작성자로 검색한 글 총 수
+	 * @param inputSearch
+	 * @return
+	 */
+	int listWriterCount(String inputSearch);
+
 	
 
 

@@ -92,28 +92,25 @@ newPasswordCheck.addEventListener('input', ()=>{
   }
 });
 
-/* 회원 가입 버튼이 클릭 되었을 때 */
 document.getElementById("pwChangeFrm").addEventListener("submit", e => {
 
   for(let key in checkObj){
 
-      if(!checkObj[key]){
-          let str
-          switch(key){
-              case "newPassword" : str = "비밀번호가 유효하지 않습니다"; break;
-              
-              case "newPasswordCheck" : str = "비밀번호가 일치하지 않습니다"; break;
-          }
-
-          alert(str);
-
-          // key == input id 속성 값
-          // 유효하지 않은 input 태그로 focus 맞춤
-          document.getElementById(key).focus();
-          e.preventDefault(); // form 제출 X
-          return;
+    if(!checkObj[key]){
+      let str
+      switch(key){
+        case "newPassword" : str = "비밀번호가 유효하지 않습니다"; break;
+        
+        case "newPasswordCheck" : str = "비밀번호가 일치하지 않습니다"; break;
       }
+
+      alert(str);
+
+      // key == input id 속성 값
+      // 유효하지 않은 input 태그로 focus 맞춤
+      document.getElementById(key).focus();
+      e.preventDefault(); // form 제출 X
+      return;
     }
-    
-    window.close();
+  }
 });

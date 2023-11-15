@@ -20,7 +20,8 @@
           <h1>나의 레시피</h1>
         </div>
         
-        <form action="/editRecipe/update" method="put" enctype="multipart/form-data" id="recipeFrm">
+        <form action="/editRecipe/update" method="post" enctype="multipart/form-data" id="recipeFrm">
+          <input type="hidden" name="recipeNo" th:value="*{recipeNo}">
           <!-- 1번째 줄 대표사진 / 요리영상 -->
           <div id="firstLine">
             <div class="main-Picture">
@@ -195,10 +196,12 @@
     
           <!-- 9번째 줄 제출버튼 -->
           <div class="pBtn9">
-            <button type="submit" class="btn9 btn9-1 subBtn">저장</button>
+            <button class="btn9 btn9-1 subBtn">저장</button>
             <button type="button" class="btn9 cancelBtn">취소</button>
           </div>
-          
+          <input type="hidden" name="deleteCompleteOrder" value="">
+          <input type="hidden" name="deleteThumbnail" value="">
+          <input type="hidden" name="querystring">
         </form>
         
       </section>
