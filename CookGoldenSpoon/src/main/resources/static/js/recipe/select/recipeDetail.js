@@ -472,3 +472,54 @@ if(editRecipeBtn != null){
         location.href = "/editRecipe/update?recipeNo=" + recipeNo;
     })
 }
+
+
+
+
+/* 신고 팝업창 */
+// 객체 쿼리스트링 변환
+function objectToQueryString(obj) {
+    return Object.keys(obj)
+      .map(key => { 
+        // 값이 null이 아닌 경우에만 추가
+        if (obj[key] !== null && obj[key] !== undefined) {
+          return encodeURIComponent(key) + '=' + encodeURIComponent(obj[key]);
+        } else {
+          return ''; // 값이 null이면 빈 문자열 반환
+        }
+      })
+      .filter(queryPart => queryPart !== '') // 빈 문자열 제거
+      .join('&');
+  }
+function csRecipe(){
+    
+}
+
+function csComment(memberNo, No, thisComment){
+
+    const data = {};
+    data.reportNo = 
+
+    boards.type = "board";
+    // recipe board recipeComment boardComment
+    boards.reporterNo = memberNo;
+    boards.reporterNickname = thisComment.value;
+    boards.reportCommentNo = recipeNo;
+    
+    const queryString = objectToQueryString(boards);
+    console.log(boards);
+    var popup = window.open("/board/csCustomer?" + queryString, "_blank", "width=600, height=300, left=700, top=400");
+    if(popup){
+        popup.onload = function(){
+            
+            
+        }
+    }
+
+}
+
+function submitFrom(popup, reportContent, reportTitle, memberNo){
+    if(confirm("제출하시겠습니까?")){
+        popup.window.close();
+    }
+}

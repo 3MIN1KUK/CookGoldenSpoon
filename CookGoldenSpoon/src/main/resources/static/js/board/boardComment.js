@@ -360,7 +360,7 @@ function insertChildComment(parentNo, btn){
 // 객체 쿼리스트링 변환
 function objectToQueryString(obj) {
     return Object.keys(obj)
-      .map(key => {
+      .map(key => { 
         // 값이 null이 아닌 경우에만 추가
         if (obj[key] !== null && obj[key] !== undefined) {
           return encodeURIComponent(key) + '=' + encodeURIComponent(obj[key]);

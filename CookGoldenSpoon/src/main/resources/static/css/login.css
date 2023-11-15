@@ -67,12 +67,16 @@ a{
   float: right;
 }
 
-input{
+input[type="checkBox"]{
   border-radius: 10px;
 }
 
-.idCkBox{
-  width: 1rem;
-  height: 1rem;
+.idSaveBox{
+  width: 0rem;
+  height: 0rem;
 }
+
+
+
+
 
