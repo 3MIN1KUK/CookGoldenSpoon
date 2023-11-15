@@ -17,6 +17,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.m1k.goldenSpoon.member.model.dto.Member;
 import com.m1k.goldenSpoon.member.model.service.MemberService;
 
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 
 @Controller
@@ -49,17 +51,34 @@ public class MemberController {
 	
 	// 로그인
 	@PostMapping("login")
-	public String login(String memberId, String memberPw, Model model, RedirectAttributes ra) {
+	public String login(String memberId, String memberPw, Model model, RedirectAttributes ra, String saveId, HttpServletResponse resp) {
 		  
 		Member loginMember = service.login(memberId, memberPw);
+		
+		
+		if (loginMember != null) {
+			Cookie cookie = new Cookie("saveId", loginMember.getMemberId());
+			
+			if(saveId != null) {
+				cookie.setMaxAge(60 * 60 * 24 * 30); // 30일 유지
+			}
+			
+			else {
+				cookie.setMaxAge(0); // 유지X
+			}
+			cookie.setPath("/");
+			
+			resp.addCookie(cookie);
+		}
 		
 		if (loginMember == null) {
 			ra.addFlashAttribute("message", "로그인 실패");
 			return "redirect:/member/login";
-		}
+		} else {
 		
 		model.addAttribute("loginMember", loginMember);
 		return "redirect:/";
+		}
 	} 
 	
 	// 회원가입

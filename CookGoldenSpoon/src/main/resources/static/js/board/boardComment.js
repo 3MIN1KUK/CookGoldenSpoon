@@ -381,8 +381,7 @@ function csComment(memberNo, boardCommentNo, thisComment){
     boards.reportCommentNo = boardCommentNo;
     
     const queryString = objectToQueryString(boards);
-    console.log(boards);
-    var popup = window.open("/board/csCustomer?" + queryString, "_blank", "width=600, height=300, left=700, top=400");
+    var popup = window.open("/board/csCustomer?" + queryString, "_blank", "width=800, height=400, left=700, top=400");
     if(popup){
         popup.onload = function(){
             
