@@ -101,7 +101,7 @@
 
 .recipe-photo{
   display: flex;
-  justify-content: space-between;
+  justify-content: space-evenly;
 }
 
 .recipe-photo>div{
