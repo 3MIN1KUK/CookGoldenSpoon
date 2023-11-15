@@ -21,9 +21,12 @@ public class Report {
 	private int reportCommentNo;
 	private String reporterNickname;
 	private String reportTitle;
-	
+
 	private String selectOption;
 	private String reportAnswer;
+	private int recipeCommentNo;
+	private int recipeNo;
+
 	private int commentBoardNo;
 	private String type;
 }

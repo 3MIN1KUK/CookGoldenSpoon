@@ -23,8 +23,19 @@
   color: var(--color-bg);
 }
 
+.search-area{
+  width: 95%;
+  display: flex;
+  justify-content: flex-end;
+}
+
 .search-area *{
   height: 4rem;
+  margin: 2px;
+}
+
+#recipeSearch{
+  padding-left: 10px;
 }
 
 .tags{

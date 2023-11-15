@@ -40,6 +40,7 @@ memberId.addEventListener("input", () => {
 });
 
 
+
 // 비밀번호 유효성 검사
 const memberPw = document.getElementById("memberPw");
 const pwMessage = document.getElementById("pwMessage");
@@ -78,3 +79,29 @@ memberPw.addEventListener("input", () => {
       checkObj.memberPw = false; 
   }
 });
+
+const getCookie = (key) => {
+
+  const cookies = document.cookie;
+
+  const list = cookies.split('; ').map(entry => entry.split('='));
+  const obj = {};
+
+  for(let i = 0 ; i < list.length ; i++) {
+    obj[ list[i][0] ] = list[i][1];
+  }
+return obj[key];
+}
+
+const saveMemberId = document.querySelector("#memberId");
+const saveId = document.querySelector("#saveId");
+
+if(memberId != null && saveId != null) {
+  const checkId = getCookie("saveId");
+
+  if(checkId != undefined) {
+    memberId.value = checkId;
+    saveId.checked = true;
+  }
+
+}

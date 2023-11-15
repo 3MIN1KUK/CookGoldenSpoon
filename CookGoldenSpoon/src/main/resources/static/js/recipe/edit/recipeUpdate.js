@@ -17,12 +17,12 @@ const subBtn = document.getElementsByClassName("subBtn");
 /* 레시피 미리보기 버튼 */
 const prBtn = document.getElementsByClassName("prBtn");
 
-/* 전송 취소 버튼 */
-const cancelBtn = document.getElementsByClassName("cancelBtn");
+/* x 버튼이 클릭 된 input순서 기록 */
+const deleteCompleteOrderSet = new Set();
+const deleteStepOrderSet = new Set();
+const deleteThumbnailSet = new Set();
 
 /* 사진 추가 버튼 백업용 */
-
-
 
 const previewThumbnail = document.getElementsByClassName("preview");
 const inputThumbnail = document.getElementsByClassName("inputImage1");
@@ -96,6 +96,7 @@ const changeThumbnailImageFn = (imageInput, order)=>{
     previewThumbnail[order].src = url;
     
     backupThumbnailList[order] = imageInput.cloneNode(true);
+    deleteThumbnailSet.delete(order);
   }
 };
 
@@ -114,6 +115,7 @@ for(let i = 0; i<inputThumbnail.length; i++){
     inputThumbnail[i].value = "";
     
     backupThumbnailList[i] = undefined;
+    deleteThumbnailSet.add(i);
   })
 }
 // ---------------------------------------------------------------------------------
@@ -122,7 +124,18 @@ for(let i = 0; i<inputThumbnail.length; i++){
 
 
 // Step -----------------------------------------------------------------------------
-const changeStepImageFn = (imageInput, order)=>{
+const changeStepImageFn = (imageInput)=>{
+
+  let order;
+  
+  for(let i=0; i<stepInputImageList.length ; i++){
+    if(stepInputImageList[i] == imageInput){
+      console.log(`index : ${i}`);
+      order = i;
+    }
+  }
+  
+
   
   const maxSize = 1024*1024*10;
   
@@ -255,6 +268,8 @@ const changeCompleteImageFn = (imageInput, order)=>{
     completePreviewList[order].src = url;
 
     backupCompleteList[order] = imageInput.cloneNode(true);
+
+    deleteCompleteOrderSet.delete(order);
   }
 };
 // 완성사진
@@ -272,6 +287,8 @@ for(let i = 0; i<completeInputImageList.length; i++){
     completeInputImageList[i].value = "";
 
     backupCompleteList[i] = undefined;
+
+    deleteCompleteOrderSet.add(i);
   })
 }
 // ---------------------------------------------------------------------------------
@@ -291,6 +308,15 @@ let backup;
 /* 추가 버튼 클릭 시 */
 addBtn.addEventListener("click", () => {
   
+  let order;
+  
+  for(let i=0; i<stepInputImageList.length ; i++){
+    if(stepInputImageList[i] == imageInput){
+      console.log(`index : ${i}`);
+      order = i;
+    }
+  }
+
   backup = backDiv.cloneNode(true);
   
   const textarea = backup.children[1].children[0].children[0];
@@ -301,7 +327,9 @@ addBtn.addEventListener("click", () => {
   
   inputFile.previousElementSibling.src = camera;
 
-  // inputFile.previousElementSibling.classList.add("stepPreview");
+  const preview = inputFile.previousElementSibling;
+  
+  const delStepBtn = backup.children[1].children[2];
 
   const xBtn = document.createElement("span");
   xBtn.classList.add("x-btn");
@@ -320,9 +348,6 @@ addBtn.addEventListener("click", () => {
   
       backupStepList[i] = stepInputImageList[i].cloneNode(true);
       // 이미지 선택 또는 취소 시
-      stepInputImageList[i].addEventListener("change", e=>{
-        changeStepImageFn(e.target, i);
-      });
     
       // x 버튼 클릭 시
       stepDeleteImageList[i].addEventListener("click", ()=>{
@@ -335,21 +360,31 @@ addBtn.addEventListener("click", () => {
     }
   })
   for(let i = 0; i<stepInputImageList.length; i++){
-  
+    backupStepList[i] = stepInputImageList[i].cloneNode(true);
+  }
     // 이미지 선택 또는 취소 시
-    stepInputImageList[i].addEventListener("change", e=>{
-      changeStepImageFn(e.target, i);
+    inputFile.addEventListener("change", e=>{
+      changeStepImageFn(e.target);
     });
   
     // x 버튼 클릭 시
-    stepDeleteImageList[i].addEventListener("click", ()=>{
-      stepPreviewList[i].setAttribute("src", camera);
+    delStepBtn.addEventListener("click", ()=>{
+      preview.setAttribute("src", camera);
   
-      stepInputImageList[i].value = "";
+      inputFile.value = "";
   
-      backupStepList[i] = undefined;
+      let order;
+  
+      for(let i=0; i<stepInputImageList.length ; i++){
+        if(stepInputImageList[i] == imageInput){
+          order = i;
+        }
+      }
+
+
+      backupStepList[order] = undefined;
     })
-  }
+  
 });
 
 const cookProcess = document.getElementsByClassName("cookProcess");
@@ -370,10 +405,12 @@ for(let i = 1; i<cookProcess.length; i++){
 // 태그
 
 function preventSubmit(event) {
-  if (event.keyCode === 13) {
+  if (event.target.id == "inputTag" && event.key === "Enter") {
     event.preventDefault();
   }
 }
+
+       
 document.getElementById("recipeFrm").addEventListener("keydown", preventSubmit);
 
 const inputTag = document.getElementById("inputTag");
@@ -545,9 +582,30 @@ recipeFrm.addEventListener("submit", e=>{
     return;
   }
 
+  document.querySelector("[name='deleteCompleteOrder']").value = Array.from(deleteCompleteOrderSet)
+  document.querySelector("[name='deleteCompleteOrder']").value = Array.from(deleteCompleteOrderSet)
+  document.querySelector("[name='deleteThumbnail']").value = Array.from(deleteThumbnailSet)
+
+  document.querySelector("[name='querystring']").value = location.search;
+
 });
 
+const selectBox = document.getElementsByClassName("selectBox");
+for(let i=0; i<selectBox.length; i++){
+  const options = selectBox[i].children;
+  for(let option of options){
+    if(option.innerText == recipeSelectBox[i]){
+      option.selected = true;
+    }
+  }
+}
 
+/* 전송 취소 버튼 */
+const cancelBtn = document.getElementsByClassName("cancelBtn")[0];
+
+cancelBtn.addEventListener("click", ()=>{
+  window.history.back();
+});
 
 
 

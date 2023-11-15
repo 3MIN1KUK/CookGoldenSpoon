@@ -196,7 +196,7 @@ nav>ul{
   border-top: none;
   border-bottom-left-radius: 2rem;
   border-bottom-right-radius: 2rem;
-  padding-top: 0.5rem;
+  padding-top: 0.7rem;
 }
 
 .recipe-info{
@@ -398,6 +398,7 @@ footer *{
 }
 #orderBy{
   border-radius: 1rem;
+  padding-left: 5px;
 }
 
 

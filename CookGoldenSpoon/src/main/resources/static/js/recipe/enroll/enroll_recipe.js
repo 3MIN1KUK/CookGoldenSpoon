@@ -17,8 +17,6 @@ const subBtn = document.getElementsByClassName("subBtn");
 /* 레시피 미리보기 버튼 */
 const prBtn = document.getElementsByClassName("prBtn");
 
-/* 전송 취소 버튼 */
-const cancelBtn = document.getElementsByClassName("cancelBtn");
 
 /* 사진 추가 버튼 백업용 */
 
@@ -189,6 +187,9 @@ for(let i = 0; i<completeInputImageList.length; i++){
   })
 }
 // ---------------------------------------------------------------------------------
+// ---------------------------------------------------------------------------------
+// ---------------------------------------------------------------------------------
+// ---------------------------------------------------------------------------------
 
 
 
@@ -198,8 +199,23 @@ const stepDeleteImageList = document.getElementsByClassName("stepDeleteBtn");
 let backupStepList = new Array(stepInputImageList.length);
 
 // Step -----------------------------------------------------------------------------
-const changeStepImageFn = (imageInput, order)=>{
+// Step -----------------------------------------------------------------------------
+// Step -----------------------------------------------------------------------------
+// Step -----------------------------------------------------------------------------
+// Step -----------------------------------------------------------------------------
+const changeStepImageFn = (imageInput)=>{
+  let order;
   
+  for(let i=0; i<stepInputImageList.length ; i++){
+    if(stepInputImageList[i] == imageInput){
+      console.log(`index : ${i}`);
+      order = i;
+    }
+  }
+
+
+
+
   const maxSize = 1024*1024*10;
   
   const uploadFile = imageInput.files[0];
@@ -253,64 +269,6 @@ const changeStepImageFn = (imageInput, order)=>{
     backupStepList[order] = imageInput.cloneNode(true);
   }
 };
-// const changeStepImageFntemp = ()=>{
-  
-//   const maxSize = 1024*1024*10;
-//   for(let i = 0 ; i<stepInputImageList.length; i++){
-//     const uploadFile = stepInputImageList[i].files[0];
-    
-//     // 파일 선택 취소
-//     if(uploadFile == undefined){
-      
-//       const temp = backupStepList[i].cloneNode(true);
-      
-//       stepInputImageList[i].after(temp);
-//       stepInputImageList[i].remove();
-//       stepInputImageList[i] = temp;
-      
-//       stepInputImageList[i].addEventListener("change", ()=>{
-//         changeStepImageFn();
-//       });
-//       return;
-//     }
-    
-//     // 크기 초과
-//     if(uploadFile.size > maxSize){
-//       alert("10MB 이하의 이미지를 선택해주세요");
-      
-//       // 없다가 추가한 경우 빈칸으로 만들어 초기화
-//       if(backupStepList[i] == undefined){
-//         stepInputImageList[i].value = "";
-//       }
-      
-//       // 있다가 추가한 경우
-//       else{
-//         let temp = backupStepList[i].cloneNode(true);
-        
-//         stepInputImageList[i].after(temp);
-//         stepInputImageList[i].remove();
-//         stepInputImageList[i] = temp;
-        
-//         imageInput.addEventListener("change", ()=>{
-//           changeStepImageFn();
-//         });
-//       }
-//       return;
-//     }
-    
-//     const reader = new FileReader();
-    
-//     reader.readAsDataURL(uploadFile);
-    
-//     reader.onload = e=>{
-//       const url = e.target.result;
-//       stepPreviewList[i].src = url;
-//       backupStepList[i] = stepInputImageList[i].cloneNode(true);
-//       console.log(order + "onload 완료");
-//     }
-
-//   }
-// };
 // 과정사진
 
 for(let i = 0; i<stepInputImageList.length; i++){
@@ -344,6 +302,10 @@ for(let i = 0; i<stepInputImageList.length; i++){
 // ----------------------------------------------------------------
 
 //-------------------------------------------------------------------------
+//-------------------------------------------------------------------------
+//-------------------------------------------------------------------------
+//-------------------------------------------------------------------------
+//-------------------------------------------------------------------------
 /* 요리 과정 추가 버튼 */
 const addBtn = document.getElementById("add");
 const parentElement = document.getElementById("parentElement");
@@ -352,7 +314,6 @@ const backDiv = document.getElementsByClassName("backup")[0];
 let backup;
 /* 추가 버튼 클릭 시 */
 addBtn.addEventListener("click", () => {
-  
   backup = backDiv.cloneNode(true);
   
   const textarea = backup.children[1].children[0].children[0];
@@ -362,29 +323,64 @@ addBtn.addEventListener("click", () => {
   inputFile.value = "";
   
   inputFile.previousElementSibling.src = camera;
-
+  
   const preview = inputFile.previousElementSibling;
-
+  
   const delStepBtn = backup.children[1].children[2];
-
+  
   const xBtn = document.createElement("span");
   xBtn.classList.add("x-btn");
   xBtn.innerHTML = '<i class="fa-solid fa-minus"></i>';
   
   backup.append(xBtn);
+
   parentElement.append(backup);
-
+  
   backupStepList = new Array(stepInputImageList.length);
-  for(let i = 0; i<stepInputImageList.length; i++){
-    backupStepList[i] = stepInputImageList[i].cloneNode(true);
-  }
-
-
+  
   xBtn.addEventListener("click", e=>{
     e.target.parentElement.parentElement.remove();
     backupStepList = new Array(stepInputImageList.length);
+    for(let i = 0; i<stepInputImageList.length; i++){
+      
+      backupStepList[i] = stepInputImageList[i].cloneNode(true);
+      // 이미지 선택 또는 취소 시
+    
+      // x 버튼 클릭 시
+      stepDeleteImageList[i].addEventListener("click", ()=>{
+        stepPreviewList[i].setAttribute("src", camera);
+    
+        stepInputImageList[i].value = "";
+    
+        backupStepList[i] = undefined;
+      })
+    } 
   });
+  
+  for(let i = 0; i<stepInputImageList.length; i++){
+    backupStepList[i] = stepInputImageList[i].cloneNode(true);
+  }
+    // 이미지 선택 또는 취소 시
+    inputFile.addEventListener("change", e=>{
+      changeStepImageFn(e.target);
+    });
+  
+    // x 버튼 클릭 시
+    delStepBtn.addEventListener("click", ()=>{
+      preview.setAttribute("src", camera);
+  
+      inputFile.value = "";
 
+      let order;
+      
+      for(let i=0; i<stepInputImageList.length ; i++){
+        if(stepInputImageList[i] == inputFile){
+          order = i;
+        }
+      }
+  
+      backupStepList[order] = undefined;
+    })
 
 });
 
@@ -395,7 +391,7 @@ addBtn.addEventListener("click", () => {
 // 태그
 
 function preventSubmit(event) {
-  if (event.keyCode === 13) {
+  if (event.target.id == "inputTag" && event.key === "Enter") {
     event.preventDefault();
   }
 }
@@ -553,6 +549,13 @@ recipeFrm.addEventListener("submit", e=>{
 
 });
 
+
+/* 전송 취소 버튼 */
+const cancelBtn = document.getElementsByClassName("cancelBtn")[0];
+
+cancelBtn.addEventListener("click", ()=>{
+  window.history.back();
+});
 
 
 

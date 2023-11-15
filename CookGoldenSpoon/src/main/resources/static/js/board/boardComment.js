@@ -360,7 +360,7 @@ function insertChildComment(parentNo, btn){
 // 객체 쿼리스트링 변환
 function objectToQueryString(obj) {
     return Object.keys(obj)
-      .map(key => {
+      .map(key => { 
         // 값이 null이 아닌 경우에만 추가
         if (obj[key] !== null && obj[key] !== undefined) {
           return encodeURIComponent(key) + '=' + encodeURIComponent(obj[key]);
@@ -381,8 +381,7 @@ function csComment(memberNo, boardCommentNo, thisComment){
     boards.reportCommentNo = boardCommentNo;
     
     const queryString = objectToQueryString(boards);
-    console.log(boards);
-    var popup = window.open("/board/csCustomer?" + queryString, "_blank", "width=600, height=300, left=700, top=400");
+    var popup = window.open("/board/csCustomer?" + queryString, "_blank", "width=800, height=400, left=700, top=400");
     if(popup){
         popup.onload = function(){
             

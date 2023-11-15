@@ -26,7 +26,6 @@
 
 /* 게시글 위 이름 */
 .inquiry-main{
-   cursor: pointer;
    font-size: 2rem;
    margin: 0.5rem 0;
    width: 100%;

@@ -2,15 +2,27 @@
 
   <form action="/board/csCustomer" method="POST">
     <div>
-      <input type="text" name="reportTitle" id="reportTitle">
-    </div>
-    <div th:text="${report}">
-
+      <table>
+        <tr>
+          <th>제목 </th>
+          <td>
+            <input type="text" name="reportTitle" id="reportTitle">
+          </td>
+        </tr>
+        <tr>
+          <th>신고 내용 </th>
+          <td>
+            <textarea name="reportContent" id="reportContent" cols="30" rows="10"></textarea>
+  
+          </td>
+        </tr>
+      </table>
+      
     </div>
     <div>
-      <textarea name="reportContent" id="reportContent" cols="30" rows="10"></textarea>
+      <button th:onclick="|lastBtn(${report.reporterNo},this)|" id="lastBtn">제출</button>
+
     </div>
-    <button th:onclick="|lastBtn(${report.reporterNo},this)|" id="lastBtn">제출</button>
   </form>
 
 

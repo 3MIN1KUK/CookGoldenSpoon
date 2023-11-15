@@ -144,17 +144,15 @@ public class MyPageController {
 		String message;
 		if(result > 0) {
 			message = "비밀번호 변경 성공";
-			path = "redirect:edit";
+			ra.addFlashAttribute("close", "close");
 		} else if(result == -1) {
 			message = "현재 비밀번호가 일치하지 않습니다";
-			path = "redirect:pwChange";
 		} else {
 			message = "비밀번호 변경 실패";
-			path = "redirect:pwChange";
 		}
 		ra.addFlashAttribute("message", message);
 		
-		return path;
+		return "redirect:pwChange";
 	}
 	
 }

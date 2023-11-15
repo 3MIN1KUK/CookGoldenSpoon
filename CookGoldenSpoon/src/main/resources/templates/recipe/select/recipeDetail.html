@@ -75,7 +75,7 @@
         </div>
         <div class="content recipe-info">
           <span>
-            인원 &nbsp;
+            요리사 &nbsp;
             <span class="recipe-info-detail" th:text="*{recipePeople}"></span>
           </span>
           <span>
@@ -117,7 +117,7 @@
             STEP [[*{recipeStepOrder+1}]]
           </div>
           <div class="content step-content">
-            <div th:text="*{recipeStepContent}">
+            <div th:text="*{recipeStepContent}" class="stepText">
               순서가 들어가는 칸
             </div>
             <div class="stepImage"><img th:if="*{recipeStepImage}" th:src="|*{recipeStepImage}*{recipeStepImageRename}|"></div>
@@ -136,14 +136,13 @@
       </div>
       <div class="btnArea">
         <th:block th:if="${session.loginMember != null}">
-          <button >신고</button>
+          <button th:value="*{memberNickname}" th:onclick="|csComment(*{memberNo}, *{recipeNo}, this)|">신고</button>
         </th:block>
         <th:block th:if="${session.loginMember != null and session.loginMember.memberNo == recipe.memberNo}">
           <button id="editRecipeBtn">수정</button>
           <button id="deleteRecipeBtn">삭제</button>
         </th:block>
       </div>
-      
       <!-- <div class="recipe-content recipe-photos">
         <div class="recipe-subtitle">
           또 다른 추천 음식
@@ -171,6 +170,25 @@
     const recipeStarCheck = /*[[${recipeStar}]]*/ "별점 수";
     const loginMemberNo =/*[[${session.loginMember?.memberNo}]]*/ "로그인 회원번호";
     const userDefaultImage = /*[[#{user.default.image}]]*/ "회원 기본 이미지";
+
+    /*----- 아래 구문 이동X -----*/
+    const popBtn = document.querySelector("form");
+    popBtn.addEventListener('submit', e => {
+    const reportContent = document.getElementById("reportContent")
+    const reportTitle = document.getElementById("reportTitle")
+
+    if (reportContent.value.trim().length == 0 || reportTitle.value.trim().length == 0) {
+      e.preventDefault();
+      alert("제목이나 신고 내용을 작성해주세요")
+
+      return;
+    }
+
+    alert("신고되었습니다.")
+    window.close()
+    /* -------------------------------- */
+  })
+
   </script>
   <script src="/js/recipe/select/recipeDetail.js"></script>
   <script src="/js/common/project.js"></script>

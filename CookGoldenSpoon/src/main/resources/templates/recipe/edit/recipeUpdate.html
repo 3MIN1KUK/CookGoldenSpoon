@@ -20,7 +20,8 @@
           <h1>나의 레시피</h1>
         </div>
         
-        <form action="/editRecipe/update" method="put" enctype="multipart/form-data" id="recipeFrm">
+        <form action="/editRecipe/update" method="post" enctype="multipart/form-data" id="recipeFrm">
+          <input type="hidden" name="recipeNo" th:value="*{recipeNo}">
           <!-- 1번째 줄 대표사진 / 요리영상 -->
           <div id="firstLine">
             <div class="main-Picture">
@@ -37,9 +38,9 @@
             </div> 
             
             <div class="video">
-              <div id="video1">요리 영상</div>
+              <div id="video1">요리 영상 URL</div>
               <div id="video2">
-                <div class="thumbnail"></div><div class="link"> <button class="processBtn1"><i class="fa-solid fa-plus"></i></button></div>
+                <textarea name="originRecipeVideo" id="recipeVideo" rows="10" class="recipeVideo" th:text="*{recipeVideo}"></textarea>
               </div>
             </div>
           </div>
@@ -71,7 +72,7 @@
               <div class="cinBox">
                 
                 <div>
-                  인원<select name="recipePeople" id="selectBox">
+                  인원<select name="recipePeople" class="selectBox">
                     <option>1명</option>
                     <option>2명</option>
                     <option>3명</option>
@@ -80,7 +81,7 @@
                 </div>
 
                 <div>
-                  시간<select name="recipeTime" id="selectBox">
+                  시간<select name="recipeTime" class="selectBox">
                       <option>30분 이하</option>
                       <option>1시간 이하</option>
                       <option>1시간반 이하</option>
@@ -91,9 +92,9 @@
     
               <div>
                 난이도
-                <select name="recipeLevel" id="selectBox">
+                <select name="recipeLevel" class="selectBox">
                   <option>하</option>
-                  <option>중하</option>
+                  <option>중하</optiond=>
                   <option>중</option>
                   <option>중상</option>
                   <option>상</option>
@@ -195,10 +196,12 @@
     
           <!-- 9번째 줄 제출버튼 -->
           <div class="pBtn9">
-            <button type="submit" class="btn9 btn9-1 subBtn">저장</button>
-            <button class="btn9 cancelBtn">취소</button>
+            <button class="btn9 btn9-1 subBtn">저장</button>
+            <button type="button" class="btn9 cancelBtn">취소</button>
           </div>
-          
+          <input type="hidden" name="deleteCompleteOrder" value="">
+          <input type="hidden" name="deleteThumbnail" value="">
+          <input type="hidden" name="querystring">
         </form>
         
       </section>
@@ -219,7 +222,10 @@
     for(let img of imageList){
       previewList[img.recipeImageOrder].src = img.recipeImage + img.recipeImageRename;
     }
-
+    const recipePeople = /*[[${recipe.recipePeople}]]*/ "레시피 인원";
+    const recipeTime = /*[[${recipe.recipeTime}]]*/ "레시피 시간";
+    const recipeLevel = /*[[${recipe.recipeLevel}]]*/ "레시피 난이도";
+    const recipeSelectBox = [recipePeople, recipeTime, recipeLevel];
   </script>
 
 
