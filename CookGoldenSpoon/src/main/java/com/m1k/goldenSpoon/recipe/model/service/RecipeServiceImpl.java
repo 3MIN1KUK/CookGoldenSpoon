@@ -178,13 +178,19 @@ public class RecipeServiceImpl implements RecipeService{
 		
 		for(int i = 0; i<materialName.size(); i++) {
 			if(materialName.get(i).trim().length() != 0) {
-			mapper.insertMaterialName(materialName.get(i));
-			RecipeMaterial material = new RecipeMaterial();
-			material.setMaterialName(materialName.get(i));
-			material.setRecipeMaterialOrder(i);
-			material.setRecipeMaterialQuantity(recipeMaterialQuantity.get(i));
-			material.setRecipeNo(recipeNo);
-			materialList.add(material);
+				int materialResult = mapper.checkMaterial(materialName.get(i));
+				
+				if(materialResult == 0) {
+					mapper.insertMaterialName(materialName.get(i));
+				}
+					
+					RecipeMaterial material = new RecipeMaterial();
+					material.setMaterialName(materialName.get(i));
+					material.setRecipeMaterialOrder(i);
+					material.setRecipeMaterialQuantity(recipeMaterialQuantity.get(i));
+					material.setRecipeNo(recipeNo);
+					materialList.add(material);
+					
 			}
 		}
 		int result2 = mapper.insertRecipeMaterial(materialList);
