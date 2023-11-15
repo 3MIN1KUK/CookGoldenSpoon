@@ -547,6 +547,17 @@ recipeFrm.addEventListener("submit", e=>{
 
 });
 
+const selectBox = document.getElementsByClassName("selectBox");
+for(let i=0; i<selectBox.length; i++){
+  const options = selectBox[i].children;
+  for(let option of options){
+    console.log(option.innerText);
+    if(option.innerText == recipeSelectBox[i]){
+      option.selected = true;
+    }
+  }
+}
+
 
 
 
