@@ -10,18 +10,18 @@
   margin: 10rem auto;
   justify-content: center;
   align-items: center;
+  border-radius: 2rem;
 }
 
 .box {
   width: 100%;
-  border: 1px solid #ccc;
   padding: 20px;
   margin: auto;
 }
 
-.input-group > *,.btn-group > *, #login-submit, .login-title{
+/* .input-group > *,.btn-group > *, #login-submit, .login-title{
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
-}
+} */
 
 #memberId, #memberPw, #memberEmail{
   color: black !important;
@@ -48,11 +48,12 @@ input {
   border: 1px solid #ccc;
   padding: 5px;
   box-sizing: border-box;
+  margin: 2rem 0;
 }
 
 input[type="submit"] {
   background-color: #E3C24A;
-  color: #000;
+  color: rgba(0, 0, 0, 0.68);
   font-size: 2rem;
   height: 40px;
   border: none;
@@ -66,7 +67,7 @@ input[type="submit"] {
 }
 
 .btn-group > *{
-  color: black;
+  color: rgba(0, 0, 0, 0.68);
 }
 
 #signup{

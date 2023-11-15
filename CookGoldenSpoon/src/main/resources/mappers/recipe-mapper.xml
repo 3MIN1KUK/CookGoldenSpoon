@@ -281,6 +281,9 @@
 		</foreach>
 	</insert>
 	
-	
-	
+	<!-- 재료 이름 중복 체크 -->
+	<select id="checkMaterial" resultType="_int">
+		SELECT COUNT(*) FROM MATERIAL
+		WHERE MATERIAL_NAME = #{materialName}
+	</select>
 </mapper>

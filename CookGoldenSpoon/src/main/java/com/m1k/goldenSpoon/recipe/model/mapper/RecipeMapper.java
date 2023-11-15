@@ -171,6 +171,12 @@ public interface RecipeMapper {
 	 */
 	int insertRecipeMaterial(List<RecipeMaterial> materialList);
 
+	/** 재료이름 중복체크
+	 * @param string
+	 * @return
+	 */
+	int checkMaterial(String string);
+
 	
 
 
