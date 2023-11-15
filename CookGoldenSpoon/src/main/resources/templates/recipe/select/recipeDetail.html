@@ -136,7 +136,7 @@
       </div>
       <div class="btnArea">
         <th:block th:if="${session.loginMember != null}">
-          <button >신고</button>
+          <button th:value="*{memberNickname}" th:onclick="|csComment(*{memberNo}, *{recipeNo}, this)|">신고</button>
         </th:block>
         <th:block th:if="${session.loginMember != null and session.loginMember.memberNo == recipe.memberNo}">
           <button id="editRecipeBtn">수정</button>
@@ -171,6 +171,25 @@
     const recipeStarCheck = /*[[${recipeStar}]]*/ "별점 수";
     const loginMemberNo =/*[[${session.loginMember?.memberNo}]]*/ "로그인 회원번호";
     const userDefaultImage = /*[[#{user.default.image}]]*/ "회원 기본 이미지";
+
+    /*----- 아래 구문 이동X -----*/
+    const popBtn = document.querySelector("form");
+    popBtn.addEventListener('submit', e => {
+    const reportContent = document.getElementById("reportContent")
+    const reportTitle = document.getElementById("reportTitle")
+
+    if (reportContent.value.trim().length == 0 || reportTitle.value.trim().length == 0) {
+      e.preventDefault();
+      alert("제목이나 신고 내용을 작성해주세요")
+
+      return;
+    }
+
+    alert("신고되었습니다.")
+    window.close()
+    /* -------------------------------- */
+  })
+
   </script>
   <script src="/js/recipe/select/recipeDetail.js"></script>
   <script src="/js/common/project.js"></script>

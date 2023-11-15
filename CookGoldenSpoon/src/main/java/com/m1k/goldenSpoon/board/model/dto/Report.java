@@ -22,6 +22,9 @@ public class Report {
 	private String reporterNickname;
 	private String reportTitle;
 	
+	private int recipeCommentNo;
+	private int recipeNo;
+	
 	
 	
 	private int commentBoardNo;
