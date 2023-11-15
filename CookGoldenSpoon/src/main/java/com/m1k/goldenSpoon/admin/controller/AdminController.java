@@ -220,7 +220,7 @@ public class AdminController {
 	// 신고 답변 입력
 	@PostMapping("reportAnswer")
 	@ResponseBody
-	public int reportAnswer(Report report) {
+	public int reportAnswer(@RequestBody Report report) {
 		return service.reportAnswer(report);
 	}
 	
