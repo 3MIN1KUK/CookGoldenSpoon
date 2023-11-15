@@ -10,6 +10,35 @@
   <script src="https://kit.fontawesome.com/921e1d60a7.js" crossorigin="anonymous"></script>
 </head>
 <body>
+
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-3" id="exampleModalLabel">신고 상세 조회</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body fs-4">
+
+          <div>
+            <label for="message-text" class="col-form-label">제목</label>
+            <input class="form-control" id="reportTitle"></input>
+          </div>
+
+          <hr>
+
+          <label for="message-text" class="col-form-label">내용</label>
+          <textarea class="form-control" id="reportContent" rows="5"></textarea>
+        </div>
+
+        <div class="modal-footer" >
+          <button type="button" class="btn btn-secondary fs-4" data-bs-dismiss="modal">닫기</button>
+          <button type="button" class="btn btn-primary fs-4" id="report-answer-submit" data-bs-dismiss="modal">제출</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <th:block th:replace="~{common/header}"></th:block>
   <main th:object="${board}">
     <div class="main-container">

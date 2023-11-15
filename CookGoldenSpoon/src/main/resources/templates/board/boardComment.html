@@ -1,3 +1,13 @@
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+<style>
+  a{
+    text-decoration: none !important;
+    color: var(--color-main) !important;
+  }
+</style>
+
+
+
 <div id="commentArea">
   <!-- 댓글 목록 -->
   <div class="comment-list-area">
@@ -28,8 +38,8 @@
                 <div class="commentNickname" th:text="*{memberNickname}">닉네임</div>
                 <div class="contentContainer">
                   <!-- 신고하기 버튼 -->
-                  <div><button id="csBtn" th:value="*{memberNickname}" th:onclick="|csComment(*{memberNo}, *{boardCommentNo}, this)|">신고하기</button></div>
-                  
+                  <div><button id="csBtn" th:value="*{memberNickname}" data-bs-toggle="modal" data-bs-target="#exampleModal" >신고하기</button></div>
+                  <!--  th:onclick="|csComment(*{memberNo}, *{boardCommentNo}, this)|" -->
                   <div class="board2CommentEnrollDate" th:text="*{boardCommentEnrollDate}"></div>
                   <div class="board2-review-content" th:text="*{boardCommentContent}"></div>
                   <th:block th:if="${session.loginMember != null and session.loginMember.memberNo == comment.memberNo}">
@@ -55,3 +65,5 @@
   </div>
 
 </div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>

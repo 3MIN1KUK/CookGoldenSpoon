@@ -1,15 +1,18 @@
 const answerArea = document.getElementById('message-text');
 let reportNo;
 const reportAnswerSubmit = document.getElementById('report-answer-submit');
+
+
 reportAnswerSubmit.addEventListener('click', () =>{
   
-  const reportAnswerSubmit = answerArea.innerHTML;
+  const reportAnswerSubmit = answerArea.value;
 
   const data = {};
   data.reportNo = reportNo;
   data.reportAnswer = reportAnswerSubmit;
 
   console.log(data);
+  console.log(reportAnswerSubmit);
 
 
   fetch("/admin/reportAnswer",{
