@@ -175,7 +175,7 @@ public class RecipeServiceImpl implements RecipeService{
 			 , List<String> materialName, List<String> recipeMaterialQuantity) 
 					 throws IllegalStateException, IOException {
 		String recipeVideo = originRecipeVideo.replace("watch?v=","embed/");
-		recipe.setRecipeVideo(recipeVideo);
+		recipe.setRecipeVideo(recipeVideo.substring(0, recipeVideo.indexOf("embed/")+17));
 		
 		String thumbnailRename = Util.fileRename(thumbnail.getOriginalFilename());
 		recipe.setRecipeThumbnail(webPath + thumbnailRename);
@@ -247,26 +247,29 @@ public class RecipeServiceImpl implements RecipeService{
 				uploadList2.add(img);
 			} // if문 끝
 		}// for문 끝
-		
-		int result5 = mapper.insertCompleteList(uploadList2);
-		
-		
-		
-		if(result1 > 0 && result4 == uploadList1.size() && result5 == uploadList2.size()) {
-			thumbnail.transferTo(new File(folderPath + thumbnailRename));
+		if(uploadList2.size() > 0) {
+			int result5 = mapper.insertCompleteList(uploadList2);
 			
-			result4 = uploadList1.size();
-			for(RecipeStep img : uploadList1) {
-				if(img.getUploadFile() != null) {
-					img.getUploadFile().transferTo(new File(folderPath + img.getRecipeStepImageRename()));
+			if(result1 > 0 && result4 == uploadList1.size() && result5 == uploadList2.size()) {
+				thumbnail.transferTo(new File(folderPath + thumbnailRename));
+				
+				result4 = uploadList1.size();
+				for(RecipeStep img : uploadList1) {
+					if(img.getUploadFile() != null) {
+						img.getUploadFile().transferTo(new File(folderPath + img.getRecipeStepImageRename()));
+					}
+				}
+				
+				result5 = uploadList2.size();
+				for(RecipePicture img : uploadList2) {
+					img.getUploadFile().transferTo(new File(folderPath + img.getRecipeImageRename()));
 				}
 			}
 			
-			result5 = uploadList2.size();
-			for(RecipePicture img : uploadList2) {
-				img.getUploadFile().transferTo(new File(folderPath + img.getRecipeImageRename()));
-			}
 		}
+		
+		
+		
 		
 		return recipeNo;
 	}

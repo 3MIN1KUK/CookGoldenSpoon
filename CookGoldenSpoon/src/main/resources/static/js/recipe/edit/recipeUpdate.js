@@ -130,7 +130,6 @@ const changeStepImageFn = (imageInput)=>{
   
   for(let i=0; i<stepInputImageList.length ; i++){
     if(stepInputImageList[i] == imageInput){
-      console.log(`index : ${i}`);
       order = i;
     }
   }
@@ -197,7 +196,7 @@ for(let i = 0; i<stepInputImageList.length; i++){
   
   // 이미지 선택 또는 취소 시
   stepInputImageList[i].addEventListener("change", e=>{
-    changeStepImageFn(e.target, i);
+    changeStepImageFn(e.target);
   });
 
   // x 버튼 클릭 시
@@ -308,15 +307,6 @@ let backup;
 /* 추가 버튼 클릭 시 */
 addBtn.addEventListener("click", () => {
   
-  let order;
-  
-  for(let i=0; i<stepInputImageList.length ; i++){
-    if(stepInputImageList[i] == imageInput){
-      console.log(`index : ${i}`);
-      order = i;
-    }
-  }
-
   backup = backDiv.cloneNode(true);
   
   const textarea = backup.children[1].children[0].children[0];
@@ -425,6 +415,19 @@ inputTag.addEventListener("keyup", e=>{
 
 
   if(e.key == "Enter"){
+
+    const tags = document.querySelectorAll('input[name="recipeTagName"]');
+    let maxLength = "";
+    if(tags.length > 0){
+      for(let tag of tags){
+        maxLength += tag.value;
+      }
+      if(maxLength.length > 50){
+        alert("더 이상 태그를 입력할 수 없습니다");
+        e.preventDefault
+        return;
+      }
+    }
 
     tagName = e.target.value;
 
@@ -607,10 +610,17 @@ cancelBtn.addEventListener("click", ()=>{
   window.history.back();
 });
 
+const obj = {
+  "0" : 0,
+  "1" : 1,
+  "2" : 2
+};
+for(let i = 0; i<Object.keys(obj).length; i++){
+  console.log(obj[`${i}`]);
+}
 
-
-
-
+obj.pop();
+console.log(obj);
 
 
 

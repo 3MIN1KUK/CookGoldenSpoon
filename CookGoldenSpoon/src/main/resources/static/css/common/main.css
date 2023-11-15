@@ -21,3 +21,11 @@
   padding: var(--padding-font);
   border-radius: 1rem;
 }
+#inputSearch{
+  width: 35rem;
+  height: 6rem;
+  font-size: 3rem;
+  border-radius: 1rem;
+  border: none;
+  padding: 1rem;
+}

@@ -72,7 +72,8 @@
   color: rgb(73, 73, 73);
   font-size: 2rem;
   width: 65rem;
-  margin-left: 2rem
+  margin-left: 2rem;
+  text-align: center;
 }
 
 .content{
