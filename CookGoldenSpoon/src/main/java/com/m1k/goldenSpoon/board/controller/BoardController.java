@@ -60,6 +60,7 @@ public class BoardController {
 			Map<String, Object> map = service.searchAllBoard(paramMap, cp);
 			model.addAttribute("map", map);
 		}
+		model.addAttribute("boardCode", boardCode);
 		return "board/board";
 	}
 	
@@ -90,9 +91,9 @@ public class BoardController {
 			path = "board/boardDetail";
 			
 			// 쿠키를 이용한 조회 수 증가 처리
-
+			
 			// 1) 비회원 또는 로그인한 회원의 글이 아닌 경우
-			if (loginMember.getMemberNo() != board.getMemberNo()) {
+			if ( loginMember != null && loginMember.getMemberNo() != board.getMemberNo() ) {
 
 				// 2) 쿠키 얻어오기
 				Cookie c = null;

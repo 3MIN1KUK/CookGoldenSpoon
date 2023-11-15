@@ -14,7 +14,7 @@
   <main th:object="${board}">
     <div class="main-container">
       <div class="boardDetail-title">
-        <a th:href="@{/board/{boardCode}(boardCode=${boardCode})}" th:text="*{boardType}">자유게시판</a>
+        <a th:href="@{/board/{boardCode}(boardCode=${board.boardCode})}" th:text="*{boardType}">자유게시판</a>
       </div>
       <div class="content-container">
         <div class="board-container">
