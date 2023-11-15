@@ -71,6 +71,9 @@
         </div>
 
       </div>
+      <input type="hidden" name="deleteOrder" value="">
+       <!-- 수정 성공 시 주소(쿼리스트링) 유지용도 -->
+      <input type="hidden" name="querystring">
     </form>
   </main>
 
@@ -86,6 +89,8 @@
     for(let img of imageList){
       previewList[img.boardImageOrder].src = img.boardImage + img.boardImageRename;
     }
+
+    
 
   </script>
 
