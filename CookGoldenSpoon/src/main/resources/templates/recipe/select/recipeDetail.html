@@ -134,9 +134,14 @@
           </div>
         </div>
       </div>
-      <div th:if="${session.loginMember != null and session.loginMember.memberNo == recipe.memberNo}" class="btnArea">
-        <button id="editRecipeBtn">수정</button>
-        <button id="deleteRecipeBtn">삭제</button>
+      <div class="btnArea">
+        <th:block th:if="${session.loginMember != null}">
+          <button >신고</button>
+        </th:block>
+        <th:block th:if="${session.loginMember != null and session.loginMember.memberNo == recipe.memberNo}">
+          <button id="editRecipeBtn">수정</button>
+          <button id="deleteRecipeBtn">삭제</button>
+        </th:block>
       </div>
       
       <!-- <div class="recipe-content recipe-photos">

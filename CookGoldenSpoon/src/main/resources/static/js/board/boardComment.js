@@ -356,15 +356,6 @@ function insertChildComment(parentNo, btn){
 
 
 // /* 신고 팝업창 */
-// const csBtn = document.getElementById("csBtn");
-
-// csBtn.addEventListener("click", ()=>{
-//   window.open("/board/csCustomer", "_blank", "width=600, height=300, left=700, top=400");
-// });
-
-// function csComment(boardNo){
-//     window.open("/board/csCustomer", "_blank", "width=600, height=300, left=700, top=400");
-// }
 
 // 객체 쿼리스트링 변환
 function objectToQueryString(obj) {
