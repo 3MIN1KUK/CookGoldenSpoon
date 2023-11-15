@@ -58,6 +58,7 @@ input[type="submit"] {
   height: 40px;
   border: none;
   cursor: pointer;
+  margin-top: 1rem;
 }
 
 .btn-group {
@@ -88,3 +89,20 @@ input{
 
 .confirm{ color : green; }
 .error{ color : red; }
+
+.idCk{
+  width: 1.5rem !important;
+  height: 1.4rem !important;
+  margin: 0rem;
+  padding: 0rem;
+  margin-top: 1rem;
+}
+
+#idSaveBox{
+  font-size: 1.8rem;
+}
+
+.saveId{
+  margin-bottom: 0.5rem;
+  color: rgba(0, 0, 0, 0.68);
+}

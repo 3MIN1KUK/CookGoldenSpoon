@@ -30,7 +30,10 @@
               <div class="signupTest" id="pwMessage">영어,숫자,특수문자(!,@,#,-,_) 6~20글자 사이로 입력해주세요</div>
 
             </div>
-            <div id="idSaveBox"><input type="checkbox" class="idCkBox">아이디 저장</div>
+            <div id="idSaveBox">
+              <div class="idCkBox" style="display: inline-block"><input type="checkbox" name="saveId" id="saveId" class="idCk" width="1px" height="1px"></div>
+              <div class="saveId" style="display: inline-block"><label for="saveId" class="saveId"><i class="fas fa-check"></i>&nbsp;아이디 저장</label></div>
+            </div>
             <input type="submit" value="로그인" class="btn" id="login-submit">
           </form>
     
