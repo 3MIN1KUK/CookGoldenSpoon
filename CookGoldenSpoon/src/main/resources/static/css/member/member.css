@@ -8,11 +8,22 @@
 }
 
 input[type="text"], input[type="password"], input[type="email"]{
-  margin-top: 2rem;
+  margin-top: 1.5rem;
 }
 
 .signupTest{
   margin: 1rem 0;
+}
+
+#memberEmail, #authKey {
+  width: 75%;
+}
+
+#email-btn, #email-confirm-btn{
+  width: 25%;
+  font-size: 1.2rem;
+  margin-left: 10px;
+  cursor: pointer;
 }
 
 input[type="submit"] {

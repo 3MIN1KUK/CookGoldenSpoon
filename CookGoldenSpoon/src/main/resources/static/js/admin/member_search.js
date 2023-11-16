@@ -40,3 +40,58 @@ const searchQuery = document.getElementById("searchQuery");
     inputs[1].value = memberEmail;
     inputs[2].value = memberId;
 })();
+
+
+
+function changeMemberDelFl( memberNo, thisBtn){
+  const memberDelFl = thisBtn.value;
+  console.log(memberDelFl);
+  console.log(thisBtn);
+
+
+  const data = {
+    "memberNo" : memberNo
+  }
+
+  if(memberDelFl == 'N'){
+    data.memberDelFl = 'Y';
+  }
+
+  if(memberDelFl == 'Y'){
+    data.memberDelFl = 'N';
+  }
+  
+  fetch("/admin/changeMemberDelFl",{
+    method : "PUT",
+    headers : {"Content-Type" : "application/json"},
+    body : JSON.stringify(data)
+  })
+  .then(resp => resp.text())
+  .then(result =>{
+    if(result > 0){
+
+      if(memberDelFl == 'N'){
+        alert("탈퇴 처리 성공")
+        thisBtn.classList.remove("btn-danger")
+        thisBtn.classList.add("btn-success")
+        thisBtn.value = 'Y'
+        thisBtn.innerHTML = '복구';
+      }
+      if(memberDelFl == 'Y'){
+        alert("복구 처리 성공")
+        thisBtn.classList.remove("btn-success")
+        thisBtn.classList.add("btn-danger")
+        thisBtn.value = 'N'
+        thisBtn.innerHTML = '탈퇴';
+      }
+    }
+    else{
+      if(memberDelFl == 'N'){
+        alert("탈퇴 처리 실패")
+      } else{
+        alert("복구 처리 실패")
+      }
+    }
+  })
+
+}

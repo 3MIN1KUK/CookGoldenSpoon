@@ -8,6 +8,7 @@ import java.util.Map;
 import org.apache.ibatis.session.RowBounds;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import com.m1k.goldenSpoon.admin.model.dto.unionComment;
 import com.m1k.goldenSpoon.admin.model.mapper.AdminMapper;
@@ -300,5 +301,35 @@ public class AdminServiceImpl implements AdminService{
 	public int reportAnswer(Report report) {
 		return mapper.reportAnswer(report);
 	}
+	
+	@Override
+	public int changeMemberDelFl(Member member) {
+		return mapper.changeMemberDelFl(member);
+	}
+	
+	
+	@Override
+	public int changeBoardDelFl(Board board) {
+		return mapper.changeBoardDelFl(board);
+	}
+	
+	@Override
+	public int changeCommentDelFl(unionComment comment) {
+		
+		System.out.println("========= comment.getCommentType() = " +comment.getCommentType());
+		
+		
+		if (comment.getCommentType().equals("게시글")) {
+			return mapper.changeBoardCommentDelFl(comment);
+		}
+		
+		if (comment.getCommentType().equals("레시피")) {
+			return mapper.changeRecipeCommentDelFl(comment);
+		}
+		
+		return 0;
+	}
+	
+	
 	
 }

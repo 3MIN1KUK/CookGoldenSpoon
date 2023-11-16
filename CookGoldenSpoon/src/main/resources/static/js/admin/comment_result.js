@@ -102,3 +102,65 @@ function deleteComment(commentNo, thisComment){
 
   }
 }
+
+
+
+
+function changeCommentDelFl( commentNo, thisBtn){
+  const commentType = thisBtn.value;
+  const commentDelFl = thisBtn.previousElementSibling.value;
+
+  console.log(thisBtn.previousElementSibling);
+  console.log(commentDelFl);
+  console.log(thisBtn);
+
+
+  const data = {
+    "commentNo" : commentNo,
+    "commentType" : commentType
+  }
+  console.log(data);
+
+  if(commentDelFl == 'N'){
+    data.commentDelFl = 'Y';
+  }
+
+  if(commentDelFl == 'Y'){
+    data.commentDelFl = 'N';
+  }
+  
+  fetch("/admin/changeCommentDelFl",{
+    method : "PUT",
+    headers : {"Content-Type" : "application/json"},
+    body : JSON.stringify(data)
+  })
+  .then(resp => resp.text())
+  .then(result =>{
+    if(result > 0){
+
+      if(commentDelFl == 'N'){
+        alert("삭제 처리 성공")
+        thisBtn.classList.remove("btn-outline-danger")
+        thisBtn.classList.add("btn-outline-success")
+        thisBtn.previousElementSibling.value = 'Y'
+        thisBtn.innerHTML = '복구';
+      }
+
+      if(commentDelFl == 'Y'){
+        alert("복구 처리 성공")
+        thisBtn.classList.remove("btn-outline-success")
+        thisBtn.classList.add("btn-outline-danger")
+        thisBtn.previousElementSibling.value = 'N'
+        thisBtn.innerHTML = '삭제';
+      }
+    }
+    else{
+      if(commentDelFl == 'N'){
+        alert("삭제 처리 실패")
+      } else{
+        alert("복구 처리 실패")
+      }
+    }
+  })
+
+}

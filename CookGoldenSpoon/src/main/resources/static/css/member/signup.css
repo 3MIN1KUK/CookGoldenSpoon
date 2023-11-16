@@ -46,16 +46,7 @@ input[type="radio"] {
   width: 70%;
 }
 
-#email {
-  width: 85%;
-}
 
-#email-btn{
-  width: 15%;
-  font-size: 1.2rem;
-  margin-left: 10px;
-  cursor: pointer;
-}
 
 #birth{
   text-align: center;
@@ -66,7 +57,7 @@ h3{
   margin-bottom: 3px;
 }
 
-#email-td-div{
+#email-td-div , #email-confirm-td{
   width: 100%;
   display: flex;
   

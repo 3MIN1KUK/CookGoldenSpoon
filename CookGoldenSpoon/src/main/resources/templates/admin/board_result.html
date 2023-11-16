@@ -41,12 +41,12 @@
 
             <tr th:each="board : ${boardList}" th:object="${board}">
                 <td th:text="*{boardNo}" class="text-center boardNo c-po" th:object="${board}" th:onclick="|location.href='@{/board/{boardCode}/{boardNo}(boardCode=*{boardCode}, boardNo=*{boardNo})}'|"></td>
-                <td th:text="*{boardTitle}" class="text-center c-po" th:onclick="|location.href='@{/board/{boardCode}/{boardNo}(boardCode=*{boardCode}, boardNo=*{boardNo})}'|" ></td>
-                <td th:text="*{memberNickname}" class="text-center c-po" th:onclick="|location.href='@{/board/{boardCode}/{boardNo}(boardCode=*{boardCode}, boardNo=*{boardNo})}'|"></td>
+                <td th:text="*{boardTitle}" style="overflow: hidden;" class="text-center c-po" th:onclick="|location.href='@{/board/{boardCode}/{boardNo}(boardCode=*{boardCode}, boardNo=*{boardNo})}'|" ></td>
+                <td th:text="*{memberNickname}" style="overflow: hidden;" class="text-center c-po" th:onclick="|location.href='@{/board/{boardCode}/{boardNo}(boardCode=*{boardCode}, boardNo=*{boardNo})}'|"></td>
                 <td class="text-center c-po" th:onclick="|location.href='@{/board/{boardCode}/{boardNo}(boardCode=*{boardCode}, boardNo=*{boardNo})}'|">
-                  <th:block th:if="*{boardCode == 3}">게시판</th:block>
-                  <th:block th:if="*{boardCode == 2}">게시판</th:block>
-                  <th:block th:if="*{boardCode == 1}">게시판</th:block>
+                  <th:block th:if="*{boardCode == 4}">레시피요청</th:block>
+                  <th:block th:if="*{boardCode == 3}">자유게시판</th:block>
+                  <th:block th:if="*{boardCode == 2}">공지사항</th:block>
                 </td>
                 <td th:text="*{boardEnrollDate}" class="text-center c-po" th:onclick="|location.href='@{/board/{boardCode}/{boardNo}(boardCode=*{boardCode}, boardNo=*{boardNo})}'|"></td>
                 <td th:text="*{boardHits}" class="text-center c-po" th:onclick="|location.href='@{/board/{boardCode}/{boardNo}(boardCode=*{boardCode}, boardNo=*{boardNo})}'|"></td>
