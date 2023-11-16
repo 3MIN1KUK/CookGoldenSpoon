@@ -25,9 +25,14 @@ public class InquiryServiceImpl implements InquiryService{
 	private final InquiryMapper mapper;
 	
 	@Override
-	public Map<String, Object> selectAllInquiry(int cp, int memberNo) {
+	public Map<String, Object> selectAllInquiry(int cp, int memberNo, int memberAuthority) {
 		
-		int listCount = mapper.getInquiryListCount(memberNo);
+		int listCount = 0;
+		if(memberAuthority == 3) {
+			listCount = mapper.getAllInquiryListCount();
+		} else {
+			listCount = mapper.getInquiryListCount(memberNo);
+		}
 		
 		Pagination pagination = new Pagination(cp, listCount, 14, 7);
 		
@@ -35,7 +40,15 @@ public class InquiryServiceImpl implements InquiryService{
 		int limit = pagination.getLimit();
 		
 		RowBounds rowBounds = new RowBounds(offset, limit);
-		List<Inquiry> inquiryList = mapper.selectAllInquiry(memberNo, rowBounds);
+		
+		List<Inquiry> inquiryList = null;
+		
+		if(memberAuthority == 3) {
+			inquiryList = mapper.selectAllInquiry(rowBounds);
+		} else {
+			inquiryList = mapper.selectAllMyInquiry(memberNo, rowBounds);
+		}
+		
 		Map<String, Object> map = new HashMap<>();
 		map.put("inquiryList", inquiryList);
 		map.put("pagination", pagination);
