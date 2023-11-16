@@ -1,18 +1,14 @@
-const answerArea = document.getElementById('message-text');
 let reportNo;
 const reportAnswerSubmit = document.getElementById('report-answer-submit');
+var myModal = new bootstrap.Modal(document.getElementById('exampleModal'));
 
 
 reportAnswerSubmit.addEventListener('click', () =>{
   
-  const reportAnswerSubmit = answerArea.value;
-
   const data = {};
   data.reportNo = reportNo;
-  data.reportAnswer = reportAnswerSubmit;
 
   console.log(data);
-  console.log(reportAnswerSubmit);
 
 
   fetch("/admin/reportAnswer",{
@@ -24,6 +20,8 @@ reportAnswerSubmit.addEventListener('click', () =>{
   .then(result =>{
     console.log(result);
     if(result > 0){
+
+      myModal.hide();
       alert("신고 처리 완료")
     } else{
       alert("신고 처리 실패")
@@ -51,7 +49,6 @@ function reportAnswer() {
   })
   .then(response => response.text())
   .then(result =>{
-    console.log(result);
     if(result > 0){
       alert("신고 처리 완료")
     } else{
@@ -65,19 +62,21 @@ function reportDetail(thisReportNo, thisReport) {
 
   reportNo = thisReportNo;
 
-  answerArea.innerHTML = "";
   fetch("/admin/reportDetail?reportNo=" + reportNo,{
     method : "GET",
     headers : {"Content-type" : "application/json"}
   })
   .then(res => res.json())
   .then(result =>{
+    console.log(result);
 
     const reportTitle = document.getElementById("report-title");
     const reportContent = document.getElementById("report-content");
+    const reportLocationBtn = document.getElementById("report-location");
 
     reportTitle.innerHTML = result.reportTitle;
     reportContent.innerHTML = result.reportContent;
+    reportLocationBtn.setAttribute("onclick", `location.href='${result.reportLocation}'`);
 
   })
 

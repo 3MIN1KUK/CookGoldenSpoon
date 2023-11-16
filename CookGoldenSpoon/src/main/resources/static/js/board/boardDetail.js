@@ -46,3 +46,74 @@ if(goToBtn != null) { // 화면에 목록으로 버튼이 있을 때만 수행
    // 이벤트 리스너 추가
    goToBtn.addEventListener("click", goToFn);
 }
+
+
+
+/* 신고 팝업창 */
+
+let reportType;
+let reporterNo;
+let reporterNickname;
+let reportCommentNo;
+let data = {};
+
+// 댓글 신고 값 설정
+function csComment(memberNo, boardCommentNo, thisComment){
+   data.reportType = "boardComment";
+   data.reporterNo = memberNo;
+   data.reporterNickname = thisComment.value;
+   data.reportContentTo = boardCommentNo;
+}
+
+// 게시글 신고 값 설정
+function csBoard(){
+   data.reportType = "board";
+   data.reporterNo = boards.memberNo;
+   data.reporterNickname = boards.memberNickname;
+   data.reportContentTo = boardNo;
+}
+
+var myModal = new bootstrap.Modal(document.getElementById('exampleModal'));
+
+
+
+
+function reportSubmit() {
+   
+   const reportContent = document.getElementById('reportContent');
+   const reportTitle = document.getElementById('reportTitle');
+
+   if(reportContent.value.trim().length == 0 || reportTitle.value.trim().length == 0){
+      alert("신고 제목 또는 내용을 입력해주세요")
+      return;
+   }
+   
+   data.reportContent = reportContent.value;
+   data.reportTitle = reportTitle.value;
+   data.reportLocation = location.href;
+
+   
+   fetch("/report/csCustomer",{
+      method : "POST",
+      headers : {"Content-type" : "application/json"},
+      body : JSON.stringify(data)
+   })
+   .then(response => response.text())
+   .then(result =>{
+      console.log(result);
+      if(result > 0){
+         
+         myModal.hide();
+         alert("신고 성공!")
+         
+      } else{
+         alert("신고 실패")
+         
+      }
+      
+   })
+}
+
+// 
+const reportCommentSubmit = document.getElementById('report-comment-submit');
+reportCommentSubmit.addEventListener('click', reportSubmit);

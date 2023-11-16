@@ -5,7 +5,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -23,7 +25,6 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 @RequiredArgsConstructor
 @SessionAttributes({"loginMember"})
-@RequestMapping("board")
 public class ReportBtnController {
 
 	private final ReportBtnService service;
@@ -37,9 +38,10 @@ public class ReportBtnController {
 			return "board/boardCs";
 		}
 		
-		// 팝업 신고하기
-		@PostMapping("csCustomer")
-		public String csPopupBtn(Report report,
+		// 신고 삽입
+		@PostMapping("report/csCustomer")
+		@ResponseBody
+		public int csPopupBtn(@RequestBody Report report,
 				@SessionAttribute("loginMember") Member loginMember,
 				 RedirectAttributes ra) {
 			report.setMemberNo(loginMember.getMemberNo() );
@@ -47,19 +49,8 @@ public class ReportBtnController {
 			
 			int result = service.csPopupBtn(report);
       
-			String path;
-			String message;
-			if(result > 0) {
-				message = "신고가 접수되었습니다.";
-				path = "redirect:/";
-			}  else {
-				message = "잘못된 신고 양식입니다";
-				path = "redirect:/";
-			}
-      
-			ra.addFlashAttribute("message", message);
 			
-			return path;
+			return result;
 		}
 	
 	

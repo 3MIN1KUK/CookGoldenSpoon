@@ -183,8 +183,24 @@ const selectCommentList = () => {
                 recipeCommentEnrollDate.classList.add("recipeCommentEnrollDate");
                 recipeCommentEnrollDate.innerText = comment.recipeCommentEnrollDate;
 
-                div1.append(recipeCommentEnrollDate, recipeCommentContent);
-            
+
+                // 신고 버튼
+                if(loginCheck == true && loginMemberNo != comment.memberNo){
+                    const csComment = document.createElement("div");
+                    const csCommentBtn = document.createElement("button");
+                    csCommentBtn.setAttribute("id", "csBtn");
+                    csCommentBtn.setAttribute("onclick", `csComment(${comment.memberNo},${comment.recipeNo}, this)`);
+                    csCommentBtn.setAttribute("data-bs-toggle", "modal");
+                    csCommentBtn.setAttribute("data-bs-target", "#exampleModal");
+                    csCommentBtn.innerHTML = "신고";
+    
+                    csComment.append(csCommentBtn);
+                    div1.append(csComment, recipeCommentEnrollDate, recipeCommentContent);
+                    
+                }else{
+
+                    div1.append(recipeCommentEnrollDate, recipeCommentContent);
+                }
                 
                 // 로그인이 되어있는 경우 답글 버튼 추가
                 if(loginCheck){
@@ -523,3 +539,78 @@ function submitFrom(popup, reportContent, reportTitle, memberNo){
         popup.window.close();
     }
 }
+
+
+
+
+/* 신고 팝업창 */
+
+let reportType;
+let reporterNo;
+let reporterNickname;
+let reportCommentNo;
+let data = {};
+
+// 댓글 신고 값 설정
+function csComment(memberNo, recipeCommentNo, thisComment){
+   data.reportType = "recipeComment";
+   data.reporterNo = memberNo;
+   data.reporterNickname = thisComment.value;
+   data.reportContentTo = recipeCommentNo;
+}
+
+// 게시글 신고 값 설정
+function csRecipe(){
+   data.reportType = "recipe";
+   data.reporterNo = recipes.memberNo;
+   data.reporterNickname = recipes.memberNickname;
+   data.reportContentTo = recipeNo;
+}
+
+
+
+
+var myModal = new bootstrap.Modal(document.getElementById('exampleModal'));
+
+function reportSubmit() {
+
+    console.log(data);
+    console.log(myModal);
+   
+   const reportContent = document.getElementById('reportContent');
+   const reportTitle = document.getElementById('reportTitle');
+
+   if(reportContent.value.trim().length == 0 || reportTitle.value.trim().length == 0){
+      alert("신고 제목 또는 내용을 입력해주세요")
+      return;
+   }
+   
+   data.reportContent = reportContent.value;
+   data.reportTitle = reportTitle.value;
+   data.reportLocation = location.href;
+
+   
+   fetch("/report/csCustomer",{
+      method : "POST",
+      headers : {"Content-type" : "application/json"},
+      body : JSON.stringify(data)
+   })
+   .then(response => response.text())
+   .then(result =>{
+      console.log(result);
+      if(result > 0){
+         
+         myModal.hide();
+         alert("신고 성공!")
+         
+      } else{
+         alert("신고 실패")
+         
+      }
+      
+   })
+}
+
+// 
+const reportCommentSubmit = document.getElementById('report-comment-submit');
+reportCommentSubmit.addEventListener('click', reportSubmit);

@@ -27,6 +27,7 @@ public class Report {
 	private int recipeCommentNo;
 	private int recipeNo;
 
-	private int commentBoardNo;
-	private String type;
+	private int reportContentTo;
+	private String reportType;
+	private String reportLocation;
 }

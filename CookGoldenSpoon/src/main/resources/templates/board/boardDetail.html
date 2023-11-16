@@ -8,6 +8,13 @@
   <link rel="stylesheet" href="/css/board/boardComment.css">
   <link rel="stylesheet" href="/css/common/project.css">
   <script src="https://kit.fontawesome.com/921e1d60a7.js" crossorigin="anonymous"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <style>
+    a{
+      text-decoration: none !important;
+      color: var(--color-main) !important;
+    }
+  </style>
 </head>
 <body>
 
@@ -15,7 +22,7 @@
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-header">
-          <h1 class="modal-title fs-3" id="exampleModalLabel">신고 상세 조회</h1>
+          <h1 class="modal-title fs-3" id="exampleModalLabel">신고 작성</h1>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body fs-4">
@@ -33,7 +40,7 @@
 
         <div class="modal-footer" >
           <button type="button" class="btn btn-secondary fs-4" data-bs-dismiss="modal">닫기</button>
-          <button type="button" class="btn btn-primary fs-4" id="report-answer-submit" data-bs-dismiss="modal">제출</button>
+          <button type="button" class="btn btn-primary fs-4" id="report-comment-submit">제출</button>
         </div>
       </div>
     </div>
@@ -82,6 +89,10 @@
 
       <!-- 버튼 영역 -->
       <div class="detail-btn-area">
+        <th:block th:if="${session.loginMember != null and
+          session.loginMember.memberNo != board.memberNo}">
+          <button id="reportBtn" onclick="csBoard()" data-bs-toggle="modal" data-bs-target="#exampleModal" >신 고</button>
+        </th:block>
         <!-- 로그인한 회원과 게시글 작성자 번호가 같은 경우 -->
         <th:block th:if="${session.loginMember != null and
                           session.loginMember.memberNo == board.memberNo}">
@@ -112,6 +123,7 @@
   <script th:inline="javascript">
     const boardCode = /*[[${board.boardCode}]]*/ "게시판 코드";
     const boardNo = /*[[${board.boardNo}]]*/ "게시글 번호";
+    const loginMember =/*[[${session.loginMember}]]*/ "로그인 회원번호";
     const loginMemberNo =/*[[${session.loginMember?.memberNo}]]*/ "로그인 회원번호";
     const userDefaultImage = /*[[#{user.default.image}]]*/ "회원 기본 이미지";
     const boards = /*[[${board}]]*/ "게시글";
