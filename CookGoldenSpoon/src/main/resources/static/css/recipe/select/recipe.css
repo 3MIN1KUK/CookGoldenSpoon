@@ -16,11 +16,12 @@
   margin: 3rem 0 2rem 0;
   display: flex;
   justify-content: space-between;
+
 }
 .recipe-title>a{
   margin: 0.5rem;
   font-size: 3rem;
-  color: var(--color-bg);
+  color:var(--color-main)
 }
 
 .search-area{

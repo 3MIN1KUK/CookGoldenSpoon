@@ -585,14 +585,26 @@ recipeFrm.addEventListener("submit", e=>{
     return;
   }
 
-  document.querySelector("[name='deleteCompleteOrder']").value = Array.from(deleteCompleteOrderSet)
+  const stepImg = document.querySelectorAll("img.stepPreview");
+
+  for(let i = 0; i<stepImg.length; i++){
+    const input = document.createElement("input");
+
+    input.setAttribute("name", "stepImg");
+    input.setAttribute("type", "hidden");
+    input.value = stepImg[i].src;
+
+    recipeFrm.append(input);
+
+  }
+
+
   document.querySelector("[name='deleteCompleteOrder']").value = Array.from(deleteCompleteOrderSet)
   document.querySelector("[name='deleteThumbnail']").value = Array.from(deleteThumbnailSet)
 
   document.querySelector("[name='querystring']").value = location.search;
 
 });
-
 const selectBox = document.getElementsByClassName("selectBox");
 for(let i=0; i<selectBox.length; i++){
   const options = selectBox[i].children;
@@ -609,21 +621,6 @@ const cancelBtn = document.getElementsByClassName("cancelBtn")[0];
 cancelBtn.addEventListener("click", ()=>{
   window.history.back();
 });
-
-const obj = {
-  "0" : 0,
-  "1" : 1,
-  "2" : 2
-};
-for(let i = 0; i<Object.keys(obj).length; i++){
-  console.log(obj[`${i}`]);
-}
-
-obj.pop();
-console.log(obj);
-
-
-
 
 
 

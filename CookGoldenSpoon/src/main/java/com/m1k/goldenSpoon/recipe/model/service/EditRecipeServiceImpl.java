@@ -49,7 +49,7 @@ public class EditRecipeServiceImpl implements EditRecipeService{
 	public int update(Recipe recipe, String originRecipeVideo, MultipartFile thumbnail, List<String> recipeTagName,
 			List<String> recipeStepContent, List<MultipartFile> recipeStepImage, List<MultipartFile> completeImages,
 			List<String> materialName, List<String> recipeMaterialQuantity,
-			String deleteCompleteOrder, String deleteThumbnail) throws IllegalStateException, IOException {
+			String deleteCompleteOrder, String deleteThumbnail, List<String> stepImg) throws IllegalStateException, IOException {
 		
 		String recipeVideo = originRecipeVideo.replace("watch?v=","embed/");
 		recipe.setRecipeVideo(recipeVideo.substring(0, recipeVideo.indexOf("embed/")+17));
@@ -139,19 +139,22 @@ public class EditRecipeServiceImpl implements EditRecipeService{
 			} // if문 끝
 		}// for문 끝
 
-		// 과정 이미지 삭제
-		List<String> stepImgPath = mapper.stepImgPath(recipe.getRecipeNo());
-		for(int i = 0; i<stepImgPath.size(); i++) {
-			File deleteFile = new File(folderPath + stepImgPath.get(i));
-			if(deleteFile.exists()) {
-				deleteFile.delete();
-			}
-		}
+//		// 과정 이미지 삭제
+//		List<String> stepImgPath = mapper.stepImgPath(recipe.getRecipeNo());
+//		for(int i = 0; i<stepImgPath.size(); i++) {
+//			File deleteFile = new File(folderPath + stepImgPath.get(i));
+//			if(deleteFile.exists()) {
+//				deleteFile.delete();
+//			}
+//		}
 
-		int delStep = mapper.delStep(recipe.getRecipeNo());
-		if(delStep == 0) return 0;
-
+//		int delStep = mapper.delStep(recipe.getRecipeNo());
+//		if(delStep == 0) return 0;
+		
 		List<RecipeStep> uploadList1 = new ArrayList<>();
+		
+		
+		int result4 = 0;
 		for(int i = 0 ; i<recipeStepContent.size(); i++) {
 			RecipeStep step = new RecipeStep();
 			step.setRecipeNo(recipe.getRecipeNo()); 
@@ -163,12 +166,21 @@ public class EditRecipeServiceImpl implements EditRecipeService{
 				step.setRecipeStepImageRename(Util.fileRename( recipeStepImage.get(i).getOriginalFilename() ));
 				step.setUploadFile(recipeStepImage.get(i));
 			} // if문 끝
-//			System.out.println("=-=-=recipeStepImage.get(i).getSize()-=-=-" + recipeStepImage.get(i).getSize());
-			uploadList1.add(step);
+			System.out.println(stepImg.get(i).indexOf("/images/recipe/"));
+			if(stepImg.get(i).indexOf("/images/recipe/") != -1) {
+				
+				String rename = stepImg.get(i).substring(stepImg.get(i).indexOf("/images/recipe/")+15);
+				step.setRecipeStepImageRename(rename);
+				mapper.updateRecipeStep(step);
+			} else {
+				uploadList1.add(step);
+				mapper.deleteRecipeStep(step);
+				result4 += mapper.insertRecipeStep(step);
+			}
 		}// for문 끝
 
 		
-		int result4 = recipeMapper.insertProcessList(uploadList1);
+//		int result4 = recipeMapper.insertProcessList(uploadList1);
 
 		if(!uploadList2.isEmpty()) {
 			result = 1;

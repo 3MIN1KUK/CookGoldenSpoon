@@ -57,13 +57,13 @@ public class EditRecipeController {
 			@RequestParam("materialName") List<String> materialName,
 			@RequestParam("recipeMaterialQuantity") List<String> recipeMaterialQuantity,
 			String deleteCompleteOrder,String deleteThumbnail,
+			@RequestParam("stepImg") List<String> stepImg,
 			RedirectAttributes ra) throws IllegalStateException, IOException {
 		
 		recipe.setMemberNo(loginMember.getMemberNo());
-		
 		int result = service.update(recipe, originRecipeVideo, thumbnail, recipeTagName, recipeStepContent,
     			recipeStepImage, completeImages, materialName, recipeMaterialQuantity, deleteCompleteOrder,
-    			deleteThumbnail);
+    			deleteThumbnail, stepImg);
 		
 		if(result > 0) {
 			ra.addFlashAttribute("message", "수정 성공");

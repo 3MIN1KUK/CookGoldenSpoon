@@ -102,6 +102,7 @@ nav>ul{
 }
 .title{
   font-size: 5rem;
+  
 }
 .search{
   background: url(/image/pexels-ella-olsson-1640774.jpg) no-repeat center;
@@ -156,6 +157,8 @@ nav>ul{
 }
 .small-title{
   font-size: 4rem;
+  color:rgba(0, 0, 0, 0.700);
+  
 }
 
 .recipe-image{
@@ -171,6 +174,12 @@ nav>ul{
   max-width: 100%;
   margin: auto;
   border-radius: 2rem;
+}
+.recipe-name{
+  color:rgba(0, 0, 0, 0.700);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
 .recipe-name, .recipe-hashtag{
   padding-top: 0.5rem;

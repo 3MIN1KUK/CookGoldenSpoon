@@ -68,6 +68,6 @@ public interface MyPageService {
 	 * @return
 	 */
 	int myPageEditPw(MyPagePwChange pwChange);
-	
+
 
 }

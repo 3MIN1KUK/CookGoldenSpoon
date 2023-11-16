@@ -88,4 +88,5 @@ public interface MyPageMapper {
 	 */
 	int changePw(MyPagePwChange pwChange);
 
+
 }

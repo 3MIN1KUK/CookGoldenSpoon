@@ -97,5 +97,20 @@ public interface EditRecipeMapper {
 	 */
 	List<String> stepImgPath(int recipeNo);
 
+	/** 사진이 올라가있는 과정 업데이트
+	 * @param step
+	 */
+	void updateRecipeStep(RecipeStep step);
+
+	/** 레시피 과정 삭제
+	 * @param step
+	 */
+	void deleteRecipeStep(RecipeStep step);
+
+	/** 레시피 과정 삽입
+	 * @param step
+	 */
+	int insertRecipeStep(RecipeStep step);
+
 
 }
