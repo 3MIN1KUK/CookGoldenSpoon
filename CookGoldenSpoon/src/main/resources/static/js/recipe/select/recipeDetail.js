@@ -177,7 +177,7 @@ const selectCommentList = () => {
                 
                 const recipeCommentContent = document.createElement("div");
                 recipeCommentContent.classList.add("recipe-review-content");
-                recipeCommentContent.innerText = comment.recipeCommentContent;
+                recipeCommentContent.innerHTML = comment.recipeCommentContent;
 
                 const recipeCommentEnrollDate =document.createElement("div");
                 recipeCommentEnrollDate.classList.add("recipeCommentEnrollDate");

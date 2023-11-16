@@ -1,6 +1,7 @@
 package com.m1k.goldenSpoon.myPage.model.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.session.RowBounds;
@@ -88,5 +89,56 @@ public interface MyPageMapper {
 	 */
 	int changePw(MyPagePwChange pwChange);
 
+	/** 북마크한 글 개수
+	 * @param map
+	 * @return
+	 */
+	int getMyPageBookmarkSearchListCount(Map<String, Object> map);
+
+	/** 북마크한 글 검색
+	 * @param paramMap
+	 * @param rowBounds
+	 * @return
+	 */
+	List<Recipe> myPageBookmarkSearchSelect(Map<String, Object> paramMap, RowBounds rowBounds);
+
+	/** 북마크한 글 작성자로 검색 개수
+	 * @param paramMap
+	 * @return
+	 */
+	int getMyPageBookmarkWriterListCount(Map<String, Object> paramMap);
+
+	/** 북마크한 글 작성자로 검색
+	 * @param paramMap
+	 * @param rowBounds
+	 * @return
+	 */
+	List<Recipe> myPageBookmarkWriterSelect(Map<String, Object> paramMap, RowBounds rowBounds);
+
+	/** 내가 쓴 레시피에서 검색 개수
+	 * @param paramMap
+	 * @return
+	 */
+	int getMyPageRecipeSearchListCount(Map<String, Object> paramMap);
+
+	/** 내가 쓴 레시피에서 검색
+	 * @param paramMap
+	 * @param rowBounds
+	 * @return
+	 */
+	List<Recipe> myPageRecipeSearchSelect(Map<String, Object> paramMap, RowBounds rowBounds);
+
+	/** 내가 쓴 글 검색 개수
+	 * @param paramMap
+	 * @return
+	 */
+	int getMyPageBoardSearchListCount(Map<String, Object> paramMap);
+
+	/** 내가 쓴 글 검색
+	 * @param paramMap
+	 * @param rowBounds
+	 * @return
+	 */
+	List<Board> getMyPageBoardSearchSelect(Map<String, Object> paramMap, RowBounds rowBounds);
 
 }

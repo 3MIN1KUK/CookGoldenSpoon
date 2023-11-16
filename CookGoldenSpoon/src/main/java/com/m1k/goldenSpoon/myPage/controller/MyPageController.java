@@ -45,22 +45,26 @@ public class MyPageController {
 		return "my_page/myPage";
 	}
 	
-//	@GetMapping("like")
-//	public String myPageLike(@SessionAttribute("loginMember") Member loginMember, Model model,
-//			@RequestParam(value = "cp", required = false, defaultValue = "1") int cp) {
-//		int memberNo = loginMember.getMemberNo();
-//		
-//		Map<String, Object> map = service.myPageLike(memberNo, cp);
-//		model.addAttribute("map", map);
-//		return "my_page/like/myPageLike";
-//	}
-	
 	@GetMapping("bookmark")
 	public String myPageBookmark(@SessionAttribute("loginMember") Member loginMember, Model model,
 			@RequestParam(value = "cp", required = false, defaultValue = "1") int cp) {
 		int memberNo = loginMember.getMemberNo();
 		
 		Map<String, Object> map = service.myPageBookmark(memberNo, cp);
+		model.addAttribute("map", map);
+		return "my_page/bookmark/myPageBookmark";
+	}
+	
+	@GetMapping("bookmark/search")
+	public String myPageBookmarkSearch(@SessionAttribute("loginMember") Member loginMember, Model model,
+			@RequestParam(value = "cp", required = false, defaultValue = "1") int cp,
+			@RequestParam(value = "orderBy", required = false, defaultValue = "1") int orderBy,
+			String inputSearch) {
+		int memberNo = loginMember.getMemberNo();
+		
+		Map<String, Object> map = service.myPageBookmarkSearch(memberNo, cp, orderBy, inputSearch);
+		model.addAttribute("inputSearch", inputSearch);
+		model.addAttribute("orderBy", orderBy);
 		model.addAttribute("map", map);
 		return "my_page/bookmark/myPageBookmark";
 	}
@@ -75,11 +79,39 @@ public class MyPageController {
 		return "my_page/board/myPageBoard";
 	}
 	
+	@GetMapping("board/search")
+	public String myPageBoard(@SessionAttribute("loginMember") Member loginMember, Model model,
+			@RequestParam(value = "cp", required = false, defaultValue = "1") int cp,
+			String inputSearch) {
+		
+		int memberNo = loginMember.getMemberNo();
+		Map<String, Object> map = service.myPageBoardSearch(memberNo, cp, inputSearch);
+		
+		model.addAttribute("inputSearch", inputSearch);
+		model.addAttribute("map", map);
+		
+		return "my_page/board/myPageBoard";
+	}
+	
 	@GetMapping("recipe")
 	public String myPageRecipe(@SessionAttribute("loginMember") Member loginMember, Model model,
 			@RequestParam(value = "cp", required = false, defaultValue = "1") int cp) {
 		int memberNo = loginMember.getMemberNo();
 		Map<String, Object> map = service.myPageRecipe(memberNo, cp);
+		model.addAttribute("map", map);
+		
+		return "my_page/recipe/myPageRecipe";
+	}
+	@GetMapping("recipe/search")
+	public String myPageRecipe(@SessionAttribute("loginMember") Member loginMember, Model model,
+			@RequestParam(value = "cp", required = false, defaultValue = "1") int cp,
+			@RequestParam(value = "orderBy", required = false, defaultValue = "1") int orderBy,
+			String inputSearch) {
+		
+		int memberNo = loginMember.getMemberNo();
+		Map<String, Object> map = service.myPageRecipeSearch(memberNo, cp, inputSearch, orderBy);
+		model.addAttribute("inputSearch", inputSearch);
+		model.addAttribute("orderBy", orderBy);
 		model.addAttribute("map", map);
 		
 		return "my_page/recipe/myPageRecipe";

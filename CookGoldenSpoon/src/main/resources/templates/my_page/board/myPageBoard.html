@@ -14,10 +14,10 @@
     <div class="main-container">
       <div class="cs-title">
         <a href="/myPage/board">내가 쓴 글</a>
-        <!-- <div class="searchForm">
+        <div class="searchForm">
           <input id="searchNotice" name="searchNotice" type="text" placeholder="검색어를 입력해주세요">
           <button id="searchNoticeBtn" >검색</button>
-        </div> -->
+        </div>
       </div>
       <th:block th:replace="~{my_page/myPageSideMenu}"></th:block>
       <div class="content-container">
@@ -32,20 +32,31 @@
             <span th:text="*{memberNickname}">작성자</span>
             <span th:text="*{boardEnrollDate}" >날짜</span>
             <span th:text="*{boardHits}">조회수</span>
+            <span th:text="*{boardType}" style="font-size: 1.1rem; width: 5rem; word-break: keep-all; text-align: center;"></span>
           </a>
         </th:block>
       </div>
       <th:block th:if="${#lists.size(boardList) > 0}">
         <div class="page-number">
-          <ul>
+          <ul th:if="${inputSearch == null}">
             <li><a href="/myPage/board"><i class="fa-solid fa-backward-step"></i></a></li>
             <li><a th:href="@{/myPage/board(cp=${pagination.prevPage})}"><i class="fa-solid fa-caret-left fa-lg"></i></a></li>
             <th:block th:each="i : ${#numbers.sequence(pagination.startPage, pagination.endPage, 1)}">
               <li th:if="${i == pagination.currentPage}"><a style="color: black;" class="text" th:text="${i}">1</a></li>
-              <li th:unless="${i == pagination.currentPage}"><a th:href="@{/myPage/board(cp=${i})}" class="text" th:text="${i}">1</a></li>
+              <li th:unless="${i == pagination.currentPage}"><a th:href="@{/recipe/select(cp=${i})}" class="text" th:text="${i}">1</a></li>
             </th:block>
             <li><a th:href="@{/myPage/board(cp=${pagination.nextPage})}"><i class="fa-solid fa-caret-right fa-lg"></i></a></li>
             <li><a th:href="@{/myPage/board(cp=${pagination.maxPage})}"><i class="fa-solid fa-forward-step"></i></a></li>
+          </ul>
+          <ul th:unless="${inputSearch == null}">
+            <li><a th:href="@{/myPage/board/search(inputSearch=${inputSearch})}"><i class="fa-solid fa-backward-step"></i></a></li>
+            <li><a th:href="@{/myPage/board/search(cp=${pagination.prevPage}, inputSearch=${inputSearch})}"><i class="fa-solid fa-caret-left fa-lg"></i></a></li>
+            <th:block th:each="i : ${#numbers.sequence(pagination.startPage, pagination.endPage, 1)}">
+              <li th:if="${i == pagination.currentPage}"><a style="color: black;" class="text" th:text="${i}">1</a></li>
+              <li th:unless="${i == pagination.currentPage}"><a th:href="@{/myPage/board/search(cp=${i}, inputSearch=${inputSearch})}" class="text" th:text="${i}">1</a></li>
+            </th:block>
+            <li><a th:href="@{/myPage/board/search(cp=${pagination.nextPage}, inputSearch=${inputSearch})}"><i class="fa-solid fa-caret-right fa-lg"></i></a></li>
+            <li><a th:href="@{/myPage/board/search(cp=${pagination.maxPage}, inputSearch=${inputSearch})}"><i class="fa-solid fa-forward-step"></i></a></li>
           </ul>
         </div>
       </th:block>
@@ -57,6 +68,6 @@
 
 
   <script src="/js/common/project.js"></script>
-  <script src="/js/cs/cs.js"></script>
+  <script src="/js/my_page/board/myPageBoard.js"></script>
 </body>
 </html>

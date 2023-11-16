@@ -43,6 +43,7 @@
 }
 .recipe-title{
   color:rgba(0, 0, 0, 0.700);
+  word-break: keep-all;
 }
 
 .recipe-writer{
@@ -286,6 +287,7 @@
 
 .updateTextarea{
   width: 100%;
+  overflow: visible;
   resize: none;
 }
 
