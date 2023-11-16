@@ -8,18 +8,15 @@
 .inquiryDetail-title>a{
    margin: 0.5rem;
    font-size: 3rem;
-   color: var(--color-bg);
    cursor: pointer;
 }
 
 /* 내문의사항, 답변 */
 .inquiryDetail-subtitle{
    border-radius: 2rem;
-   background-color: var(--color-bg);
    width: fit-content;
    padding: 0.5rem;
-   font-size: 2rem;
-   margin: 1rem 0;
+   font-size: 3rem;
    padding: 1rem 2rem 0.5rem;
 }
 .inquiryDetail-subtitle-container{
@@ -41,9 +38,11 @@
 }
 .inquiryDetail-main>span:first-of-type{
    width: 25%;
+   color: rgba(0, 0, 0, 0.700);
 }
 .inquiryDetail-main>span:nth-of-type(2){
    width: 75%;
+   color: rgba(0, 0, 0, 0.700);
 }
 
 /* 내용 */
@@ -56,6 +55,7 @@
    min-height: 22rem;
    padding: 0.5rem 0.5rem 0;
    white-space: pre-wrap;
+   color: rgba(0, 0, 0, 0.700);
 }
 /* 답글 */
 .inquiryDetail-reply{
@@ -66,6 +66,7 @@
    border-radius: 20px;
    padding: 0.8rem 0.8rem 0;
    white-space: pre-wrap;
+   color: rgba(0, 0, 0, 0.700);
 }
 
 .reply-box{

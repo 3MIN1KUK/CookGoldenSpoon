@@ -28,6 +28,7 @@
   padding: 1rem;
   font-size: 24px;
   border-radius: 15px;
+  color: rgba(0, 0, 0, 0.700);
 }
 
 /* 이미지 제목 */
@@ -97,6 +98,7 @@
   font-size: 1.1em;
   padding: 10px;
   border-radius: 15px;
+  color: rgba(0, 0, 0, 0.700);
 }
 
 .board-btn-area{

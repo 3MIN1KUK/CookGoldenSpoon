@@ -8,7 +8,6 @@
 }
 .board-title>a{
   font-size: 3rem;
-  color: var(--color-bg);
 }
 
 .main-container{
@@ -32,10 +31,8 @@
 /* 게시글 목록 */
 .board-container{
   font-size: 2rem;
-  margin: 0.5rem 0;
   width: 90%;
   border-radius: 1rem;
-  background-color: var(--color-bg);
   height: 3rem;
   padding: 0.5rem 0.5rem 0;
   display: flex;
@@ -54,8 +51,6 @@
 }
 .board-container>span:nth-of-type(4){
   width: 10%;
-  font-size: 1.3rem;
-  padding-top: 0.3rem;
   display: flex;
   justify-content: center;
 }
@@ -81,6 +76,7 @@
   width: 10%;
   display: flex;
   justify-content: center;
+  color: rgba(0, 0, 0, 0.700);
 }
 .board>span:nth-of-type(2){
   width: 62%;
