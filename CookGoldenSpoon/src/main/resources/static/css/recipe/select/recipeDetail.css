@@ -77,6 +77,9 @@
   margin-left: 2rem;
   text-align: center;
 }
+.reputation{
+  display: flex;
+}
 .bookmark *{
   color:rgba(0, 0, 0, 0.700);
 }
@@ -212,6 +215,13 @@
 .star-point{
   padding: 1rem;
   font-size: 2rem;
+  margin: 2rem;
+  border-radius: 1rem;
+  background-color: var(--color-bg);
+  padding-right: 3rem;
+}
+.star-point i{
+  margin: 0 0 0 2rem;
 }
 
 .memberProfile{

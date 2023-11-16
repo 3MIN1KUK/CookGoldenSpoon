@@ -30,6 +30,7 @@
 		SELECT COUNT(*) FROM RECIPE
 		JOIN "MEMBER" USING(MEMBER_NO)
 		WHERE MEMBER_NICKNAME LIKE '%${inputSearch}%'
+		AND RECIPE_DEL_FL = 'N'
 	</select>
 	<!-- 작성자 이름으로 검색 -->
 	<select id="selectWriterRecipe" resultMap="selectRecipe_rm">
