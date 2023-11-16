@@ -38,7 +38,7 @@
             <div class="video">
               <div id="video1">요리 영상 URL</div>
               <div id="video2">
-                <textarea name="originRecipeVideo" id="recipeVideo" rows="10" class="recipeVideo" placeholder="유튜브 주소만 넣어주세요"></textarea>
+                <textarea name="originRecipeVideo" id="recipeVideo" rows="10" class="recipeVideo" placeholder="유튜브 주소창을 그대로 복사해서 넣어주세요"></textarea>
               </div>
             </div>
           </div>
@@ -46,10 +46,10 @@
     
           <!-- 2번째 줄 요리이름/한줄소개 -->
           <div class="cookName">
-            <div class="cName">요리 이름</div><div class="cNameBox"><input id="recipeTitle" type="text" name="recipeTitle" class="recipe2line a" size="30"></div>
+            <div class="cName">요리 이름</div><div class="cNameBox"><input maxlength="15" id="recipeTitle" type="text" name="recipeTitle" class="recipe2line a" size="30"></div>
           </div>
           <div class="cookName">
-            <div class="cName">한줄 소개</div><div class="cNameBox"><input id="recipeIntro" type="text" name="recipeIntro" class="recipe2line a" size="30"></div>
+            <div class="cName">한줄 소개</div><div class="cNameBox"><input maxlength="30" id="recipeIntro" type="text" name="recipeIntro" class="recipe2line a" size="30"></div>
           </div>
     
           <!-- 3번째 줄 재료 -->

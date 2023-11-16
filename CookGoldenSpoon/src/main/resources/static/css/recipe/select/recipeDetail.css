@@ -30,7 +30,6 @@
   margin-left: 10rem;
   display: flex;
   flex-direction: column;
-  /* background-color: var(--color-bg); */
   border-radius: 2rem;
   display: flex;
   flex-direction: column;
@@ -41,6 +40,9 @@
   background-color: var(--color-bg);
   border-radius: 2rem;
   text-align: center;
+}
+.recipe-title{
+  color:rgba(0, 0, 0, 0.700);
 }
 
 .recipe-writer{
@@ -75,7 +77,9 @@
   margin-left: 2rem;
   text-align: center;
 }
-
+.bookmark *{
+  color:rgba(0, 0, 0, 0.700);
+}
 .content{
   background-color: var(--color-bg);
   border-radius: 2rem;
@@ -150,6 +154,7 @@
   border: 0.5px solid #FFD384;
   overflow: auto;
   word-break: break-all;
+  color:rgba(0, 0, 0, 0.700);
 }
 
 .recipe-review-form button{
@@ -266,6 +271,7 @@
   padding: 0.5rem;
   border-radius: 1rem;
   border: 0.1rem solid darkorange;
+  color:rgba(0, 0, 0, 0.700);
 }
 
 .updateTextarea{
