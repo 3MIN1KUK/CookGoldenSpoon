@@ -58,7 +58,7 @@
       </div>
       <div class="page-number">
         <div>
-          <ul th:if="${inputSearch == null}">
+          <ul th:if="${query == null}">
             <li><a th:href="@{/board/{boardCode}(boardCode=${boardCode})}"><i class="fa-solid fa-backward-step"></i></a></li>
             <li><a th:href="@{/board/{boardCode}(cp=${pagination.prevPage}, boardCode=${boardCode})}"><i class="fa-solid fa-caret-left fa-lg"></i></a></li>
             <th:block th:each="i : ${#numbers.sequence(pagination.startPage, pagination.endPage, 1)}">
@@ -68,15 +68,15 @@
             <li><a th:href="@{/board/{boardCode}(cp=${pagination.nextPage}, boardCode=${boardCode})}"><i class="fa-solid fa-caret-right fa-lg"></i></a></li>
             <li><a th:href="@{/board/{boardCode}(cp=${pagination.maxPage}, boardCode=${boardCode})}"><i class="fa-solid fa-forward-step"></i></a></li>
           </ul>
-          <ul th:unless="${inputSearch == null}">
-            <li><a th:href="@{/board/{boardCode}/search(inputSearch=${inputSearch}, boardCode=${boardCode})}"><i class="fa-solid fa-backward-step"></i></a></li>
-            <li><a th:href="@{/board/{boardCode}/search(cp=${pagination.prevPage}, inputSearch=${inputSearch}, boardCode=${boardCode})}"><i class="fa-solid fa-caret-left fa-lg"></i></a></li>
+          <ul th:unless="${query == null}">
+            <li><a th:href="@{/board/{boardCode}(query=${query}, boardCode=${boardCode}, key=${key})}"><i class="fa-solid fa-backward-step"></i></a></li>
+            <li><a th:href="@{/board/{boardCode}(cp=${pagination.prevPage}, query=${query}, boardCode=${boardCode}, key=${key})}"><i class="fa-solid fa-caret-left fa-lg"></i></a></li>
             <th:block th:each="i : ${#numbers.sequence(pagination.startPage, pagination.endPage, 1)}">
               <li th:if="${i == pagination.currentPage}"><a style="color: black;" class="text" th:text="${i}">1</a></li>
-              <li th:unless="${i == pagination.currentPage}"><a th:href="@{/board/{boardCode}/search(cp=${i}, inputSearch=${inputSearch}, boardCode=${boardCode})}" class="text" th:text="${i}">1</a></li>
+              <li th:unless="${i == pagination.currentPage}"><a th:href="@{/board/{boardCode}/search(cp=${i}, query=${query}, boardCode=${boardCode}, key=${key})}" class="text" th:text="${i}">1</a></li>
             </th:block>
-            <li><a th:href="@{/board/{boardCode}/search(cp=${pagination.nextPage}, inputSearch=${inputSearch}, boardCode=${boardCode})}"><i class="fa-solid fa-caret-right fa-lg"></i></a></li>
-            <li><a th:href="@{/board/{boardCode}/search(cp=${pagination.maxPage}, inputSearch=${inputSearch}, boardCode=${boardCode})}"><i class="fa-solid fa-forward-step"></i></a></li>
+            <li><a th:href="@{/board/{boardCode}(cp=${pagination.nextPage}, query=${query}, boardCode=${boardCode}, key=${key})}"><i class="fa-solid fa-caret-right fa-lg"></i></a></li>
+            <li><a th:href="@{/board/{boardCode}(cp=${pagination.maxPage}, query=${query}, boardCode=${boardCode}, key=${key})}"><i class="fa-solid fa-forward-step"></i></a></li>
           </ul>
         </div>
       </div>

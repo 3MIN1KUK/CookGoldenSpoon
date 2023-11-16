@@ -61,6 +61,8 @@ public class BoardController {
 			model.addAttribute("map", map);
 		}
 		model.addAttribute("boardCode", boardCode);
+		model.addAttribute("key", paramMap.get("key"));
+		model.addAttribute("query", paramMap.get("query"));
 		return "board/board";
 	}
 	
