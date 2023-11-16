@@ -11,6 +11,7 @@
 .cs-title>a{
   margin: 0.5rem;
   font-size: 3rem;
+  color: var(--color-main);
 }
 .main-container{
   background-color: var(--color-bg2);
@@ -30,6 +31,12 @@
   align-items: center;
   min-height: 60rem;
 }
+
+.fontCrChange{
+  color: rgba(0, 0, 0, 0.700);
+}
+
+
 .notice{
   cursor: pointer;
   font-size: 2rem;
@@ -42,8 +49,13 @@
   display: flex;
   justify-content: space-between;
 }
+.notice>span{
+  color: rgba(0, 0, 0, 0.700);
+
+}
 .notice>span:first-of-type{
   width: 7%;
+  color: var(--color-main);
 }
 .notice>span:nth-of-type(2){
   width: 60%;
@@ -162,6 +174,7 @@
 .qna-a-act{
   height: auto;
   opacity: 1;
+  color: rgba(0, 0, 0, 0.700);
 }
 
 

@@ -25,6 +25,10 @@ body {
 } */
 
 
+input, textarea{
+  outline : none;
+}
+
 
 form{
   background-color: var(--color-bg);

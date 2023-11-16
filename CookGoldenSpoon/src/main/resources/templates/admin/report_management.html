@@ -25,19 +25,14 @@
         <div class="modal-body fs-4">
           <div >
             <span id="report-title" class="fs-3">제목</span>
-            <button type="button" class="btn btn-outline-secondary float-end fs-5">신고 대상으로 이동</button>
+            <button type="button" class="btn btn-outline-secondary float-end fs-5" id="report-location">신고 대상으로 이동</button>
           </div>
-          
           <hr>
           <div id="report-content">내용</div>
-          <div class="mb-3">
-            <label for="message-text" class="col-form-label">답변</label>
-            <textarea class="form-control" id="message-text" rows="5"></textarea>
-          </div>
         </div>
         <div class="modal-footer" >
           <button type="button" class="btn btn-secondary fs-4" data-bs-dismiss="modal">닫기</button>
-          <button type="button" class="btn btn-primary fs-4" id="report-answer-submit" data-bs-dismiss="modal">제출</button>
+          <button type="button" class="btn btn-primary fs-4" id="report-answer-submit">처리 완료</button>
         </div>
       </div>
     </div>
@@ -54,8 +49,10 @@
   
     <section class="out-box">
   
-      <h1>회원 조회</h1>
-        <form accept="/admin/reportManagement" method="get">
+      <h1>신고 조회</h1>
+
+        <!-- <form accept="/admin/reportManagement" method="get">
+
           <div class="d-flex">
             <div class="member-search-box">
               <table class="search-box-table" >
@@ -84,7 +81,7 @@
             </div>
             <button class="btn btn-primary btn-search">제출</button>
           </div>
-        </form>
+        </form> -->
   
         <table class="member-search-result">
           <thead>
@@ -93,7 +90,6 @@
               <th class="member-search-th">신고자</th>
               <th class="member-search-th">신고 대상자</th>
               <th class="member-search-th">신고 제목</th>
-              <th class="member-search-th">상태</th>
               <th class="member-search-th">상세 조회</th>
           </tr>
           </thead>
@@ -111,7 +107,6 @@
                 <td class="member-search-td" th:text="*{memberNickname}">신고자</td>
                 <td class="member-search-td" th:text="*{reporterNickname}">신고 대상자</td>
                 <td class="member-search-td" th:text="*{reportTitle}">신고 제목</a></td>
-                <td class="member-search-td">
                 <td class="member-search-td">
                     <input type="hidden" th:value="*{reportNo}" name="memberNo">
                     <input type="hidden" th:value="${map.pagination.currentPage}" name="cp">

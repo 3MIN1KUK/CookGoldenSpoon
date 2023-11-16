@@ -252,7 +252,7 @@ public class AdminServiceImpl implements AdminService{
 		
 		int reportListCount = mapper.selectLeportListCount();
 		
-		Pagination pagination = new Pagination(cp, reportListCount, 8, 7);
+		Pagination pagination = new Pagination(cp, reportListCount, 11, 7);
 		int offset = (pagination.getCurrentPage() -1) * pagination.getLimit();
 		int limit = pagination.getLimit();
 		
@@ -272,7 +272,7 @@ public class AdminServiceImpl implements AdminService{
 		
 		int reportListCount = mapper.searchLeportListCount();
 		
-		Pagination pagination = new Pagination(cp, reportListCount, 8, 7);
+		Pagination pagination = new Pagination(cp, reportListCount, 11, 7);
 		int offset = (pagination.getCurrentPage() -1) * pagination.getLimit();
 		int limit = pagination.getLimit();
 		

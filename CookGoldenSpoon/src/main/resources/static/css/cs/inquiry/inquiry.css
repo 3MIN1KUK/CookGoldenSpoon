@@ -23,16 +23,17 @@
    font-size: 3rem;
 }
 
-/* 게시글 위 이름 */
 .inquiry-main{
    font-size: 2rem;
    width: 100%;
    border-radius: 1rem;
+   background-color: var(--color-bg);
    height: 3rem;
    padding: 0.5rem 0.5rem 0;
    display: flex;
-   justify-content: space-between;
+   justify-content: center;
 }
+
 .inquiry-main>span:first-of-type{
    width: 10%;
 }
@@ -56,6 +57,8 @@
    display: flex;
    justify-content: space-between;
 }
+
+
 .inquiry>span:first-of-type{
    width: 10%;
    color: rgba(0, 0, 0, 0.700);
@@ -68,6 +71,11 @@
    width: 15%;
    color: rgba(0, 0, 0, 0.700);
 }
+
+.line-area1{
+   color: rgba(0, 0, 0, 0.700);
+}
+
 
 /* 작성하기 버튼 */
 .btn-area{
