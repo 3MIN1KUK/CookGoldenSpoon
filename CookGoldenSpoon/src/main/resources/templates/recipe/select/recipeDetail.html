@@ -7,8 +7,46 @@
   <link rel="stylesheet" href="/css/common/project.css">
   <link rel="stylesheet" href="/css/recipe/select/recipeDetail.css">
   <script src="https://kit.fontawesome.com/921e1d60a7.js" crossorigin="anonymous"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <style>
+    a{
+      text-decoration: none !important;
+      color: var(--color-main) !important;
+    }
+  </style>
 </head>
 <body>
+
+
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-3" id="exampleModalLabel">신고 작성</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body fs-4">
+
+          <div>
+            <label for="message-text" class="col-form-label">제목</label>
+            <input class="form-control" id="reportTitle"></input>
+          </div>
+
+          <hr>
+
+          <label for="message-text" class="col-form-label">내용</label>
+          <textarea class="form-control" id="reportContent" rows="5"></textarea>
+        </div>
+
+        <div class="modal-footer" >
+          <button type="button" class="btn btn-secondary fs-4" data-bs-dismiss="modal">닫기</button>
+          <button type="button" class="btn btn-primary fs-4" id="report-comment-submit">제출</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
   <th:block th:replace="~{common/header}"></th:block>
   <main th:object="${recipe}">
     <div class="main-container">
@@ -135,8 +173,9 @@
         </div>
       </div>
       <div class="btnArea">
-        <th:block th:if="${session.loginMember != null}">
-          <button th:value="*{memberNickname}" th:onclick="|csComment(*{memberNo}, *{recipeNo}, this)|">신고</button>
+        <th:block th:if="${session.loginMember != null and
+          session.loginMember.memberNo != recipe.memberNo}">
+          <button th:value="*{memberNickname}" th:onclick="|csRecipe(*{memberNo}, *{recipeNo}, this)|" data-bs-toggle="modal" data-bs-target="#exampleModal">신고</button>
         </th:block>
         <th:block th:if="${session.loginMember != null and session.loginMember.memberNo == recipe.memberNo}">
           <button id="editRecipeBtn">수정</button>
@@ -170,24 +209,25 @@
     const recipeStarCheck = /*[[${recipeStar}]]*/ "별점 수";
     const loginMemberNo =/*[[${session.loginMember?.memberNo}]]*/ "로그인 회원번호";
     const userDefaultImage = /*[[#{user.default.image}]]*/ "회원 기본 이미지";
+    const recipes = /*[[${recipe}]]*/ "레시피 정보";
 
     /*----- 아래 구문 이동X -----*/
     const popBtn = document.querySelector("form");
-    popBtn.addEventListener('submit', e => {
-    const reportContent = document.getElementById("reportContent")
-    const reportTitle = document.getElementById("reportTitle")
+  //   popBtn.addEventListener('submit', e => {
+  //   const reportContent = document.getElementById("reportContent")
+  //   const reportTitle = document.getElementById("reportTitle")
 
-    if (reportContent.value.trim().length == 0 || reportTitle.value.trim().length == 0) {
-      e.preventDefault();
-      alert("제목이나 신고 내용을 작성해주세요")
+  //   if (reportContent.value.trim().length == 0 || reportTitle.value.trim().length == 0) {
+  //     e.preventDefault();
+  //     alert("제목이나 신고 내용을 작성해주세요")
 
-      return;
-    }
+  //     return;
+  //   }
 
-    alert("신고되었습니다.")
-    window.close()
-    /* -------------------------------- */
-  })
+  //   alert("신고되었습니다.")
+  //   window.close()
+  //   /* -------------------------------- */
+  // })
 
   </script>
   <script src="/js/recipe/select/recipeDetail.js"></script>

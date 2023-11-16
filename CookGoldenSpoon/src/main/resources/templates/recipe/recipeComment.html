@@ -38,6 +38,11 @@
                 </div>
                 <div class="commentNickname" th:text="*{memberNickname}">닉네임</div>
                 <div class="contentContainer">
+                  <!-- 신고하기 버튼 -->
+                  <th:block th:if="${session.loginMember != null and
+                    session.loginMember.memberNo != comment.memberNo}">
+                    <div><button id="csBtn" th:value="*{memberNickname}" th:onclick="|csComment(*{memberNo}, *{recipeCommentNo}, this)|" data-bs-toggle="modal" data-bs-target="#exampleModal" >신고하기</button></div>
+                  </th:block>
                   <div class="recipeCommentEnrollDate" th:text="*{recipeCommentEnrollDate}"></div>
                   <div class="recipe-review-content" th:text="*{recipeCommentContent}"></div>
                   <th:block th:if="${session.loginMember != null and session.loginMember.memberNo == comment.memberNo}">
