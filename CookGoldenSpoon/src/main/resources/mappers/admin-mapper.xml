@@ -342,11 +342,13 @@
 		BOARD_DEL_FL = 'Y' 
 		WHERE BOARD_NO = ${boardNo} 	</update>
 	
+	<!-- 게시글 댓글 삭제 -->
 	<update id="deleteBoardComment">
 		UPDATE "BOARD_COMMENT" SET 
 		BOARD_COMMENT_DEL_FL = 'Y' 
 		WHERE BOARD_COMMENT_NO = ${commentNo} 	</update>
 	
+	<!-- 레시피 댓글 삭제 -->
 	<update id="deleteRecipeComment">
 		UPDATE "RECIPE_COMMENT" SET 
 		RECIPE_COMMENT_DEL_FL = 'Y' 

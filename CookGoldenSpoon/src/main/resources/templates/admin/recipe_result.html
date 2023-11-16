@@ -32,6 +32,7 @@
               <img class="recipe-image-detail" th:if="*{recipeThumbnail}" th:src="*{recipeThumbnail}">
               <img class="recipe-image-detail" th:unless="*{recipeThumbnail}" th:src="#{logo.default.image}">
             </div>
+            <div class="recipe-name" th:text="*{recipeTitle}"></div>
             <div class="recipe-info">
               <div th:text="*{memberNickname}"></div>
               <div><i class="fa-heart fa-solid" style="color: red;"></i><th:block th:text="*{recipeLike}"></th:block></div>

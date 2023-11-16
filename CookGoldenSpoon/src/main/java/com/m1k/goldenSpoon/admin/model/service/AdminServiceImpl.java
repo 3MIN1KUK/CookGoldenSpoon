@@ -239,7 +239,7 @@ public class AdminServiceImpl implements AdminService{
 			result = mapper.deleteBoardComment(deleteComment);
 		}
 		
-		if (deleteComment.getCommentType().equals("게시글")) {
+		if (deleteComment.getCommentType().equals("레시피")) {
 			result = mapper.deleteRecipeComment(deleteComment);
 		}
 		
