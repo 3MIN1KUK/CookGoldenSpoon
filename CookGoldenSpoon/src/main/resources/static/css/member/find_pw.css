@@ -19,7 +19,7 @@
   margin: auto;
 }
 
-#memberId, #memberPw, #memberEmail{
+#memberId, #memberPw, #memberEmail, #memberPwConfirm{
   color: black !important;
   font-size: 1.8rem !important;
 }

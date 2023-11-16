@@ -52,4 +52,10 @@
 		AND MEMBER_NICKNAME = #{nickname}
 	</select>
 
+	<select id="checkId">
+		SELECT COUNT(*)   
+		FROM "MEMBER"
+		WHERE MEMBER_DEL_FL = 'N'
+		AND MEMBER_ID = #{id}
+	</select>
 </mapper>
