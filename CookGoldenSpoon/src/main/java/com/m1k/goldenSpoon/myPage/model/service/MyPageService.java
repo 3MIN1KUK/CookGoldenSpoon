@@ -69,5 +69,31 @@ public interface MyPageService {
 	 */
 	int myPageEditPw(MyPagePwChange pwChange);
 
+	/** 북마크 검색
+	 * @param memberNo
+	 * @param cp
+	 * @param orderBy
+	 * @param inputSearch
+	 * @return
+	 */
+	Map<String, Object> myPageBookmarkSearch(int memberNo, int cp, int orderBy, String inputSearch);
+ 
+	/** 나의 레시피 검색
+	 * @param memberNo
+	 * @param cp
+	 * @param inputSearch
+	 * @param orderBy
+	 * @return
+	 */
+	Map<String, Object> myPageRecipeSearch(int memberNo, int cp, String inputSearch, int orderBy);
+ 
+	/** 나의 게시글 검색
+	 * @param memberNo
+	 * @param cp
+	 * @param inputSearch
+	 * @return
+	 */
+	Map<String, Object> myPageBoardSearch(int memberNo, int cp, String inputSearch);
+
 
 }

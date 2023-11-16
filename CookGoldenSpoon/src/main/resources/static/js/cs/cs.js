@@ -20,7 +20,7 @@ searchNoticeBtn.addEventListener("click", ()=>{
           return;
      }
      noticeContainer.innerHTML = "";
-     fetch("/cs/notice/select?searchNotice=" + searchNotice.value)
+     fetch("/board/notice/select?searchNotice=" + searchNotice.value)
      .then(resp => resp.json())
      .then(map => {
           if(map.noticeList.length == 0){

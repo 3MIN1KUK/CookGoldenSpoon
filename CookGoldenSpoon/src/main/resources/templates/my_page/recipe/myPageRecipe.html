@@ -16,7 +16,7 @@
           <a href="/myPage/recipe">나의 레시피</a>
         </div>
         
-      <!-- <div class="search-area">
+      <div class="search-area">
         <select name="orderBy" id="orderBy">
           <option value="1">인기순</option>
           <option value="2">평점순</option>
@@ -25,7 +25,7 @@
         </select>
         <input type="text" placeholder="검색어를 입력해주세요" name="recipeSearch" id="recipeSearch">
         <button type="button" id="recipeSearchBtn">검색</button>
-      </div> -->
+      </div>
       <th:block th:replace="~{my_page/myPageSideMenu}"></th:block>
       <th:block th:if="${#lists.isEmpty(recipeList)}">
           <br><br><br><br>
@@ -58,26 +58,26 @@
           <li><a th:href="@{/myPage/recipe(cp=${pagination.prevPage})}"><i class="fa-solid fa-caret-left fa-lg"></i></a></li>
           <th:block th:each="i : ${#numbers.sequence(pagination.startPage, pagination.endPage, 1)}">
             <li th:if="${i == pagination.currentPage}"><a style="color: black;" class="text" th:text="${i}">1</a></li>
-            <li th:unless="${i == pagination.currentPage}"><a th:href="@{/myPage/recipe(cp=${i})}" class="text" th:text="${i}">1</a></li>
+            <li th:unless="${i == pagination.currentPage}"><a th:href="@{/recipe/select(cp=${i})}" class="text" th:text="${i}">1</a></li>
           </th:block>
           <li><a th:href="@{/myPage/recipe(cp=${pagination.nextPage})}"><i class="fa-solid fa-caret-right fa-lg"></i></a></li>
           <li><a th:href="@{/myPage/recipe(cp=${pagination.maxPage})}"><i class="fa-solid fa-forward-step"></i></a></li>
         </ul>
         <ul th:unless="${inputSearch == null}">
-          <li><a th:href="@{/myPage/recipe(inputSearch=${inputSearch})}"><i class="fa-solid fa-backward-step"></i></a></li>
-          <li><a th:href="@{/myPage/recipe(cp=${pagination.prevPage}, inputSearch=${inputSearch})}"><i class="fa-solid fa-caret-left fa-lg"></i></a></li>
+          <li><a th:href="@{/myPage/recipe/search(inputSearch=${inputSearch}, orderBy=${orderBy})}"><i class="fa-solid fa-backward-step"></i></a></li>
+          <li><a th:href="@{/myPage/recipe/search(cp=${pagination.prevPage}, inputSearch=${inputSearch}, orderBy=${orderBy})}"><i class="fa-solid fa-caret-left fa-lg"></i></a></li>
           <th:block th:each="i : ${#numbers.sequence(pagination.startPage, pagination.endPage, 1)}">
             <li th:if="${i == pagination.currentPage}"><a style="color: black;" class="text" th:text="${i}">1</a></li>
-            <li th:unless="${i == pagination.currentPage}"><a th:href="@{/myPage/recipe(cp=${i}, inputSearch=${inputSearch})}" class="text" th:text="${i}">1</a></li>
+            <li th:unless="${i == pagination.currentPage}"><a th:href="@{/myPage/recipe/search(cp=${i}, inputSearch=${inputSearch}, orderBy=${orderBy})}" class="text" th:text="${i}">1</a></li>
           </th:block>
-          <li><a th:href="@{/myPage/recipe(cp=${pagination.nextPage}, inputSearch=${inputSearch})}"><i class="fa-solid fa-caret-right fa-lg"></i></a></li>
-          <li><a th:href="@{/myPage/recipe(cp=${pagination.maxPage})}"><i class="fa-solid fa-forward-step"></i></a></li>
+          <li><a th:href="@{/myPage/recipe/search(cp=${pagination.nextPage}, inputSearch=${inputSearch}, orderBy=${orderBy})}"><i class="fa-solid fa-caret-right fa-lg"></i></a></li>
+          <li><a th:href="@{/myPage/recipe/search(cp=${pagination.maxPage}, inputSearch=${inputSearch}, orderBy=${orderBy})}"><i class="fa-solid fa-forward-step"></i></a></li>
         </ul>
       </div>
     </div>
   </main>
   <th:block th:replace="~{common/footer}"></th:block>
   <script src="/js/common/project.js"></script>
-  <script src="/js/recipe/select/recipe.js"></script>
+  <script src="/js/my_page/recipe/myPageRecipe.js"></script>
 </body>
 </html>

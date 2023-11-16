@@ -54,7 +54,8 @@
       </div>
       <div class="btn-area">
         <!-- 로그인 상태일 때만 글쓰기 버튼 노출 -->
-        <th:block th:if="${session.loginMember}"><button id="insertBtn">작성하기</button></th:block>                     
+        <th:block th:if="${session.loginMember != null and boardCode != 2}"><button id="insertBtn">작성하기</button></th:block>                     
+        <th:block th:if="${session.loginMember != null and boardCode == 2 and session.loginMember.memberAuthority == 3}"><button id="insertBtn">작성하기</button></th:block>                     
       </div>
       <div class="page-number">
         <div>

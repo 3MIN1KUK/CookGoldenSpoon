@@ -72,6 +72,37 @@ public class MyPageServiceImpl implements MyPageService{
 		return map;
 	}
 	
+	@Override
+	public Map<String, Object> myPageBookmarkSearch(int memberNo, int cp, int orderBy, String inputSearch) {
+		Map<String, Object> paramMap = new HashMap<>();
+		paramMap.put("inputSearch", inputSearch);
+		paramMap.put("orderBy", orderBy);
+		paramMap.put("memberNo", memberNo);
+		
+		int recipeListCount = 0;
+		if(orderBy == 5) {
+			recipeListCount = mapper.getMyPageBookmarkWriterListCount(paramMap);
+		} else {
+			recipeListCount = mapper.getMyPageBookmarkSearchListCount(paramMap);
+		}
+		Pagination pagination = new Pagination(cp, recipeListCount, 8, 7);
+		int Offset = (pagination.getCurrentPage() -1) * pagination.getLimit();
+		int Limit = pagination.getLimit();
+		RowBounds RowBounds = new RowBounds(Offset, Limit);
+		
+		List<Recipe> recipeList = null;
+		if(orderBy == 5) {
+			recipeList = mapper.myPageBookmarkWriterSelect(paramMap, RowBounds);
+		} else {
+			recipeList = mapper.myPageBookmarkSearchSelect(paramMap, RowBounds);
+		}
+		
+		Map<String, Object> map = new HashMap<>();
+		map.put("recipeList", recipeList);
+		map.put("pagination", pagination);
+		return map;
+	}
+	
 	
 	
 	// 내가 쓴 게시글 조회
@@ -90,6 +121,31 @@ public class MyPageServiceImpl implements MyPageService{
 		return map;
 	}
 
+	@Override
+	public Map<String, Object> myPageBoardSearch(int memberNo, int cp, String inputSearch) {
+		
+		Map<String, Object> paramMap = new HashMap<>();
+		paramMap.put("inputSearch", inputSearch);
+		paramMap.put("memberNo", memberNo);
+		
+		int boardListCount = mapper.getMyPageBoardSearchListCount(paramMap);
+		
+		Pagination pagination = new Pagination(cp, boardListCount, 14, 10);
+		int Offset = (pagination.getCurrentPage() -1) * pagination.getLimit();
+		int Limit = pagination.getLimit();
+		RowBounds RowBounds = new RowBounds(Offset, Limit);
+		
+		List<Board> boardList = mapper.getMyPageBoardSearchSelect(paramMap, RowBounds);
+		
+		Map<String, Object> map = new HashMap<>();
+		map.put("boardList", boardList);
+		map.put("pagination", pagination);
+		return map;
+	}
+	
+	
+	
+	
 	// 내가 쓴 레시피 조회
 	@Override
 	public Map<String, Object> myPageRecipe(int memberNo, int cp) {
@@ -105,6 +161,29 @@ public class MyPageServiceImpl implements MyPageService{
 		map.put("recipeList", recipeList);
 		map.put("pagination", pagination);
 
+		return map;
+	}
+
+	// 내가 쓴 레시피 중에서 검색
+	@Override
+	public Map<String, Object> myPageRecipeSearch(int memberNo, int cp, String inputSearch, int orderBy) {
+		Map<String, Object> paramMap = new HashMap<>();
+		paramMap.put("inputSearch", inputSearch);
+		paramMap.put("orderBy", orderBy);
+		paramMap.put("memberNo", memberNo);
+		
+		int recipeListCount = mapper.getMyPageRecipeSearchListCount(paramMap);
+		
+		Pagination pagination = new Pagination(cp, recipeListCount, 8, 7);
+		int Offset = (pagination.getCurrentPage() -1) * pagination.getLimit();
+		int Limit = pagination.getLimit();
+		RowBounds RowBounds = new RowBounds(Offset, Limit);
+		
+		List<Recipe> recipeList = mapper.myPageRecipeSearchSelect(paramMap, RowBounds);
+		
+		Map<String, Object> map = new HashMap<>();
+		map.put("recipeList", recipeList);
+		map.put("pagination", pagination);
 		return map;
 	}
 
