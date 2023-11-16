@@ -16,7 +16,7 @@
         <a href="/myPage/edit">내 정보 수정</a>
       </div>
       <th:block th:replace="~{my_page/myPageSideMenu}"></th:block>
-        <div class="userInfo-row edit-userInfo-row">
+        <div class="userInfo-row1 edit-userInfo-row">
           <button type="button" id="xBtn"><i class="fa-solid fa-x"></i></button>
           <div class="userInfo-image">
             <img th:if="*{memberProfile}" th:src="*{memberProfile}" class="memberProfile">
@@ -31,12 +31,12 @@
           </div>
         </div>
         <form action="/myPage/edit" method="POST" class="editFrm" id="editFrm">
-          <div class="userInfo-row memberIntro">
+          <div class="userInfo-row2 memberIntro">
             <span>닉네임</span>
-            <input type="text" class="userInfo-nickname" th:value="*{memberNickname}" name="memberNickname" id="inputNickname"/>
+            <input type="text" class="userInfo-nickname2" th:value="*{memberNickname}" name="memberNickname" id="inputNickname"/>
           </div>
           <div class="validation"></div>
-          <div class="userInfo-row memberIntro">
+          <div class="userInfo-row2 memberIntro">
             <span>자기소개</span>
             <textarea maxlength="64" type="text" class="userInfo-intro" th:if="*{memberIntro}" th:text="*{memberIntro}" name="memberIntro"></textarea>
             <textarea maxlength="64" type="text" class="userInfo-intro" th:unless="*{memberIntro}" name="memberIntro" placeholder="자기소개를 작성해주세요"></textarea>

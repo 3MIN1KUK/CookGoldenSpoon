@@ -46,7 +46,9 @@
                     <button class="buttons" th:onclick="|showUpdateboardComment(*{boardCommentNo}, this)|">수정</button>
                     <button class="buttons" th:onclick="|deleteBoardComment(*{boardCommentNo})|">삭제</button>
                   </th:block>
-                  <button class="buttons" th:onclick="|showInsertBoardComment(*{boardCommentNo}, this)|">답글</button>
+                  <th:block th:if="${session.loginMember != null}">
+                    <button class="buttons" th:onclick="|showInsertBoardComment(*{boardCommentNo}, this)|">답글</button>
+                  </th:block>
                 </div>
 
               </th:block>
