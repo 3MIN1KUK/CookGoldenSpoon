@@ -55,6 +55,7 @@
    border-radius: 1rem;
    min-height: 22rem;
    padding: 0.5rem 0.5rem 0;
+   white-space: pre-wrap;
 }
 /* 답글 */
 .inquiryDetail-reply{
@@ -64,6 +65,7 @@
    min-height: 20rem;
    border-radius: 20px;
    padding: 0.8rem 0.8rem 0;
+   white-space: pre-wrap;
 }
 
 .reply-box{
