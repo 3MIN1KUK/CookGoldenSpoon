@@ -282,7 +282,7 @@ nav>ul{
 
 
 footer{
-  height: 20rem;
+  height: 21.5rem;
   background-color: var(--color-main);
   width: 100vw;
   margin-top: 3rem;
@@ -350,7 +350,7 @@ footer *{
 /* 오른쪽 */
 
 .classBox3{
-  width: 17rem;
+  width: 27rem;
   padding: 1rem 1.2rem 0rem 1.2rem;
   margin-right: 20rem;
 }
@@ -358,6 +358,10 @@ footer *{
 .rightTitle{
   font-size: 1.5rem;
   padding: 0.5rem 0rem 1.2rem 0rem;
+}
+
+.rightLine{
+  font-size: 1.2rem;
 }
 
 

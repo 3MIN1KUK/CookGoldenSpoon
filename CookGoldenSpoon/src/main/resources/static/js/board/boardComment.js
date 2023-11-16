@@ -69,7 +69,7 @@ const selectCommentList = () => {
                 
                 const boardCommentContent = document.createElement("div");
                 boardCommentContent.classList.add("board2-review-content");
-                boardCommentContent.innerText = comment.boardCommentContent;
+                boardCommentContent.innerHTML = comment.boardCommentContent;
 
                 const boardCommentEnrollDate =document.createElement("div");
                 boardCommentEnrollDate.classList.add("board2CommentEnrollDate");
@@ -231,10 +231,10 @@ function showUpdateboardComment(boardCommentNo, btn){
     const textarea = document.createElement("textarea");
     textarea.classList.add("board2-review-content", "updateTextarea");
     // XSS 방지 처리 해제
-    beforeContent =  beforeContent.replaceAll("&amp;", "&");
-    beforeContent =  beforeContent.replaceAll("&lt;", "<");
-    beforeContent =  beforeContent.replaceAll("&gt;", ">");
-    beforeContent =  beforeContent.replaceAll("&quot;", "\"");
+    // beforeContent =  beforeContent.replaceAll("&amp;", "&");
+    // beforeContent =  beforeContent.replaceAll("&lt;", "<");
+    // beforeContent =  beforeContent.replaceAll("&gt;", ">");
+    // beforeContent =  beforeContent.replaceAll("&quot;", "\"");
     textarea.innerHTML = beforeContent;
     btn.before(textarea);
     textarea.focus();

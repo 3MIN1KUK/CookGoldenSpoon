@@ -67,9 +67,9 @@ padding: 1rem;
 border-radius: 1rem;
 text-align: start;
 border: 0.5px solid #FFD384;
-overflow: auto;
 word-break: break-all;
 color: rgba(0, 0, 0, 0.700);
+white-space: pre-wrap;
 }
 
 .board2-review-form button{
@@ -145,7 +145,6 @@ color: rgba(0, 0, 0, 0.700);
 
 .updateTextarea{
 width: 100%;
-height: 6rem;
 resize: none;
 }
 

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>쿠킹 클래스 게시판 등록창</title>
+  <link rel="stylesheet" href="/css/cooking_class/board/cookingClassRegistration.css">
+</head>
+<body>
+  <th:block th:replace="~{common/header}"></th:block>
+    <div class="main-container">
+      <div class="main">
+        <div class="page-1">
+          <div class="page-1-1">사 진</div>
+        </div>
+        <table class="page-2">
+          <tr>
+            <td id="title">제 목 </td>
+            <td><input type="text" placeholder="제목" id="box-title"></td>
+          </tr>
+          <tr>
+            <td id="name">강 사 </td>
+            <td><input type="text" placeholder="이름" id="box-name"></td>
+          </tr>
+          <tr>
+            <td id="weather">날 짜</td>
+            <td><input type="text" placeholder="모집 날짜" id="box-weather"></td>
+          </tr>
+          <tr>
+            <td id="place">장 소</td>
+            <td><input type="text" placeholder="장소" id="box-place"></td>
+          </tr>
+          <tr>
+            <td id="recommendation">맛 추천</td>
+            <td>
+              <select name="recom" id="box-recommendation">
+                <option></option>
+                <option>★</option>
+                <option>★★</option>
+                <option>★★★</option>
+                <option>★★★★</option>
+                <option>★★★★★</option>
+              </select>
+            </td>
+          </tr>
+          <tr id="content-main">
+            <td id="content">내 용</td>
+            <td>
+              <textarea cols="25" rows="15" id="box-content"></textarea>
+            </td>
+          </tr>
+        </table>
+      </div>
+      <div class="sub">
+        <button>작성하기</button>
+      </div>
+    </div>
+
+  </main>
+  <script src="/js/cooking_class/board/cookingClassRegistration.js"></script>
+</body>
+</html>
