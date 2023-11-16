@@ -47,11 +47,19 @@ public interface MemberService {
 	 * @return
 	 */
 	int checkNickname(String nickname);
+	
+
+	/** 아이디 중복 체크
+	 * @param id
+	 * @return
+	 */
+	int checkId(String id);
 
 	/** 빠른 로그인
 	 * @param memberEmail
 	 * @return
 	 */
 	Member quickLogin(String memberId);
+
 
 }

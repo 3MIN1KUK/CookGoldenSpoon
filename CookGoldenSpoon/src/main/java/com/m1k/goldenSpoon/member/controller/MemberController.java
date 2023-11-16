@@ -96,6 +96,12 @@ public class MemberController {
 		return "redirect:/";
 	}
 	
+	@GetMapping("checkId")
+	@ResponseBody
+	public int checkId(String id) {
+		return service.checkId(id);
+	}
+	
 	// 이메일 중복 체크
 	@GetMapping("checkEmail")
 	@ResponseBody

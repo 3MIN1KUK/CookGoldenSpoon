@@ -51,4 +51,10 @@ public interface MemberMapper {
 	 */
 	int checkNickname(String nickname);
 
+	/** 아이디 중복 체크
+	 * @param id
+	 * @return
+	 */
+	int checkId(String id);
+
 }

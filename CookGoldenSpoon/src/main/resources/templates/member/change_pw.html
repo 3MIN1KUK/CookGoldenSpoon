@@ -22,12 +22,12 @@
           <form action="/member/changePw" method="post">
             
             <div class="input-group">
-              <input type="text" id="memberPw" name="memberPw" placeholder="비밀번호를 입력해주세요">
+              <input type="password" id="memberPw" name="memberPw" placeholder="비밀번호를 입력해주세요">
               <div class="signupTest" id="pwMessage">영어,숫자,특수문자(!,@,#,-,_) 6~20글자 사이로 입력해주세요</div>
             </div>
 
             <div class="input-group">
-              <input type="text" id="memberPwConfirm" name="memberPwConfirm" placeholder="비밀번호를 다시 입력해주세요">
+              <input type="password" id="memberPwConfirm" name="memberPwConfirm" placeholder="비밀번호를 다시 입력해주세요">
               <div class="signupTest" id="pwConfirmMessage">비밀번호 확인</div>
             </div>
             
@@ -42,7 +42,7 @@
   </main>
   <th:block th:replace="~{common/footer}"></th:block>
   <script src="/js/common/project.js"></script>
-  <script src="/js/member/changePw.js"></script>
+  <script src="/js/member/change_pw.js"></script>
 
 </body>
 </html>

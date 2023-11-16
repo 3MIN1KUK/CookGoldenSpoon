@@ -102,4 +102,9 @@ public class MemberServiceImpl implements MemberService{
 		return mapper.login(memberId);
 	}
 	
+	@Override
+	public int checkId(String id) {
+		return mapper.checkId(id);
+	}
+	
 }

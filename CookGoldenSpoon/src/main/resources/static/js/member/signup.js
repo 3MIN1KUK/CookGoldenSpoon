@@ -25,11 +25,27 @@ memberId.addEventListener("input", () => {
   const regEx = /^[a-zA-Z0-9]{4,16}$/;
 
   if(regEx.test(memberId.value)){
-    checkObj.memberId = "true";
-    idMessage.innerText = "유효한 아이디 형식입니다";
 
-    idMessage.classList.add("confirm");
-    idMessage.classList.remove("error");
+
+    if(regEx.test(memberId.value) ){
+      fetch("/member/checkId?id="+memberId.value)
+      .then( response => response.text() )
+      .then( result => {
+  
+          if(result == 0){ // 중복 X
+            idMessage.innerText = "사용 가능한 아이디 입니다"
+            idMessage.classList.add("confirm"); // 초록색 글씨
+            idMessage.classList.remove("error"); // 빨간글씨 제거
+              checkObj.memberId = true;
+          }else{ // 중복 O
+            idMessage.innerText = "이미 사용중인 아이디 입니다"
+            idMessage.classList.add("error"); // 초록색 글씨
+            idMessage.classList.remove("confirm"); // 빨간글씨 제거
+              checkObj.memberId = false;
+          }
+      })
+    }
+
   }
 
   else{
