@@ -91,6 +91,7 @@
               <th class="member-search-th">신고 대상자</th>
               <th class="member-search-th">신고 제목</th>
               <th class="member-search-th">상세 조회</th>
+              <th class="member-search-th">처리 여부</th>
           </tr>
           </thead>
 
@@ -103,15 +104,16 @@
           <th:block th:unless="${#lists.size(reportList) == 0}">
 
             <tr class="member-search-tr" th:each="report : ${reportList}" th:object="${report}">
-                <td class="member-search-td" th:text="*{reportNo}">신고 번호</td>
+                <td class="member-search-td" th:text="*{reportNo}" style="width: 10%;">신고 번호</td>
                 <td class="member-search-td" th:text="*{memberNickname}">신고자</td>
                 <td class="member-search-td" th:text="*{reporterNickname}">신고 대상자</td>
                 <td class="member-search-td" th:text="*{reportTitle}">신고 제목</a></td>
-                <td class="member-search-td">
+                <td class="member-search-td" style="width: 10%;">
                     <input type="hidden" th:value="*{reportNo}" name="memberNo">
                     <input type="hidden" th:value="${map.pagination.currentPage}" name="cp">
-                    <button type="submit" class="btn btn-info " data-bs-toggle="modal" data-bs-target="#exampleModal" th:onclick="|reportDetail(*{reportNo}, this)|">상세 조회</button>
+                    <button type="submit" class="btn btn-info " data-bs-toggle="modal" data-bs-target="#exampleModal" th:onclick="|reportDetail(*{reportNo}, this)|" >상세 조회</button>
                 </td>
+                <td class="member-search-td" th:text="*{reportAnswer}" style="width: 9%;"></td>
             </tr>
             
           </th:block>

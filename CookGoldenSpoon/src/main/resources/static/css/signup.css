@@ -56,16 +56,16 @@ input[type="radio"] {
   width: 70%;
 }
 
-#email-td{
+#email-td, #email-confirm-td{
   display: flex;
 }
 
-#email {
-  width: 85%;
+#email , #authKey{
+  width: 75%;
 }
 
-#email-btn{
-  width: 15%;
+#email-btn, #email-confirm-btn{
+  width: 25%;
   font-size: 1.2rem;
   margin-left: 10px;
   cursor: pointer;

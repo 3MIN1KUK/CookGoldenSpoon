@@ -32,7 +32,9 @@
               <span class="comment-in-text" th:text="*{commentParentTitle}">게시글 제목</span>
               <span class="comment-in-text" th:text="*{commentEnrollDate}">댓글 날짜</span>
               <span class="comment-in-text" th:text="*{commentType}">유형</span>
-              <button class="delete-btn btn btn-outline-danger float-end" th:value="*{commentType}" th:onclick="|deleteComment(*{commentNo}, this)|">삭제</button>
+              <input type="hidden" th:value="*{commentDelFl}">
+              <button th:if="*{commentDelFl == 'N'}" class="delete-btn btn btn-outline-danger float-end" th:value="*{commentType}" th:onclick="|changeCommentDelFl(*{commentNo}, this)|">삭제</button>
+              <button th:if="*{commentDelFl == 'Y'}" class="delete-btn btn btn-outline-success float-end" th:value="*{commentType}" th:onclick="|changeCommentDelFl(*{commentNo}, this)|">복구</button>
             </div>
             <div class="comment-content" th:text="*{commentContent}">
               댓 글 내 용

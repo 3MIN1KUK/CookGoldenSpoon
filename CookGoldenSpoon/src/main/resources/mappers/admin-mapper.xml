@@ -62,9 +62,8 @@
 	<!-- 회원 전체 조회 -->
 	<select id="selectMember" resultType="Member">
 		
-		SELECT MEMBER_NO ,MEMBER_EMAIL ,MEMBER_NICKNAME ,MEMBER_AUTHORITY, MEMBER_ID
+		SELECT MEMBER_NO ,MEMBER_EMAIL ,MEMBER_NICKNAME ,MEMBER_AUTHORITY, MEMBER_ID, MEMBER_DEL_FL
 		FROM "MEMBER"
-		WHERE MEMBER_DEL_FL = 'N'
 		ORDER BY MEMBER_NO
 		
 	</select>
@@ -72,9 +71,9 @@
 	<!-- 회원 검색 조회 -->
 	<select id="searchMember" resultType="Member">
 		
-		SELECT MEMBER_NO ,MEMBER_EMAIL ,MEMBER_NICKNAME ,MEMBER_AUTHORITY, MEMBER_ID
+		SELECT MEMBER_NO ,MEMBER_EMAIL ,MEMBER_NICKNAME ,MEMBER_AUTHORITY, MEMBER_ID, MEMBER_DEL_FL
 		FROM "MEMBER"
-		WHERE MEMBER_DEL_FL = 'N'
+		WHERE MEMBER_DEL_FL IN ('N','Y')
 		<if test="memberNickname != null">
 			AND MEMBER_NICKNAME LIKE '%${memberNickname}%'
 		</if>
@@ -93,6 +92,34 @@
 		UPDATE "MEMBER" SET 
 		MEMBER_AUTHORITY = #{memberAuthority}
 		WHERE MEMBER_NO = #{memberNo}
+	</update>
+	
+	<!-- 회원 탈퇴 여부 변경 -->
+	<update id="changeMemberDelFl">
+		UPDATE "MEMBER" SET
+		MEMBER_DEL_FL = #{memberDelFl}
+		WHERE MEMBER_NO = #{memberNo}
+	</update>
+	
+	<!-- 게시판 삭제 여부 변경 -->
+	<update id="changeBoardDelFl">
+		UPDATE "BOARD" SET
+		BOARD_DEL_FL = #{boardDelFl}
+		WHERE BOARD_NO = #{boardNo}
+	</update>
+	
+	<!-- 게시글 댓글 삭제 여부 변경 -->
+	<update id="changeBoardCommentDelFl">
+		UPDATE "BOARD_COMMENT" SET
+		BOARD_COMMENT_DEL_FL = #{commentDelFl}
+		WHERE BOARD_COMMENT_NO = #{commentNo}
+	</update>
+	
+	<!-- 레시피 댓글 삭제 여부 변경 -->
+	<update id="changeRecipeCommentDelFl">
+		UPDATE "RECIPE_COMMENT" SET
+		RECIPE_COMMENT_DEL_FL = #{commentDelFl}
+		WHERE RECIPE_COMMENT_NO = #{commentNo}
 	</update>
 	
 	<!-- 회원 상세 조회 -->
@@ -173,7 +200,7 @@
 	<!-- 게시판 개수 구하기 -->
 	<select id="boardListCount" resultType="_int">
 		SELECT COUNT(*) FROM "BOARD"
-		WHERE BOARD_DEL_FL = 'N'
+		WHERE BOARD_DEL_FL IN ('N', 'Y')
 		
 		<!-- 회원 번호 -->
 		<if test="memberNos.size() != 0">
@@ -191,14 +218,14 @@
 
 	<!-- 게시글 다중 검색 -->
 	<select id="boardResult">
-		SELECT BOARD_NO, BOARD_CODE ,
+		SELECT BOARD_NO, BOARD_CODE , BOARD_DEL_FL,
 		BOARD_TITLE ,
 		BOARD_HITS, 
 		TO_CHAR(BOARD_ENROLL_DATE, 'YYYY"년" MM"월" DD"일"') BOARD_ENROLL_DATE,
 		MEMBER_NICKNAME
 		FROM "BOARD"
 		JOIN "MEMBER" USING (MEMBER_NO)
-		WHERE BOARD_DEL_FL = 'N'
+		WHERE BOARD_DEL_FL IN ('N', 'Y')
 		
 		<!-- 회원 번호 -->
 		<if test="memberNos.size() != 0">
@@ -237,7 +264,7 @@
 			(SELECT r.RECIPE_TITLE FROM RECIPE r  WHERE r.RECIPE_NO = rc.RECIPE_NO) AS COMMENT_PARENT_TITLE
 			FROM RECIPE_COMMENT rc 
 			)
-		WHERE COMMENT_DEL_FL = 'N'
+		WHERE COMMENT_DEL_FL IN ('N', 'Y')
 		AND COMMENT_PARENT_TITLE LIKE '%${searchComment.commentParentTitle}%'
 		AND COMMENT_CONTENT LIKE '%${searchComment.commentContent}%'
 		<if test="memberNos.size() != 0">
@@ -286,7 +313,7 @@
 			(SELECT MEMBER_NICKNAME FROM "MEMBER" m WHERE M.MEMBER_NO = RC.MEMBER_NO) MEMBER_NICKNAME 
 			FROM RECIPE_COMMENT rc 
 			)
-		WHERE COMMENT_DEL_FL = 'N'
+		WHERE COMMENT_DEL_FL IN ('N', 'Y')
 		AND COMMENT_PARENT_TITLE LIKE '%${searchComment.commentParentTitle}%'
 		AND COMMENT_CONTENT LIKE '%${searchComment.commentContent}%'
 		<if test="memberNos.size() != 0">
@@ -359,12 +386,12 @@
 	
 	<!-- 신고 전체 조회 -->
 	<select id="selectReport">
-		SELECT REPORT_NO ,MEMBER_NO ,REPORT_CONTENT ,
+		SELECT REPORT_NO ,MEMBER_NO ,REPORT_CONTENT , REPORT_ANSWER,
 			REPORTER_NO ,REPORT_TITLE ,REPORT_TYPE ,REPORT_CONTENT_NO ,
 			(SELECT MEMBER_NICKNAME FROM "MEMBER" m WHERE R.MEMBER_NO = M.MEMBER_NO) MEMBER_NICKNAME ,
 			(SELECT MEMBER_NICKNAME FROM "MEMBER" m WHERE R.REPORTER_NO = M.MEMBER_NO) REPORTER_NICKNAME 
 		FROM REPORT R
-		WHERE REPORT_ANSWER = 'N'
+		WHERE REPORT_ANSWER IN ('N', 'Y')
 		ORDER BY REPORT_NO DESC
 	</select>
 	

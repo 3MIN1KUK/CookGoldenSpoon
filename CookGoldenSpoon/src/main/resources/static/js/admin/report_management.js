@@ -1,6 +1,7 @@
 let reportNo;
 const reportAnswerSubmit = document.getElementById('report-answer-submit');
 var myModal = new bootstrap.Modal(document.getElementById('exampleModal'));
+let getReportAnswer;
 
 
 reportAnswerSubmit.addEventListener('click', () =>{
@@ -23,6 +24,7 @@ reportAnswerSubmit.addEventListener('click', () =>{
 
       myModal.hide();
       alert("신고 처리 완료")
+      getReportAnswer.innerHTML = 'Y';
     } else{
       alert("신고 처리 실패")
     }
@@ -51,6 +53,7 @@ function reportAnswer() {
   .then(result =>{
     if(result > 0){
       alert("신고 처리 완료")
+
     } else{
       alert("신고 처리 실패")
     }
@@ -73,6 +76,7 @@ function reportDetail(thisReportNo, thisReport) {
     const reportTitle = document.getElementById("report-title");
     const reportContent = document.getElementById("report-content");
     const reportLocationBtn = document.getElementById("report-location");
+    getReportAnswer = thisReport.parentElement.nextElementSibling;
 
     reportTitle.innerHTML = result.reportTitle;
     reportContent.innerHTML = result.reportContent;

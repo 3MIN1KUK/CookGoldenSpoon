@@ -153,6 +153,14 @@ public interface AdminMapper {
 	 */
 	List<Report> searchReport(RowBounds rowBounds);
 
+	int changeMemberDelFl(Member member);
+
+	int changeBoardDelFl(Board board);
+
+	int changeBoardCommentDelFl(unionComment comment);
+
+	int changeRecipeCommentDelFl(unionComment comment);
+
 
 
 }

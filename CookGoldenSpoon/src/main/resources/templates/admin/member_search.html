@@ -57,12 +57,13 @@
         <table class="member-search-result">
           <thead>
           <tr class="member-search-tr">
-              <th class="member-search-th">회원 번호</th>
+              <th class="member-search-th" style="width: 10%;">회원 번호</th>
               <th class="member-search-th">회원 아이디</th>
               <th class="member-search-th">닉네임</th>
               <th class="member-search-th">이메일</th>
               <th class="member-search-th">상태</th>
-              <th class="member-search-th">상세 조회</th>
+              <th class="member-search-th" style="width: 10%;">상세 조회</th>
+              <th class="member-search-th" style="width: 10%;">탈퇴/복구</th>
           </tr>
           </thead>
 
@@ -94,6 +95,10 @@
                     <input type="hidden" th:value="${map.pagination.currentPage}" name="cp">
                     <button type="submit" class="btn btn-info ">상세 조회</button>
                   </form>
+                </td>
+                <td class="member-search-td">
+                  <button th:if="*{memberDelFl == 'N'}" class="btn btn-danger" th:value="*{memberDelFl}" th:onclick="|changeMemberDelFl(*{memberNo}, this)|">탈퇴</button>
+                  <button th:if="*{memberDelFl == 'Y'}" class="btn btn-success" th:value="*{memberDelFl}" th:onclick="|changeMemberDelFl(*{memberNo}, this)|">복구</button>
                 </td>
             </tr>
             

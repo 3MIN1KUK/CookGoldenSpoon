@@ -90,4 +90,10 @@ public interface AdminService {
 
 	Map<String, Object> searchReport(Report report, int cp);
 
+	int changeMemberDelFl(Member member);
+
+	int changeBoardDelFl(Board board);
+
+	int changeCommentDelFl(unionComment comment);
+
 }

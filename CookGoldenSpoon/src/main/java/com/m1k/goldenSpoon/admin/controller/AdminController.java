@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.context.annotation.RequestScope;
 
 import com.m1k.goldenSpoon.admin.model.dto.unionComment;
 import com.m1k.goldenSpoon.admin.model.service.AdminService;
@@ -215,6 +216,25 @@ public class AdminController {
 	@ResponseBody
 	public int reportAnswer(@RequestBody Report report) {
 		return service.reportAnswer(report);
+	}
+	
+	@PutMapping("changeMemberDelFl")
+	@ResponseBody
+	public int changeMemberDelFl(@RequestBody Member member) {
+		return service.changeMemberDelFl(member);
+	}
+	
+	@PutMapping("changeBoardDelFl")
+	@ResponseBody
+	public int changeBoardDelFl(@RequestBody Board board) {
+		return service.changeBoardDelFl(board);
+	}
+	
+	
+	@PutMapping("changeCommentDelFl")
+	@ResponseBody
+	public int changeCommentDelFl(@RequestBody unionComment comment) {
+		return service.changeCommentDelFl(comment);
 	}
 	
 }
