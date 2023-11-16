@@ -124,7 +124,7 @@ public class MemberController {
 		
 		if (memberId == null) {
 			ra.addFlashAttribute("message", "검색 결과가 없습니다");
-			return "redirect:findPw";
+			return "redirect:findId";
 		}
 		
 		return "member/find_id_result";
