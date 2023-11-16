@@ -16,7 +16,7 @@
           <a href="/myPage/recipe">나의 레시피</a>
         </div>
         
-      <div class="search-area">
+      <!-- <div class="search-area">
         <select name="orderBy" id="orderBy">
           <option value="1">인기순</option>
           <option value="2">평점순</option>
@@ -25,7 +25,7 @@
         </select>
         <input type="text" placeholder="검색어를 입력해주세요" name="recipeSearch" id="recipeSearch">
         <button type="button" id="recipeSearchBtn">검색</button>
-      </div>
+      </div> -->
       <th:block th:replace="~{my_page/myPageSideMenu}"></th:block>
       <th:block th:if="${#lists.isEmpty(recipeList)}">
           <br><br><br><br>

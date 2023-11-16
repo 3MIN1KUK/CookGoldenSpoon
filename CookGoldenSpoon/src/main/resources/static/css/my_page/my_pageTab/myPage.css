@@ -32,6 +32,10 @@ span{
   justify-content: space-between;
   margin: 1rem 0;
 }
+.userInfo-row *{
+  
+  color:rgba(0, 0, 0, 0.700);
+}
 .userInfo-row1{
   display: flex;
   background-color: var(--color-bg);
@@ -80,6 +84,8 @@ span{
   resize: none;
   border-radius: 2rem;
   padding: 1rem;
+  color:rgba(0, 0, 0, 0.700);
+
 }
 
 .cs-title{

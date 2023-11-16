@@ -411,7 +411,7 @@ inputTag.addEventListener("keyup", e=>{
       for(let tag of tags){
         maxLength += tag.value;
       }
-      if(maxLength.length > 50){
+      if(maxLength.length > 35){
         alert("더 이상 태그를 입력할 수 없습니다");
         e.preventDefault
         return;

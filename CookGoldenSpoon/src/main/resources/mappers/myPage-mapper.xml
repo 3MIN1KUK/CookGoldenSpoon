@@ -70,8 +70,10 @@
 	</select>
 	
 	<select id="getRecipeListCount" resultType="_int">
-		SELECT COUNT(*) FROM "RECIPE_LIKE"
-		WHERE MEMBER_NO = #{memberNo}
+		SELECT COUNT(*) FROM "RECIPE_BOOKMARK" RL
+		JOIN "RECIPE" USING(RECIPE_NO)
+		WHERE RL.MEMBER_NO = #{memberNo}
+		AND RECIPE_DEL_FL = 'N'
 	</select>
 	
 	<select id="recipeSelect" resultMap="recipeSelect_rm">
