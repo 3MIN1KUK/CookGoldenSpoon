@@ -50,11 +50,12 @@ public class EditRecipeServiceImpl implements EditRecipeService{
 			List<String> recipeStepContent, List<MultipartFile> recipeStepImage, List<MultipartFile> completeImages,
 			List<String> materialName, List<String> recipeMaterialQuantity,
 			String deleteCompleteOrder, String deleteThumbnail, List<String> stepImg) throws IllegalStateException, IOException {
-		
-		String recipeVideo = originRecipeVideo.replace("watch?v=","embed/");
-		recipe.setRecipeVideo(recipeVideo.substring(0, recipeVideo.indexOf("embed/")+17));
-		
-		
+		if(originRecipeVideo.length() != 0) {
+			String recipeVideo = originRecipeVideo.replace("watch?v=","embed/");
+			if(recipeVideo.length() >= recipeVideo.indexOf("embed/")+17) {
+				recipe.setRecipeVideo(recipeVideo.substring(0, recipeVideo.indexOf("embed/")+17));
+			}
+		}
 		
 		// 썸네일이 삭제됐을 때
 		if(!deleteThumbnail.equals("")) {
