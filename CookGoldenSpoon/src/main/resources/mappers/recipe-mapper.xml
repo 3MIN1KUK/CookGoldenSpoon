@@ -16,7 +16,7 @@
 	</resultMap>
 	<resultMap id="selectRecipe_rm" type="Recipe">
 		<id property="recipeNo" column="RECIPE_NO" />
-		<!--<association property="recipeStar" select="selectRecipeStar" column="RECIPE_NO" javaType="_double"/>-->
+		<association property="recipeStar" select="selectRecipeStar" column="RECIPE_NO" javaType="_double"/>
 		<collection property="recipeTag" select="selectRecipeTag" column="RECIPE_NO" javaType="java.util.ArrayList" ofType="String" />
 	</resultMap>
 
