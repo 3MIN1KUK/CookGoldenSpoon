@@ -69,6 +69,7 @@ text-align: start;
 border: 0.5px solid #FFD384;
 overflow: auto;
 word-break: break-all;
+color: rgba(0, 0, 0, 0.700);
 }
 
 .board2-review-form button{
@@ -139,6 +140,7 @@ font-size: 2rem;
 padding: 0.5rem;
 border-radius: 1rem;
 border: 0.1rem solid darkorange;
+color: rgba(0, 0, 0, 0.700);
 }
 
 .updateTextarea{

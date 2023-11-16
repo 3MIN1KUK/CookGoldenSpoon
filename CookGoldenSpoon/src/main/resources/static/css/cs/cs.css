@@ -155,19 +155,21 @@
   border-radius: 1rem;
   font-size: 3rem;
   margin-bottom: 0.5rem;
-  padding: 0.5rem 1rem 0;
-  height: 4rem;
+  padding: 1rem 2rem 0.5rem;
+  min-height: 4rem;
   cursor: pointer;
+  color: rgba(0, 0, 0, 0.700);
 }
 .qna-a{
   width: 100%;
   background-color: var(--color-bg);
   border-radius: 1rem;
-  font-size: 3rem;
-  padding: 0.5rem 1rem 0;
+  font-size: 2rem;
+  padding: 1rem 2rem 0.5rem;
   height: 0;
   transition: 300ms;
   opacity: 0;
+  color: rgba(0, 0, 0, 0.700);
 }
 .qna-a-act{
   height: auto;

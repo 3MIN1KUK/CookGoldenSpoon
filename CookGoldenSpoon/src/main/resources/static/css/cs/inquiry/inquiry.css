@@ -21,12 +21,10 @@
 .inquiry-title>a{
    margin: 0.5rem;
    font-size: 3rem;
-   color: var(--color-bg);
 }
 
 .inquiry-main{
    font-size: 2rem;
-   margin: 0.5rem 0;
    width: 100%;
    border-radius: 1rem;
    background-color: var(--color-bg);
@@ -63,12 +61,15 @@
 
 .inquiry>span:first-of-type{
    width: 10%;
+   color: rgba(0, 0, 0, 0.700);
 }
 .inquiry>span:nth-of-type(2){
    width: 75%;
+   color: rgba(0, 0, 0, 0.700);
 }
 .inquiry>span:nth-of-type(3){
    width: 15%;
+   color: rgba(0, 0, 0, 0.700);
 }
 
 .line-area1{

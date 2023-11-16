@@ -20,6 +20,10 @@ body {
   /* border: 1px solid black; */
 }
 
+/* input, textarea{
+  outline : none;
+} */
+
 
 input, textarea{
   outline : none;
