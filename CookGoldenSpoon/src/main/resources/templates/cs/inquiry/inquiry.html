@@ -25,8 +25,8 @@
           <div class="line-area">
             <a th:href="@{/cs/inquiry/{inquiryNo}(inquiryNo=*{inquiryNo})}" class="inquiry">
               <span th:text="*{inquiryNo}">No.1</span>
-              <span th:text="*{inquiryTitle}">첫 번째 공지사항 입니다</span>
-              <span th:text="*{memberNickname}">작성자</span>
+              <span class="line-area1" th:text="*{inquiryTitle}">첫 번째 공지사항 입니다</span>
+              <span class="line-area1" th:text="*{memberNickname}">작성자</span>
             </a>
           </div>
         </th:block>
