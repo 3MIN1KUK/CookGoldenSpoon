@@ -8,6 +8,11 @@
       
       <div class="board2-review-container" id="commentList">
 
+        <th:block th:if="*{#lists.size(boardCommentList) == 0}">
+          <span style="font-size: 2rem; padding: 2rem; color:rgba(0, 0, 0, 0.700);">
+            댓글이 없습니다
+          </span>
+        </th:block>
           <!-- 대댓글인 경우 child-comment 클래스 추가 -->
           <div class="board2-review" 
               th:each="comment : ${board.boardCommentList}" th:object="${comment}"

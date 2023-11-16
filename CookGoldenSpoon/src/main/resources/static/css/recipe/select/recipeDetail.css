@@ -155,9 +155,9 @@
   border-radius: 1rem;
   text-align: start;
   border: 0.5px solid #FFD384;
-  overflow: auto;
   word-break: break-all;
   color:rgba(0, 0, 0, 0.700);
+  white-space: pre-wrap;
 }
 
 .recipe-review-form button{
@@ -286,7 +286,6 @@
 
 .updateTextarea{
   width: 100%;
-  height: 6rem;
   resize: none;
 }
 
