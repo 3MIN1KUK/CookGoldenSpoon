@@ -28,10 +28,11 @@ public interface EditRecipeService {
 	 * @param recipeMaterialQuantity
 	 * @param deleteCompleteOrder 
 	 * @param deleteThumbnail 
+	 * @param stepImg 
 	 * @return
 	 */
 	int update(Recipe recipe, String originRecipeVideo, MultipartFile thumbnail, List<String> recipeTagName,
 			List<String> recipeStepContent, List<MultipartFile> recipeStepImage, List<MultipartFile> completeImages,
-			List<String> materialName, List<String> recipeMaterialQuantity, String deleteCompleteOrder, String deleteThumbnail) throws IllegalStateException, IOException;
+			List<String> materialName, List<String> recipeMaterialQuantity, String deleteCompleteOrder, String deleteThumbnail, List<String> stepImg) throws IllegalStateException, IOException;
 
 }
