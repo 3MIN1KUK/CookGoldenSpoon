@@ -23,13 +23,24 @@ public interface InquiryMapper {
 	 * @param rowBounds
 	 * @return
 	 */
-	List<Inquiry> selectAllInquiry(int memberNo, RowBounds rowBounds);
+	List<Inquiry> selectAllMyInquiry(int memberNo, RowBounds rowBounds);
 
 	/** 문의사항 상세 조회
 	 * @param inquiryNo
 	 * @return
 	 */
 	Inquiry inquiryDetail(int inquiryNo);
+
+	/** 관리자용 문의사항 전체조회 개수
+	 * @return
+	 */
+	int getAllInquiryListCount();
+
+	/** 관리자용 문의사항 전체조회
+	 * @param rowBounds
+	 * @return
+	 */
+	List<Inquiry> selectAllInquiry(RowBounds rowBounds);
 	
 
 }

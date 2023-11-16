@@ -43,7 +43,8 @@ public class InquiryController {
 			) {
 		
 		if(loginMember != null) {
-			Map<String, Object> map = service.selectAllInquiry(cp, loginMember.getMemberNo());
+			
+			Map<String, Object> map = service.selectAllInquiry(cp, loginMember.getMemberNo(), loginMember.getMemberAuthority());
 			model.addAttribute("map", map);
 			return "cs/inquiry/inquiry";
 		}
