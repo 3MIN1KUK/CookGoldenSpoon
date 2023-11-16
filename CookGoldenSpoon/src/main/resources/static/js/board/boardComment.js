@@ -22,6 +22,8 @@ const selectCommentList = () => {
         // cList에 저장된 요소를 하나씩 접근
         for(let comment of cList){
 
+            console.log(comment);
+
             // 행
             const commentRow = document.createElement("div");
             commentRow.classList.add("board2-review");
@@ -73,16 +75,24 @@ const selectCommentList = () => {
                 boardCommentEnrollDate.classList.add("board2CommentEnrollDate");
                 boardCommentEnrollDate.innerText = comment.boardCommentEnrollDate;
 
+                // 신고 버튼
+                if(loginCheck == true && loginMemberNo != comment.memberNo){
+                    const csComment = document.createElement("div");
+                    const csCommentBtn = document.createElement("button");
+                    csCommentBtn.setAttribute("id", "csBtn");
+                    csCommentBtn.setAttribute("onclick", `csComment(${comment.memberNo},${comment.boardNo}, this)`);
+                    csCommentBtn.setAttribute("data-bs-toggle", "modal");
+                    csCommentBtn.setAttribute("data-bs-target", "#exampleModal");
+                    csCommentBtn.innerHTML = "신고";
+    
+                    csComment.append(csCommentBtn);
+                    div1.append(csComment, boardCommentEnrollDate, boardCommentContent);
+                    
+                }else{
 
-                const csComment = document.createElement("div");
-                const csCommentBtn = document.createElement("button");
-                csCommentBtn.setAttribute("id", "csBtn");
-                csCommentBtn.setAttribute("onclick", `csComment(${comment.boardNo})`);
-                csCommentBtn.innerHTML = "신고하기";
-
-                csComment.append(csCommentBtn);
-
-                div1.append(csComment, boardCommentEnrollDate, boardCommentContent);
+                    div1.append(boardCommentEnrollDate, boardCommentContent);
+                }
+                
             
                 
                 // 로그인이 되어있는 경우 답글 버튼 추가
@@ -371,31 +381,6 @@ function objectToQueryString(obj) {
       .filter(queryPart => queryPart !== '') // 빈 문자열 제거
       .join('&');
   }
-
-/* 신고 팝업창 */
-
-function csComment(memberNo, boardCommentNo, thisComment){
-    boards.type = "board";
-    boards.reporterNo = memberNo;
-    boards.reporterNickname = thisComment.value;
-    boards.reportCommentNo = boardCommentNo;
-    
-    const queryString = objectToQueryString(boards);
-    var popup = window.open("/board/csCustomer?" + queryString, "_blank", "width=800, height=400, left=700, top=400");
-    if(popup){
-        popup.onload = function(){
-            
-            
-        }
-    }
-
-}
-
-function submitFrom(popup, reportContent, reportTitle, memberNo){
-    if(confirm("제출하시겠습니까?")){
-        popup.window.close();
-    }
-}
 
 
 
