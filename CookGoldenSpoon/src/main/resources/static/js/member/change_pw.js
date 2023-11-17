@@ -1,10 +1,6 @@
 const checkObj = {
-  "memberId" : false,
-  "memberEmail" : false,
-  "authKey" : true,
   "memberPw" : false,
   "memberPwConfirm" : false,
-  "memberNickname" : false,
 };
 
 // 비밀번호 유효성 검사
@@ -88,5 +84,31 @@ memberPwConfirm.addEventListener('input', ()=>{
 
   } else { // 비밀번호가 유효하지 않은 경우
       checkObj.memberPwConfirm = false;
+  }
+});
+
+
+document.getElementById("changePwFrm").addEventListener("submit", e => {
+
+  for(let key in checkObj){
+
+      if(!checkObj[key]){
+          let str
+          switch(key){
+
+              case "memberId" : str = "아이디가  유효하지 않습니다"; break;
+              
+              case "memberEmail" : str = "이메일이 유효하지 않습니다"; break;
+
+              case "authKey" : str = "인증번호가 유효하지 않습니다"; break;
+
+          }
+
+          alert(str);
+
+          document.getElementById(key).focus();
+          e.preventDefault(); // form 제출 X
+          return;
+      }
   }
 });

@@ -22,6 +22,7 @@ input[type="text"], input[type="password"], input[type="email"]{
 #email-btn, #email-confirm-btn{
   width: 25%;
   font-size: 1.2rem;
+  margin-top: 15px;
   margin-left: 10px;
   cursor: pointer;
 }
@@ -34,6 +35,12 @@ input[type="submit"] {
   border: none;
   cursor: pointer;
   margin-top: 2rem;
+}
+
+#email-td-div , #email-confirm-td{
+  width: 100%;
+  display: flex;
+  
 }
 
 .signupTest{

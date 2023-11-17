@@ -32,6 +32,7 @@
               <th scope="col" class="b-code text-center">게시글 종류</th>
               <th scope="col" class="b-date text-center">작성 날짜</th>
               <th scope="col" class="b-hits text-center">조회수</th>
+              <th scope="col" >삭제/복구</th>
             </tr>
           </thead>
           <tbody id="boardArea">
@@ -50,8 +51,11 @@
                 </td>
                 <td th:text="*{boardEnrollDate}" class="text-center c-po" th:onclick="|location.href='@{/board/{boardCode}/{boardNo}(boardCode=*{boardCode}, boardNo=*{boardNo})}'|"></td>
                 <td th:text="*{boardHits}" class="text-center c-po" th:onclick="|location.href='@{/board/{boardCode}/{boardNo}(boardCode=*{boardCode}, boardNo=*{boardNo})}'|"></td>
-              <td class="btn-box">
-                <button class="delete-btn btn btn-outline-danger" th:onclick="|deleteBoard(*{boardNo}, this)|">삭제</button>
+              <td class="btn-box" style="width: 10%;">
+
+                <button th:if="*{boardDelFl == 'N'}" class="delete-btn btn btn-outline-danger" th:value="*{boardDelFl}" th:onclick="|changeBoardDelFl(*{boardNo}, this)|">삭제</button>
+                <button th:if="*{boardDelFl == 'Y'}" class="delete-btn btn btn-outline-success" th:value="*{boardDelFl}" th:onclick="|changeBoardDelFl(*{boardNo}, this)|">복구</button>
+  
               </td>
             </tr>
           </tbody>
