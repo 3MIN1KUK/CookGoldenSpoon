@@ -80,7 +80,8 @@ function reportDetail(thisReportNo, thisReport) {
 
     reportTitle.innerHTML = result.reportTitle;
     reportContent.innerHTML = result.reportContent;
-    reportLocationBtn.setAttribute("onclick", `location.href='${result.reportLocation}'`);
+    const location = window.location.origin + result.reportLocation;
+    reportLocationBtn.setAttribute("onclick", `location.href='${location}'`);
 
   })
 
