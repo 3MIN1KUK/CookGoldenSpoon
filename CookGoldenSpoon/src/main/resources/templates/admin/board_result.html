@@ -26,12 +26,12 @@
         <table class="table table-hover table-bordered">
           <thead class="table-light">
             <tr>
-              <th scope="col" class="b-no text-center">번호</th>
+              <th scope="col" class="b-no text-center" style="width: 6%;">번호</th>
               <th scope="col" class="b-title text-center">제목</th>
               <th scope="col" class="b-nickname text-center">작성자</th>
-              <th scope="col" class="b-code text-center">게시글 종류</th>
-              <th scope="col" class="b-date text-center">작성 날짜</th>
-              <th scope="col" class="b-hits text-center">조회수</th>
+              <th scope="col" class="b-code text-center" style="width: 12%;">게시글 종류</th>
+              <th scope="col" class="b-date text-center" style="width: 15%;">작성 날짜</th>
+              <th scope="col" class="b-hits text-center" style="width: 8%;">조회수</th>
               <th scope="col" >삭제/복구</th>
             </tr>
           </thead>
@@ -39,18 +39,18 @@
             <tr th:if="${#lists.size(boardList) == 0}">
               <th colspan="6"><h1  style="text-align: center; font-weight: bold; font-size: 4rem;">검색결과가 존재하지 않습니다.</h1></th>
            </tr>
-
-            <tr th:each="board : ${boardList}" th:object="${board}">
-                <td th:text="*{boardNo}" class="text-center boardNo c-po" th:object="${board}" th:onclick="|location.href='@{/board/{boardCode}/{boardNo}(boardCode=*{boardCode}, boardNo=*{boardNo})}'|"></td>
-                <td th:text="*{boardTitle}" style="overflow: hidden;" class="text-center c-po" th:onclick="|location.href='@{/board/{boardCode}/{boardNo}(boardCode=*{boardCode}, boardNo=*{boardNo})}'|" ></td>
-                <td th:text="*{memberNickname}" style="overflow: hidden;" class="text-center c-po" th:onclick="|location.href='@{/board/{boardCode}/{boardNo}(boardCode=*{boardCode}, boardNo=*{boardNo})}'|"></td>
-                <td class="text-center c-po" th:onclick="|location.href='@{/board/{boardCode}/{boardNo}(boardCode=*{boardCode}, boardNo=*{boardNo})}'|">
+          
+            <tr th:each="board : ${boardList}" th:object="${board}" class="board-tr">
+                <td th:text="*{boardNo}" class="text-center boardNo c-po fs-4" th:object="${board}" th:onclick="|location.href='@{/board/{boardCode}/{boardNo}(boardCode=*{boardCode}, boardNo=*{boardNo})}'|"></td>
+                <td th:text="*{boardTitle}" style="overflow: hidden; overflow:hiddlen; white-space:nowrap;" class="text-center c-po fs-4 " th:onclick="|location.href='@{/board/{boardCode}/{boardNo}(boardCode=*{boardCode}, boardNo=*{boardNo})}'|" ></td>
+                <td th:text="*{memberNickname}" style="overflow: hidden; overflow:hiddlen; white-space:nowrap;"  class="text-center c-po fs-4" th:onclick="|location.href='@{/board/{boardCode}/{boardNo}(boardCode=*{boardCode}, boardNo=*{boardNo})}'|"></td>
+                <td class="text-center c-po fs-4" th:onclick="|location.href='@{/board/{boardCode}/{boardNo}(boardCode=*{boardCode}, boardNo=*{boardNo})}'|">
                   <th:block th:if="*{boardCode == 4}">레시피요청</th:block>
                   <th:block th:if="*{boardCode == 3}">자유게시판</th:block>
                   <th:block th:if="*{boardCode == 2}">공지사항</th:block>
                 </td>
-                <td th:text="*{boardEnrollDate}" class="text-center c-po" th:onclick="|location.href='@{/board/{boardCode}/{boardNo}(boardCode=*{boardCode}, boardNo=*{boardNo})}'|"></td>
-                <td th:text="*{boardHits}" class="text-center c-po" th:onclick="|location.href='@{/board/{boardCode}/{boardNo}(boardCode=*{boardCode}, boardNo=*{boardNo})}'|"></td>
+                <td th:text="*{boardEnrollDate}" class="text-center c-po fs-4" th:onclick="|location.href='@{/board/{boardCode}/{boardNo}(boardCode=*{boardCode}, boardNo=*{boardNo})}'|"></td>
+                <td th:text="*{boardHits}" class="text-center c-po fs-4" th:onclick="|location.href='@{/board/{boardCode}/{boardNo}(boardCode=*{boardCode}, boardNo=*{boardNo})}'|"></td>
               <td class="btn-box" style="width: 10%;">
 
                 <button th:if="*{boardDelFl == 'N'}" class="delete-btn btn btn-outline-danger" th:value="*{boardDelFl}" th:onclick="|changeBoardDelFl(*{boardNo}, this)|">삭제</button>

@@ -34,7 +34,7 @@ public class EmailServiceImpl implements EmailService{
 	           String subject = null;
 	           
 	           switch(htmlName) {
-	           case "signup" : subject = "[boardProject] 회원가입 인증 번호 입니다."; break;
+	           case "signup" : subject = "[cookGoldenSpoon] 회원가입 인증 번호 입니다."; break;
 	           }
 	           
 	            //인증메일 보내기
