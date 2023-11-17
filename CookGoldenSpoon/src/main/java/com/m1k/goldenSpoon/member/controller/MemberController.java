@@ -173,23 +173,23 @@ public class MemberController {
 	
 	
 	// 빠른 로그인
-	@GetMapping("login/{memberId}")
-	public String quickLogin(
-			@PathVariable("memberId") String memberId,
-			Model model,
-			RedirectAttributes ra) {
-		
-		Member loginMember = service.quickLogin(memberId);
-		
-		if (loginMember == null) {
-			ra.addFlashAttribute("message", "빠른 로그인 실패");
-			return null; 
-		}
-		
-		model.addAttribute("loginMember", loginMember);
-		
-		return "redirect:/";
-	}
+//	@GetMapping("login/{memberId}")
+//	public String quickLogin(
+//			@PathVariable("memberId") String memberId,
+//			Model model,
+//			RedirectAttributes ra) {
+//		
+//		Member loginMember = service.quickLogin(memberId);
+//		
+//		if (loginMember == null) {
+//			ra.addFlashAttribute("message", "빠른 로그인 실패");
+//			return null; 
+//		}
+//		
+//		model.addAttribute("loginMember", loginMember);
+//		
+//		return "redirect:/";
+//	}
 	
 	
 }
