@@ -159,9 +159,11 @@ public class EditRecipeServiceImpl implements EditRecipeService{
 		int recipeStepCount = mapper.selectRecipeStepCount(recipe.getRecipeNo());
 		
 		if(recipeStepCount > recipeStepContent.size()) {
-			
+			// 4					3
 			for(int i = 0 ; i<recipeStepCount; i++) {
+				//					4
 				if(i < recipeStepContent.size()) {
+							//  3
 					RecipeStep step = new RecipeStep();
 					step.setRecipeNo(recipe.getRecipeNo()); 
 					step.setRecipeStepContent(recipeStepContent.get(i));
@@ -187,7 +189,8 @@ public class EditRecipeServiceImpl implements EditRecipeService{
 					Map<String, Object> map = new HashMap<>();
 					map.put("recipeNo", recipe.getRecipeNo());
 					map.put("recipeStepOrder", i);
-					mapper.deleteRecipeStep2(map);
+					int deldel = mapper.deleteRecipeStep2(map);
+					System.out.println(deldel);
 				}
 				
 			}// for문 끝

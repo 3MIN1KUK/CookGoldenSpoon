@@ -120,8 +120,9 @@ public interface EditRecipeMapper {
 
 	/** 넘치는 숫자 제거
 	 * @param map
+	 * @return 
 	 */
-	void deleteRecipeStep2(Map<String, Object> map);
+	int deleteRecipeStep2(Map<String, Object> map);
 
 
 }
