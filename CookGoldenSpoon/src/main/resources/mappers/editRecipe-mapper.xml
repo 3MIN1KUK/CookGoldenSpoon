@@ -103,4 +103,15 @@
 			#{recipeStepImageName})
 	</insert>
 	
+	<select id="selectRecipeStepCount">
+		SELECT COUNT(*) FROM RECIPE_STEP
+		WHERE RECIPE_NO = #{recipeNo}
+	</select>
+	
+	<delete id="deleteRecipeStep2">
+		DELETE FROM RECIPE_STEP
+		WHERE RECIPE_NO = #{recipeNo}
+		AND RECIPE_STEP_ORDER = #{recipeStepOrder}
+	</delete>
+	
 </mapper>

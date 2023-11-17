@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>레시피 상세화면(레시피 클릭 시)</title>
+  <title th:text="${recipe.recipeTitle}">레시피 상세화면</title>
   <link rel="stylesheet" href="/css/common/project.css">
   <link rel="stylesheet" href="/css/recipe/select/recipeDetail.css">
   <script src="https://kit.fontawesome.com/921e1d60a7.js" crossorigin="anonymous"></script>
@@ -59,8 +59,8 @@
           <div class="recipe-title" th:text="*{recipeTitle}">
             맛있는 요리 레시피
           </div>
-          <div class="recipe-intro" th:text="*{recipeIntro}">
-            간략한 소개<br><br><br>입니다
+          <div class="recipe-intro">
+            <div th:text="*{recipeIntro}"></div>
           </div>
           <div class="recipeTag">
             <span th:each="tag : *{recipeTag}" th:text="${tag}" class="tags">해시태그</span>
@@ -115,7 +115,7 @@
         </div>
         <div class="content recipe-info">
           <span>
-            요리사 &nbsp;
+            인원 &nbsp;
             <span class="recipe-info-detail" th:text="*{recipePeople}"></span>
           </span>
           <span>

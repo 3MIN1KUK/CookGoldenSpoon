@@ -587,7 +587,8 @@ function reportSubmit() {
    
    data.reportContent = reportContent.value;
    data.reportTitle = reportTitle.value;
-   data.reportLocation = location.href;
+   data.reportLocation = window.location.href.replace(window.location.origin, '');
+   ;
 
    
    fetch("/report/csCustomer",{
