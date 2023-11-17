@@ -106,3 +106,61 @@ function deleteBoard(boardNo, thisTr){
     .catch(err => console.log(err));
   }
 }
+
+
+
+function changeBoardDelFl( boardNo, thisBtn){
+  const boardDelFl = thisBtn.value;
+
+  console.log(boardDelFl);
+  console.log(thisBtn);
+
+
+  const data = {
+    "boardNo" : boardNo,
+  }
+  
+  if(boardDelFl == 'N'){
+    data.boardDelFl = 'Y';
+  }
+  
+  if(boardDelFl == 'Y'){
+    data.boardDelFl = 'N';
+  }
+  
+  console.log(data);
+  fetch("/admin/changeBoardDelFl",{
+    method : "PUT",
+    headers : {"Content-Type" : "application/json"},
+    body : JSON.stringify(data)
+  })
+  .then(resp => resp.text())
+  .then(result =>{
+    if(result > 0){
+
+      if(boardDelFl == 'N'){
+        alert("삭제 처리 성공")
+        thisBtn.classList.remove("btn-outline-danger")
+        thisBtn.classList.add("btn-outline-success")
+        thisBtn.value = 'Y'
+        thisBtn.innerHTML = '복구';
+      }
+
+      if(boardDelFl == 'Y'){
+        alert("복구 처리 성공")
+        thisBtn.classList.remove("btn-outline-success")
+        thisBtn.classList.add("btn-outline-danger")
+        thisBtn.value = 'N'
+        thisBtn.innerHTML = '삭제';
+      }
+    }
+    else{
+      if(boardDelFl == 'N'){
+        alert("삭제 처리 실패")
+      } else{
+        alert("복구 처리 실패")
+      }
+    }
+  })
+
+}

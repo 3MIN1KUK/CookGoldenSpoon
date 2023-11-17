@@ -19,10 +19,20 @@
           <h1 class="login-title">아이디 찾기</h1>
           
     
-          <form action="/member/findId" method="post">
+          <form action="/member/findId" method="post" id="loginFrm">
             <div class="input-group">
-              <input type="text" id="memberEmail" name="memberEmail" placeholder="이메일을 입력해주세요">
+              <div id="email-td-div">
+                <input type="email" id="memberEmail" name="memberEmail">
+                <input type="button" id="email-btn" value="인증 번호 발송">
+              </div>
               <div class="signupTest" id="emailMessage">유효한 이메일을 입력해주세요</div>
+
+              <div id="email-confirm-td">
+                <input type="text" id="authKey" name="authKey">
+                <input type="button" id="email-confirm-btn" value="인증 확인">
+              </div>
+              <div class="signupTest" id="authMessage">인증번호를 입력해주세요</div>
+
             </div>
             
             <input type="submit" value="아이디 찾기" class="btn" id="login-submit">

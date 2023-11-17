@@ -23,6 +23,7 @@
 		SELECT MEMBER_ID 
 		FROM "MEMBER"
 		WHERE MEMBER_EMAIL = #{memberEmail}
+		AND MEMBER_DEL_FL = 'N'
 	</select>
 	
 	
@@ -31,6 +32,7 @@
 		FROM "MEMBER"
 		WHERE MEMBER_ID = #{memberId}
 		AND MEMBER_EMAIL = #{memberEmail}
+		AND MEMBER_DEL_FL = 'N'
 	 </select>
 	
 	

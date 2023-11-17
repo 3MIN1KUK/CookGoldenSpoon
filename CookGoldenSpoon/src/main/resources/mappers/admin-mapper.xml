@@ -11,6 +11,13 @@
 		<association property="boardCount" select="selectMyPageBoardCount" column="MEMBER_NO" javaType="_int"/>
 	</resultMap>
 	
+	
+	<resultMap id="selectRecipe_rm" type="Recipe">
+		<id property="recipeNo" column="RECIPE_NO" />
+		<association property="recipeStar" select="selectRecipeStar" column="RECIPE_NO" javaType="_double"/>
+		<collection property="recipeTag" select="selectRecipeTag" column="RECIPE_NO" javaType="java.util.ArrayList" ofType="String" />
+	</resultMap>
+	
 	<select id="selectMyPageLikeCount" resultType="_int">
 		SELECT COUNT(*) FROM (SELECT RL.MEMBER_NO FROM RECIPE_LIKE RL JOIN RECIPE R USING(RECIPE_NO) WHERE R.MEMBER_NO = #{memberNo}
 			UNION SELECT BL.MEMBER_NO FROM BOARD_LIKE BL JOIN BOARD B USING(BOARD_NO) WHERE B.MEMBER_NO = #{memberNo})
@@ -32,9 +39,15 @@
 		<id property="recipeNo" column="RECIPE_NO" />
 		<collection property="recipeTag" select="selectRecipeTag" column="RECIPE_NO" javaType="java.util.ArrayList" ofType="String" />
 	</resultMap>
+	
 	<select id="selectRecipeTag" resultType="string">
 		SELECT RECIPE_TAG_NAME FROM "RECIPE_TAG"
 		WHERE RECIPE_NO = #{recipeNo}
+	</select>
+	
+	<!-- 별점 평균 -->
+	<select id="selectRecipeStar" resultType="_double">
+		SELECT ROUND(AVG(RECIPE_STAR), 1) RECIPE_STAR FROM RECIPE_STAR WHERE RECIPE_NO = #{recipeNo}
 	</select>
 	
 	
@@ -159,7 +172,7 @@
 	</select>
 	
 	<!-- 레시피 검색 -->
-	<select id="recipeSelect">
+	<select id="recipeSelect" resultMap="selectRecipe_rm">
 		SELECT DISTINCT (R.RECIPE_NO), RECIPE_TITLE, RECIPE_THUMBNAIL, (SELECT COUNT(*) FROM RECIPE_LIKE RL WHERE RL.RECIPE_NO = R.RECIPE_NO) RECIPE_LIKE,
 		MEMBER_NICKNAME, MEMBER_NO, RECIPE_HITS
 		FROM RECIPE R
