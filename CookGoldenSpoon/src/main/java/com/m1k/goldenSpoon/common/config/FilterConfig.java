@@ -23,7 +23,7 @@ public class FilterConfig {
 			= new FilterRegistrationBean<>();
 		filter.setFilter(new LoginFilter() ); // 사용할 필터 객체 추가
 		
-		String[] filteringUrl = {"/my_page/*", "/editBoard/*"};
+		String[] filteringUrl = {"/myPage/*", "/editBoard/*", "/recipe/enroll/*", "/editRecipe/*"};
 		
 		// Arrays.asList(배열) : 배열 -> List로 변환
 		filter.setUrlPatterns(Arrays.asList(filteringUrl));
@@ -39,10 +39,10 @@ public class FilterConfig {
 
 	@Bean // 해당 메서드에서 반환된 객체를 bean으로 등록
 	public FilterRegistrationBean<AdminFilter> adminFilter(){
-		//FilterRegistrationBean : 필터 등록 Bean
+		//FilterRegistrationBean : 필터 등록 Bean   
 		
 		FilterRegistrationBean<AdminFilter> filter
-			= new FilterRegistrationBean<>();
+			= new FilterRegistrationBean<>(); 
 		filter.setFilter(new AdminFilter() ); // 사용할 필터 객체 추가
 		
 		List<String> filteringUrl = new ArrayList<>();
