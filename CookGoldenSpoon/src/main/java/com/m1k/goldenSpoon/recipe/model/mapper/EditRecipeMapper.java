@@ -112,5 +112,16 @@ public interface EditRecipeMapper {
 	 */
 	int insertRecipeStep(RecipeStep step);
 
+	/** 원래 총 스텝 개수 조회
+	 * @param recipeNo
+	 * @return
+	 */
+	int selectRecipeStepCount(int recipeNo);
+
+	/** 넘치는 숫자 제거
+	 * @param map
+	 */
+	void deleteRecipeStep2(Map<String, Object> map);
+
 
 }
