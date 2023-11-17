@@ -322,6 +322,7 @@
 
 .recipe-intro{
   font-size: 3rem;
+  word-break: keep-all;
 }
 .recipe-info{
   justify-content: space-evenly;
