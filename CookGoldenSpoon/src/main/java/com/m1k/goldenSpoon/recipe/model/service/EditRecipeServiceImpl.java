@@ -159,9 +159,9 @@ public class EditRecipeServiceImpl implements EditRecipeService{
 		int recipeStepCount = mapper.selectRecipeStepCount(recipe.getRecipeNo());
 		
 		if(recipeStepCount > recipeStepContent.size()) {
-			// 4					3
+			// 3					2
 			for(int i = 0 ; i<recipeStepCount; i++) {
-				//					4
+				//					3
 				if(i < recipeStepContent.size()) {
 							//  3
 					RecipeStep step = new RecipeStep();
@@ -174,7 +174,6 @@ public class EditRecipeServiceImpl implements EditRecipeService{
 						step.setRecipeStepImageRename(Util.fileRename( recipeStepImage.get(i).getOriginalFilename() ));
 						step.setUploadFile(recipeStepImage.get(i));
 					} // if문 끝
-					System.out.println(stepImg.get(i).indexOf("/images/recipe/"));
 					if(stepImg.get(i).indexOf("/images/recipe/") != -1) {
 						
 						String rename = stepImg.get(i).substring(stepImg.get(i).indexOf("/images/recipe/")+15);
@@ -190,7 +189,6 @@ public class EditRecipeServiceImpl implements EditRecipeService{
 					map.put("recipeNo", recipe.getRecipeNo());
 					map.put("recipeStepOrder", i);
 					int deldel = mapper.deleteRecipeStep2(map);
-					System.out.println(deldel);
 				}
 				
 			}// for문 끝
