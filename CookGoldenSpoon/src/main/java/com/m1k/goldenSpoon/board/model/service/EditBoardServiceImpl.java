@@ -74,7 +74,7 @@ public class EditBoardServiceImpl implements EditBoardService{
 				
 				img.setBoardImage(webPath);
 				
-				img.setBoardImageRename( images.get(i).getOriginalFilename() );
+				img.setBoardImageRename(Util.fileRename( images.get(i).getOriginalFilename() ));
 				
 				img.setUploadFile(images.get(i));
 				
