@@ -88,6 +88,7 @@
 	<select id="getBoardListCount" resultType="_int">
 		SELECT COUNT(*) FROM "BOARD"
 		WHERE MEMBER_NO = #{memberNo}
+		AND BOARD_DEL_FL = 'N'
 	</select>
 	
 	<select id="boardSelect" resultType="Board">
