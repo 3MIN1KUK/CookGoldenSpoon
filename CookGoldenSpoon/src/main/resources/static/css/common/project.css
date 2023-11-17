@@ -180,6 +180,7 @@ nav>ul{
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
+  padding: 0 0.5rem;
 }
 .recipe-name, .recipe-hashtag{
   padding-top: 0.5rem;
@@ -199,6 +200,7 @@ nav>ul{
   border-bottom-left-radius: 2rem;
   border-bottom-right-radius: 2rem;
   padding-top: 0.7rem;
+  
 }
 
 .recipe-info{
