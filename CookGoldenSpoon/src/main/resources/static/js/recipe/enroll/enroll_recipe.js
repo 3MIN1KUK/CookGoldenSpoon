@@ -324,10 +324,8 @@ addBtn.addEventListener("click", () => {
   
   const delStepBtn = backup.children[1].children[2];
   
-  const xBtn = document.createElement("span");
-  xBtn.classList.add("x-btn");
-  xBtn.innerHTML = '<i class="fa-solid fa-minus"></i>';
-  
+  const xBtn = document.createElement("i");
+  xBtn.classList.add("x-btn", "fa-solid", "fa-minus");
   backup.append(xBtn);
 
   parentElement.append(backup);
@@ -335,7 +333,7 @@ addBtn.addEventListener("click", () => {
   backupStepList = new Array(stepInputImageList.length);
   
   xBtn.addEventListener("click", e=>{
-    e.target.parentElement.parentElement.remove();
+    e.target.parentElement.remove();
     backupStepList = new Array(stepInputImageList.length);
     for(let i = 0; i<stepInputImageList.length; i++){
       
