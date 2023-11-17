@@ -73,3 +73,15 @@
 .c-po{
   cursor: pointer !important;
 }
+
+.board-tr{
+  height: 45px;
+
+}
+
+.board-tr > td{
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  
+}
