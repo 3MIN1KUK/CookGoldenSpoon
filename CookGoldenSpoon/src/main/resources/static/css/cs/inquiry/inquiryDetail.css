@@ -36,12 +36,8 @@
    display: flex;
    justify-content: space-between;
 }
-.inquiryDetail-main>span:first-of-type{
-   width: 25%;
-   color: rgba(0, 0, 0, 0.700);
-}
-.inquiryDetail-main>span:nth-of-type(2){
-   width: 75%;
+.inquiryDetail-main span{
+   width: 90%;
    color: rgba(0, 0, 0, 0.700);
 }
 

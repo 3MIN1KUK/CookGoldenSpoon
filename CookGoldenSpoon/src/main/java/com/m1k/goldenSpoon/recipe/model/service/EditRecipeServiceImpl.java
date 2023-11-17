@@ -156,29 +156,67 @@ public class EditRecipeServiceImpl implements EditRecipeService{
 		
 		
 		int result4 = 0;
-		for(int i = 0 ; i<recipeStepContent.size(); i++) {
-			RecipeStep step = new RecipeStep();
-			step.setRecipeNo(recipe.getRecipeNo()); 
-			step.setRecipeStepContent(recipeStepContent.get(i));
-			step.setRecipeStepOrder(i);
-			if(recipeStepImage.get(i).getSize() > 0) {
-				step.setRecipeStepImageName( recipeStepImage.get(i).getOriginalFilename() ); 
-				step.setRecipeStepImage(webPath);
-				step.setRecipeStepImageRename(Util.fileRename( recipeStepImage.get(i).getOriginalFilename() ));
-				step.setUploadFile(recipeStepImage.get(i));
-			} // if문 끝
-			System.out.println(stepImg.get(i).indexOf("/images/recipe/"));
-			if(stepImg.get(i).indexOf("/images/recipe/") != -1) {
+		int recipeStepCount = mapper.selectRecipeStepCount(recipe.getRecipeNo());
+		
+		if(recipeStepCount > recipeStepContent.size()) {
+			
+			for(int i = 0 ; i<recipeStepCount; i++) {
+				if(i < recipeStepContent.size()) {
+					RecipeStep step = new RecipeStep();
+					step.setRecipeNo(recipe.getRecipeNo()); 
+					step.setRecipeStepContent(recipeStepContent.get(i));
+					step.setRecipeStepOrder(i);
+					if(recipeStepImage.get(i).getSize() > 0) {
+						step.setRecipeStepImageName( recipeStepImage.get(i).getOriginalFilename() ); 
+						step.setRecipeStepImage(webPath);
+						step.setRecipeStepImageRename(Util.fileRename( recipeStepImage.get(i).getOriginalFilename() ));
+						step.setUploadFile(recipeStepImage.get(i));
+					} // if문 끝
+					System.out.println(stepImg.get(i).indexOf("/images/recipe/"));
+					if(stepImg.get(i).indexOf("/images/recipe/") != -1) {
+						
+						String rename = stepImg.get(i).substring(stepImg.get(i).indexOf("/images/recipe/")+15);
+						step.setRecipeStepImageRename(rename);
+						mapper.updateRecipeStep(step);
+					} else {
+						uploadList1.add(step);
+						mapper.deleteRecipeStep(step);
+						result4 += mapper.insertRecipeStep(step);
+					}
+				} else {
+					Map<String, Object> map = new HashMap<>();
+					map.put("recipeNo", recipe.getRecipeNo());
+					map.put("recipeStepOrder", i);
+					mapper.deleteRecipeStep2(map);
+				}
 				
-				String rename = stepImg.get(i).substring(stepImg.get(i).indexOf("/images/recipe/")+15);
-				step.setRecipeStepImageRename(rename);
-				mapper.updateRecipeStep(step);
-			} else {
-				uploadList1.add(step);
-				mapper.deleteRecipeStep(step);
-				result4 += mapper.insertRecipeStep(step);
-			}
-		}// for문 끝
+			}// for문 끝
+		} else {
+			for(int i = 0 ; i<recipeStepContent.size(); i++) {
+					RecipeStep step = new RecipeStep();
+					step.setRecipeNo(recipe.getRecipeNo()); 
+					step.setRecipeStepContent(recipeStepContent.get(i));
+					step.setRecipeStepOrder(i);
+					if(recipeStepImage.get(i).getSize() > 0) {
+						step.setRecipeStepImageName( recipeStepImage.get(i).getOriginalFilename() ); 
+						step.setRecipeStepImage(webPath);
+						step.setRecipeStepImageRename(Util.fileRename( recipeStepImage.get(i).getOriginalFilename() ));
+						step.setUploadFile(recipeStepImage.get(i));
+					} // if문 끝
+					System.out.println(stepImg.get(i).indexOf("/images/recipe/"));
+					if(stepImg.get(i).indexOf("/images/recipe/") != -1) {
+						
+						String rename = stepImg.get(i).substring(stepImg.get(i).indexOf("/images/recipe/")+15);
+						step.setRecipeStepImageRename(rename);
+						mapper.updateRecipeStep(step);
+					} else {
+						uploadList1.add(step);
+						mapper.deleteRecipeStep(step);
+						result4 += mapper.insertRecipeStep(step);
+					}
+				
+			}// for문 끝
+		}
 
 		
 //		int result4 = recipeMapper.insertProcessList(uploadList1);
