@@ -24,14 +24,21 @@
 	<!--레시피 등록 수-->
 	<select id="selectMyPageRecipeCount" resultType="_int">
 		SELECT COUNT(*) FROM "RECIPE" WHERE MEMBER_NO = #{memberNo}
+		AND RECIPE_DEL_FL = 'N'
 	</select>
 	<!--게시글 등록 수-->
 	<select id="selectMyPageBoardCount" resultType="_int">
 		SELECT COUNT(*) FROM "BOARD" WHERE MEMBER_NO = #{memberNo}
+		AND BOARD_DEL_FL = 'N'
 	</select>
 	<!--댓글 등록 수-->
 	<select id="selectMyPageCommentCount" resultType="_int">
-		SELECT COUNT(*) FROM "RECIPE_COMMENT" WHERE MEMBER_NO = #{memberNo}
+		SELECT COUNT(*) FROM(
+			SELECT * FROM RECIPE_COMMENT
+			UNION
+			SELECT * FROM BOARD_COMMENT)
+		WHERE RECIPE_COMMENT_DEL_FL = 'N'
+		AND MEMBER_NO = #{memberNo}
 	</select>
 	
 	<resultMap id="recipeSelect_rm" type="Recipe">
