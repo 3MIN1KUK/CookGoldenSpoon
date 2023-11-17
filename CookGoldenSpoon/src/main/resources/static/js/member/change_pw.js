@@ -96,12 +96,10 @@ document.getElementById("changePwFrm").addEventListener("submit", e => {
           let str
           switch(key){
 
-              case "memberId" : str = "아이디가  유효하지 않습니다"; break;
+            case "memberPw" : str = "비밀번호가 유효하지 않습니다"; break;
               
-              case "memberEmail" : str = "이메일이 유효하지 않습니다"; break;
-
-              case "authKey" : str = "인증번호가 유효하지 않습니다"; break;
-
+            case "memberPwConfirm" : str = "비밀번호가 일치하지 않습니다"; break;
+            
           }
 
           alert(str);
