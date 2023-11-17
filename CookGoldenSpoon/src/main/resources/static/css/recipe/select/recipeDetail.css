@@ -44,6 +44,7 @@
 .recipe-title{
   color:rgba(0, 0, 0, 0.700);
   word-break: keep-all;
+  font-size: 3rem;
 }
 
 .recipe-writer{
@@ -321,8 +322,14 @@
 }
 
 .recipe-intro{
-  font-size: 3rem;
+  display: flex;
+}
+.recipe-intro div{
+  color: rgba(0, 0, 0, 0.700);
+  font-size: 2rem;
+  
   word-break: keep-all;
+  margin: auto;
 }
 .recipe-info{
   justify-content: space-evenly;
