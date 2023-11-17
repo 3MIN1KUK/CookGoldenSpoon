@@ -24,7 +24,7 @@
 
 
 	<select id="listCount" resultType="_int">
-		SELECT COUNT(*) FROM RECIPE
+		SELECT COUNT(*) FROM RECIPE  
 	</select>
 	<select id="listWriterCount" resultType="_int">
 		SELECT COUNT(*) FROM RECIPE
