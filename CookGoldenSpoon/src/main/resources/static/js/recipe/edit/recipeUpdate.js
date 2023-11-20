@@ -378,11 +378,10 @@ addBtn.addEventListener("click", () => {
 const cookProcess = document.getElementsByClassName("cookProcess");
 
 for(let i = 1; i<cookProcess.length; i++){
-  const xBtn = document.createElement("span");
-  xBtn.classList.add("x-btn");
-  xBtn.innerHTML = '<i class="fa-solid fa-minus"></i>';
+  const xBtn = document.createElement("i");
+  xBtn.classList.add("x-btn", "fa-solid", "fa-minus");
   xBtn.addEventListener("click",e=>{
-    e.target.parentElement.parentElement.remove();
+    e.target.parentElement.remove();
   });
   cookProcess[i].append(xBtn);
 }

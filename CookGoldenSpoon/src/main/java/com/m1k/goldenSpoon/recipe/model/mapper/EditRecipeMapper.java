@@ -124,5 +124,7 @@ public interface EditRecipeMapper {
 	 */
 	int deleteRecipeStep2(Map<String, Object> map);
 
+	void deleteRecipeStep3(RecipeStep step);
+
 
 }

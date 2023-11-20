@@ -96,6 +96,12 @@
 		WHERE RECIPE_NO =#{recipeNo}
 		AND RECIPE_STEP_ORDER = #{recipeStepOrder}
 	</delete>
+	<delete id="deleteRecipeStep3">
+		DELETE FROM RECIPE_STEP
+		WHERE RECIPE_NO =#{recipeNo}
+		AND RECIPE_STEP_ORDER = #{recipeStepOrder}
+		AND RECIPE_STEP_IMAGE_RENAME != #{recipeStepImageRename}
+	</delete>
 	
 	<insert id="insertRecipeStep">
 		INSERT INTO RECIPE_STEP
