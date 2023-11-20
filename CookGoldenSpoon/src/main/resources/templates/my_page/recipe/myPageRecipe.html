@@ -58,7 +58,7 @@
           <li><a th:href="@{/myPage/recipe(cp=${pagination.prevPage})}"><i class="fa-solid fa-caret-left fa-lg"></i></a></li>
           <th:block th:each="i : ${#numbers.sequence(pagination.startPage, pagination.endPage, 1)}">
             <li th:if="${i == pagination.currentPage}"><a style="color: black;" class="text" th:text="${i}">1</a></li>
-            <li th:unless="${i == pagination.currentPage}"><a th:href="@{/recipe/select(cp=${i})}" class="text" th:text="${i}">1</a></li>
+            <li th:unless="${i == pagination.currentPage}"><a th:href="@{/myPage/recipe(cp=${i})}" class="text" th:text="${i}">1</a></li>
           </th:block>
           <li><a th:href="@{/myPage/recipe(cp=${pagination.nextPage})}"><i class="fa-solid fa-caret-right fa-lg"></i></a></li>
           <li><a th:href="@{/myPage/recipe(cp=${pagination.maxPage})}"><i class="fa-solid fa-forward-step"></i></a></li>
