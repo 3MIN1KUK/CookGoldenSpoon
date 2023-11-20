@@ -162,7 +162,7 @@ public class EditRecipeServiceImpl implements EditRecipeService{
 
 				String rename = stepImg.get(i).substring(stepImg.get(i).indexOf("/images/recipe/")+15);
 				step.setRecipeStepImageRename(rename);
-				mapper.deleteRecipeStep(step);
+				mapper.deleteRecipeStep3(step);
 				mapper.updateRecipeStep(step);
 			} else {
 				uploadList1.add(step);
