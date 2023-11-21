@@ -95,7 +95,7 @@
         </th:block>
         <!-- 로그인한 회원과 게시글 작성자 번호가 같은 경우 -->
         <th:block th:if="${session.loginMember != null and
-                          session.loginMember.memberNo == board.memberNo}">
+                          (session.loginMember.memberNo == board.memberNo or session.loginMember.memberAuthority == 3)}">
           <button id="updateBtn">수 정</button>
           <button id="deleteBtn">삭 제</button>
         </th:block>

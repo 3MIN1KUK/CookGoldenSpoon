@@ -103,8 +103,8 @@ const selectCommentList = () => {
                     childCommentBtn.classList.add("buttons");
                     childCommentBtn.innerText = "답글";
 
-                    // 로그인한 회원번호와 댓글 작성자의 회원번호가 같을 때만 버튼 추가
-                    if( loginMemberNo == comment.memberNo   ){
+                    // 로그인한 회원번호와 댓글 작성자의 회원번호가 같을 때만 버튼 추가 + 관리자 권한 일시
+                    if( loginMemberNo == comment.memberNo || loginMember.memberAuthority == 3 ){
 
                         // 수정 버튼
                         const updateBtn = document.createElement("button");
