@@ -192,12 +192,12 @@
 		OR RECIPE_TIP LIKE '%${searchRecipe.recipeContent}%'
 		OR RECIPE_STEP_CONTENT LIKE '%${searchRecipe.recipeContent}%')
 		
-		<if test="searchRecipe.recipeTag != null">
-			<foreach collection="searchRecipe.recipeTag" item="tag">
-			<if test="tag != null and tag != ''">
-				AND RECIPE_TAG_NAME LIKE '%${tag}%'			
-			</if>
+		<if test="searchRecipe.recipeTag != null and searchRecipe.recipeTag.size() != 0">
+
+			<foreach collection="searchRecipe.recipeTag" item="tag" open="AND (" separator=" OR " close=")">
+				RECIPE_TAG_NAME LIKE '%${tag}%'			
 			</foreach>
+			
 		</if>
 
 		ORDER BY RECIPE_NO ASC

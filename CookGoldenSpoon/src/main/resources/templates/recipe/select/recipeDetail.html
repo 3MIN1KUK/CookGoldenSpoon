@@ -179,7 +179,7 @@
           session.loginMember.memberNo != recipe.memberNo}">
           <button th:value="*{memberNickname}" th:onclick="|csRecipe(*{memberNo}, *{recipeNo}, this)|" data-bs-toggle="modal" data-bs-target="#exampleModal">신고</button>
         </th:block>
-        <th:block th:if="${session.loginMember != null and session.loginMember.memberNo == recipe.memberNo}">
+        <th:block th:if="${session.loginMember != null and (session.loginMember.memberNo == recipe.memberNo or session.loginMember.memberAuthority == 3)}">
           <button id="editRecipeBtn">수정</button>
           <button id="deleteRecipeBtn">삭제</button>
         </th:block>
@@ -209,6 +209,7 @@
     const recipeNo = /*[[${recipeNo}]]*/ "레시피 번호";
     const loginCheck = /*[[${session.loginMember != null ? true : false}]]*/ "로그인 여부";
     const recipeStarCheck = /*[[${recipeStar}]]*/ "별점 수";
+    const loginMember =/*[[${session.loginMember}]]*/ "로그인 회원번호";
     const loginMemberNo =/*[[${session.loginMember?.memberNo}]]*/ "로그인 회원번호";
     const userDefaultImage = /*[[#{user.default.image}]]*/ "회원 기본 이미지";
     const recipes = /*[[${recipe}]]*/ "레시피 정보";

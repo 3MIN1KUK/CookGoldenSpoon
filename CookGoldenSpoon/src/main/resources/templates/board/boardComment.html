@@ -44,7 +44,7 @@
                    
                   <div class="board2CommentEnrollDate" th:text="*{boardCommentEnrollDate}"></div>
                   <div class="board2-review-content" th:text="*{boardCommentContent}"></div>
-                  <th:block th:if="${session.loginMember != null and session.loginMember.memberNo == comment.memberNo}">
+                  <th:block th:if="${session.loginMember != null and (session.loginMember.memberNo == comment.memberNo or session.loginMember.memberAuthority == 3)}">
                     <button class="buttons" th:onclick="|showUpdateboardComment(*{boardCommentNo}, this)|">수정</button>
                     <button class="buttons" th:onclick="|deleteBoardComment(*{boardCommentNo})|">삭제</button>
                   </th:block>
