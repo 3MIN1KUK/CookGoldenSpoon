@@ -95,5 +95,11 @@ public interface MyPageService {
 	 */
 	Map<String, Object> myPageBoardSearch(int memberNo, int cp, String inputSearch);
 
+	/** 탈퇴
+	 * @param memberNo
+	 * @return
+	 */
+	int myPageSecession(int memberNo);
+
 
 }

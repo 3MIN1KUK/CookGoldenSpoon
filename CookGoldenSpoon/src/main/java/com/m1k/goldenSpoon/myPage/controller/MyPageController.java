@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -186,5 +187,16 @@ public class MyPageController {
 		
 		return "redirect:pwChange";
 	}
+	
+	@PostMapping("secession")
+	@ResponseBody
+	public int myPageSecession(@RequestBody int memberNo, SessionStatus status) {
+		
+		int result = service.myPageSecession(memberNo);
+		if(result > 0) {
+			status.setComplete();
+		}
+		return result;
+	};
 	
 }

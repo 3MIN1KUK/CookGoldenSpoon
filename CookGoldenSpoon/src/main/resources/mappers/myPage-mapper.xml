@@ -295,4 +295,10 @@
 		OR BOARD_CONTENT LIKE '%${inputSearch}%')
 	</select>
 	
+	<update id="myPageSecession">
+		UPDATE "MEMBER" SET
+		MEMBER_DEL_FL = 'Y'
+		WHERE MEMBER_NO = #{memberNo}
+	</update>
+	
 </mapper>

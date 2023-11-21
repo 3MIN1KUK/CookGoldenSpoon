@@ -240,4 +240,10 @@ public class MyPageServiceImpl implements MyPageService{
 		pwChange.setNewPassword( bcrypt.encode(pwChange.getNewPassword()) );
 		return mapper.changePw(pwChange);
 	}
+	
+	// 탈퇴
+	@Override
+	public int myPageSecession(int memberNo) {
+		return mapper.myPageSecession(memberNo);
+	}
 }
