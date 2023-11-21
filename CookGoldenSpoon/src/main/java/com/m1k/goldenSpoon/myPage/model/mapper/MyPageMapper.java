@@ -141,4 +141,10 @@ public interface MyPageMapper {
 	 */
 	List<Board> getMyPageBoardSearchSelect(Map<String, Object> paramMap, RowBounds rowBounds);
 
+	/** 탈퇴
+	 * @param memberNo
+	 * @return
+	 */
+	int myPageSecession(int memberNo);
+
 }

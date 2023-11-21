@@ -198,3 +198,26 @@ const changePwBtn = document.getElementById("changePwBtn");
 changePwBtn.addEventListener("click", ()=>{
   window.open("/myPage/edit/pwChange", "_blank", "width=600, height=300, left=700, top=400");
 });
+
+/* 탈퇴 */
+const secession = document.getElementById("secession");
+
+secession.addEventListener("click", ()=>{
+  if(confirm("정말 탈퇴하시겠습니까?")){
+    fetch("/myPage/secession",{
+      method : "POST",
+      headers : {"Content-Type" : "application/json"},
+      body : memberNo
+    })
+    .then(resp => resp.text())
+    .then(result =>{
+      if(result>0){
+        alert("회원 탈퇴 되었습니다.")
+        location.href = "/";
+      } else {
+        alert("회원 탈퇴 실패")
+      }
+    })
+    .catch(e=>console.log(e));
+  }
+});
