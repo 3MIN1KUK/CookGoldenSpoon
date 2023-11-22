@@ -129,7 +129,7 @@ public class RecipeServiceImpl implements RecipeService{
 	// 좋아요 순 레시피 조회
 	@Override
 	public Map<String, Object> popularRecipe(int cp) {
-		Pagination pagination = new Pagination(cp, 16, 16, 1);
+		Pagination pagination = new Pagination(cp, 8, 8, 1);
 		int offset = (pagination.getCurrentPage() -1) * pagination.getLimit();
 		int limit = pagination.getLimit();
 		RowBounds rowBounds = new RowBounds(offset, limit);

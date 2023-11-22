@@ -110,6 +110,7 @@
 	<select id="getMyRecipeListCount" resultType="_int">
 		SELECT COUNT(*) FROM "RECIPE"
 		WHERE MEMBER_NO = #{memberNo}
+		AND RECIPE_DEL_FL = 'N'
 	</select>
 	
 	<select id="myRecipeSelect" resultMap="myRecipeSelect_rm">
